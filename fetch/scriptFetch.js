@@ -24,12 +24,13 @@ function getUserData(responseToJson) {
 
 // Update User
 async function updateUserGender() {
-    await postData("/user", {"gender": "male"});
+ const userPath = "/user"
+    await postData( userPath, {"gender": "male"});
 };
 
 //  Patch userData in dataBase
-async function postData(path = "", newData = {}) {
-    let response = await fetch(BASE_URL + path + ".json", {
+async function postData(userPath, newData = {}) {
+    let response = await fetch(BASE_URL + userPath + ".json", {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json"
@@ -37,3 +38,4 @@ async function postData(path = "", newData = {}) {
         body: JSON.stringify(newData)
     });
 };
+
