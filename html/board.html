@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Board</title>
-    <link rel="icon" href="../icons/join-favicon.png" type="image/png" sizes="32x32">
+    <link rel="icon" href="/assets/icons/join-favicon.png" type="image/png" sizes="32x32">
     <link rel="stylesheet" href="/styles/assets.css">
     <link rel="stylesheet" href="/styles/fonts.css">
     <link rel="stylesheet" href="/styles/log-in.css">
@@ -19,9 +19,18 @@
 
 </head>
 <body onload="includeHTML();">
-    <div w3-include-html="sidebar.html">
-        <p>Die Sidebar konnte nicht geladen werden.</p>
-    </div>
+    <div class="d-flex">
+        <div w3-include-html="/assets/templates/sidebar.html">
+            <p>Die Sidebar konnte nicht geladen werden.</p>
+        </div>
+        <div class="main-content">
+            <div w3-include-html="/assets/templates/header.html">
+                <p>Der Header konnte nicht geladen werden.</p>
+            </div>
+            <section class="board-section">
 
+            </section>
+        </div>
+    </div>
 </body>
 </html>
