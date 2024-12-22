@@ -5,6 +5,7 @@
     --bg-white: #FFFFFF;
     --bg-color-dark-blue: #091931;
     --bg-color-blue: #0C2E62;
+    --bg-color-blue-rgb: 12, 46, 98;
     --bg-color-orange: #FF3D00;
 
     --color-light-blue: #29ABE2;
@@ -96,7 +97,14 @@ nav {
     width: 100%;
     background: var(--bg-white);
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
-    padding: 0 48px 0 120px;}
+    padding: 0 48px 0 120px;
+}
+
+.img-help:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+    transition: all 0.3s ease-in-out;
+}
 
 .user-icon-container {
     width: 56px;
@@ -109,7 +117,8 @@ nav {
 }
 
 .user-icon-container:hover {
-    background-color: rgba(var(--bg-color-blue), 0.2);
+    cursor: pointer;
+    background-color: rgba(var(--bg-color-blue-rgb), 0.12);
 }
 
 h2 {
