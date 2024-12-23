@@ -1,99 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Summary</title>
-    <link rel="icon" href="/assets/icons/join-favicon.png" type="image/png" sizes="32x32">
-    <link rel="stylesheet" href="/styles/assets.css">
-    <link rel="stylesheet" href="/styles/fonts.css">
-    <link rel="stylesheet" href="/styles/log-in.css">
-    <link rel="stylesheet" href="/styles/summary.css">
-    <link rel="stylesheet" href="/styles/scrollbar.css">
-    <link rel="stylesheet" href="/styles/standard.css">
-    <link rel="stylesheet" href="/style.css">
-    <script src="/script/includes.js"></script>
-    <script src="/script/log-in.js"></script>
-    <script src="/script/register.js"></script>
-    <script src="/script/templates.js"></script>
-    <script src="/script.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Summary</title>
+  <link rel="icon" href="/assets/icons/join-favicon.png" type="image/png" sizes="32x32">
+  <link rel="stylesheet" href="/styles/assets.css">
+  <link rel="stylesheet" href="/styles/fonts.css">
+  <link rel="stylesheet" href="/styles/log-in.css">
+  <link rel="stylesheet" href="/styles/summary.css">
+  <link rel="stylesheet" href="/styles/scrollbar.css">
+  <link rel="stylesheet" href="/styles/standard.css">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/script/includes.js"></script>
+  <script src="/script/log-in.js"></script>
+  <script src="/script/register.js"></script>
+  <script src="/script/templates.js"></script>
+  <script src="/script.js"></script>
 
 </head>
-<body onload="includeHTML();">
-    <div class="d-flex">
-        <div w3-include-html="/assets/templates/sidebar.html">
-            <p>Die Sidebar konnte nicht geladen werden.</p>
-        </div>
-        <div class="main-content">
-            <div w3-include-html="/assets/templates/header.html">
-                <p>Der Header konnte nicht geladen werden.</p>
-            </div>
-            <section>
-                <header class="summary-header">
-                    <h1>Join 360</h1>
-                    <div class="sideline-blue"></div>
-                    <h4>Key Metrics at a Glance</h4>
-                </header>
-                <main class="summary-container">
-                    <div class="summary-content">
-                        <div class="d-flex-c-c gap-32">
-                            <div class="todo-container">
-                                <div class="todo-icon">
-                                    <img src="/assets/icons/edit.svg" alt="edit">
-                                </div>
-                                <div class="counts-container">
-                                    <span id="openTodos" class="counts">1</span>
-                                    <p>To-do</p>
-                                </div>
-                            </div>
-                            <div class="todo-container">
-                                <div class="todo-icon">
-                                    <img src="/assets/icons/done.svg" alt="done">
-                                </div>
-                                <div class="counts-container">
-                                    <span id="doneTodos" class="counts">1</span>
-                                    <p>Done</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="urgent-container">
-                            <div class="d-flex-c-c gap-24">
-                                <div class="todo-icon-urgent">
-                                    <img src="/assets/icons/double-arrow-up.svg" alt="urgent">
-                                </div>
-                                <div class="counts-container">
-                                    <span id="urgentTodos" class="counts">1</span>
-                                    <p>Urgent</p>
-                                </div>
-                            </div>
-                            <div class="sideline-gray"></div>
-                            <div class="summary-date">
-                                <span id="date">October 16, 2022</span>
-                                <p>Upcoming Deadline</p>
-                            </div>
-                        </div>
-                        <div class="d-flex-c-c gap-32">
-                            <div class="tasks-container">
-                                <span id="boardTasks" class="counts">5</span>
-                                <p>Tasks in Board</p>
-                            </div>
-                            <div class="tasks-container">
-                                <span id="taskInProgress" class="counts">2</span>
-                                <p>Tasks in Progress</p>
-                            </div>
-                            <div class="tasks-container">
-                                <span id="awaitingFeedback" class="counts">2</span>
-                                <p>Awaiting Feedback</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="summary-greetings">
-                        <h5>Good Morning</h5>
-                        <span id="userName" class="user-name">Sofia Müller</span>
-                    </div>
-                </main>
-            </section>
-        </div>
+
+<body>
+  <div class="d-flex">
+    <div w3-include-html="/assets/templates/sidebar.html">
+      <p>Die Sidebar konnte nicht geladen werden.</p>
     </div>
+    <div class="main-content">
+      <div w3-include-html="/assets/templates/header.html">
+        <p>Der Header konnte nicht geladen werden.</p>
+      </div>
+      <section>
+        <header class="summary-header">
+          <h1>Join 360</h1>
+          <div class="sideline-blue"></div>
+          <h4>Key Metrics at a Glance</h4>
+        </header>
+        <main class="summary-container">
+          <div class="summary-content">
+            <div class="d-flex-c-c gap-32">
+              <div class="todo-container">
+                <div class="todo-icon">
+                  <img src="/assets/icons/edit.svg" alt="edit">
+                </div>
+                <div class="counts-container">
+                  <span id="openTodos" class="counts">1</span>
+                  <p>To-do</p>
+                </div>
+              </div>
+              <div class="todo-container">
+                <div class="todo-icon">
+                  <img src="/assets/icons/done.svg" alt="done">
+                </div>
+                <div class="counts-container">
+                  <span id="doneTodos" class="counts">1</span>
+                  <p>Done</p>
+                </div>
+              </div>
+            </div>
+            <div class="urgent-container">
+              <div class="d-flex-c-c gap-24">
+                <div class="todo-icon-urgent">
+                  <img src="/assets/icons/double-arrow-up.svg" alt="urgent">
+                </div>
+                <div class="counts-container">
+                  <span id="urgentTodos" class="counts">1</span>
+                  <p>Urgent</p>
+                </div>
+              </div>
+              <div class="sideline-gray"></div>
+              <div class="summary-date">
+                <span id="date">October 16, 2022</span>
+                <p>Upcoming Deadline</p>
+              </div>
+            </div>
+            <div class="d-flex-c-c gap-32">
+              <div class="tasks-container">
+                <span id="boardTasks" class="counts">5</span>
+                <p>Tasks in Board</p>
+              </div>
+              <div class="tasks-container">
+                <span id="taskInProgress" class="counts">2</span>
+                <p>Tasks in Progress</p>
+              </div>
+              <div class="tasks-container">
+                <span id="awaitingFeedback" class="counts">2</span>
+                <p>Awaiting Feedback</p>
+              </div>
+            </div>
+          </div>
+          <div class="summary-greetings">
+            <h5>Good Morning</h5>
+            <span id="userName" class="user-name">Sofia Müller</span>
+          </div>
+        </main>
+      </section>
+    </div>
+  </div>
 </body>
+
 </html>
