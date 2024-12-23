@@ -6,6 +6,7 @@
     --bg-color-dark-blue: #091931;
     --bg-color-blue: #0C2E62;
     --bg-color-blue-rgb: 12, 46, 98;
+    --bg-color-blue-hover: #2A3D59;
     --bg-color-orange: #FF3D00;
 
     --color-light-blue: #29ABE2;
@@ -80,7 +81,12 @@ a {
 }
 
 .links-container a:hover {
+    background-color: var(--bg-color-blue-hover);
+}
+
+a.current {
     background-color: var(--bg-color-dark-blue);
+    color: var(--bg-white);
 }
 
 .sidebar-footer {
@@ -89,7 +95,14 @@ a {
     gap: 32px;
 }
 
-nav {
+.sidebar-footer a:hover {
+    cursor: pointer;
+    color: var(--color-light-blue);
+    transform: scale(1.05);
+    transition: all 0.3s ease-in-out;
+}
+
+.navbar-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
