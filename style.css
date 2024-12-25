@@ -1,5 +1,5 @@
 body {
-  visibility: hidden;
+    visibility: hidden;
 }
 
 :root {
@@ -12,12 +12,26 @@ body {
     --bg-color-blue-rgb: 12, 46, 98;
     --bg-color-blue-hover: #2A3D59;
     --bg-color-orange: #FF3D00;
-    --bg-color-gray: #EEEEEE;
 
     --color-light-blue: #29ABE2;
     --color-light-gray: #D1D1D1;
     --color-gray: #A8A8A8;
 
+    --contact-color-orange: #FF7A00;
+    --contact-color-pink: #FF5EB3;
+    --contact-color-lavender: #6E52FF;
+    --contact-color-violet: #9327FF;
+    --contact-color-aqua: #00BEE8;
+    --contact-color-tropical: #1FD7C1;
+    --contact-color-coral: #FF745E;
+    --contact-color-peach: #FFA35E;
+    --contact-color-magenta: #FC71FF;
+    --contact-color-gold: #FFC701;
+    --contact-color-blue: #0038FF;
+    --contact-color-lime: #C3FF2B;
+    --contact-color-lemon: #FFE62B;
+    --contact-color-crimson: #FF4646;
+    --contact-color-honey: #FFBB2B;
 }
 
 body {
@@ -95,8 +109,8 @@ a.current {
 }
 
 a.current:hover {
-  background-color: var(--bg-color-dark-blue);
-  cursor: default;
+    background-color: var(--bg-color-dark-blue);
+    cursor: default;
 }
 
 .sidebar-footer {
@@ -119,7 +133,7 @@ a.current:hover {
     height: 100px;
     width: 100%;
     background: var(--bg-white);
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
     padding: 0 48px 0 120px;
 }
 
