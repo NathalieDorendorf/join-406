@@ -1,0 +1,116 @@
+.add-task-section {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.with100{
+  width: 100%;
+}
+.add-task-headline {
+  display: flex;
+  padding: 86px 86px 0 100px;
+}
+
+.main-content-add-task{
+  flex-direction: column;
+justify-content: space-between;
+align-items: center;
+max-width: 1440px;
+}
+.form-content{
+  display: flex;
+  flex-direction: column;
+}
+.add-task-form {
+  flex-direction: column;
+      max-width: 1140px;
+      height: 100%;
+      align-items: center;
+      justify-content: space-between;
+}
+
+.form-left {
+  display: flex;
+  gap: 32px;
+  flex-direction: column;
+  max-width: 440px;
+}
+.form-middle {
+  display: flex;
+  border: 1px solid rgba(209, 209, 209, 1);
+}
+.form-right {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: 440px;
+}
+.radio {
+  width: auto;
+  height: auto;
+}
+
+.add-task-form-buttons {
+  display: flex;
+  justify-content: center; 
+  gap: 16px; 
+   justify-content: flex-end;
+   width: 100%;
+}
+
+.add-task-form-content{
+  display: flex;
+  gap: 16px;
+  
+
+}
+/* -----radio */
+.radio-container{
+  display: flex;
+  justify-content: space-between;
+}
+
+.add-task-container {
+  display: flex; 
+  align-items: center; 
+  gap: 10px; 
+  position: relative;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  user-select: none;
+}
+
+.checkmark {
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  gap: 10px; 
+  height: 56px;
+  width: auto; 
+  line-height: 56px;
+  text-align: center;
+  border: 1px solid rgba(209, 209, 209, 1);
+  border-radius: 4px;
+  background-color: white;
+  transition: all 0.3s ease;
+  font-size: 16px;
+}
+
+.add-task-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  width: auto;
+}
+
+.add-task-container:hover input ~ .checkmark {
+  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.3);
+}
+
+.add-task-container input:checked ~ .checkmark {
+  background-color: rgba(255, 168, 0, 1);
+  color: white;
+  border: none;
+}
