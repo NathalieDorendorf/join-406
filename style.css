@@ -1,3 +1,7 @@
+body {
+  visibility: hidden;
+}
+
 :root {
   --primary-blue: #2A3647;
 
@@ -87,6 +91,11 @@ a {
 a.current {
   background-color: var(--bg-color-dark-blue);
   color: var(--bg-white);
+}
+
+a.current:hover {
+  background-color: var(--bg-color-dark-blue);
+  cursor: default;
 }
 
 .sidebar-footer {
