@@ -1,54 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-    <link rel="icon" href="/assets/icons/join-favicon.png" type="image/png" sizes="32x32">
-    <link rel="stylesheet" href="/styles/assets.css">
-    <link rel="stylesheet" href="/styles/fonts.css">
-    <link rel="stylesheet" href="/styles/log-in.css">
-    <link rel="stylesheet" href="/styles/register.css">
-    <link rel="stylesheet" href="/styles/scrollbar.css">
-    <link rel="stylesheet" href="/styles/standard.css">
-    <link rel="stylesheet" href="/style.css">
-    <script src="/script/log-in.js"></script>
-    <script src="/script/register.js"></script>
-    <script src="/script/templates.js"></script>
-    <script src="/script.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <link rel="icon" href="/assets/icons/join-favicon.png" type="image/png" sizes="32x32">
+  <link rel="stylesheet" href="/styles/assets.css">
+  <link rel="stylesheet" href="/styles/fonts.css">
+  <link rel="stylesheet" href="/styles/log-in.css">
+  <link rel="stylesheet" href="/styles/register.css">
+  <link rel="stylesheet" href="/styles/standard.css">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/script/log-in.js"></script>
+  <script src="/script/register.js"></script>
+  <script src="/script/templates.js"></script>
+  <script src="/script.js"></script>
 
 </head>
+
 <body>
-    <header class="section-pad section-gap">
-        <div class="">
-            <img src="/assets/icons/join-logo.svg" class="logo-little" alt="Join">
+  <header class="section-pad section-gap">
+    <div class="">
+      <img src="/assets/icons/join-logo.svg" class="logo-little" alt="Join">
+    </div>
+  </header>
+  <main>
+    <div class="signup-container">
+      <div class="signup-header">
+        <img src="/assets/icons/arrow-left.svg" alt="back to login">
+        <div class="headline-container">
+          <h1>Sign up</h1>
+          <div class="underline"></div>
         </div>
-    </header>
-    <main>
-        <div class="signup-container">
-            <div class="signup-header">
-                <img src="/assets/icons/arrow-left.svg" alt="back to login">
-                <div class="headline-container">
-                    <h1>Sign up</h1>
-                    <div class="underline"></div>
-                </div>
-            </div>
-            <form onsubmit="addUser(); return false;">
-                <input class="input-name" required type="text" id="user" placeholder="Name">
-                <input class="input-email" required type="email" id="email" placeholder="Email">
-                <input class="input-password" required type="password" id="password" placeholder="Password">
-                <input class="input-password" type="password" id="confirmPassword" placeholder="Confirm Password">
-                <div class="d-flex-c-c gap-16">
-                    <input class="input-checkbox" type="checkbox" name="remember-me" id="">
-                    <p>I accept the <a class="link-privacy-policy" href="#">Privacy policy</a></p>
-                </div>
-                <button class="button">Sign up</button>
-            </form>
+      </div>
+      <form onsubmit="addUser(); return false;">
+        <input class="input-name" required type="text" id="user" placeholder="Name">
+        <input class="input-email" required type="email" id="email" placeholder="Email">
+        <input class="input-password" required type="password" id="password" placeholder="Password">
+        <input class="input-password" type="password" id="confirmPassword" placeholder="Confirm Password">
+        <div class="d-flex-c-c gap-16">
+          <input class="input-checkbox" type="checkbox" name="remember-me" id="">
+          <p>I accept the <a class="link-privacy-policy" href="#">Privacy policy</a></p>
         </div>
-    </main>
-    <footer class="section-pad section-gap">
-        <a href="/assets/templates/privacy-policy.html">Privacy Policy</a>
-        <a href="/assets/templates/legal-notice.html">Legal Notice</a>
-    </footer>
+        <button class="button">Sign up</button>
+      </form>
+    </div>
+  </main>
+  <footer class="section-pad section-gap">
+    <a href="/assets/templates/privacy-policy.html">Privacy Policy</a>
+    <a href="/assets/templates/legal-notice.html">Legal Notice</a>
+  </footer>
 </body>
+
 </html>
