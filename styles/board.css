@@ -1,0 +1,52 @@
+h1 {
+    color: black;
+}
+
+.button {
+    font-family: Inter, serif;
+    font-size: 21px;
+    font-weight: 600;
+}
+
+.button:hover {
+    background-color: var(--color-light-blue);
+}
+
+.board-header {
+    align-items: center;
+}
+
+.ui-bar {
+    margin-left: auto;
+}
+
+.ui-bar input {
+    width: 312px;
+}
+
+.vertical-separator {
+    position: absolute;
+    right: 64px;
+    top: 8px;
+    height: 32px;
+    width: 1px;
+    background-color: var(--color-light-gray);
+}
+
+div:has(>.search-icon) {
+    position: relative;
+}
+
+.search-icon {
+    position: absolute;
+    right: 16px;
+    top: 8px;
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+}
+
+.search-icon:hover {
+    cursor: pointer;
+    background-color: var(--bg-color-gray);
+}
