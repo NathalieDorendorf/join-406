@@ -27,3 +27,26 @@
 .link-privacy-policy {
     color: var(--color-light-blue);
 }
+
+.form-register, .signup-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-register {
+    align-items: start;
+}
+
+.signup-wrapper{
+    width: 100%;
+    align-items: center;
+}
+
+/* ErrorBox */
+
+.errorText{
+    color: red;
+    font-size: 12px;
+    height: 12px;
+}
