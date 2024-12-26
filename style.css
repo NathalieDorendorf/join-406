@@ -28,6 +28,35 @@ a {
   color: var(--color-gray);
 }
 
+h1 {
+    font-size: 60px;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: 100;
+}
+
+h3 {
+  font-size: 20px;
+  color: var(--color-light-blue);
+}
+
+h4 {
+    font-size: 27px;
+    font-weight: 100;
+}
+
+h5 {
+    font-size: 47px;
+    font-weight: 400;
+}
+
+h6 {
+  font-size: 20px;
+  font-weight: 500;
+}
+
 .logo-little {
   height: 122px;
   width: 100px;
@@ -132,16 +161,6 @@ a.current {
 .user-icon-container:hover {
   cursor: pointer;
   background-color: rgba(var(--bg-color-blue-rgb), 0.12);
-}
-
-h2 {
-  font-weight: 100;
-  font-size: 24px;
-}
-
-h3 {
-  font-size: 20px;
-  color: var(--color-light-blue);
 }
 
 .main-content {
