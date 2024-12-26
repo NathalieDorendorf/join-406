@@ -1,31 +1,51 @@
+body {
+    visibility: hidden;
+}
+
 :root {
-  --primary-blue: #2A3647;
+    --primary-blue: #2A3647;
 
-  --bg-color: #F6F7F8;
-  --bg-white: #FFFFFF;
-  --bg-color-dark-blue: #091931;
-  --bg-color-blue: #0C2E62;
-  --bg-color-blue-rgb: 12, 46, 98;
-  --bg-color-blue-hover: #2A3D59;
-  --bg-color-orange: #FF3D00;
+    --bg-color: #F6F7F8;
+    --bg-white: #FFFFFF;
+    --bg-color-dark-blue: #091931;
+    --bg-color-blue: #0C2E62;
+    --bg-color-blue-rgb: 12, 46, 98;
+    --bg-color-blue-hover: #2A3D59;
+    --bg-color-orange: #FF3D00;
 
-  --color-light-blue: #29ABE2;
-  --color-light-gray: #D1D1D1;
-  --color-gray: #A8A8A8;
+    --color-light-blue: #29abe2;
+    --color-light-gray: #D1D1D1;
+    --color-gray: #A8A8A8;
 
+    --contact-color-orange: #FF7A00;
+    --contact-color-pink: #FF5EB3;
+    --contact-color-lavender: #6E52FF;
+    --contact-color-violet: #9327FF;
+    --contact-color-aqua: #00BEE8;
+    --contact-color-tropical: #1FD7C1;
+    --contact-color-coral: #FF745E;
+    --contact-color-peach: #FFA35E;
+    --contact-color-magenta: #FC71FF;
+    --contact-color-gold: #FFC701;
+    --contact-color-blue: #0038FF;
+    --contact-color-lime: #C3FF2B;
+    --contact-color-lemon: #FFE62B;
+    --contact-color-crimson: #FF4646;
+    --contact-color-honey: #FFBB2B;
 }
 
 body {
-  font-size: 20px;
-  background-color: var(--bg-color);
-  color: var(--primary-blue);
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+    font-size: 20px;
+    background-color: var(--bg-color);
+    color: var(--primary-blue);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    font-family: Inter, sans-serif;
 }
 
 a {
-  color: var(--color-gray);
+    color: var(--color-gray);
 }
 
 h1 {
@@ -58,119 +78,124 @@ h6 {
 }
 
 .logo-little {
-  height: 122px;
-  width: 100px;
+    height: 122px;
+    width: 100px;
 }
 
 .container {
-  max-width: 1920px;
-  margin: 0 auto;
-  height: 100vh;
+    max-width: 1920px;
+    margin: 0 auto;
+    height: 100vh;
 }
 
 .bg-color-sidebar {
-  background: var(--primary-blue);
+    background: var(--primary-blue);
 }
 
 .sidebar-container {
-  width: 232px;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 64px 0;
-  gap: 120px;
+    width: 232px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 64px 0;
+    gap: 120px;
 }
 
 .sidebar-mainbox {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  height: 100%;
-  width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 100%;
 }
 
 .links-container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
 }
 
 .links-container a {
-  width: 100%;
-  height: 46px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 0 48px;
+    width: 100%;
+    height: 46px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 48px;
 }
 
 .links-container a:hover {
-  background-color: var(--bg-color-blue-hover);
+    background-color: var(--bg-color-blue-hover);
 }
 
 a.current {
-  background-color: var(--bg-color-dark-blue);
-  color: var(--bg-white);
+    background-color: var(--bg-color-dark-blue);
+    color: var(--bg-white);
+}
+
+a.current:hover {
+    background-color: var(--bg-color-dark-blue);
+    cursor: default;
 }
 
 .sidebar-footer {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
 }
 
 .sidebar-footer a:hover {
-  cursor: pointer;
-  color: var(--color-light-blue);
-  transform: scale(1.05);
-  transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    color: var(--color-light-blue);
+    transform: scale(1.05);
+    transition: all 125ms ease-in-out;
 }
 
 .navbar-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 100px;
-  width: 100%;
-  background: var(--bg-white);
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
-  padding: 0 48px 0 120px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    width: 100%;
+    background: var(--bg-white);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 0 48px 0 120px;
 }
 
 .img-help:hover {
-  cursor: pointer;
-  transform: scale(1.2);
-  transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    transform: scale(1.2);
+    transition: all 125ms ease-in-out;
 }
 
 .user-icon-container {
-  width: 56px;
-  height: 56px;
-  border-radius: 100%;
-  border: 3px solid var(--primary-blue);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 100%;
+    border: 3px solid var(--primary-blue);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .user-icon-container:hover {
-  cursor: pointer;
-  background-color: rgba(var(--bg-color-blue-rgb), 0.12);
+    cursor: pointer;
+    background-color: rgba(var(--bg-color-blue-rgb), 0.12);
 }
 
 .main-content {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 
 .main-content>section {
-  flex: 1;
-  overflow-y: auto;
+    flex: 1;
+    overflow-y: auto;
 }
