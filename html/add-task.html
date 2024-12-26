@@ -39,19 +39,18 @@
                         <div class="add-task-form-content">
                             <div class="form-left">
                                 <div class="title">
-                                    <label for="title">Title</label>
-                                    <input class="with100" placeholder="Enter a title" id="title" type="text" />
+                                    <label for="title">Title*</label>
+                                    <input class="with440px" placeholder="Enter a title" id="title" type="text" />
                                 </div>
 
                                 <div class="description">
                                     <label for="description">Description</label>
-                                    <input class="with100" placeholder="Enter a Description" id="description"
-                                        type="text" />
+                                   <textarea class=".with440px" name="description" id="description"></textarea>
                                 </div>
 
                                 <div class="assigned">
                                     <label for="assigned">Assigned to</label>
-                                    <select class="with100" name="assigned" id="assigned">
+                                    <select class="with440px" name="assigned" id="assigned">
                                         <option value="" disabled selected hidden>
                                             Select contacts to assign
                                         </option>
@@ -68,30 +67,31 @@
                             <div class="form-right">
                                 <div class="date">
                                     <label for="date">Due date*</label>
-                                    <input class="with100" placeholder="Enter a title" id="title" type="date" />
+                                    <input class="with440px" placeholder="Enter a title" id="title" type="date" />
                                 </div>
                                 <div>
                                     <p>Prio</p>
                                     <div class="radio-container">
                                         <label class="add-task-container">
                                             <input type="radio" name="prio" value="urgent" checked />
-                                            <span class="checkmark">Urgent</span>
+                                            <span class="checkmark">Urgent <img id="prio-image-urgent" src="" alt=""></span>
                                         </label>
-
-                                        <label class="add-task-container">
+                                        
+                                        <label class="add-task-container gab-prio">
                                             <input type="radio" name="prio" value="medium" />
-                                            <span class="checkmark">Medium</span>
+                                            <span class="checkmark">Medium  <img id="prio-imag-mediumt" src="" alt=""></span>
                                         </label>
 
                                         <label class="add-task-container">
                                             <input type="radio" name="prio" value="low" />
-                                            <span class="checkmark">Low</span>
+                                            <span class="checkmark">Low <img id =prio-imag-low src="" alt=""> </span>
                                         </label>
                                     </div>
                                 </div>
+
                                 <div class="category">
                                     <label for="category">Category*</label>
-                                    <select class="with100" name="category" id="category">
+                                    <select class="with440px" name="category" id="category">
                                         <option value="" disabled selected hidden>
                                             Select task category
                                         </option>
@@ -102,7 +102,7 @@
 
                                 <div class="subtask">
                                     <label for="subtask">subtask</label>
-                                    <input class="with100" placeholder="Add new subtask" id="title" type="text" />
+                                    <input class="with440px" placeholder="Add new subtask" id="title" type="text" />
                                 </div>
                             </div>
                         </div>
