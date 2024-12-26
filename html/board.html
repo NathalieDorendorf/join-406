@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="/styles/board.css">
     <link rel="stylesheet" href="/style.css">
     <script src="/script/templates.js"></script>
+    <script src="/script/fetch.js"></script>
+    <script src="/script/board.js"></script>
     <script src="/script.js"></script>
 </head>
 
@@ -20,12 +22,12 @@
         <div w3-include-html="/assets/templates/sidebar.html">
             <p>Die Sidebar konnte nicht geladen werden.</p>
         </div>
-        <div class="main-content board">
+        <div class="main-content">
             <div w3-include-html="/assets/templates/header.html">
                 <p>Der Header konnte nicht geladen werden.</p>
             </div>
-            <div>
-                <section class="board-header section-pad d-flex gap-32">
+            <div class="board">
+                <section class="board-header d-flex gap-32">
                     <h1>Board</h1>
                     <div class="ui-bar d-flex gap-32">
                         <div>
@@ -40,7 +42,7 @@
                         </button>
                     </div>
                 </section>
-                <section class="board-tasks section-pad">
+                <section class="board-tasks">
                     <div class="column">
                         <div class="column-head">
                             <span class="column-title">To Do</span>
@@ -56,6 +58,72 @@
                             <img src="/assets/icons/plus-button.svg" alt="Add Task" class="plus-button">
                         </div>
                         <div class="column-body" id="in-progress-column">
+                            <div class="card light-box-shadow">
+                                <div class="tag">User Story</div>
+                                <div class="content">
+                                    <div class="headline">Kochwelt Page & Recipe Recommender</div>
+                                    <div class="summary">Build start page with recipe recommendation</div>
+                                </div>
+                                <div class="subtasks">
+                                    <div class="bar">
+                                        <div class="inner"></div>
+                                    </div>
+                                    <span class="subtask-count">1/2 Subtasks</span>
+                                </div>
+                                <div class="member-and-priority">
+                                    <div class="member d-flex">
+                                        <div class="member-icon d-flex-c-c">AM</div>
+                                        <div class="member-icon d-flex-c-c">EM</div>
+                                        <div class="member-icon d-flex-c-c">MB</div>
+                                    </div>
+                                    <div class="priority d-flex-c-c"><img src="/assets/icons/priority-medium.svg"
+                                            alt="Medium priority"></div>
+                                </div>
+                            </div>
+                            <div class="card light-box-shadow">
+                                <div class="tag">User Story</div>
+                                <div class="content">
+                                    <div class="headline">Kochwelt Page & Recipe Recommender</div>
+                                    <div class="summary">Build start page with recipe recommendation</div>
+                                </div>
+                                <div class="subtasks">
+                                    <div class="bar">
+                                        <div class="inner"></div>
+                                    </div>
+                                    <span class="subtask-count">1/2 Subtasks</span>
+                                </div>
+                                <div class="member-and-priority">
+                                    <div class="member d-flex">
+                                        <div class="member-icon d-flex-c-c">AM</div>
+                                        <div class="member-icon d-flex-c-c">EM</div>
+                                        <div class="member-icon d-flex-c-c">MB</div>
+                                    </div>
+                                    <div class="priority d-flex-c-c"><img src="/assets/icons/priority-medium.svg"
+                                            alt="Medium priority"></div>
+                                </div>
+                            </div>
+                            <div class="card light-box-shadow">
+                                <div class="tag">User Story</div>
+                                <div class="content">
+                                    <div class="headline">Kochwelt Page & Recipe Recommender</div>
+                                    <div class="summary">Build start page with recipe recommendation</div>
+                                </div>
+                                <div class="subtasks">
+                                    <div class="bar">
+                                        <div class="inner"></div>
+                                    </div>
+                                    <span class="subtask-count">1/2 Subtasks</span>
+                                </div>
+                                <div class="member-and-priority">
+                                    <div class="member d-flex">
+                                        <div class="member-icon d-flex-c-c">AM</div>
+                                        <div class="member-icon d-flex-c-c">EM</div>
+                                        <div class="member-icon d-flex-c-c">MB</div>
+                                    </div>
+                                    <div class="priority d-flex-c-c"><img src="/assets/icons/priority-medium.svg"
+                                            alt="Medium priority"></div>
+                                </div>
+                            </div>
                             <div class="card light-box-shadow">
                                 <div class="tag">User Story</div>
                                 <div class="content">
