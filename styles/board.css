@@ -1,26 +1,4 @@
-body {
-    font-family: Inter, sans-serif;
-}
-
-h1 {
-    color: black;
-}
-
-.button {
-    font-family: Inter, sans-serif;
-    font-size: 21px;
-    font-weight: 600;
-}
-
-.button:hover {
-    background-color: var(--color-light-blue);
-}
-
-input {
-    font-family: Inter, sans-serif;
-}
-
-.board * {
+:root {
     --color-shadow-blue: #42526E;
     --bg-color-gray: #EEEEEE;
     --bg-color-gray-darker: #E7E7E7;
@@ -118,10 +96,10 @@ div:has(>.search-icon) {
 .card .headline {
     font-weight: 700;
     color: var(--primary-blue);
-    margin-bottom: 8px;
 }
 
 .card .summary {
+    margin-top: 8px;
     color: var(--color-gray);
 }
 
@@ -185,6 +163,11 @@ div:has(>.search-icon) {
 }
 
 /* removal-end */
+
+.priority {
+    width: 32px;
+    height: 32px;
+}
 
 .no-task-feedback {
     display: flex;

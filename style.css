@@ -13,7 +13,7 @@ body {
     --bg-color-blue-hover: #2A3D59;
     --bg-color-orange: #FF3D00;
 
-    --color-light-blue: #29ABE2;
+    --color-light-blue: #29abe2;
     --color-light-gray: #D1D1D1;
     --color-gray: #A8A8A8;
 
@@ -41,6 +41,7 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    font-family: Inter, sans-serif;
 }
 
 a {
@@ -123,7 +124,7 @@ a.current:hover {
     cursor: pointer;
     color: var(--color-light-blue);
     transform: scale(1.05);
-    transition: all 0.3s ease-in-out;
+    transition: all 125ms ease-in-out;
 }
 
 .navbar-header {
@@ -140,7 +141,7 @@ a.current:hover {
 .img-help:hover {
     cursor: pointer;
     transform: scale(1.2);
-    transition: all 0.3s ease-in-out;
+    transition: all 125ms ease-in-out;
 }
 
 .user-icon-container {
@@ -159,7 +160,7 @@ a.current:hover {
 }
 
 h2 {
-    font-weight: 100;
+    font-weight: 400;
     font-size: 24px;
 }
 
