@@ -68,14 +68,20 @@ h4 {
 }
 
 h5 {
-    font-size: 47px;
-    font-weight: 400;
+    font-size: 27px;
+    font-weight: 700;
 }
 
 h6 {
   font-size: 20px;
-  font-weight: 500;
+  font-weight: 700;
 }
+
+h7 {
+    font-size: 47px;
+    font-weight: 400;
+}
+
 
 .logo-little {
     height: 122px;
@@ -198,4 +204,8 @@ a.current:hover {
 .main-content>section {
     flex: 1;
     overflow-y: auto;
+}
+
+.join-span {
+    color: var(--color-light-blue);
 }
