@@ -6,8 +6,18 @@
     --tag-color-mintgreen: #1FD7C1;
 }
 
+.board {
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+section {
+    padding: 16px 64px;
+}
+
 .board-header {
-    margin-top: 32px;
+    margin-top: 16px;
     align-items: center;
 }
 
@@ -47,6 +57,7 @@ div:has(>.search-icon) {
 }
 
 .board-tasks {
+    overflow-y: auto;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     column-gap: 26px;
@@ -77,6 +88,7 @@ div:has(>.search-icon) {
 
 .card {
     padding: 16px;
+    margin-bottom: 16px;
     display: flex;
     flex-direction: column;
     gap: 24px;
