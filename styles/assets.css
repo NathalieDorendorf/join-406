@@ -36,11 +36,6 @@ main {
     gap: 12px;
 }
 
-h1 {
-    font-size: 60px;
-    color: black;
-}
-
 .underline {
     height: 3px;
     width: 150px;
@@ -147,21 +142,11 @@ input:focus {
     border-radius: 8px;
 }
 
-h4 {
-    font-size: 27px;
-    font-weight: 100;
-}
-
 .sideline-gray {
     height: 102px;
     width: 2px;
     background-color: var(--color-light-gray);
     border-radius: 8px;
-}
-
-h5 {
-    font-size: 47px;
-    font-weight: 400;
 }
 
 .light-box-shadow {
