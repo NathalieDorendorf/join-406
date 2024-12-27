@@ -35,13 +35,13 @@
                 </div>
             </div>
             <form class="form-register" onsubmit="addUser(); return false;">
-                <input class="input-name" required type="text" id="user" placeholder="Name">
+                <input class="input-name" required type="text" id="user" placeholder="Name" min="2" max="30">
                 <span id="errorMessageName" class="error-message"></span>
                 <input class="input-email" required type="email" id="email" placeholder="Email">
                 <span id="errorMessageEmail" class="error-message"></span>
                 <input class="input-password" required type="password" id="password" placeholder="Password">
                 <span id="errorMessagePassword" class="error-message"></span>
-                <input class="input-password" type="password" id="confirmPassword" placeholder="Confirm Password">
+                <input class="input-password" type="password" id="confirmPassword" placeholder="Confirm Password" min="8" max="20">
                 <span id="errorMessageConfirmPassword" class="error-message"></span>
                 <div class="signup-wrapper">
                 <div class="d-flex-c-c gap-16">
