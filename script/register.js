@@ -11,7 +11,7 @@ async function addUser() {
     checkPassword(password, confirmPassword);
     checkPrivacyPolicy();
 
-    if(password.value !== confirmPassword.value || privacyPolicy.checked != true){
+    if (password.value !== confirmPassword.value || privacyPolicy.checked != true) {
         clearData(email, password, confirmPassword, userName, privacyPolicy);
         return;
     };
@@ -23,22 +23,36 @@ async function addUser() {
 
     await updateUser(singleLogInData);
 
-    
+
 
 };
 
 async function checkPassword(password, confirmPassword) {
     if (password.value != confirmPassword.value) {
-        alert("Passwort stimmt nicht überein, bitte erneut versuchen") //create a new popup 
+        errorFunctionRegister()
+        checkPrivacyPolicy()
         return;
+    } else {
+        document.getElementById('confirmPassword').style.border = "1px solid light-gray";
+        document.getElementById('errorMessageConfirmPassword').innerHTML = "";
     }
 };
+
+async function errorFunctionRegister() {
+    document.getElementById('errorMessageConfirmPassword').innerHTML = /*html*/`
+    <div class="errorText">Your passwords don't match. Please try again.</div>
+    `
+    document.getElementById('confirmPassword').style.border = "1px solid red";
+}
 
 async function checkPrivacyPolicy() {
     if (privacyPolicy.checked) {
         return;
-    } else{
-        alert("Bitte Privacy Policy bestätigen")
+    } else {
+        document.getElementById('errorMessageprivacyPolicy').innerHTML = /*html*/`
+        <div class="errorText">please check the privacy policy</div>
+        `
+        document.getElementById('privacyPolicy').style.border = "red";
     }
 }
 

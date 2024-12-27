@@ -2,33 +2,167 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Board</title>
-  <link rel="icon" href="/assets/icons/join-favicon.png" type="image/png" sizes="32x32">
-  <link rel="stylesheet" href="/styles/assets.css">
-  <link rel="stylesheet" href="/styles/fonts.css">
-  <link rel="stylesheet" href="/styles/standard.css">
-  <link rel="stylesheet" href="/styles/board.css">
-  <link rel="stylesheet" href="/style.css">
-  <script src="/script/templates.js"></script>
-  <script src="/script.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Board</title>
+    <link rel="icon" href="/assets/icons/join-favicon.png" type="image/png" sizes="32x32">
+    <link rel="stylesheet" href="/styles/assets.css">
+    <link rel="stylesheet" href="/styles/fonts.css">
+    <link rel="stylesheet" href="/styles/standard.css">
+    <link rel="stylesheet" href="/styles/board.css">
+    <link rel="stylesheet" href="/style.css">
+    <script src="/script/templates.js"></script>
+    <script src="/script/fetch.js"></script>
+    <script src="/script/board.js"></script>
+    <script src="/script.js"></script>
 </head>
 
 <body>
-  <div class="d-flex">
-    <div w3-include-html="/assets/templates/sidebar.html">
-      <p>Die Sidebar konnte nicht geladen werden.</p>
+    <div class="d-flex">
+        <div w3-include-html="/assets/templates/sidebar.html">
+            <p>Die Sidebar konnte nicht geladen werden.</p>
+        </div>
+        <div class="main-content">
+            <div w3-include-html="/assets/templates/header.html">
+                <p>Der Header konnte nicht geladen werden.</p>
+            </div>
+            <div class="board">
+                <section class="board-header d-flex gap-32">
+                    <h1>Board</h1>
+                    <div class="search-wrapper">
+                        <input type="search" name="search" id="search" placeholder="Find Task" autocomplete="off">
+                        <div class="vertical-separator"></div>
+                        <div class="search-icon d-flex-c-c" tabindex="0">
+                            <img src="/assets/icons/search.svg" alt="Search Task">
+                        </div>
+                    </div>
+                    <button class="button t-125 d-flex-c-c gap-16">
+                        <span>Add task</span><img src="/assets/icons/add.svg" alt="Add Task">
+                    </button>
+                </section>
+                <section class="board-tasks">
+                    <div class="column">
+                        <div class="column-head">
+                            <span class="column-title">To Do</span>
+                            <img src="/assets/icons/plus-button.svg" alt="Add Task" class="plus-button">
+                        </div>
+                        <div class="column-body" id="to-do-column">
+                            <div class="no-task-feedback">No tasks to do</div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="column-head">
+                            <span class="column-title">In progress</span>
+                            <img src="/assets/icons/plus-button.svg" alt="Add Task" class="plus-button">
+                        </div>
+                        <div class="column-body" id="in-progress-column">
+                            <div class="card light-box-shadow">
+                                <div class="tag">User Story</div>
+                                <div class="content">
+                                    <div class="headline">Kochwelt Page & Recipe Recommender</div>
+                                    <div class="summary">Build start page with recipe recommendation</div>
+                                </div>
+                                <div class="subtasks">
+                                    <div class="bar">
+                                        <div class="inner"></div>
+                                    </div>
+                                    <span class="subtask-count">1/2 Subtasks</span>
+                                </div>
+                                <div class="member-and-priority">
+                                    <div class="member d-flex">
+                                        <div class="member-icon d-flex-c-c">AM</div>
+                                        <div class="member-icon d-flex-c-c">EM</div>
+                                        <div class="member-icon d-flex-c-c">MB</div>
+                                    </div>
+                                    <div class="priority d-flex-c-c"><img src="/assets/icons/priority-medium.svg"
+                                            alt="Medium priority"></div>
+                                </div>
+                            </div>
+                            <div class="card light-box-shadow">
+                                <div class="tag">User Story</div>
+                                <div class="content">
+                                    <div class="headline">Kochwelt Page & Recipe Recommender</div>
+                                    <div class="summary">Build start page with recipe recommendation</div>
+                                </div>
+                                <div class="subtasks">
+                                    <div class="bar">
+                                        <div class="inner"></div>
+                                    </div>
+                                    <span class="subtask-count">1/2 Subtasks</span>
+                                </div>
+                                <div class="member-and-priority">
+                                    <div class="member d-flex">
+                                        <div class="member-icon d-flex-c-c">AM</div>
+                                        <div class="member-icon d-flex-c-c">EM</div>
+                                        <div class="member-icon d-flex-c-c">MB</div>
+                                    </div>
+                                    <div class="priority d-flex-c-c"><img src="/assets/icons/priority-medium.svg"
+                                            alt="Medium priority"></div>
+                                </div>
+                            </div>
+                            <div class="card light-box-shadow">
+                                <div class="tag">User Story</div>
+                                <div class="content">
+                                    <div class="headline">Kochwelt Page & Recipe Recommender</div>
+                                    <div class="summary">Build start page with recipe recommendation</div>
+                                </div>
+                                <div class="subtasks">
+                                    <div class="bar">
+                                        <div class="inner"></div>
+                                    </div>
+                                    <span class="subtask-count">1/2 Subtasks</span>
+                                </div>
+                                <div class="member-and-priority">
+                                    <div class="member d-flex">
+                                        <div class="member-icon d-flex-c-c">AM</div>
+                                        <div class="member-icon d-flex-c-c">EM</div>
+                                        <div class="member-icon d-flex-c-c">MB</div>
+                                    </div>
+                                    <div class="priority d-flex-c-c"><img src="/assets/icons/priority-medium.svg"
+                                            alt="Medium priority"></div>
+                                </div>
+                            </div>
+                            <div class="card light-box-shadow">
+                                <div class="tag">User Story</div>
+                                <div class="content">
+                                    <div class="headline">Kochwelt Page & Recipe Recommender</div>
+                                    <div class="summary">Build start page with recipe recommendation</div>
+                                </div>
+                                <div class="subtasks">
+                                    <div class="bar">
+                                        <div class="inner"></div>
+                                    </div>
+                                    <span class="subtask-count">1/2 Subtasks</span>
+                                </div>
+                                <div class="member-and-priority">
+                                    <div class="member d-flex">
+                                        <div class="member-icon d-flex-c-c">AM</div>
+                                        <div class="member-icon d-flex-c-c">EM</div>
+                                        <div class="member-icon d-flex-c-c">MB</div>
+                                    </div>
+                                    <div class="priority d-flex-c-c"><img src="/assets/icons/priority-medium.svg"
+                                            alt="Medium priority"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="column-head">
+                            <span class="column-title">Await feedback</span>
+                            <img src="/assets/icons/plus-button.svg" alt="Add Task" class="plus-button">
+                        </div>
+                        <div class="column-body" id="await-feedback-column"></div>
+                    </div>
+                    <div class="column">
+                        <div class="column-head">
+                            <span class="column-title">Done</span>
+                        </div>
+                        <div class="column-body" id="done-column"></div>
+                    </div>
+                </section>
+            </div>
+        </div>
     </div>
-    <div class="main-content">
-      <div w3-include-html="/assets/templates/header.html">
-        <p>Der Header konnte nicht geladen werden.</p>
-      </div>
-      <section class="board-section">
-
-      </section>
-    </div>
-  </div>
 </body>
 
 </html>
