@@ -4,6 +4,15 @@
  * possible task-categories: to-do, in-progress, await-feedback, done
  * possible subtasks.done: true, false
  */
+
+// const contacts =
+
+async function postTasks() {
+    for (const task of tasks) {
+        fetchResource('tasks', 'post', task);
+    }
+}
+
 const tasks = [
     {
         column: 'in-progress',
