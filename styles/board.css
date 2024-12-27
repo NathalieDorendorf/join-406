@@ -1,0 +1,233 @@
+:root {
+    --color-shadow-blue: #42526E;
+    --bg-color-gray: #EEEEEE;
+    --bg-color-gray-darker: #E7E7E7;
+    --tag-color-blue: #0038FF;
+    --tag-color-mintgreen: #1FD7C1;
+}
+
+.board {
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+section {
+    padding: 16px 64px;
+}
+
+.board-header {
+    margin-top: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.search-wrapper {
+    margin-left: auto;
+}
+
+#search {
+    width: 312px;
+    padding-right: 64px;
+}
+
+.vertical-separator {
+    position: absolute;
+    right: 64px;
+    top: 8px;
+    height: 32px;
+    width: 1px;
+    background-color: var(--color-light-gray);
+}
+
+div:has(>.search-icon) {
+    position: relative;
+}
+
+.search-icon {
+    position: absolute;
+    right: 16px;
+    top: 8px;
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+}
+
+.search-icon:hover {
+    cursor: pointer;
+    background-color: var(--bg-color-gray);
+}
+
+.board-tasks {
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    column-gap: 26px;
+    row-gap: 16px;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.column-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.column-title {
+    color: var(--color-shadow-blue);
+    font-size: 20px;
+}
+
+.plus-button:hover {
+    filter: brightness(0) saturate(100%) invert(63%) sepia(14%) saturate(2444%) hue-rotate(157deg) brightness(91%) contrast(95%);
+    cursor: pointer;
+}
+
+.card {
+    padding: 16px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    font-size: 16px;
+    border-radius: 24px;
+    background-color: white;
+}
+
+.card .tag {
+    width: fit-content;
+    padding: 4px 16px;
+    border-radius: 8px;
+    background-color: var(--tag-color-blue);
+    color: white;
+}
+
+.card .headline {
+    font-weight: 700;
+    color: var(--primary-blue);
+}
+
+.card .summary {
+    margin-top: 8px;
+    color: var(--color-gray);
+}
+
+/* .card .summary::after {
+    content: '...';
+} */
+
+.subtasks {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.subtasks .bar {
+    flex: 1;
+    height: 8px;
+    background-color: #F4F4F4;
+    border-radius: 8px;
+}
+
+.subtasks .bar .inner {
+    background-color: #4589FF;
+    border-radius: 8px;
+    height: 100%;
+    width: calc(100% / 2);
+}
+
+.subtasks .subtask-count {
+    font-size: 12px;
+    line-height: 0px;
+}
+
+.member-and-priority {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.member-icon {
+    width: 32px;
+    height: 32px;
+    margin-right: -5px;
+    border: 2px solid white;
+    border-radius: 16px;
+    background-color: #4589FF;
+    color: white;
+    font-size: 12px;
+}
+
+/* remove and create dynamically */
+.member>.member-icon:nth-child(1) {
+    background-color: var(--contact-color-orange);
+}
+
+.member>.member-icon:nth-child(2) {
+    background-color: var(--contact-color-tropical);
+}
+
+.member>.member-icon:nth-child(3) {
+    background-color: var(--contact-color-violet);
+}
+
+/* removal-end */
+
+.priority {
+    width: 32px;
+    height: 32px;
+}
+
+.no-task-feedback {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 48px;
+    background-color: var(--bg-color-gray-darker);
+    color: var(--color-gray);
+    box-shadow: 0 0 4px 1px var(--bg-color-gray-darker);
+    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='10' ry='10' stroke='%23A8A8A8' stroke-width='2' stroke-dasharray='4 6' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+    border-radius: 10px;
+}
+
+@media (max-height: 800px),
+(max-width:1100px) {
+    .board {
+        overflow-y: unset;
+    }
+
+    .main-content {
+        overflow-y: auto;
+    }
+}
+
+@media (max-width: 1100px) {
+    .board-header>:nth-child(2) {
+        order: 3;
+        width: 100%;
+        margin-left: unset;
+    }
+
+    .board-header {
+        justify-content: space-between;
+    }
+
+    #search {
+        width: 100%;
+    }
+}
+
+@media (max-width: 750px) {
+    .board-header>button>span {
+        display: none;
+    }
+
+    section {
+        padding: 16px;
+    }
+}

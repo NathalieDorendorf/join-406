@@ -12,6 +12,7 @@ async function addUser() {
     checkName(userName)
     checkPrivacyPolicy();
 
+
     if(password.value !== confirmPassword.value || privacyPolicy.checked != true){
         clearData(password, confirmPassword, privacyPolicy);
         return;
@@ -28,7 +29,7 @@ async function addUser() {
 
     await updateUser(singleLogInData);
 
-    
+
 
 };
 
@@ -56,11 +57,13 @@ async function checkPassword(password, confirmPassword) {
         errorFunctionRegister()
         checkPrivacyPolicy()
         return;
+
     } else{
         document.getElementById('confirmPassword').style.border =  "1px solid light-gray";
         document.getElementById('errorMessageConfirmPassword').innerHTML = "";
     }
 };
+
 
 async function errorFunctionRegister(){
    document.getElementById('errorMessageConfirmPassword').innerHTML= /*html*/`
@@ -72,6 +75,7 @@ async function errorFunctionRegister(){
 async function checkPrivacyPolicy() {
     if (privacyPolicy.checked) {
         return;
+
     } else{
         document.getElementById('errorMessageprivacyPolicy').innerHTML= /*html*/`
         <div class="errorText">please check the privacy policy</div>
