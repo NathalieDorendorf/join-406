@@ -31,7 +31,7 @@ body {
     --contact-color-lime: #C3FF2B;
     --contact-color-lemon: #FFE62B;
     --contact-color-crimson: #FF4646;
-    --contact-color-honey: #FFBB2B;
+    --contact-jcolor-honey: #FFBB2B;
 }
 
 body {
@@ -53,13 +53,13 @@ h1 {
 }
 
 h2 {
-  font-size: 24px;
-  font-weight: 100;
+    font-size: 24px;
+    font-weight: 100;
 }
 
 h3 {
-  font-size: 20px;
-  color: var(--color-light-blue);
+    font-size: 20px;
+    color: var(--color-light-blue);
 }
 
 h4 {
@@ -73,8 +73,8 @@ h5 {
 }
 
 h6 {
-  font-size: 20px;
-  font-weight: 700;
+    font-size: 20px;
+    font-weight: 700;
 }
 
 h7 {
@@ -208,4 +208,12 @@ a.current:hover {
 
 .join-span {
     color: var(--color-light-blue);
+}
+
+.light-box-shadow {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.t-125 {
+    transition: all 125ms ease-in-out;
 }

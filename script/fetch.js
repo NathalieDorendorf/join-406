@@ -12,6 +12,7 @@ async function fetchResource(path, httpMethod = 'GET', data = undefined) {
         const response = await fetch(BASE_URL + path + ".json", getRequestInit(httpMethod, data));
         if (response.ok) {
             const responseJson = await response.json();
+            console.log(responseJson); // remove for live version
             return responseJson;
         } else {
             console.error(new Error(`Failed to fetch from ${path}.${response.status} ${await response.text()}`))
