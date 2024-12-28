@@ -133,6 +133,7 @@ h7 {
     justify-content: flex-start;
     align-items: center;
     padding: 0 48px;
+    gap: 16px;
 }
 
 .links-container a:hover {
@@ -211,6 +212,10 @@ a.current:hover {
     overflow-y: auto;
 }
 
+.help-section {
+    margin-bottom: 120px;
+}
+
 .join-span {
     color: var(--color-light-blue);
 }
@@ -238,7 +243,7 @@ a.current:hover {
     }
 
     .sidebar-container {
-        position: absolute;
+        position: fixed;
         bottom: 0;
         left: 0;
         right: 0;
@@ -261,20 +266,29 @@ a.current:hover {
 
     .links-container {
         flex-direction: row;
-        justify-content: flex-start;
         align-items: center;
+        height: 100%;
         gap: 16px;
     }
 
     .links-container a {
         display: flex;
         flex-direction: column;
-        height: 40px;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        gap: 8px;
+        height: 100%;
+        width: 100%;    
     }
 
     .sidebar-footer {
         display: none;
-    }   
+    }
+    
+    a.current {
+        border-radius: 12px;
+    }
 }
 
 
@@ -293,16 +307,14 @@ a.current:hover {
     }
 
     .sidebar-container {
-        position: absolute;
+        position: fixed;
         bottom: 0;
         left: 0;
         right: 0;
         height: clamp(100px, 100vh - 100px, 120px);
         width: 100%;
         flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        padding: 24px;
+        padding: 12px;
         gap: 0;
     }
 
@@ -316,19 +328,27 @@ a.current:hover {
 
     .links-container {
         flex-direction: row;
-        justify-content: flex-start;
         align-items: center;
+        height: 100%;
         gap: 16px;
     }
 
     .links-container a {
         display: flex;
         flex-direction: column;
-        height: 40px;
-    }
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        gap: 8px;
+        height: 100%;
+        width: 100%;    }
 
     .sidebar-footer {
         display: none;
+    }
+
+    a.current {
+        border-radius: 12px;
     }
 }
 
