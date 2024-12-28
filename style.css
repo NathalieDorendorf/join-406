@@ -52,10 +52,10 @@ h1 {
     font-size: 60px;
 }
 
-h2 {
+/* h2 {
     font-size: 24px;
     font-weight: 100;
-}
+} */
 
 h3 {
     font-size: 20px;
@@ -173,6 +173,11 @@ a.current:hover {
     padding: 0 48px 0 120px;
 }
 
+.headline {
+    font-size: 24px;
+    font-weight: 100;
+}
+
 .img-help:hover {
     cursor: pointer;
     transform: scale(1.2);
@@ -216,4 +221,119 @@ a.current:hover {
 
 .t-125 {
     transition: all 125ms ease-in-out;
+}
+
+@media (max-width:480px) {
+    .navbar-header {
+        height: 100px;
+        padding: 0 24px 0 80px;
+    }
+
+    .headline {
+        display: none;
+    }
+
+    .logo-header {
+        width: 60px;
+    }
+
+    .sidebar-container {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 100px;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 24px;
+        gap: 0;
+    }
+
+    .sidebar-mainbox {
+        flex-direction: row;
+    }
+
+    .logo-little {
+        display: none;
+    }
+
+    .links-container {
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .links-container a {
+        display: flex;
+        flex-direction: column;
+        height: 40px;
+    }
+
+    .sidebar-footer {
+        display: none;
+    }   
+}
+
+
+@media (max-width: 768px) and (min-width: 481px) {
+    .navbar-header {
+        height: clamp(100px, 100vh - 100px, 120px);
+        padding: 0 24px 0 80px;
+    }
+
+    .headline {
+        display: none;
+    }
+
+    .logo-header {
+        width: 60px;
+    }
+
+    .sidebar-container {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: clamp(100px, 100vh - 100px, 120px);
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 24px;
+        gap: 0;
+    }
+
+    .sidebar-mainbox {
+        flex-direction: row;
+    }
+
+    .logo-little {
+        display: none;
+    }
+
+    .links-container {
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .links-container a {
+        display: flex;
+        flex-direction: column;
+        height: 40px;
+    }
+
+    .sidebar-footer {
+        display: none;
+    }
+}
+
+@media (min-width:769px) {
+    .logo-header {
+        display: none;
+    }
 }
