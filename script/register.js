@@ -9,10 +9,16 @@ async function addUser() {
 
 
     checkPassword(password, confirmPassword);
+    checkName(userName)
     checkPrivacyPolicy();
 
+
     if(password.value !== confirmPassword.value || privacyPolicy.checked != true){
-        clearData(email, password, confirmPassword, userName, privacyPolicy);
+        clearData(password, confirmPassword, privacyPolicy);
+        return;
+    };
+    if(userName.value){
+        clearData(userName);
         return;
     };
 
@@ -23,30 +29,64 @@ async function addUser() {
 
     await updateUser(singleLogInData);
 
-    
+
 
 };
+
+async function checkName(userName) {
+    if (/\d/.test(userName.value) || userName.value.trim() === "" )  {
+        errorFunctionName()
+        checkPrivacyPolicy()
+        return;
+    } else{
+        document.getElementById('confirmPassword').style.border =  "1px solid light-gray";
+        document.getElementById('errorMessageConfirmPassword').innerHTML = "";
+    }
+};
+
+async function errorFunctionName(){
+    document.getElementById('errorMessageName').innerHTML= /*html*/`
+     <div class="errorText">Your name cannot contain numbers.</div>
+     `
+     document.getElementById('user').style.border =  "1px solid red";
+ }
+
 
 async function checkPassword(password, confirmPassword) {
     if (password.value != confirmPassword.value) {
-        alert("Passwort stimmt nicht überein, bitte erneut versuchen") //create a new popup 
+        errorFunctionRegister()
+        checkPrivacyPolicy()
         return;
+
+    } else{
+        document.getElementById('confirmPassword').style.border =  "1px solid light-gray";
+        document.getElementById('errorMessageConfirmPassword').innerHTML = "";
     }
 };
+
+
+async function errorFunctionRegister(){
+   document.getElementById('errorMessageConfirmPassword').innerHTML= /*html*/`
+    <div class="errorText">Your passwords don't match. Please try again.</div>
+    `
+    document.getElementById('confirmPassword').style.border =  "1px solid red";
+}
 
 async function checkPrivacyPolicy() {
     if (privacyPolicy.checked) {
         return;
+
     } else{
-        alert("Bitte Privacy Policy bestätigen")
+        document.getElementById('errorMessageprivacyPolicy').innerHTML= /*html*/`
+        <div class="errorText">please check the privacy policy</div>
+        `
+        document.getElementById('privacyPolicy').style.border = "red";
     }
 }
 
-async function clearData(email, password, confirmPassword, userName, privacyPolicy) {
-    // checken weleche Daten nicht passen und nur die leeren
-    email.value = "";
+async function clearData(username, password, confirmPassword, privacyPolicy) {
+    username.value ="";
     password.value = "";
-    userName.value = "";
     confirmPassword.value = "";
     privacyPolicy.checked = false;
 }

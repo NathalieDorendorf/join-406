@@ -34,19 +34,26 @@
                     <div class="underline"></div>
                 </div>
             </div>
-            <form onsubmit="addUser(); return false;">
-                <input class="input-name" required type="text" id="user" placeholder="Name">
+            <form class="form-register" onsubmit="addUser(); return false;">
+                <input class="input-name" required type="text" id="user" placeholder="Name" minlength="2" maxlength="30">
+                <span id="errorMessageName" class="error-message"></span>
                 <input class="input-email" required type="email" id="email" placeholder="Email">
+                <span id="errorMessageEmail" class="error-message"></span>
                 <input class="input-password" required type="password" id="password" placeholder="Password">
-                <input class="input-password" type="password" id="confirmPassword" placeholder="Confirm Password">
+                <span id="errorMessagePassword" class="error-message"></span>
+                <input class="input-password" type="password" id="confirmPassword" placeholder="Confirm Password" minlength="8" maxlength="20">
+                <span id="errorMessageConfirmPassword" class="error-message"></span>
+                <div class="signup-wrapper">
                 <div class="d-flex-c-c gap-16">
                     <input class="input-checkbox" type="checkbox" name="remember-me" id="privacyPolicy">
                     <p>I accept the <a class="link-privacy-policy" href="#">Privacy policy</a></p>
                 </div>
+                <span id="errorMessageprivacyPolicy" class="error-message"></span>
                 <button class="button">Sign up</button>
+                </div>
             </form>
+
         </div>
-        <button class="button">Sign up</button>
       </form>
     </div>
   </main>

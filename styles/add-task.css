@@ -1,11 +1,17 @@
+:root{
+  --prio-red:#FF3D00;
+  --prio-orange:#FFA800;
+  --prio-green:#7AE229;
+}
+
 .add-task-section {
   flex: 1;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
 }
-.with100{
-  width: 100%;
+.with440px{
+  width: 440px;
 }
 .add-task-headline {
   display: flex;
@@ -46,9 +52,27 @@ max-width: 1440px;
   gap: 32px;
   max-width: 440px;
 }
-.radio {
-  width: auto;
-  height: auto;
+
+.description {
+  display: flex;
+  flex-direction: column;
+}
+
+.description textarea{
+  max-width: 440px;
+  height: 120px;
+  border-radius: 10px;
+  border: 1px solid var(--color-light-gray);
+  padding: 8px 16px;
+  font-family: Inter, sans-serif;
+  color: black;
+  font-size: 20px;
+  outline: none;
+
+}
+
+.description textarea:focus{
+  border-color: var(--contact-color-aqua);
 }
 
 .add-task-form-buttons {
@@ -66,6 +90,10 @@ max-width: 1440px;
 
 }
 /* -----radio */
+.radio {
+  width: auto;
+  height: auto;
+}
 .radio-container{
   display: flex;
   justify-content: space-between;
@@ -76,26 +104,28 @@ max-width: 1440px;
   align-items: center; 
   gap: 10px; 
   position: relative;
-  padding: 10px;
   cursor: pointer;
   font-size: 16px;
   user-select: none;
 }
-
+.gab-prio{
+  margin: 0 16px;
+}
 .checkmark {
   display: flex; 
   justify-content: center; 
   align-items: center; 
-  gap: 10px; 
+  gap: 16px; 
   height: 56px;
-  width: auto; 
+  width: 136px; 
   line-height: 56px;
   text-align: center;
   border: 1px solid rgba(209, 209, 209, 1);
   border-radius: 4px;
   background-color: white;
   transition: all 0.3s ease;
-  font-size: 16px;
+  font-size: 21px;
+  padding: 16px 10px;
 }
 
 .add-task-container input {
@@ -106,11 +136,84 @@ max-width: 1440px;
 }
 
 .add-task-container:hover input ~ .checkmark {
-  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: rgba(0, 0, 0, 0.1)
 }
 
-.add-task-container input:checked ~ .checkmark {
-  background-color: rgba(255, 168, 0, 1);
+.radio-container label:nth-of-type(1) input:checked ~ .checkmark  {
+  background-color: var(--prio-red);
   color: white;
   border: none;
+}
+#prio-image-urgent{
+  background-image: url("/assets/icons/priority-urgent.svg");
+  background-size: contain; 
+  width:20px; 
+  height: 14.51px; 
+  background-repeat: no-repeat;
+  background-position: center;
+ 
+}
+
+#prio-imag-mediumt{
+  background-image: url("/assets/icons/priority-medium.svg");
+  background-size: contain; 
+  width:20px; 
+  height: 14.51px; 
+  background-repeat: no-repeat;
+  background-position: center;
+ 
+}
+
+#prio-imag-low{
+  background-image: url("/assets/icons/priority-low.svg");
+  background-size: contain; 
+  width:20px; 
+  height: 14.51px; 
+  background-repeat: no-repeat;
+  background-position: center;
+ 
+}
+
+.radio-container label:nth-of-type(1) input:checked ~ span #prio-image-urgent {
+  background-image: url("/assets/icons/priority-urgent-white.svg");
+}
+
+.radio-container label:nth-of-type(2) input:checked ~ .checkmark {
+  background-color: var( --prio-orange);
+  color: white;
+  border: none;
+}
+
+.radio-container label:nth-of-type(2) input:checked ~ span #prio-imag-mediumt {
+  background-image: url("/assets/icons/priority-medium-white.svg");
+}
+
+
+.radio-container label:nth-of-type(3) input:checked ~ .checkmark {
+  background-color:var(--prio-green);
+  color: white;
+  border: none;
+}
+
+
+.radio-container label:nth-of-type(3) input:checked ~ span #prio-imag-low {
+  background-image: url("/assets/icons/priority-low-white.svg");
+}
+
+
+.add-task-form-buttons button{
+height: 48px;
+padding: 8px 16px;
+border-radius: 8px;
+border: unset;
+text-wrap: nowrap;
+font-family: Inter, sans-serif;
+font-size: 21px;
+font-weight: 600;
+color: var(--bg-white);
+background-color: var(--primary-blue);
+}
+.add-task-form-buttons button:hover {
+  background-color: var(--color-light-blue);
+  box-shadow: 0 4px 3px -1px rgba(0, 0, 0, 0.2);
 }
