@@ -1,3 +1,4 @@
+// For development purposes only (FDPO)
 const userTemplate = {
     name: '',
     mail: '',
@@ -51,7 +52,7 @@ const localContacts = [
         mail: 'james.smith@gmail.com',
         phone: '+44 863041645',
         initials: 'JS',
-        color: '--contact-color-lemon'
+        color: '--contact-color-purple'
     },
     {
         name: 'Hans R. Fischer',
@@ -178,7 +179,7 @@ const localTasks = [
         description: 'Allow users to share files such as images and documents in their chat conversations.',
         dueDate: '2025-01-25',
         assignedTo: ['-OF7zRDVy9d5-KVowy0e', '-OF7zRD_QrD2t5BM4HJ_'],
-        priority: 'High',
+        priority: 'urgent',
         subtasks: [
             { title: 'Build frontend UI for file upload', done: true },
             { title: 'Implement backend file storage service', done: true },
@@ -219,7 +220,6 @@ const localTasks = [
     }
 ];
 
-// FDPO
 const readOnly = {
     "users": {
         "-OF2J5--3mFIGlAX1O_2": {
@@ -251,7 +251,7 @@ const readOnly = {
             "phone": "+44 394938683"
         },
         "-OF7zRDOvz7zWWz41_J2": {
-            "color": "--contact-color-lemon",
+            "color": "--contact-color-purple",
             "initials": "JS",
             "mail": "james.smith@gmail.com",
             "name": "James Smith",
@@ -475,7 +475,7 @@ const readOnly = {
             "category": "User Story",
             "description": "Allow users to share files such as images and documents in their chat conversations.",
             "dueDate": "2025-01-25",
-            "priority": "High",
+            "priority": "urgent",
             "state": "await-feedback",
             "subtasks": [
                 {

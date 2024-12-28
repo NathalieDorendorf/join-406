@@ -29,7 +29,7 @@ body {
     --contact-color-gold: #FFC701;
     --contact-color-blue: #0038FF;
     --contact-color-lime: #C3FF2B;
-    --contact-color-lemon: #FFE62B;
+    --contact-color-purple: #462f8a;
     --contact-color-crimson: #FF4646;
     --contact-jcolor-honey: #FFBB2B;
 }
@@ -279,13 +279,13 @@ a.current:hover {
         padding: 0;
         gap: 8px;
         height: 100%;
-        width: 100%;    
+        width: 100%;
     }
 
     .sidebar-footer {
         display: none;
     }
-    
+
     a.current {
         border-radius: 12px;
     }
@@ -341,7 +341,8 @@ a.current:hover {
         padding: 0;
         gap: 8px;
         height: 100%;
-        width: 100%;    }
+        width: 100%;
+    }
 
     .sidebar-footer {
         display: none;
