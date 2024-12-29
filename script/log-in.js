@@ -1,5 +1,18 @@
+
 const urlParams = new URLSearchParams(window.location.search);
 const msg = urlParams.get('msg');
+
+let userData = [];
+
+
+
+function getInputData() {
+  let email = document.getElementById("email").value;
+  let password = document.getElementById("password").value;
+
+  console.log(email, password);
+  logIn('/users', email, password)
+}
 
 if (msg) {
   messageBox.innerHTML = msg;
@@ -8,20 +21,24 @@ if (msg) {
   messageBox.style.display = "none";
 }
 
+// infos auf dataBase holen
+async function logIn(path, enteredEmail, enteredPassword) {
+  let response = await fetch(BASE_URL + path + ".json");
+  let responseToJson = await response.json();
 
-function logIn() {
-  let email = document.getElementById("email");
-  let password = document.getElementById("password");
-  let user = users.find(user => user.email === email.value && user.password === password.value);
+  userData = Object.keys(responseToJson).map(key => (
+    { id: key, ...responseToJson[key] }
+  ));
 
-  if (user) {
-    console.log("User found");
-    //     localStorage.setItem("user", JSON.stringify(user));
-    //     window.location.href = "dashboard.html";
-    // } else {
-    //     messageBox.style.display = "block";
-    //     messageBox.innerHTML = "Invalid email or password";
-    // }
-  }
+  const matchingUser = userData.find(user => user.email === enteredEmail && user.password === enteredPassword);
+  validateMatch(matchingUser)
+};
+
+async function validateMatch(matchingUser) {
+  if (matchingUser) {
+    console.log('User gefunden');
+  } else {
+    console.log('User nicht gefunden');
+  };
 }
 
