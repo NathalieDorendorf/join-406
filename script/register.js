@@ -7,18 +7,12 @@ async function addUser() {
     let userName = document.getElementById("user");
     let privacyPolicy = document.getElementById("privacyPolicy");
 
-
     checkPassword(password, confirmPassword);
     checkName(userName)
     checkPrivacyPolicy();
 
-
-    if(password.value !== confirmPassword.value || privacyPolicy.checked != true){
+    if (password.value !== confirmPassword.value || privacyPolicy.checked != true) {
         clearData(password, confirmPassword, privacyPolicy);
-        return;
-    };
-    if(userName.value){
-        clearData(userName);
         return;
     };
 
@@ -28,68 +22,61 @@ async function addUser() {
     };
 
     await updateUser(singleLogInData);
-
-
-
 };
 
 async function checkName(userName) {
-    if (/\d/.test(userName.value) || userName.value.trim() === "" )  {
+    if (/\d/.test(userName.value) || userName.value.trim() === "") {
+        username.value = "";
         errorFunctionName()
         checkPrivacyPolicy()
         return;
-    } else{
-        document.getElementById('confirmPassword').style.border =  "1px solid light-gray";
-        document.getElementById('errorMessageConfirmPassword').innerHTML = "";
+    } else {
+        document.getElementById('user').style.border = "1px solid lightgray";
+        document.getElementById('errorMessageName').innerHTML = "";
     }
 };
 
-async function errorFunctionName(){
-    document.getElementById('errorMessageName').innerHTML= /*html*/`
-     <div class="errorText">Your name cannot contain numbers.</div>
+async function errorFunctionName() {
+    document.getElementById('errorMessageName').innerHTML = /*html*/`
+     <div class="errorText">Your name cannot contain numbers or is blank.</div>
      `
-     document.getElementById('user').style.border =  "1px solid red";
- }
-
+    document.getElementById('user').style.border = "1px solid red";
+};
 
 async function checkPassword(password, confirmPassword) {
-    if (password.value != confirmPassword.value) {
+    if (password.value !== confirmPassword.value) {
         errorFunctionRegister()
         checkPrivacyPolicy()
         return;
 
-    } else{
-        document.getElementById('confirmPassword').style.border =  "1px solid light-gray";
-        document.getElementById('errorMessageConfirmPassword').innerHTML = "";
+    } else {
+        document.getElementById('confirmPassword').style.border = "1px solid lightgray";
+        document.getElementById('password').style.border = "1px solid lightgray";
     }
 };
 
-
-async function errorFunctionRegister(){
-   document.getElementById('errorMessageConfirmPassword').innerHTML= /*html*/`
+async function errorFunctionRegister() {
+    document.getElementById('errorMessageConfirmPassword').innerHTML = /*html*/`
     <div class="errorText">Your passwords don't match. Please try again.</div>
     `
-    document.getElementById('confirmPassword').style.border =  "1px solid red";
-}
+    document.getElementById('confirmPassword').style.border = "1px solid red";
+};
 
 async function checkPrivacyPolicy() {
     if (privacyPolicy.checked) {
         return;
-
-    } else{
-        document.getElementById('errorMessageprivacyPolicy').innerHTML= /*html*/`
-        <div class="errorText">please check the privacy policy</div>
-        `
-        document.getElementById('privacyPolicy').style.border = "red";
+    } else {
+        document.getElementById('errorMessageprivacyPolicy').innerHTML = /*html*/`
+        <div class="errorText">please check the privacy policy</div>`
+        document.getElementById('privacyPolicy').style.outline = "2px solid red";
     }
-}
+};
 
-async function clearData(username, password, confirmPassword, privacyPolicy) {
-    username.value ="";
+async function clearData(password, confirmPassword, privacyPolicy) {
     password.value = "";
     confirmPassword.value = "";
     privacyPolicy.checked = false;
-}
+};
 
 async function updateUser(data) {
     const response = await fetch(BASE_URL + "/users" + ".json", {
