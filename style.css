@@ -228,18 +228,22 @@ a.current:hover {
     transition: all 125ms ease-in-out;
 }
 
-@media (max-width:480px) {
+@media (max-width: 480px) {
     .navbar-header {
-        height: 100px;
-        padding: 0 24px 0 80px;
+        height: 80px;
+        padding: 24px;
     }
 
     .headline {
         display: none;
     }
 
+    .img-help {
+        display: none;
+    }
+
     .logo-header {
-        width: 60px;
+        width: 40px;
     }
 
     .sidebar-container {
@@ -247,12 +251,10 @@ a.current:hover {
         bottom: 0;
         left: 0;
         right: 0;
-        height: 100px;
+        height: 80px;
         width: 100%;
         flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        padding: 24px;
+        padding: 8px;
         gap: 0;
     }
 
@@ -268,7 +270,8 @@ a.current:hover {
         flex-direction: row;
         align-items: center;
         height: 100%;
-        gap: 16px;
+        gap: 8px;
+        font-size: 14px;
     }
 
     .links-container a {
@@ -291,7 +294,6 @@ a.current:hover {
     }
 }
 
-
 @media (max-width: 768px) and (min-width: 481px) {
     .navbar-header {
         height: clamp(100px, 100vh - 100px, 120px);
@@ -299,6 +301,10 @@ a.current:hover {
     }
 
     .headline {
+        display: none;
+    }
+
+    .img-help {
         display: none;
     }
 
