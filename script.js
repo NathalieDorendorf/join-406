@@ -37,3 +37,7 @@ function paintActiveLink() {
         }
     });
 }
+
+function goBackToPreviousPage() {
+    window.history.back();
+}
