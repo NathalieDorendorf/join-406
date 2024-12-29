@@ -41,3 +41,7 @@ function paintActiveLink() {
 function goBackToPreviousPage() {
     window.history.back();
 }
+
+function toggleUserMenu() {
+    document.getElementById('userMenu').classList.toggle('close-menu');
+}

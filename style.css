@@ -69,7 +69,7 @@ h4 {
 
 h5 {
     font-size: 47px;
-    font-weight: 400;
+    font-weight: 500;
 }
 
 
@@ -166,7 +166,7 @@ a.current:hover {
 
 .headline {
     font-size: 24px;
-    font-weight: 100;
+    font-weight: 300;
 }
 
 .img-help:hover {
@@ -194,6 +194,42 @@ a.current:hover {
     font-size: 20px;
     font-weight: 700;
     color: var(--color-light-blue);
+}
+
+.user-menu-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    top: 100px;
+    right: 12px;
+    width: 160px;
+    background-color: var(--bg-color-blue);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    border-radius: 20px 0 20px 20px;
+    font-size: 16px;
+    transition: all 250ms ease-in-out;
+}
+
+.user-menu-container a {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    padding: 0 8px;
+}
+
+.user-menu-container a:hover {
+    cursor: pointer;
+    background-color: var(--bg-color-blue-hover);
+    transform: scale(1.05);
+    transition: all 125ms ease-in-out;
+}
+
+.close-menu {
+    transform: translateX(110%);
 }
 
 .main-content {
