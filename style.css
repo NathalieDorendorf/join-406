@@ -208,14 +208,6 @@ a.current:hover {
     overflow-y: auto;
 }
 
-.help-section {
-    margin-bottom: 120px;
-}
-
-.join-span {
-    color: var(--color-light-blue);
-}
-
 .light-box-shadow {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
 }
