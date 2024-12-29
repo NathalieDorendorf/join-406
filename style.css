@@ -52,14 +52,14 @@ h1 {
     font-size: 60px;
 }
 
-/* h2 {
-    font-size: 24px;
-    font-weight: 100;
-} */
+h2 {
+    font-size: 27px;
+    font-weight: 700;
+}
 
 h3 {
     font-size: 20px;
-    color: var(--color-light-blue);
+    font-weight: 700;
 }
 
 h4 {
@@ -68,16 +68,6 @@ h4 {
 }
 
 h5 {
-    font-size: 27px;
-    font-weight: 700;
-}
-
-h6 {
-    font-size: 20px;
-    font-weight: 700;
-}
-
-h7 {
     font-size: 47px;
     font-weight: 400;
 }
@@ -198,6 +188,12 @@ a.current:hover {
 .user-icon-container:hover {
     cursor: pointer;
     background-color: rgba(var(--bg-color-blue-rgb), 0.12);
+}
+
+.initials {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-light-blue);
 }
 
 .main-content {

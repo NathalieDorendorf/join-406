@@ -26,6 +26,12 @@ a:hover {
     align-items: center;
 }
 
+.d-flex-sb-c {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .gap-16 {
     gap: 16px;
 }
