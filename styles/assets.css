@@ -155,6 +155,13 @@ input:focus {
     margin-bottom: 12px;
 }
 
+.section-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 30px;
+}
+
 .join-span {
     color: var(--color-light-blue);
 }

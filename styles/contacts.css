@@ -1,0 +1,22 @@
+.section-contacts {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.contacts-container {
+    position: fixed;
+    top: 100px;
+    left: 232px;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+    background-color: var(--bg-white);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.contacts-details-container {
+    margin-left: 280px;
+}
