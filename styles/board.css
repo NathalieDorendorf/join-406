@@ -2,8 +2,6 @@
     --color-shadow-blue: #42526E;
     --bg-color-gray: #EEEEEE;
     --bg-color-gray-darker: #E7E7E7;
-    --tag-color-blue: #0038FF;
-    --tag-color-mintgreen: #1FD7C1;
 }
 
 .board {
@@ -23,12 +21,19 @@ section {
 }
 
 .search-wrapper {
+    position: relative;
     margin-left: auto;
+    width: 312px;
 }
 
-#search {
-    width: 312px;
+.search {
+    width: 100%;
     padding-right: 64px;
+}
+
+.search-wrapper:focus-within {
+    flex: 1;
+    max-width: 500px;
 }
 
 .vertical-separator {
@@ -40,10 +45,6 @@ section {
     background-color: var(--color-light-gray);
 }
 
-div:has(>.search-icon) {
-    position: relative;
-}
-
 .search-icon {
     position: absolute;
     right: 16px;
@@ -53,7 +54,9 @@ div:has(>.search-icon) {
     border-radius: 16px;
 }
 
-.search-icon:hover {
+.search-icon:hover,
+.search-icon:focus {
+    outline: none;
     cursor: pointer;
     background-color: var(--bg-color-gray);
 }
@@ -62,11 +65,10 @@ div:has(>.search-icon) {
     overflow-y: auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    column-gap: 26px;
-    row-gap: 16px;
+    gap: 26px;
 }
 
-.column {
+.column-body {
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -76,6 +78,7 @@ div:has(>.search-icon) {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 16px;
 }
 
 .column-title {
@@ -83,14 +86,15 @@ div:has(>.search-icon) {
     font-size: 20px;
 }
 
-.plus-button:hover {
+.plus-button:hover,
+.plus-button:focus {
+    outline: none;
     filter: brightness(0) saturate(100%) invert(63%) sepia(14%) saturate(2444%) hue-rotate(157deg) brightness(91%) contrast(95%);
     cursor: pointer;
 }
 
 .card {
     padding: 16px;
-    margin-bottom: 16px;
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -99,49 +103,55 @@ div:has(>.search-icon) {
     background-color: white;
 }
 
-.card .tag {
+.card-tag {
     width: fit-content;
     padding: 4px 16px;
     border-radius: 8px;
-    background-color: var(--tag-color-blue);
     color: white;
 }
 
-.card .headline {
+.blue-tag {
+    background-color: #0038FF;
+}
+
+.teal-tag {
+    background-color: #1FD7C1;
+}
+
+.card-title {
     font-weight: 700;
     color: var(--primary-blue);
 }
 
-.card .summary {
+.card-summary {
     margin-top: 8px;
     color: var(--color-gray);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
 }
 
-/* .card .summary::after {
-    content: '...';
-} */
-
-.subtasks {
+.card-subtasks {
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-.subtasks .bar {
+.card-subtasks-bar {
     flex: 1;
     height: 8px;
     background-color: #F4F4F4;
     border-radius: 8px;
 }
 
-.subtasks .bar .inner {
+.card-subtasks-bar-inner {
     background-color: #4589FF;
     border-radius: 8px;
     height: 100%;
-    width: calc(100% / 2);
 }
 
-.subtasks .subtask-count {
+.card-subtasks-count {
     font-size: 12px;
     line-height: 0px;
 }
@@ -158,25 +168,9 @@ div:has(>.search-icon) {
     margin-right: -5px;
     border: 2px solid white;
     border-radius: 16px;
-    background-color: #4589FF;
     color: white;
     font-size: 12px;
 }
-
-/* remove and create dynamically */
-.member>.member-icon:nth-child(1) {
-    background-color: var(--contact-color-orange);
-}
-
-.member>.member-icon:nth-child(2) {
-    background-color: var(--contact-color-tropical);
-}
-
-.member>.member-icon:nth-child(3) {
-    background-color: var(--contact-color-violet);
-}
-
-/* removal-end */
 
 .priority {
     width: 32px;
@@ -222,12 +216,31 @@ div:has(>.search-icon) {
     }
 }
 
-@media (max-width: 750px) {
-    .board-header>button>span {
-        display: none;
-    }
-
+@media (max-width: 680px) {
     section {
         padding: 16px;
+    }
+
+    .board-tasks {
+        grid-template-columns: minmax(250px, 1fr);
+    }
+
+    .column-body {
+        flex-direction: row;
+        overflow-x: auto;
+        scrollbar-width: none;
+        padding: 8px;
+    }
+
+    .card {
+        flex-basis: 250px;
+        flex-grow: 1;
+        flex-shrink: 0;
+    }
+}
+
+@media (max-width: 420px) {
+    .board-header>button>span {
+        display: none;
     }
 }

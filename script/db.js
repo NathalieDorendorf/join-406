@@ -221,20 +221,6 @@ const localTasks = [
 ];
 
 const readOnly = {
-    "users": {
-        "-OF2J5--3mFIGlAX1O_2": {
-            "email": "m@test.de",
-            "password": "123"
-        },
-        "-OF2RRfJWnMiXT4Ld84n": {
-            "email": "j@j.de",
-            "password": "123"
-        },
-        "-OF78vimoF3w0v1f797x": {
-            "email": "hantelmarco@gmail.com",
-            "password": "123"
-        }
-    },
     "contacts": {
         "-OF7zRDEGJMgkJbSxfAh": {
             "color": "--contact-color-blue",
@@ -251,7 +237,7 @@ const readOnly = {
             "phone": "+44 394938683"
         },
         "-OF7zRDOvz7zWWz41_J2": {
-            "color": "--contact-color-purple",
+            "color": "--contact-color-lemon",
             "initials": "JS",
             "mail": "james.smith@gmail.com",
             "name": "James Smith",
@@ -343,13 +329,13 @@ const readOnly = {
         }
     },
     "tasks": {
-        "-OF8ASQo6la1X63AB6aP": {
+        "-OF80jmsw10REr51PhJN": {
             "assignedTo": [
                 "-OF7zRDxTS4GfmZxG-Ba",
                 "-OF7zRE841nuLb_NZr8S"
             ],
             "category": "Technical Task",
-            "description": "Implement a CI/CD pipeline to automate builds and deployments for the Chat-App.",
+            "description": "Implement a CI/CD pipeline to automate builds and deployments for the Chat-App. This pipeline should streamline the development workflow by automatically building, testing, and deploying code changes to staging and production environments. The goal is to ensure consistent quality, reduce manual effort, and accelerate feature delivery. Key objectives include setting up GitHub Actions for CI/CD, automating unit and integration tests, and creating reliable deployment scripts that minimize downtime. Success criteria include a fully operational pipeline that is integrated with the team's version control system and provides clear feedback on build and deployment statuses.",
             "dueDate": "2025-01-15",
             "priority": "Medium",
             "state": "done",
@@ -373,13 +359,77 @@ const readOnly = {
             ],
             "title": "Set up CI/CD pipeline"
         },
-        "-OF8ASQsB84KprFqQE_1": {
+        "-OF80jmxaIOMlDsVG3KJ": {
+            "assignedTo": [
+                "-OF7zRDOvz7zWWz41_J2",
+                "-OF7zRDdXTMdMD99QL8f"
+            ],
+            "category": "Technical Task",
+            "description": "Design and implement a relational database schema for user profiles and messages. This schema will form the backbone of the application's data storage, enabling efficient and scalable retrieval of user and chat information. The schema should be designed to accommodate future growth, including features like file attachments and message metadata. Implementation includes creating tables for user profiles and chat messages, defining relationships between entities, and optimizing for common query patterns. The database must be secure, supporting data integrity and minimizing the risk of corruption or unauthorized access. Testing will ensure the schema performs well under realistic usage scenarios.",
+            "dueDate": "2025-02-10",
+            "priority": "Medium",
+            "state": "in-progress",
+            "subtasks": [
+                {
+                    "done": true,
+                    "title": "Design schema for user profiles"
+                },
+                {
+                    "done": false,
+                    "title": "Design schema for chat messages"
+                },
+                {
+                    "done": false,
+                    "title": "Implement tables using PostgreSQL"
+                },
+                {
+                    "done": false,
+                    "title": "Write initial database migration script"
+                }
+            ],
+            "title": "Set up database schema"
+        },
+        "-OF80jn0z1G4tcqk61Ze": {
+            "assignedTo": [
+                "-OF7zRDVy9d5-KVowy0e",
+                "-OF7zRD_QrD2t5BM4HJ_"
+            ],
+            "category": "User Story",
+            "description": "Allow users to share files such as images and documents in their chat conversations. This feature will make the chat experience more versatile and engaging, enabling users to collaborate and communicate more effectively. The implementation involves creating a user-friendly file upload interface, handling backend storage securely, and enforcing restrictions on file types and sizes. Real-time sharing capabilities should ensure that files are instantly accessible to other users in the chat. Rigorous testing will be conducted to verify that the feature works reliably under different network conditions and supports various file formats without compromising application performance.",
+            "dueDate": "2025-01-25",
+            "priority": "Urgent",
+            "state": "await-feedback",
+            "subtasks": [
+                {
+                    "done": true,
+                    "title": "Build frontend UI for file upload"
+                },
+                {
+                    "done": true,
+                    "title": "Implement backend file storage service"
+                },
+                {
+                    "done": true,
+                    "title": "Set size and type restrictions for uploads"
+                },
+                {
+                    "done": false,
+                    "title": "Integrate real-time file sharing"
+                },
+                {
+                    "done": false,
+                    "title": "Test file sharing functionality"
+                }
+            ],
+            "title": "Enable file sharing in chat"
+        },
+        "-OF80jn76h36_p21jVei": {
             "assignedTo": [
                 "-OF7zRE9TuMXGD3RAbbb",
                 "-OF7zREDM0fbyL2xD84a"
             ],
             "category": "User Story",
-            "description": "Add real-time typing indicators to show when a user is typing in a conversation.",
+            "description": "Add real-time typing indicators to show when a user is typing in a conversation. This feature enhances the user experience by providing immediate feedback during conversations, making interactions feel more natural and responsive. The typing indicator should be seamlessly integrated into the chat interface and appear only when users are actively typing. The implementation includes designing an intuitive frontend, handling real-time socket events for typing notifications, and ensuring the indicators work correctly in both one-on-one and group chat settings. The feature should be tested thoroughly to guarantee smooth performance under various scenarios, including low network connectivity.",
             "dueDate": "2025-04-20",
             "priority": "Low",
             "state": "to-do",
@@ -403,13 +453,13 @@ const readOnly = {
             ],
             "title": "Implement typing indicator"
         },
-        "-OF8ASQyCxHMSqjxUVvU": {
+        "-OF80jnAdSlHY3we2_ZI": {
             "assignedTo": [
                 "-OF7zRDEGJMgkJbSxfAh",
                 "-OF7zRDI9PeHAsV0MusW"
             ],
             "category": "User Story",
-            "description": "Create a secure login system where users can sign in using email and password.",
+            "description": "Create a secure login system where users can sign in using email and password. This feature is critical for ensuring user data privacy and access control within the application. The login system should incorporate best practices in security, including encrypted password storage and protection against common vulnerabilities like SQL injection and brute-force attacks. The user interface should be simple and user-friendly, guiding users through the login process. Error messages should be informative but not expose sensitive information. The system will also need to be compatible across devices and include robust testing to identify and address any potential flaws.",
             "dueDate": "2025-03-15",
             "priority": "Urgent",
             "state": "to-do",
@@ -436,70 +486,6 @@ const readOnly = {
                 }
             ],
             "title": "Implement user login functionality"
-        },
-        "-OF8ASQyCxHMSqjxUVvV": {
-            "assignedTo": [
-                "-OF7zRDOvz7zWWz41_J2",
-                "-OF7zRDdXTMdMD99QL8f"
-            ],
-            "category": "Technical Task",
-            "description": "Design and implement a relational database schema for user profiles and messages.",
-            "dueDate": "2025-02-10",
-            "priority": "Medium",
-            "state": "in-progress",
-            "subtasks": [
-                {
-                    "done": true,
-                    "title": "Design schema for user profiles"
-                },
-                {
-                    "done": false,
-                    "title": "Design schema for chat messages"
-                },
-                {
-                    "done": false,
-                    "title": "Implement tables using PostgreSQL"
-                },
-                {
-                    "done": false,
-                    "title": "Write initial database migration script"
-                }
-            ],
-            "title": "Set up database schema"
-        },
-        "-OF8ASQyCxHMSqjxUVvW": {
-            "assignedTo": [
-                "-OF7zRDVy9d5-KVowy0e",
-                "-OF7zRD_QrD2t5BM4HJ_"
-            ],
-            "category": "User Story",
-            "description": "Allow users to share files such as images and documents in their chat conversations.",
-            "dueDate": "2025-01-25",
-            "priority": "urgent",
-            "state": "await-feedback",
-            "subtasks": [
-                {
-                    "done": true,
-                    "title": "Build frontend UI for file upload"
-                },
-                {
-                    "done": true,
-                    "title": "Implement backend file storage service"
-                },
-                {
-                    "done": true,
-                    "title": "Set size and type restrictions for uploads"
-                },
-                {
-                    "done": false,
-                    "title": "Integrate real-time file sharing"
-                },
-                {
-                    "done": false,
-                    "title": "Test file sharing functionality"
-                }
-            ],
-            "title": "Enable file sharing in chat"
         }
     }
 }

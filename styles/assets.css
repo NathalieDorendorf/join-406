@@ -130,7 +130,9 @@ input:focus {
     cursor: pointer;
 }
 
-.button:hover {
+.button:hover,
+.button:focus {
+    outline: none;
     background-color: var(--color-light-blue);
     box-shadow: 0 4px 3px -1px rgba(0, 0, 0, 0.2);
 }
