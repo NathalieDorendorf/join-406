@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Add Task</title>
-    <link rel="icon" href="/assets/icons/join-favicon.png" type="image/png" sizes="32x32" />
+    <link
+      rel="icon"
+      href="/assets/icons/join-favicon.png"
+      type="image/png"
+      sizes="32x32"
+    />
     <link rel="stylesheet" href="/styles/assets.css" />
     <link rel="stylesheet" href="/styles/fonts.css" />
     <link rel="stylesheet" href="/styles/log-in.css" />
@@ -17,104 +21,151 @@
     <script src="/script/log-in.js"></script>
     <script src="/script/register.js"></script>
     <script src="/script/templates.js"></script>
+    <script src="/script/add-task.js"></script>
+    <script src="/script/fetch.js"></script>
     <script src="/script.js"></script>
-</head>
+  </head>
 
-<body onload="includeHTML();">
+  <body onload="includeHTML()">
     <div class="d-flex">
-        <div w3-include-html="/assets/templates/sidebar.html">
-            <p>Die Sidebar konnte nicht geladen werden.</p>
+      <div w3-include-html="/assets/templates/sidebar.html">
+        <p>Die Sidebar konnte nicht geladen werden.</p>
+      </div>
+      <div class="main-content">
+        <div w3-include-html="/assets/templates/header.html">
+          <p>Der Header konnte nicht geladen werden.</p>
         </div>
-        <div class="main-content">
-            <div w3-include-html="/assets/templates/header.html">
-                <p>Der Header konnte nicht geladen werden.</p>
-            </div>
-            <section class="add-task-section">
-                <header class="add-task-headline">
-                    <h1>Add Task</h1>
-                </header>
+        <section class="add-task-section">
+          <header class="add-task-headline">
+            <h1>Add Task</h1>
+          </header>
 
-                <main class="main-content-add-task">
-                    <form class="add-task-form" action="">
-                        <div class="add-task-form-content">
-                            <div class="form-left">
-                                <div class="title">
-                                    <label for="title">Title*</label>
-                                    <input class="with440px" placeholder="Enter a title" id="title" type="text" />
-                                </div>
+          <main class="main-content-add-task">
+            <form
+              class="add-task-form"
+              id="add-task-form"
+              onsubmit="processForm(event)"
+            >
+              <div class="add-task-form-content">
+                <div class="form-left">
+                  <div class="title">
+                    <label for="title">Title*</label>
+                    <input
+                      class="with440px"
+                      required
+                      name="title"
+                      placeholder="Enter a title"
+                      id="title"
+                      type="text"
+                    />
+                  </div>
 
-                                <div class="description">
-                                    <label for="description">Description</label>
-                                   <textarea class=".with440px" name="description" id="description"></textarea>
-                                </div>
+                  <div class="description">
+                    <label for="description">Description</label>
+                    <textarea
+                      class=".with440px"
+                      name="description"
+                      id="description"
+                    ></textarea>
+                  </div>
+                  <div class="multiselect with440px">
+                    <div class="selectBox" onclick="showCheckboxes()">
+                      <select>
+                        <option>Select contacts to assign</option>
+                      </select>
+                      <div class="overSelect"></div>
+                    </div>
+                    <div id="checkboxes">
+                      <label for="one">
+                        <input type="checkbox" id="one" />First checkbox <div class="patch">fg</div></label>
+                      <label for="two">
+                        <input type="checkbox" id="two" />Second checkbox<div class="patch">hs</div></label>
+                      <label for="three">
+                        <input type="checkbox" id="three" />Third checkbox <div class="patch">hs</div></label>
+                    </div>
+                  </div>
+                </div>
 
-                                <div class="assigned">
-                                    <label for="assigned">Assigned to</label>
-                                    <select class="with440px" name="assigned" id="assigned">
-                                        <option value="" disabled selected hidden>
-                                            Select contacts to assign
-                                        </option>
-                                        <option value="Peter">Peter</option>
-                                        <option value="Hanz">Hanz</option>
-                                        <option value="Lara">Lara</option>
-                                        <option value="Matze">Matze</option>
-                                    </select>
-                                </div>
-                            </div>
+                <div class="form-middle"></div>
 
-                            <div class="form-middle"></div>
+                <div class="form-right">
+                  <div class="date">
+                    <label for="date">Due date*</label>
+                    <input
+                      class="with440px"
+                      required
+                      name="date"
+                      placeholder="Enter a title"
+                      id="title"
+                      type="date"
+                    />
+                  </div>
+                  <div>
+                    <p>Prio</p>
+                    <div class="radio-container">
+                      <label class="add-task-container">
+                        <input
+                          type="radio"
+                          name="prio"
+                          value="urgent"
+                          checked
+                        />
+                        <span class="checkmark"
+                          >Urgent <img id="prio-image-urgent" src="" alt=""
+                        /></span>
+                      </label>
 
-                            <div class="form-right">
-                                <div class="date">
-                                    <label for="date">Due date*</label>
-                                    <input class="with440px" placeholder="Enter a title" id="title" type="date" />
-                                </div>
-                                <div>
-                                    <p>Prio</p>
-                                    <div class="radio-container">
-                                        <label class="add-task-container">
-                                            <input type="radio" name="prio" value="urgent" checked />
-                                            <span class="checkmark">Urgent <img id="prio-image-urgent" src="" alt=""></span>
-                                        </label>
-                                        
-                                        <label class="add-task-container gab-prio">
-                                            <input type="radio" name="prio" value="medium" />
-                                            <span class="checkmark">Medium  <img id="prio-imag-mediumt" src="" alt=""></span>
-                                        </label>
+                      <label class="add-task-container gab-prio">
+                        <input type="radio" name="prio" value="medium" />
+                        <span class="checkmark"
+                          >Medium <img id="prio-imag-mediumt" src="" alt=""
+                        /></span>
+                      </label>
 
-                                        <label class="add-task-container">
-                                            <input type="radio" name="prio" value="low" />
-                                            <span class="checkmark">Low <img id =prio-imag-low src="" alt=""> </span>
-                                        </label>
-                                    </div>
-                                </div>
+                      <label class="add-task-container">
+                        <input type="radio" name="prio" value="low" />
+                        <span class="checkmark"
+                          >Low <img id="prio-imag-low" src="" alt="" />
+                        </span>
+                      </label>
+                    </div>
+                  </div>
 
-                                <div class="category">
-                                    <label for="category">Category*</label>
-                                    <select class="with440px" name="category" id="category">
-                                        <option value="" disabled selected hidden>
-                                            Select task category
-                                        </option>
-                                        <option value="technikalTask">Technikal Task</option>
-                                        <option value="userStory">User Story</option>
-                                    </select>
-                                </div>
+                  <div class="category">
+                    <label for="category">Category*</label>
+                    <select
+                      class="with440px"
+                      required
+                      name="category"
+                      id="category"
+                    >
+                      <option value="" disabled selected hidden>
+                        Select task category
+                      </option>
+                      <option value="technikalTask">Technikal Task</option>
+                      <option value="userStory">User Story</option>
+                    </select>
+                  </div>
 
-                                <div class="subtask">
-                                    <label for="subtask">subtask</label>
-                                    <input class="with440px" placeholder="Add new subtask" id="title" type="text" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="add-task-form-buttons">
-                            <button>Clear</button>
-                            <button>Create Task</button>
-                        </div>
-                    </form>
-                </main>
-            </section>
-        </div>
+                  <div class="subtask">
+                    <label for="subtask">subtask</label>
+                    <input
+                      class="with440px"
+                      placeholder="Add new subtask"
+                      id="title"
+                      type="text"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="add-task-form-buttons">
+                <button>Clear</button>
+                <button type="submit">Create Task</button>
+              </div>
+            </form>
+          </main>
+        </section>
+      </div>
     </div>
-</body>
-
+  </body>
 </html>

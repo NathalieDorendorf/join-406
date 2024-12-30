@@ -16,6 +16,10 @@ a:hover {
     cursor: pointer;
 }
 
+.d-none {
+    display: none;
+}
+
 .d-flex {
     display: flex;
 }
@@ -23,6 +27,12 @@ a:hover {
 .d-flex-c-c {
     display: flex;
     justify-content: center;
+    align-items: center;
+}
+
+.d-flex-sb-c {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -45,11 +55,6 @@ a:hover {
 .section-gap {
     gap: 16px;
 }
-
-.display-none{
-    display: none;
-}
-
 
 @media (max-width:480px) {
     .section-pad {

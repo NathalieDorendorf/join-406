@@ -3,8 +3,8 @@ const BASE_URL = "https://join-gruppenarbeit-137ed-default-rtdb.europe-west1.fir
 /**
  * 
  * @param {String} path - For example: 'users', 'contacts', 'tasks' or users/{id}...
- * @param {String} [httpMethod=GET] - also 'POST', 'PUT', 'PATCH', etc.
- * @param {Object} [data='undefined']
+ * @param {String} [httpMethod = GET] - also 'POST', 'PUT', 'PATCH', etc.
+ * @param {Object} [data = 'undefined']
  * @returns JSON
  */
 async function fetchResource(path, httpMethod = 'GET', data = undefined) {
@@ -31,3 +31,48 @@ function getRequestInit(method, data) {
         body: JSON.stringify(data),
     }
 }
+
+/**
+ * Retrieve all data at once. Access the return value for example like this: data.contacts
+ * @param {String} [path] - omit to get all production data, otherwise path
+ * @returns Object - all data in database, i.e. users, contacts and tasks
+ */
+async function getAllData(path = '') {
+    const allData = {};
+    allData.users = await fetchResource(path + '/users');
+    allData.contacts = await fetchResource(path + '/contacts');
+    allData.tasks = await fetchResource(path + '/tasks');
+    return allData;
+}
+
+async function getAllExampleData() {
+    return await getAllData('readOnly');
+}
+
+// for development purposes only (FDPO)
+// call for example like this: postData('contacts', localContacts);
+async function postArrayData(path, dataArray) {
+    for (const data of dataArray) {
+        fetchResource(path, 'POST', data);
+    }
+}
+
+async function putArrayData(path, dataArray) {
+    for (const data of dataArray) {
+        fetchResource(path, 'PUT', data);
+    }
+}
+
+async function postObjectData(path, dataObject) {
+    for (const data of Object.values(dataObject)) {
+        fetchResource(path, 'POST', data);
+    }
+}
+
+async function putObjectData(path, dataObject) {
+    for (const data of Object.values(dataObject)) {
+        fetchResource(path, 'PUT', data);
+    }
+}
+
+// FDPO end

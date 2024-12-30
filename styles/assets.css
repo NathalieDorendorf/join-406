@@ -130,7 +130,9 @@ input:focus {
     cursor: pointer;
 }
 
-.button:hover {
+.button:hover,
+.button:focus {
+    outline: none;
     background-color: var(--color-light-blue);
     box-shadow: 0 4px 3px -1px rgba(0, 0, 0, 0.2);
 }
@@ -147,4 +149,34 @@ input:focus {
     width: 2px;
     background-color: var(--color-light-gray);
     border-radius: 8px;
+}
+
+.section {
+    margin-bottom: 12px;
+    margin-top: 48px;
+}
+
+.join-span {
+    color: var(--color-light-blue);
+}
+
+@media (max-width:480px) {
+    .section {
+        margin-bottom: 80px;
+        margin-top: 32px;
+    }
+
+    .h1-responsive {
+        font-size: 47px;
+    }
+}
+
+@media (max-width: 768px) and (min-width: 481px) {
+    .section {
+        margin-bottom: 100px;
+    }
+
+    .h1-responsive {
+        font-size: 47px;
+    }
 }

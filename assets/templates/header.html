@@ -1,9 +1,18 @@
 <nav class="navbar-header">
-    <h2>Kanban Poject Management Tool</h2>
+    <img class="logo-header" src="/assets/icons/join-logo.svg" alt="Join">
+    <p class="headline">Kanban Poject Management Tool</p>
     <div class="d-flex gap-24">
-        <img class="img-help" src="/assets/icons/help.svg" alt="Help">
-        <div class="user-icon-container">
-            <h3>SM</h3>
+        <a href="/html/help.html" class="d-flex-c-c">
+            <img class="img-help" src="/assets/icons/help.svg" alt="Help">
+        </a>
+        <div class="user-icon-container" onclick="toggleUserMenu()">
+            <p class="initials">SM</p>
+        </div>
+        <div class="d-none user-menu-container" id="userMenu">
+            <a href="/html/help.html" class="d-none">Help</a>
+            <a href="/html/legal-notice.html" target="_blank">Legal Notice</a>
+            <a href="/html/privacy-policy.html" target="_blank">Privacy Policy</a>
+            <a href="/html/log-in.html">Log out</a>
         </div>
     </div>
 </nav>
