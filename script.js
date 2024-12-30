@@ -43,5 +43,15 @@ function goBackToPreviousPage() {
 }
 
 function toggleUserMenu() {
-    document.getElementById('userMenu').classList.toggle('close-menu');
+    let userMenu = document.getElementById('userMenu');
+    userMenu.classList.toggle('visible');
+    userMenu.classList.toggle('hidden');
 }
+
+// function toggleUserMenu() {
+//     let userMenu = document.getElementById('userMenu');
+//     if (userMenu.style.display === 'none') {
+//         userMenu.style.display = 'block';
+//     } else {
+//         userMenu.style.display = 'none';
+//     }
