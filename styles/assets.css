@@ -166,6 +166,34 @@ input:focus {
     color: var(--color-light-blue);
 }
 
+.ui-icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+}
+
+.overlay {
+    overflow-y: auto;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.overlay>:first-child {
+    outline: none;
+}
+
 @media (max-width:480px) {
     .section {
         margin-bottom: 80px;
