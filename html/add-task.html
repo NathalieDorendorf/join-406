@@ -17,16 +17,17 @@
     <link rel="stylesheet" href="/styles/standard.css" />
     <link rel="stylesheet" href="/styles/add-task.css" />
     <link rel="stylesheet" href="/style.css" />
+    <script src="/script/fetch.js"></script>
     <script src="/script/includes.js"></script>
     <script src="/script/log-in.js"></script>
     <script src="/script/register.js"></script>
     <script src="/script/templates.js"></script>
     <script src="/script/add-task.js"></script>
-    <script src="/script/fetch.js"></script>
     <script src="/script.js"></script>
+    <script src="/script/add-task-temlates.js"></script>
   </head>
 
-  <body onload="includeHTML()">
+  <body onload="init()">
     <div class="d-flex">
       <div w3-include-html="/assets/templates/sidebar.html">
         <p>Die Sidebar konnte nicht geladen werden.</p>
@@ -68,21 +69,20 @@
                       id="description"
                     ></textarea>
                   </div>
+
                   <div class="multiselect with440px">
-                    <div class="selectBox" onclick="showCheckboxes()">
-                      <select>
-                        <option>Select contacts to assign</option>
-                      </select>
+                    <input
+                      onclick="showCheckboxes()"
+                      value=""
+                      class="with440px"
+                      placeholder="Select contacts to assign"
+                      id="assigned"
+                      type="text"
+                    />
+                    <div class="selectBox">
                       <div class="overSelect"></div>
                     </div>
-                    <div id="checkboxes">
-                      <label for="one">
-                        <input type="checkbox" id="one" />First checkbox <div class="patch">fg</div></label>
-                      <label for="two">
-                        <input type="checkbox" id="two" />Second checkbox<div class="patch">hs</div></label>
-                      <label for="three">
-                        <input type="checkbox" id="three" />Third checkbox <div class="patch">hs</div></label>
-                    </div>
+                    <div id="checkboxes"></div>
                   </div>
                 </div>
 
