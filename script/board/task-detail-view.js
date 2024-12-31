@@ -5,13 +5,18 @@ async function toggleSubtaskStatus(currentElement, index) {
     const subtask = allData.tasks[taskId].subtasks[index];
     saveState(subtask.done);
     subtask.done = !subtask.done;
-    const svgPath = subtask.done ? 'checked' : 'unchecked';
+    updateCheckbox();
     if (await updateTaskInDatabase(taskId)) {
-        const newSrc = `/assets/icons/check-button-${svgPath}.svg`
-        currentElement.src = newSrc;
         paintTasks();
     } else {
         subtask.done = restoreState();
+        updateCheckbox();
+    }
+
+    function updateCheckbox() {
+        const svgPath = subtask.done ? 'checked' : 'unchecked';
+        const newSrc = `/assets/icons/check-button-${svgPath}.svg`
+        currentElement.src = newSrc;
     }
 }
 

@@ -40,8 +40,9 @@ let toastContainer;
             <style>
                 .toast-container {
                     position: fixed;
-                    width: 100%;
                     bottom: 16px;
+                    left: 50%;
+                    transform: translateX(-50%);
                     display: grid;
                     gap: 8px;
                     justify-items: center;

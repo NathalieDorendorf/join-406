@@ -113,13 +113,6 @@ function openTaskDetailView(currentElement) {
     openOverlay(taskDetailView);
 }
 
-function closeTaskOverlay() {
-    if (document.getSelection().type !== 'Range') {
-        document.body.removeChild(overlayElement);
-        paintTasks();
-    }
-}
-
 function openOverlayNewTask(category = '') {
 
 }
