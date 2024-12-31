@@ -4,20 +4,16 @@ const msg = urlParams.get('msg');
 
 let userData = [];
 
-
-
 function getInputData() {
   let email = document.getElementById("email").value;
   let password = document.getElementById("password").value;
 
-  console.log(email, password);
   logIn('/users', email, password)
 }
 
 if (msg) {
   messageBox.innerHTML = msg;
 } else {
-  // display: none;
   messageBox.style.display = "none";
 }
 

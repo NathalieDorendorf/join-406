@@ -7,14 +7,15 @@ async function addUser() {
     let userName = document.getElementById("user");
     let privacyPolicy = document.getElementById("privacyPolicy");
 
-    checkPassword(password, confirmPassword);
-    checkName(userName)
-    checkPrivacyPolicy();
+    const isPasswordValid = await checkPassword(password, confirmPassword);
+    const isNameValid = await checkName(userName);
+    const isEmailValid = await checkEmail(email); 
+    const isPrivacyPolicyChecked = await privacyPolicy.checked;
 
-    if (password.value !== confirmPassword.value || privacyPolicy.checked != true) {
+    if (!isPasswordValid || !isNameValid || !isEmailValid || !isPrivacyPolicyChecked) {
         clearData(password, confirmPassword, privacyPolicy);
         return;
-    };
+    }
 
     let singleLogInData = {
         "email": email.value,
@@ -26,15 +27,15 @@ async function addUser() {
 
 async function checkName(userName) {
     if (/\d/.test(userName.value) || userName.value.trim() === "") {
-        username.value = "";
-        errorFunctionName()
-        checkPrivacyPolicy()
-        return;
+        errorFunctionName();
+        return false;
     } else {
         document.getElementById('user').style.border = "1px solid lightgray";
         document.getElementById('errorMessageName').innerHTML = "";
-    }
-};
+        return true;
+    };
+}
+
 
 async function errorFunctionName() {
     document.getElementById('errorMessageName').innerHTML = /*html*/`
@@ -44,23 +45,51 @@ async function errorFunctionName() {
 };
 
 async function checkPassword(password, confirmPassword) {
-    if (password.value !== confirmPassword.value) {
-        errorFunctionRegister()
-        checkPrivacyPolicy()
-        return;
-
+    if (password.value !== confirmPassword.value || password.value.trim() === "") {
+        errorFunctionPassword();
+        return false;
     } else {
         document.getElementById('confirmPassword').style.border = "1px solid lightgray";
         document.getElementById('password').style.border = "1px solid lightgray";
+        return true;
     }
 };
 
-async function errorFunctionRegister() {
+async function errorFunctionPassword() {
     document.getElementById('errorMessageConfirmPassword').innerHTML = /*html*/`
     <div class="errorText">Your passwords don't match. Please try again.</div>
-    `
+    `;
     document.getElementById('confirmPassword').style.border = "1px solid red";
 };
+
+
+
+async function checkEmail(email) {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email.value) || email.value.trim() === "") {
+        errorFunctionEmail();
+        return false;
+    } else {
+        document.getElementById('email').style.border = "1px solid lightgray";
+        document.getElementById('errorMessageEmail').innerHTML = "";
+        return true; 
+    }
+}
+
+
+async function errorFunctionEmail() {
+    document.getElementById('errorMessageEmail').innerHTML = /*html*/`
+    <div class="errorText">the email field is empty or does not contain an @ sign</div>
+    `
+    document.getElementById('email').style.border = "1px solid red";
+};
+
+
+
+
+
+
+
 
 async function checkPrivacyPolicy() {
     if (privacyPolicy.checked) {
@@ -72,10 +101,9 @@ async function checkPrivacyPolicy() {
     }
 };
 
-async function clearData(password, confirmPassword, privacyPolicy) {
+async function clearData(password, confirmPassword) {
     password.value = "";
     confirmPassword.value = "";
-    privacyPolicy.checked = false;
 };
 
 async function updateUser(data) {
