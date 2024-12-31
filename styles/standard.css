@@ -77,8 +77,8 @@ a:hover {
     justify-content: space-evenly;
 }
 
-.ae {
-    align-items: end;
+.je {
+    justify-content: end;
 }
 
 .gap-8 {

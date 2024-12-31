@@ -1,0 +1,95 @@
+.card {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    font-size: 16px;
+    border-radius: 24px;
+    background-color: white;
+}
+
+.card:hover {
+    cursor: pointer;
+}
+
+.card-tag {
+    width: fit-content;
+    padding: 4px 16px;
+    border-radius: 8px;
+    color: white;
+}
+
+.blue-tag {
+    background-color: #0038FF;
+}
+
+.teal-tag {
+    background-color: #1FD7C1;
+}
+
+.card-title {
+    font-weight: 700;
+    color: var(--primary-blue);
+}
+
+.card-summary {
+    margin-top: 8px;
+    color: var(--color-gray);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+.card-subtasks {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.card-subtasks-bar {
+    flex: 1;
+    height: 8px;
+    background-color: #F4F4F4;
+    border-radius: 8px;
+}
+
+.card-subtasks-bar-inner {
+    background-color: #4589FF;
+    border-radius: 8px;
+    height: 100%;
+}
+
+.card-subtasks-count {
+    font-size: 12px;
+    line-height: 0px;
+}
+
+.member-and-priority {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.member-icon {
+    width: 32px;
+    height: 32px;
+    margin-right: -5px;
+    border: 2px solid white;
+    border-radius: 50%;
+    color: white;
+    font-size: 12px;
+}
+
+.priority {
+    width: 32px;
+    height: 32px;
+}
+
+@media (max-width: 680px) {
+    .card {
+        flex-basis: 250px;
+        flex-grow: 1;
+        flex-shrink: 0;
+    }
+}

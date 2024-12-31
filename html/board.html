@@ -9,12 +9,20 @@
     <link rel="stylesheet" href="/styles/assets.css">
     <link rel="stylesheet" href="/styles/fonts.css">
     <link rel="stylesheet" href="/styles/standard.css">
-    <link rel="stylesheet" href="/styles/board.css">
+    <link rel="stylesheet" href="/styles/board/board.css">
+    <link rel="stylesheet" href="/styles/board/card.css">
+    <link rel="stylesheet" href="/styles/board/detail-card.css">
     <link rel="stylesheet" href="/style.css">
     <script src="/script/templates.js"></script>
+    <script src="/script/assets.js"></script>
     <script src="/script/fetch.js"></script>
-    <script src="/script/board.js"></script>
-    <script src="/script/board-templates.js"></script>
+    <script src="/script/board/board.js"></script>
+    <!-- FDPO -->
+    <script src="/script/db.js"></script>
+    <!-- FDPO -->
+    <script src="/script/board/task-detail-view.js"></script>
+    <script src="/script/board/task-template.js"></script>
+    <script src="/script/board/task-detail-view-template.js"></script>
     <script src="/script.js"></script>
 </head>
 
@@ -31,11 +39,11 @@
                 <section class="board-header d-flex gap-32">
                     <h1>Board</h1>
                     <div class="search-wrapper">
-                        <form id="search-form">
+                        <form id="search-form" spellcheck="false">
                             <input type="search" id="search" class="search" placeholder="Find Task" autocomplete="off">
                         </form>
-                        <div class="vertical-separator"></div>
-                        <div class="search-icon d-flex-c-c" tabindex="0" onclick="searchHint()">
+                        <div class="search-vertical-separator"></div>
+                        <div class="ui-icon-wrapper search-icon" tabindex="0" onclick="showSearchHint()">
                             <img src="/assets/icons/search.svg" alt="Search Task">
                         </div>
                     </div>
@@ -47,7 +55,7 @@
                     <div class="column">
                         <div class="column-head">
                             <span class="column-title">To Do</span>
-                            <img src="/assets/icons/plus-button.svg" alt="Add Task Button" class="plus-button"
+                            <img src="/assets/icons/plus-button.svg" alt="Add Task Button" class="plus-button ui-icon"
                                 tabindex="0" onclick="openOverlayNewTask('to-do')">
                         </div>
                         <div class="column-body" id="to-do-column"></div>
@@ -55,7 +63,7 @@
                     <div class="column">
                         <div class="column-head">
                             <span class="column-title">In progress</span>
-                            <img src="/assets/icons/plus-button.svg" alt="Add Task Button" class="plus-button"
+                            <img src="/assets/icons/plus-button.svg" alt="Add Task Button" class="plus-button ui-icon"
                                 tabindex="0" onclick="openOverlayNewTask('in-progress')">
                         </div>
                         <div class="column-body" id="in-progress-column"></div>
@@ -63,7 +71,7 @@
                     <div class="column">
                         <div class="column-head">
                             <span class="column-title">Await feedback</span>
-                            <img src="/assets/icons/plus-button.svg" alt="Add Task Button" class="plus-button"
+                            <img src="/assets/icons/plus-button.svg" alt="Add Task Button" class="plus-button ui-icon"
                                 tabindex="0" onclick="openOverlayNewTask('await-feedback')">
                         </div>
                         <div class="column-body" id="await-feedback-column"></div>

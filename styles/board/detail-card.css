@@ -1,0 +1,102 @@
+.detail-card {
+    max-width: 600px;
+    padding: 48px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    font-size: 20px;
+    border-radius: 30px;
+    color: black;
+    background-color: white;
+}
+
+.detail-card .card-tag {
+    font-size: 23px;
+}
+
+.detail-card .card-title {
+    font-size: 61px;
+    color: black;
+}
+
+.date-and-prio-alignment-box {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.detail-card .date-and-prio-alignment-box>div>:first-child {
+    width: 105px;
+}
+
+.detail-card .date-and-prio-alignment-box>div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.detail-card .task-item-designator {
+    color: var(--primary-blue);
+}
+
+.task-priority-string {
+    text-transform: capitalize;
+}
+
+.assigned-to {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.detail-card-members {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px 16px;
+}
+
+.detail-card .member-card {
+    display: flex;
+    gap: 16px;
+}
+
+.detail-card .member-icon {
+    width: 40px;
+    height: 40px;
+    margin-left: unset;
+}
+
+.detail-card-subtask {
+    padding: 8px 16px;
+    border-radius: 16px;
+}
+
+.detail-card-subtask:hover,
+.detail-card-subtask:focus {
+    background-color: var(--bg-color-gray);
+}
+
+.check-btn:hover,
+.check-btn:focus {
+    outline: none;
+    background-color: var(--color-light-gray);
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.detail-card-ui-footer span {
+    color: var(--primary-blue);
+}
+
+.detail-card-ui-footer>div:hover,
+.detail-card-ui-footer>div:focus {
+    transform: scale(1.05);
+}
+
+.vertical-separator {
+    background-color: var(--color-light-gray);
+    align-self: stretch;
+    width: 1px;
+}

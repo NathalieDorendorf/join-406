@@ -36,7 +36,7 @@ section {
     max-width: 500px;
 }
 
-.vertical-separator {
+.search-vertical-separator {
     position: absolute;
     right: 64px;
     top: 8px;
@@ -49,13 +49,10 @@ section {
     position: absolute;
     right: 16px;
     top: 8px;
-    width: 32px;
-    height: 32px;
-    border-radius: 16px;
 }
 
-.search-icon:hover,
-.search-icon:focus {
+.ui-icon-wrapper:hover,
+.ui-icon-wrapper:focus {
     outline: none;
     cursor: pointer;
     background-color: var(--bg-color-gray);
@@ -86,95 +83,11 @@ section {
     font-size: 20px;
 }
 
-.plus-button:hover,
-.plus-button:focus {
+.ui-icon:hover,
+.ui-icon:focus {
     outline: none;
     filter: brightness(0) saturate(100%) invert(63%) sepia(14%) saturate(2444%) hue-rotate(157deg) brightness(91%) contrast(95%);
     cursor: pointer;
-}
-
-.card {
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    font-size: 16px;
-    border-radius: 24px;
-    background-color: white;
-}
-
-.card-tag {
-    width: fit-content;
-    padding: 4px 16px;
-    border-radius: 8px;
-    color: white;
-}
-
-.blue-tag {
-    background-color: #0038FF;
-}
-
-.teal-tag {
-    background-color: #1FD7C1;
-}
-
-.card-title {
-    font-weight: 700;
-    color: var(--primary-blue);
-}
-
-.card-summary {
-    margin-top: 8px;
-    color: var(--color-gray);
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    overflow: hidden;
-}
-
-.card-subtasks {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.card-subtasks-bar {
-    flex: 1;
-    height: 8px;
-    background-color: #F4F4F4;
-    border-radius: 8px;
-}
-
-.card-subtasks-bar-inner {
-    background-color: #4589FF;
-    border-radius: 8px;
-    height: 100%;
-}
-
-.card-subtasks-count {
-    font-size: 12px;
-    line-height: 0px;
-}
-
-.member-and-priority {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.member-icon {
-    width: 32px;
-    height: 32px;
-    margin-right: -5px;
-    border: 2px solid white;
-    border-radius: 16px;
-    color: white;
-    font-size: 12px;
-}
-
-.priority {
-    width: 32px;
-    height: 32px;
 }
 
 .no-task-feedback {
@@ -230,12 +143,6 @@ section {
         overflow-x: auto;
         scrollbar-width: none;
         padding: 8px;
-    }
-
-    .card {
-        flex-basis: 250px;
-        flex-grow: 1;
-        flex-shrink: 0;
     }
 }
 

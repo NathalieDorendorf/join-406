@@ -1,7 +1,7 @@
 const BASE_URL = "https://join-gruppenarbeit-137ed-default-rtdb.europe-west1.firebasedatabase.app/";
 
 /**
- * 
+ * Fetch Resource for a any path after BASE
  * @param {String} path - For example: 'users', 'contacts', 'tasks' or users/{id}...
  * @param {String} [httpMethod = GET] - also 'POST', 'PUT', 'PATCH', etc.
  * @param {Object} [data = 'undefined']
@@ -27,10 +27,8 @@ async function fetchResource(path, httpMethod = 'GET', data = undefined) {
 
 /**
  * Generates the request initialization object for a fetch request.
- * 
  * @param {string} method - The HTTP method to be used (e.g., "GET", "POST", "PUT", etc.).
  * @param {Object} data - The data to be included in the request body. This will be stringified into JSON format.
- * 
  * @returns {Object} The request initialization object containing the HTTP method, headers["Content-Type"], and body.
  */
 function getRequestInit(method, data) {
@@ -58,7 +56,6 @@ async function getAllData(path = '') {
 
 /**
  * Retrieves all example data by calling the `getAllData` function with 'readOnly' as a parameter.
- * 
  * @returns {Promise<Object>} The original example data.
  */
 async function getAllExampleData() {
@@ -68,23 +65,21 @@ async function getAllExampleData() {
 /**
  * Handles both "PUT" and "DELETE" requests for an item in a specified list.
  * Updates or deletes the item based on the provided HTTP method.
- * 
  * @param {string} list - The name of the list ("users", "contacts", "tasks").
  * @param {string} itemId - The ID of the item to update or delete.
  * @param {string} httpMethod - The HTTP method to use for the request (either "PUT" or "DELETE").
  * @param {string} [itemDesignator='Data'] - A label for the item being updated or deleted (optional, defaults to 'Data').
- * 
  * @returns {Promise<boolean>} Returns `true` if the operation was successful, otherwise `false`.
  */
 async function putOrDelteItem(list, itemId, httpMethod, itemDesignator = 'Data') {
     if (isValidList(list) && isValidHttpMethod(httpMethod)) {
-        const msgAppendix = httpMethod === 'put' ? 'updated' : 'deleted';
+        const msgAppendix = httpMethod.toLowerCase() === 'put' ? 'updated' : 'deleted';
         const path = `/${list}/${itemId}`;
         if (await fetchResource(path, httpMethod, allData[list][itemId])) {
-            showToastMessage(`${itemDesignator} has been ${msgAppendix}.`);
+            showToastMessage({ message: `${itemDesignator} has been ${msgAppendix}.` });
             return true;
         } else {
-            showToastMessage(`${itemDesignator} could not be ${msgAppendix}.`);
+            showToastMessage({ message: `${itemDesignator} could not be ${msgAppendix}.`, backgroundColor: 'red' });
         }
     } else {
         console.error('Invalid list name');
@@ -94,9 +89,7 @@ async function putOrDelteItem(list, itemId, httpMethod, itemDesignator = 'Data')
 
 /**
  * Validates if the given list name is valid.
- * 
  * @param {string} list - The name of the list to validate (e.g., "users", "contacts", "tasks").
- * 
  * @returns {boolean} Returns `true` if the list is valid, otherwise `false`.
  */
 function isValidList(list) {
@@ -105,9 +98,7 @@ function isValidList(list) {
 
 /**
  * Validates if the given HTTP method is valid (either "PUT" or "DELETE").
- * 
  * @param {string} httpMethod - The HTTP method to validate (either "PUT" or "DELETE").
- * 
  * @returns {boolean} Returns `true` if the HTTP method is valid, otherwise `false`.
  */
 function isValidHttpMethod(httpMethod) {
@@ -116,9 +107,7 @@ function isValidHttpMethod(httpMethod) {
 
 /**
  * Updates a task by calling the `putOrDelteItem` function with 'put' as the HTTP method.
- * 
  * @param {string} itemId - The ID of the task to update.
- * 
  * @returns {Promise<boolean>} Returns `true` if the task was successfully updated, otherwise `false`.
  */
 async function updateTaskInDatabase(itemId) {
@@ -127,9 +116,7 @@ async function updateTaskInDatabase(itemId) {
 
 /**
  * Deletes a task by calling the `putOrDelteItem` function with 'delete' as the HTTP method.
- * 
  * @param {string} itemId - The ID of the task to delete.
- * 
  * @returns {Promise<boolean>} Returns `true` if the task was successfully deleted, otherwise `false`.
  */
 async function deleteTaskInDatabase(itemId) {

@@ -1,3 +1,5 @@
+let allData = {};
+
 document.addEventListener("DOMContentLoaded", async () => {
     await includeHTML();
     document.body.style.visibility = 'visible';
