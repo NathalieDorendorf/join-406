@@ -189,11 +189,50 @@ input:focus {
     align-items: safe center;
     padding: 16px 8px;
     background-color: rgba(0, 0, 0, 0.2);
+    opacity: 1;
     z-index: 10;
+}
+
+.fade-out {
+    opacity: 0;
+    transition: opacity 125ms ease-out;
 }
 
 .overlay>:first-child {
     outline: none;
+}
+
+.fly-in-from-right {
+    animation: flyInFromRight 200ms ease-out;
+}
+
+.fly-out-to-right {
+    animation: flyOutToRight 200ms ease-out forwards;
+}
+
+.overlay:has(.fly-in-from-right, .fly-out-to-right) {
+    overflow-x: hidden;
+}
+
+@keyframes flyInFromRight {
+    0% {
+        transform: translateX(calc(50vw + 51%));
+    }
+
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+
+@keyframes flyOutToRight {
+    0% {
+        transform: translateX(0%);
+    }
+
+    100% {
+        transform: translateX(calc(50vw + 51%));
+    }
 }
 
 @media (max-width:480px) {

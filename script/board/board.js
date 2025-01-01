@@ -110,7 +110,7 @@ function getMatchingTasks(searchString) {
 function openTaskDetailView(currentElement) {
     const taskId = currentElement.id;
     const taskDetailView = renderTaskDetailView(taskId);
-    openOverlay(taskDetailView);
+    openOverlay(taskDetailView, 'fly-out-to-right');
 }
 
 function openOverlayNewTask(category = '') {

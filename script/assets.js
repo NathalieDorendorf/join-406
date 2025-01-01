@@ -1,13 +1,26 @@
 let overlayElement;
+let closeAnimation;
 
-function openOverlay(HTMLContent) {
+function openOverlay(HTMLContent, closeAnimationClass) {
+    closeAnimation = closeAnimationClass;
     overlayElement = getOverlayElement(HTMLContent);
     document.body.appendChild(overlayElement);
-    overlayElement.firstElementChild.focus();
+    overlayElement.firstElementChild.focus({ preventScroll: true });
 }
 
 function closeOverlay() {
     if (document.getSelection().type !== 'Range') {
+        if (closeAnimation) {
+            overlayElement.classList.add('fade-out');
+            overlayElement.firstElementChild.classList.add(closeAnimation);
+            overlayElement.firstElementChild.addEventListener('animationcancel', removeOverlay);
+            overlayElement.firstElementChild.addEventListener('animationend', removeOverlay);
+        } else {
+            removeOverlay();
+        }
+    }
+
+    function removeOverlay() {
         document.body.removeChild(overlayElement);
     }
 }
