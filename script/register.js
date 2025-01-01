@@ -51,6 +51,7 @@ async function checkPassword(password, confirmPassword) {
     } else {
         document.getElementById('confirmPassword').style.border = "1px solid lightgray";
         document.getElementById('password').style.border = "1px solid lightgray";
+        document.getElementById('errorMessageConfirmPassword').innerHTML ="";
         return true;
     }
 };
