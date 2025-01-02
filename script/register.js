@@ -1,6 +1,7 @@
 const BASE_URL = "https://join-gruppenarbeit-137ed-default-rtdb.europe-west1.firebasedatabase.app/"
 
 async function addUser() {
+    
     let email = document.getElementById("email");
     let password = document.getElementById("password");
     let confirmPassword = document.getElementById("confirmPassword");
@@ -10,7 +11,7 @@ async function addUser() {
     const isPasswordValid = await checkPassword(password, confirmPassword);
     const isNameValid = await checkName(userName);
     const isEmailValid = await checkEmail(email); 
-    const isPrivacyPolicyChecked = await privacyPolicy.checked;
+    const isPrivacyPolicyChecked = await checkPrivacyPolicy(privacyPolicy.checked);
 
     if (!isPasswordValid || !isNameValid || !isEmailValid || !isPrivacyPolicyChecked) {
         clearData(password, confirmPassword, privacyPolicy);
@@ -25,6 +26,14 @@ async function addUser() {
     await updateUser(singleLogInData);
 };
 
+async function clearAllUserData() {
+    document.getElementById("email").value = "";
+    document.getElementById("password").value = "";
+    document.getElementById("confirmPassword").value = "";
+    document.getElementById("user").value = "";
+    document.getElementById('privacyPolicy').checked = false
+}
+
 async function checkName(userName) {
     if (/\d/.test(userName.value) || userName.value.trim() === "") {
         errorFunctionName();
@@ -35,7 +44,6 @@ async function checkName(userName) {
         return true;
     };
 }
-
 
 async function errorFunctionName() {
     document.getElementById('errorMessageName').innerHTML = /*html*/`
@@ -63,8 +71,6 @@ async function errorFunctionPassword() {
     document.getElementById('confirmPassword').style.border = "1px solid red";
 };
 
-
-
 async function checkEmail(email) {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(email.value) || email.value.trim() === "") {
@@ -77,7 +83,6 @@ async function checkEmail(email) {
     }
 }
 
-
 async function errorFunctionEmail() {
     document.getElementById('errorMessageEmail').innerHTML = /*html*/`
     <div class="errorText">the email field is empty or does not contain an @ sign</div>
@@ -85,20 +90,16 @@ async function errorFunctionEmail() {
     document.getElementById('email').style.border = "1px solid red";
 };
 
-
-
-
-
-
-
-
 async function checkPrivacyPolicy() {
     if (privacyPolicy.checked) {
-        return;
+        document.getElementById('privacyPolicy').style.outline = "";
+        document.getElementById('errorMessageprivacyPolicy').innerHTML = "";
+        return true;
     } else {
         document.getElementById('errorMessageprivacyPolicy').innerHTML = /*html*/`
         <div class="errorText">please check the privacy policy</div>`
         document.getElementById('privacyPolicy').style.outline = "2px solid red";
+        return false;
     }
 };
 
