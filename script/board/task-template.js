@@ -24,7 +24,7 @@ function renderNoTaskFeedback(feedbackText, found) {
  */
 function renderTask(id, task) {
     return `
-        <div id=${id} class="card light-box-shadow" onclick="openTaskDetailView(this)">
+        <div id=${id} class="card light-box-shadow" onclick="openTaskDetailView(this)" draggable="true">
             <div class="card-tag ${getTagBackground(task)}">${task.category}</div>
             <div class="card-content">
                 <div class="card-title">${task.title}</div>

@@ -36,7 +36,7 @@
     flex-wrap: wrap;
 }
 
-.detail-card .task-item-designator {
+.task-item-designator {
     color: var(--primary-blue);
 }
 

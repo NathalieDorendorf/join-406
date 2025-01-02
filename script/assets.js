@@ -27,9 +27,7 @@ function closeOverlay() {
 
 function getOverlayElement(HTMLContent) {
     const tempElem = document.createElement('div');
-    tempElem.innerHTML = `
-    <div id="overlay" class="overlay" onclick="closeOverlay()">${HTMLContent}</div>
-    `;
+    tempElem.innerHTML = `<div id="overlay" class="overlay" onclick="closeOverlay()">${HTMLContent}</div>`;
     const overlay = tempElem.firstElementChild;
     const overlayInner = overlay.firstElementChild;
     overlayInner.tabIndex = -1;
@@ -46,9 +44,8 @@ function handleOverlayInnerKeyInput(event) {
 
 let toastContainer;
 
-(function initToastContainer() {
-    document.addEventListener('DOMContentLoaded', () => {
-        document.body.insertAdjacentHTML('beforeend', `
+document.addEventListener('DOMContentLoaded', initToastContainer = () => {
+    document.body.insertAdjacentHTML('beforeend', `
             <div class="toast-container"></div>
             <style>
                 .toast-container {
@@ -68,7 +65,7 @@ let toastContainer;
                     box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2);
                     font-size: 16px;
                     font-weight: 500;
-                    animation: toastIt 5000ms cubic-bezier(0.785, 0.135, 0.15, 0.86) forwards;
+                    animation: toastIt 4000ms cubic-bezier(0.785, 0.135, 0.15, 0.86) forwards;
                 }
 
                 @keyframes toastIt {
@@ -79,7 +76,7 @@ let toastContainer;
                         opacity: 0;
                     }
 
-                    10%,
+                    5%,
                     90% {
                         transform: translateY(0%);
                         opacity: 1;
@@ -87,9 +84,8 @@ let toastContainer;
                 }
             </style>
         `);
-        toastContainer = document.querySelector('.toast-container');
-    });
-})();
+    toastContainer = document.querySelector('.toast-container');
+});
 
 function showToastMessage({
     message,

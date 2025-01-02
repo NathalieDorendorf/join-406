@@ -16,6 +16,10 @@ a:hover {
     cursor: pointer;
 }
 
+.w-100 {
+    width: 100%;
+}
+
 .d-none {
     display: none;
 }
@@ -79,6 +83,10 @@ a:hover {
 
 .je {
     justify-content: end;
+}
+
+.ae {
+    align-items: end;
 }
 
 .gap-8 {

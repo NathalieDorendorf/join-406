@@ -51,13 +51,6 @@ section {
     top: 8px;
 }
 
-.ui-icon-wrapper:hover,
-.ui-icon-wrapper:focus {
-    outline: none;
-    cursor: pointer;
-    background-color: var(--bg-color-gray);
-}
-
 .board-tasks {
     overflow-y: auto;
     display: grid;
@@ -122,6 +115,7 @@ section {
 
     .board-header {
         justify-content: space-between;
+        gap: 16px;
     }
 
     #search {

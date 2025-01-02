@@ -113,6 +113,8 @@ function openTaskDetailView(currentElement) {
     openOverlay(taskDetailView, 'fly-out-to-right');
 }
 
-function openOverlayNewTask(category = '') {
-
+function openOverlayNewTask(state = 'to-do') {
+    const newTask = { state };
+    const addTaskOverlay = renderAddTaskOverlay();
+    openOverlay(addTaskOverlay, 'fly-out-to-right');
 }
