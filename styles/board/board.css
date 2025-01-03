@@ -58,12 +58,6 @@ section {
     gap: 26px;
 }
 
-.column-body {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
 .column-head {
     display: flex;
     justify-content: space-between;
@@ -76,6 +70,17 @@ section {
     font-size: 20px;
 }
 
+.plus-button {
+    user-select: none;
+}
+
+.column-body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-height: 240px;
+}
+
 .ui-icon:hover,
 .ui-icon:focus {
     outline: none;
@@ -83,7 +88,7 @@ section {
     cursor: pointer;
 }
 
-.no-task-feedback {
+.dashed-box {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -93,6 +98,23 @@ section {
     box-shadow: 0 0 4px 1px var(--bg-color-gray-darker);
     background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='10' ry='10' stroke='%23A8A8A8' stroke-width='2' stroke-dasharray='4 6' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
     border-radius: 10px;
+}
+
+.drop-offer {
+    height: 240px;
+}
+
+.ghost {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    transform: rotate(5deg);
+}
+
+.grey-out {
+    opacity: 0.7;
+    background-color: white;
 }
 
 @media (max-height: 800px),

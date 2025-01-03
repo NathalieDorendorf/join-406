@@ -6,7 +6,7 @@
  */
 function renderNoTaskFeedback(feedbackText, found) {
     return `
-        <div class="no-task-feedback">No tasks ${found}in "${feedbackText}"</div>
+        <div class="dashed-box">No tasks ${found}in "${feedbackText}"</div>
     `;
 }
 
@@ -24,7 +24,7 @@ function renderNoTaskFeedback(feedbackText, found) {
  */
 function renderTask(id, task) {
     return `
-        <div id=${id} class="card light-box-shadow" onclick="openTaskDetailView(this)" draggable="true">
+        <div id=${id} class="card light-box-shadow draggable" onclick="openTaskDetailView(this)" draggable="true">
             <div class="card-tag ${getTagBackground(task)}">${task.category}</div>
             <div class="card-content">
                 <div class="card-title">${task.title}</div>
@@ -33,7 +33,7 @@ function renderTask(id, task) {
             ${renderCardSubtasks(task.subtasks)}
             <div class="member-and-priority">
                 ${renderAssignedTo(task.assignedTo)}
-                <div class="priority d-flex-c-c"><img src="/assets/icons/priority-${task.priority}.svg"
+                <div class="priority d-flex-c-c"><img src="/assets/icons/priority-${task.priority.toLowerCase()}.svg"
                         alt="${task.priority} priority"></div>
             </div>
         </div>

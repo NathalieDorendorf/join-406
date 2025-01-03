@@ -24,6 +24,10 @@ a:hover {
     display: none;
 }
 
+.dni {
+    display: none !important;
+}
+
 .d-flex {
     display: flex;
 }

@@ -42,6 +42,7 @@ function paintTasks(tasks = allData.tasks) {
             columnbody.innerHTML = renderNoTaskFeedback(columnTitles.item(index).textContent, filtered ? 'found ' : '');
         }
     })
+    addDragAndDropEventListeners();
 }
 
 function createHTMLContents(tasks) {
