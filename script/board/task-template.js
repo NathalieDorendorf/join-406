@@ -103,7 +103,7 @@ function renderAssignedTo(assignedTo) {
     if (assignedTo) {
         return `
             <div class="member d-flex">
-                ${renderForAll(assignedTo, renderMemberTag)}
+                ${renderForAll(assignedTo, renderContactTag)}
             </div>
         `;
     } else {
@@ -128,10 +128,10 @@ function renderForAll(dataArray, renderFunction) {
  * @param {string} contactId - The ID of the contact.
  * @returns {string} The HTML string for the member tag.
  */
-function renderMemberTag(contactId) {
+function renderContactTag(contactId) {
     const contact = allData.contacts[contactId];
     return `
-        <div class="member-icon d-flex-c-c" style="${getMemberTagBackgroundColor(contact)}">${contact.initials}</div>
+        <div class="member-icon d-flex-c-c" style="${getContactTagBackgroundColor(contact)}">${contact.initials}</div>
     `;
 }
 
@@ -141,6 +141,6 @@ function renderMemberTag(contactId) {
  * @param {string} contact.color - The tag color of the contact.
  * @returns {string} The CSS style for the background color.
  */
-function getMemberTagBackgroundColor(contact) {
+function getContactTagBackgroundColor(contact) {
     return `background-color: var(${contact.color});`;
 }

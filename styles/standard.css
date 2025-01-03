@@ -24,6 +24,10 @@ a:hover {
     display: none;
 }
 
+.dni {
+    display: none !important;
+}
+
 .d-flex {
     display: flex;
 }
@@ -83,6 +87,10 @@ a:hover {
 
 .je {
     justify-content: end;
+}
+
+.ac {
+    align-items: center;
 }
 
 .ae {

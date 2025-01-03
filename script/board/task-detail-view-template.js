@@ -70,7 +70,7 @@ function renderDetailCardAssignedToSection(assignedTo) {
 function renderDetailCardAssignedTo(contactId) {
     return `
         <div class="member-card fr jsac">
-            ${renderMemberTag(contactId)}
+            ${renderContactTag(contactId)}
             <span>${allData.contacts[contactId].name}</span>
         </div>
     `
