@@ -23,3 +23,12 @@
         6.7px 6.7px 33.4px rgba(0, 0, 0, 0.05),
         16px 16px 80px rgba(0, 0, 0, 0.07);
 }
+
+.errorText {
+    color: red;
+    font-size: 12px;
+}
+
+.error-message {
+    height: 16px;
+}

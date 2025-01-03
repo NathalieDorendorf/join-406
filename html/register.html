@@ -34,10 +34,10 @@
                     <div class="underline"></div>
                 </div>
             </div>
-            <form class="form-register" onsubmit="addUser(); return false;">
+            <form novalidate class="form-register" onsubmit="addUser(); return false;">
                 <input class="input-name" type="text" id="user" placeholder="Name" minlength="2" maxlength="30">
                 <span id="errorMessageName" class="error-message"></span>
-                <input class="input-email"  type="text" id="email" placeholder="Email">
+                <input class="input-email"  type="email" id="email" placeholder="Email">
                 <span id="errorMessageEmail" class="error-message"></span>
                 <input class="input-password"  type="password" id="password" placeholder="Password">
                 <span id="errorMessagePassword" class="error-message"></span>
@@ -52,9 +52,7 @@
                 <button class="button">Sign up</button>
                 </div>
             </form>
-
         </div>
-      </form>
     </div>
   </main>
   <footer class="section-pad section-gap">

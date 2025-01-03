@@ -85,7 +85,7 @@ async function checkEmail(email) {
 
 async function errorFunctionEmail() {
     document.getElementById('errorMessageEmail').innerHTML = /*html*/`
-    <div class="errorText">the email field is empty or does not contain an @ sign</div>
+    <div class="errorText">please enter a valid email address</div>
     `
     document.getElementById('email').style.border = "1px solid red";
 };
