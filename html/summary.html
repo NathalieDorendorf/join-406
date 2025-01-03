@@ -11,11 +11,12 @@
   <link rel="stylesheet" href="/styles/summary.css">
   <link rel="stylesheet" href="/styles/standard.css">
   <link rel="stylesheet" href="/style.css">
+  <script src="/script/summary.js"></script>
   <script src="/script/templates.js"></script>
   <script src="/script.js"></script>
 </head>
 
-<body>
+<body onload="renderGreeting(userName)">
   <div class="d-flex">
     <div w3-include-html="/assets/templates/sidebar.html">
       <p>Die Sidebar konnte nicht geladen werden.</p>
@@ -83,9 +84,8 @@
               </div>
             </div>
           </div>
-          <div class="summary-greetings">
-            <h5>Good Morning</h5>
-            <span id="userName" class="user-name">Sofia Müller</span>
+          <div id="greeting" class="summary-greetings">
+
           </div>
         </main>
       </section>
