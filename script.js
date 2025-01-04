@@ -1,3 +1,5 @@
+let allData = {};
+
 document.addEventListener("DOMContentLoaded", async () => {
     await includeHTML();
     document.body.style.visibility = 'visible';
@@ -43,5 +45,8 @@ function goBackToPreviousPage() {
 }
 
 function toggleUserMenu() {
-    document.getElementById('userMenu').classList.toggle('close-menu');
+    let userMenu = document.getElementById('userMenu');
+    userMenu.classList.toggle('visible');
+    userMenu.classList.toggle('hidden');
 }
+

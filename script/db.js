@@ -335,7 +335,7 @@ const readOnly = {
                 "-OF7zRE841nuLb_NZr8S"
             ],
             "category": "Technical Task",
-            "description": "Implement a CI/CD pipeline to automate builds and deployments for the Chat-App. This pipeline should streamline the development workflow by automatically building, testing, and deploying code changes to staging and production environments. The goal is to ensure consistent quality, reduce manual effort, and accelerate feature delivery. Key objectives include setting up GitHub Actions for CI/CD, automating unit and integration tests, and creating reliable deployment scripts that minimize downtime. Success criteria include a fully operational pipeline that is integrated with the team's version control system and provides clear feedback on build and deployment statuses.",
+            "description": "Set up a CI/CD pipeline for automating builds and deployments. Include GitHub Actions, automated testing, and deployment scripts for staging and production. Ensure it provides feedback on build and deployment statuses.",
             "dueDate": "2025-01-15",
             "priority": "Medium",
             "state": "done",
@@ -365,7 +365,7 @@ const readOnly = {
                 "-OF7zRDdXTMdMD99QL8f"
             ],
             "category": "Technical Task",
-            "description": "Design and implement a relational database schema for user profiles and messages. This schema will form the backbone of the application's data storage, enabling efficient and scalable retrieval of user and chat information. The schema should be designed to accommodate future growth, including features like file attachments and message metadata. Implementation includes creating tables for user profiles and chat messages, defining relationships between entities, and optimizing for common query patterns. The database must be secure, supporting data integrity and minimizing the risk of corruption or unauthorized access. Testing will ensure the schema performs well under realistic usage scenarios.",
+            "description": "Design and implement a relational database schema for user profiles and messages. Include relationships, security, and performance optimization for scalable data storage.",
             "dueDate": "2025-02-10",
             "priority": "Medium",
             "state": "in-progress",
@@ -395,7 +395,7 @@ const readOnly = {
                 "-OF7zRD_QrD2t5BM4HJ_"
             ],
             "category": "User Story",
-            "description": "Allow users to share files such as images and documents in their chat conversations. This feature will make the chat experience more versatile and engaging, enabling users to collaborate and communicate more effectively. The implementation involves creating a user-friendly file upload interface, handling backend storage securely, and enforcing restrictions on file types and sizes. Real-time sharing capabilities should ensure that files are instantly accessible to other users in the chat. Rigorous testing will be conducted to verify that the feature works reliably under different network conditions and supports various file formats without compromising application performance.",
+            "description": "Enable users to share files in chat. Include a file upload interface, backend storage, and restrictions on file type and size. Ensure real-time sharing and reliable performance.",
             "dueDate": "2025-01-25",
             "priority": "Urgent",
             "state": "await-feedback",
@@ -429,7 +429,7 @@ const readOnly = {
                 "-OF7zREDM0fbyL2xD84a"
             ],
             "category": "User Story",
-            "description": "Add real-time typing indicators to show when a user is typing in a conversation. This feature enhances the user experience by providing immediate feedback during conversations, making interactions feel more natural and responsive. The typing indicator should be seamlessly integrated into the chat interface and appear only when users are actively typing. The implementation includes designing an intuitive frontend, handling real-time socket events for typing notifications, and ensuring the indicators work correctly in both one-on-one and group chat settings. The feature should be tested thoroughly to guarantee smooth performance under various scenarios, including low network connectivity.",
+            "description": "Add real-time typing indicators for conversations. Include a frontend design, socket events, and group chat support. Test for smooth performance under varying conditions.",
             "dueDate": "2025-04-20",
             "priority": "Low",
             "state": "to-do",
@@ -459,7 +459,7 @@ const readOnly = {
                 "-OF7zRDI9PeHAsV0MusW"
             ],
             "category": "User Story",
-            "description": "Create a secure login system where users can sign in using email and password. This feature is critical for ensuring user data privacy and access control within the application. The login system should incorporate best practices in security, including encrypted password storage and protection against common vulnerabilities like SQL injection and brute-force attacks. The user interface should be simple and user-friendly, guiding users through the login process. Error messages should be informative but not expose sensitive information. The system will also need to be compatible across devices and include robust testing to identify and address any potential flaws.",
+            "description": "Create a secure login system with encrypted passwords and protection against vulnerabilities. Ensure a user-friendly interface and robust error handling.",
             "dueDate": "2025-03-15",
             "priority": "Urgent",
             "state": "to-do",

@@ -4,24 +4,19 @@ const msg = urlParams.get('msg');
 
 let userData = [];
 
-
-
 function getInputData() {
   let email = document.getElementById("email").value;
   let password = document.getElementById("password").value;
 
-  console.log(email, password);
   logIn('/users', email, password)
 }
 
 if (msg) {
   messageBox.innerHTML = msg;
 } else {
-  // display: none;
   messageBox.style.display = "none";
 }
 
-// infos auf dataBase holen
 async function logIn(path, enteredEmail, enteredPassword) {
   let response = await fetch(BASE_URL + path + ".json");
   let responseToJson = await response.json();
@@ -34,11 +29,40 @@ async function logIn(path, enteredEmail, enteredPassword) {
   validateMatch(matchingUser)
 };
 
-async function validateMatch(matchingUser) {
+function validateMatch(matchingUser) {
   if (matchingUser) {
-    console.log('User gefunden');
+    addToLocalStorage(login = true);
+    window.location.href = "board.html?msg=you have logged in successfully"
   } else {
-    console.log('User nicht gefunden');
+    let email = document.getElementById('email');
+    let password = document.getElementById('password');
+    checkLogin(email, password);
+    clearLoginData(email, password);
   };
+};
+
+function checkLogin(email, password) {
+  if (email || password) {
+    document.getElementById('errorMessageLogin').innerHTML = /*html*/`
+    <div class="errorText">Check your email and password. Please try again</div>
+    `
+    document.getElementById('email').style.border = "1px solid red";
+    document.getElementById('password').style.border = "1px solid red";
+  };
+};
+
+function clearLoginData(password) {
+  password.value = "";
+};
+
+function addToLocalStorage(login) {
+  localStorage.setItem("user_Logged_in", login)
+}
+
+function validateLoggin() {
+  if (localStorage.getItem("user_Logged_in") === null) {
+    console.log('storage is not set');
+  } else {
+    console.log('storage is set'); }
 }
 

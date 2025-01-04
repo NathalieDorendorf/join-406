@@ -16,8 +16,16 @@ a:hover {
     cursor: pointer;
 }
 
+.w-100 {
+    width: 100%;
+}
+
 .d-none {
     display: none;
+}
+
+.dni {
+    display: none !important;
 }
 
 .d-flex {
@@ -36,6 +44,59 @@ a:hover {
     align-items: center;
 }
 
+.fr {
+    display: flex;
+    flex-direction: row;
+}
+
+.fc {
+    display: flex;
+    flex-direction: column;
+}
+
+.wrap {
+    flex-wrap: wrap;
+}
+
+.jcac {
+    justify-content: center;
+    align-items: center;
+}
+
+.jsac {
+    justify-content: start;
+    align-items: center;
+}
+
+.jcas {
+    justify-content: center;
+    align-items: start;
+}
+
+.sb {
+    justify-content: space-between;
+}
+
+.sa {
+    justify-content: space-around;
+}
+
+.se {
+    justify-content: space-evenly;
+}
+
+.je {
+    justify-content: end;
+}
+
+.ae {
+    align-items: end;
+}
+
+.gap-8 {
+    gap: 8px;
+}
+
 .gap-16 {
     gap: 16px;
 }
@@ -49,7 +110,7 @@ a:hover {
 }
 
 .section-pad {
-    padding: 16px 64px;
+    padding: 48px 64px 16px;
 }
 
 .section-gap {
@@ -58,7 +119,7 @@ a:hover {
 
 @media (max-width:480px) {
     .section-pad {
-        padding: 16px;
+        padding: 32px 16px 16px;
     }
 
     .section-gap {
@@ -68,7 +129,7 @@ a:hover {
 
 @media (max-width: 768px) and (min-width: 481px) {
     .section_pad {
-        padding: 16px 32px;
+        padding: 32px 32px 16px;
     }
 
     .section_gap {
@@ -78,7 +139,7 @@ a:hover {
 
 @media (max-width: 1024px) and (min-width: 769px) {
     .section_pad {
-        padding: 32px 64px;
+        padding: 48px 64px 32px;
     }
 
     .section_gap {
@@ -88,7 +149,7 @@ a:hover {
 
 @media (max-width:1440px) and (min-width:1025px) {
     .section-pad {
-        padding: 32px 64px;
+        padding: 48px 64px 32px;
     }
 
     .section-gap {
@@ -98,7 +159,7 @@ a:hover {
 
 @media (max-width:1920px) and (min-width:1441px) {
     .section-pad {
-        padding: 32px 100px;
+        padding: 48px 100px 32px;
     }
 
     .section-gap {

@@ -50,22 +50,28 @@ form {
     gap: 24px;
 }
 
-input {
-    height: 48px;
+input,
+select,
+textarea,
+.custom-select {
     width: 422px;
     border-radius: 10px;
     border: 1px solid var(--color-light-gray);
-    padding: 8px 16px;
+    padding: 12px 16px;
     font-family: Inter, sans-serif;
     color: black;
     font-size: 20px;
 }
 
-input::placeholder {
+input::placeholder,
+select::placeholder,
+textarea::placeholder {
     color: var(--color-light-gray);
 }
 
-input:focus {
+input:focus,
+select:focus,
+textarea:focus {
     border: 1px solid var(--color-light-blue);
     outline: none;
 }
@@ -92,7 +98,9 @@ input:focus {
     height: 16px;
     width: 16px;
     border-radius: 3px;
-    border-color: var(--primary-blue);
+    border: 2px solid var(--primary-blue);
+    background-color: white;
+    cursor: pointer;
 }
 
 .button-container {
@@ -105,8 +113,7 @@ input:focus {
 .button {
     background-color: var(--primary-blue);
     color: var(--bg-white);
-    height: 48px;
-    padding: 8px 16px;
+    padding: 12px 16px;
     border-radius: 8px;
     border: unset;
     text-wrap: nowrap;
@@ -118,23 +125,35 @@ input:focus {
 .button-2 {
     background-color: var(--bg-white);
     color: var(--primary-blue);
+    padding: 12px 16px;
     font-size: 21px;
-    min-width: 177px;
-    height: 48px;
     border-radius: 8px;
     border: 1px solid var(--primary-blue);
 }
 
 .button:hover,
-.button-2:hover {
+.button:focus,
+.button-2:hover,
+.button-2:focus {
     cursor: pointer;
+    outline: none;
+    box-shadow: 0 4px 3px -1px rgba(0, 0, 0, 0.2);
 }
 
 .button:hover,
 .button:focus {
-    outline: none;
     background-color: var(--color-light-blue);
-    box-shadow: 0 4px 3px -1px rgba(0, 0, 0, 0.2);
+}
+
+.button-2:hover,
+.button-2:focus {
+    margin-right: -1px;
+    border: 2px solid var(--color-light-blue);
+    color: var(--color-light-blue);
+
+    >img {
+        filter: brightness(0) saturate(100%) invert(63%) sepia(14%) saturate(2444%) hue-rotate(157deg) brightness(91%) contrast(95%);
+    }
 }
 
 .sideline-blue {
@@ -153,17 +172,96 @@ input:focus {
 
 .section {
     margin-bottom: 12px;
-    margin-top: 48px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 30px;
 }
 
 .join-span {
     color: var(--color-light-blue);
 }
 
+.ui-icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+}
+
+.ui-icon-wrapper:hover,
+.ui-icon-wrapper:focus {
+    outline: none;
+    cursor: pointer;
+    background-color: var(--bg-color-gray);
+}
+
+.overlay {
+    overflow-y: auto;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: safe center;
+    align-items: safe center;
+    padding: 16px 8px;
+    background-color: rgba(0, 0, 0, 0.2);
+    opacity: 1;
+    z-index: 10;
+}
+
+.fade-out {
+    opacity: 0;
+    transition: opacity 125ms ease-out;
+}
+
+.overlay>:first-child {
+    outline: none;
+}
+
+.fly-in-from-right {
+    animation: flyInFromRight 200ms ease-out;
+}
+
+.fly-out-to-right {
+    animation: flyOutToRight 200ms ease-out forwards;
+}
+
+.overlay:has(.fly-in-from-right, .fly-out-to-right) {
+    overflow-x: hidden;
+}
+
+@keyframes flyInFromRight {
+    0% {
+        transform: translateX(calc(50vw + 51%));
+    }
+
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+
+@keyframes flyOutToRight {
+    0% {
+        transform: translateX(0%);
+    }
+
+    100% {
+        transform: translateX(calc(50vw + 51%));
+    }
+}
+
 @media (max-width:480px) {
     .section {
         margin-bottom: 80px;
-        margin-top: 32px;
     }
 
     .h1-responsive {

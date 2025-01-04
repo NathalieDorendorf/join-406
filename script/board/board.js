@@ -5,15 +5,14 @@ let searchInputfield;
 let addTaskBtn;
 let columnTitles;
 let columnsBodies;
-let allData = {};
 let searchData = [];
 let filteredTasks = {};
 let filtered = false;
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     getElementRefs();
     registerEventHandlers();
-    fetchDataAndPaintTasks();
+    await fetchAllDataAndPaintTasks();
 })
 
 function getElementRefs() {
@@ -31,18 +30,19 @@ function registerEventHandlers() {
     }
 }
 
-async function fetchDataAndPaintTasks() {
+async function fetchAllDataAndPaintTasks() {
     allData = await getAllData();
     paintTasks(allData.tasks);
 }
 
-function paintTasks(tasks) {
+function paintTasks(tasks = allData.tasks) {
     createHTMLContents(tasks).forEach((html, index) => columnsBodies.item(index).innerHTML = html);
     columnsBodies.forEach((columnbody, index) => {
         if (!columnbody.children.length) {
             columnbody.innerHTML = renderNoTaskFeedback(columnTitles.item(index).textContent, filtered ? 'found ' : '');
         }
     })
+    addDragAndDropEventListeners();
 }
 
 function createHTMLContents(tasks) {
@@ -60,8 +60,8 @@ function createHTMLContents(tasks) {
     return columnsHTMLContents;
 }
 
-function searchHint() {
-    searchInputfield.value = "Suchbegriff eingeben";
+function showSearchHint() {
+    searchInputfield.value = "Enter search term";
     searchInputfield.select();
 }
 
@@ -78,8 +78,8 @@ function executeSearch(searchInputfield) {
     searchInputfield.disabeld = true;
     filteredTasks = {};
     setTimeout(() => {
-        if (!filtered) {
-            showToastMessage("Searching tasks");
+        if (!filtered && searchInputfield.value.length > 0) {
+            showToastMessage({ message: "Searching tasks" });
         }
     }, 100);
     filteredTasks = getMatchingTasks(searchInputfield.value);
@@ -108,10 +108,14 @@ function getMatchingTasks(searchString) {
     return filteredTasks;
 }
 
-function openOverlayNewTask(category = '') {
-
+function openTaskDetailView(currentElement) {
+    const taskId = currentElement.id;
+    const taskDetailView = renderTaskDetailView(taskId);
+    openOverlay(taskDetailView, 'fly-out-to-right');
 }
 
-function showToastMessage(message) {
-    alert(message);
+function openOverlayNewTask(state = 'to-do') {
+    const newTask = { state };
+    const addTaskOverlay = renderAddTaskOverlay();
+    openOverlay(addTaskOverlay, 'fly-out-to-right');
 }
