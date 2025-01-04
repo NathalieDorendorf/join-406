@@ -3,12 +3,13 @@ async function initSummary() {
     await loadTaskCountsFromFirebase();
 }
 
-let userName = "Sophie Müller";
+let userName = "Sophia Müller";
 
 function renderGreeting(userName = null) {
+    let currentGreeting = document.getElementById("greeting").textContent = getGreeting();
     const greeting = userName 
-        ? `<h5>Good Morning,</h5><span class="user-name">${userName}</span>` 
-        : "<h5>Good Morning</h5>";
+        ? `<h5>${currentGreeting},</h5><span class="user-name">${userName}</span>` 
+        : `<h5>${currentGreeting}</h5>`;
     const greetingElement = document.getElementById('greeting');
     if (greetingElement) {
         console.log(greeting);
@@ -16,6 +17,27 @@ function renderGreeting(userName = null) {
     }
     console.log(greeting);
     return greeting;
+}
+
+/**
+ * Displays a greeting based on the current time of day.
+ * - 05:00 - 11:59: "Good morning"
+ * - 12:00 - 17:59: "Good afternoon"
+ * - 18:00 - 21:59: "Good evening"
+ * - 22:00 - 04:59: "Good night"
+ */
+function getGreeting() {
+    const currentHour = new Date().getHours();
+
+    if (currentHour >= 5 && currentHour < 12) {
+        return "Good morning";
+    } else if (currentHour >= 12 && currentHour < 18) {
+        return "Good afternoon";
+    } else if (currentHour >= 18 && currentHour < 22) {
+        return "Good evening";
+    } else {
+        return "Good night";
+    }
 }
 
 async function loadTaskCountsFromFirebase() {
