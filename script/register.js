@@ -26,7 +26,7 @@ async function addUser() {
     await updateUser(singleLogInData);
 };
 
-async function clearAllUserData() {
+function clearAllUserData() {
     document.getElementById("email").value = "";
     document.getElementById("password").value = "";
     document.getElementById("confirmPassword").value = "";
@@ -45,14 +45,14 @@ async function checkName(userName) {
     };
 }
 
-async function errorFunctionName() {
+function errorFunctionName() {
     document.getElementById('errorMessageName').innerHTML = /*html*/`
      <div class="errorText">Your name cannot contain numbers or is blank.</div>
      `
     document.getElementById('user').style.border = "1px solid red";
 };
 
-async function checkPassword(password, confirmPassword) {
+function checkPassword(password, confirmPassword) {
     if (password.value !== confirmPassword.value || password.value.trim() === "") {
         errorFunctionPassword();
         return false;
@@ -64,11 +64,13 @@ async function checkPassword(password, confirmPassword) {
     }
 };
 
-async function errorFunctionPassword() {
-    document.getElementById('errorMessageConfirmPassword').innerHTML = /*html*/`
-    <div class="errorText">Your passwords don't match. Please try again.</div>
-    `;
+function errorFunctionPassword() {
+    const errorMessage = '<div class="errorText">Your passwords don\' t match. Please try again.</div>';
+    document.getElementById('errorMessageConfirmPassword').innerHTML = errorMessage
+    document.getElementById('errorMessagePassword').innerHTML = errorMessage
+
     document.getElementById('confirmPassword').style.border = "1px solid red";
+    document.getElementById('password').style.border = "1px solid red";
 };
 
 async function checkEmail(email) {
@@ -83,7 +85,7 @@ async function checkEmail(email) {
     }
 }
 
-async function errorFunctionEmail() {
+function errorFunctionEmail() {
     document.getElementById('errorMessageEmail').innerHTML = /*html*/`
     <div class="errorText">please enter a valid email address</div>
     `
@@ -103,7 +105,7 @@ async function checkPrivacyPolicy() {
     }
 };
 
-async function clearData(password, confirmPassword) {
+function clearData(password, confirmPassword) {
     password.value = "";
     confirmPassword.value = "";
 };
@@ -119,6 +121,7 @@ async function updateUser(data) {
 
     const result = await response.json();
     console.log("User hinzugefügt:", result);
+    clearAllUserData()
 
     window.location.href = "log-in.html?msg=You Signed up successfully"
 };
