@@ -59,10 +59,4 @@ function addToLocalStorage(login) {
   localStorage.setItem("user_Logged_in", login)
 }
 
-function validateLoggin() {
-  if (localStorage.getItem("user_Logged_in") === null) {
-    console.log('storage is not set');
-  } else {
-    console.log('storage is set'); }
-}
 
