@@ -8,13 +8,19 @@ async function addUser() {
     let userName = document.getElementById("user");
     let privacyPolicy = document.getElementById("privacyPolicy");
 
+    checkEmailExisting(email)
+
+    
     const isPasswordValid = await checkPassword(password, confirmPassword);
     const isNameValid = await checkName(userName);
     const isEmailValid = await checkEmail(email); 
     const isPrivacyPolicyChecked = await checkPrivacyPolicy(privacyPolicy.checked);
+    const mailAlreadyExists = await checkEmailExisting(email);
+    
+     
 
-    if (!isPasswordValid || !isNameValid || !isEmailValid || !isPrivacyPolicyChecked) {
-        clearData(password, confirmPassword, privacyPolicy);
+    if (!isPasswordValid || !isNameValid || !isEmailValid || !isPrivacyPolicyChecked || mailAlreadyExists) {
+        clearData(password, confirmPassword);
         return;
     }
 
@@ -32,6 +38,33 @@ function clearAllUserData() {
     document.getElementById("confirmPassword").value = "";
     document.getElementById("user").value = "";
     document.getElementById('privacyPolicy').checked = false
+}
+
+async function checkEmailExisting(email) {
+    email = email.value;
+    const path = "users";
+    const queryUrl = `${BASE_URL}${path}.json?orderBy=%22email%22&equalTo=%22${email}%22`;
+
+    try {
+        const response = await fetch(queryUrl);
+        
+        if (!response.ok) {
+            console.error("HTTP Error:", response.status, response.statusText);
+            return false;
+        };
+        const result = await response.json();
+
+        if (Object.keys(result).length > 0) {
+            errorFunctionEmailExist()
+            return true;
+        } else {
+            return false;
+        };
+
+    } catch (error) {
+        console.error("Error:", error);
+        return false;
+    };
 }
 
 async function checkName(userName) {
@@ -52,8 +85,8 @@ function errorFunctionName() {
     document.getElementById('user').style.border = "1px solid red";
 };
 
-function checkPassword(password, confirmPassword) {
-    if (password.value !== confirmPassword.value || password.value.trim() === "") {
+function checkPassword(password, confirmPassword) {    
+    if (password.value !== confirmPassword.value || password.value.trim() === "" || password.value.length >= 8 || password.value.length <= 20) {
         errorFunctionPassword();
         return false;
     } else {
@@ -65,7 +98,7 @@ function checkPassword(password, confirmPassword) {
 };
 
 function errorFunctionPassword() {
-    const errorMessage = '<div class="errorText">Your passwords don\' t match. Please try again.</div>';
+    const errorMessage = '<div class="errorText">Your passwords do not match or have less than 8 or more than 20 characters. Please try again.</div>';
     document.getElementById('errorMessageConfirmPassword').innerHTML = errorMessage
     document.getElementById('errorMessagePassword').innerHTML = errorMessage
 
@@ -88,6 +121,13 @@ async function checkEmail(email) {
 function errorFunctionEmail() {
     document.getElementById('errorMessageEmail').innerHTML = /*html*/`
     <div class="errorText">please enter a valid email address</div>
+    `
+    document.getElementById('email').style.border = "1px solid red";
+};
+
+function errorFunctionEmailExist() {
+    document.getElementById('errorMessageEmail').innerHTML = /*html*/`
+    <div class="errorText">This email address is already taken</div>
     `
     document.getElementById('email').style.border = "1px solid red";
 };
@@ -120,9 +160,8 @@ async function updateUser(data) {
     });
 
     const result = await response.json();
-    console.log("User hinzugefügt:", result);
     clearAllUserData()
 
-    window.location.href = "log-in.html?msg=You Signed up successfully"
+    // window.location.href = "log-in.html?msg=You Signed up successfully"
 };
 
