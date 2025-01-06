@@ -13,15 +13,12 @@
     <link rel="stylesheet" href="/styles/assets.css" />
     <link rel="stylesheet" href="/styles/fonts.css" />
     <link rel="stylesheet" href="/styles/log-in.css" />
-    <link rel="stylesheet" href="/styles/scrollbar.css" />
     <link rel="stylesheet" href="/styles/standard.css" />
-    <link rel="stylesheet" href="/styles/add-task.css" />
+    <link rel="stylesheet" href="/styles/addTask/add-task.css" />
+    <link rel="stylesheet" href="/styles/addTask/assignedTo.css" />
     <link rel="stylesheet" href="/style.css" />
-    <script src="/script/fetch.js"></script>
-    <script src="/script/includes.js"></script>
-    <script src="/script/log-in.js"></script>
-    <script src="/script/register.js"></script>
     <script src="/script/templates.js"></script>
+    <script src="/script/fetch.js"></script>
     <script src="/script/add-task.js"></script>
     <script src="/script.js"></script>
     <script src="/script/add-task-temlates.js"></script>
@@ -32,10 +29,12 @@
       <div w3-include-html="/assets/templates/sidebar.html">
         <p>Die Sidebar konnte nicht geladen werden.</p>
       </div>
+
       <div class="main-content">
         <div w3-include-html="/assets/templates/header.html">
           <p>Der Header konnte nicht geladen werden.</p>
         </div>
+
         <section class="add-task-section">
           <header class="add-task-headline">
             <h1>Add Task</h1>
@@ -50,13 +49,13 @@
               <div class="add-task-form-content">
                 <div class="form-left">
                   <div class="title">
-                    <label for="title">Title*</label>
+                    <label for="taskTitle">Title*</label>
                     <input
                       class="with440px"
                       required
                       name="title"
                       placeholder="Enter a title"
-                      id="title"
+                      id="taskTitle"
                       type="text"
                     />
                   </div>
@@ -64,25 +63,40 @@
                   <div class="description">
                     <label for="description">Description</label>
                     <textarea
-                      class=".with440px"
+                      class="with440px"
                       name="description"
                       id="description"
                     ></textarea>
                   </div>
 
                   <div class="multiselect with440px">
-                    <input
-                      onclick="showCheckboxes()"
-                      value=""
-                      class="with440px"
-                      placeholder="Select contacts to assign"
-                      id="assigned"
-                      type="text"
-                    />
+                    <label>Assigned to</label>
+                    <div class="relativ">
+                      <input
+                        onclick="showCheckboxes(),changeDropdownIcon()"
+                        oninput="filterContacts()"
+                        class="with440px"
+                        placeholder="Select contacts to assign"
+                        id="assigned"
+                        type="text"
+                      />
+
+                      <img
+                        onclick="showCheckboxes(),changeDropdownIcon()"
+                        id="arrow-drop-down"
+                        src="/assets/icons/arrow-drop-down.svg"
+                        alt="Icon"
+                        class="input-icon"
+                      />
+                    </div>
                     <div class="selectBox">
                       <div class="overSelect"></div>
                     </div>
-                    <div id="checkboxes"></div>
+                    <div
+                      class="position-absolute with440px"
+                      id="checkboxes"
+                    ></div>
+                    <div class="flex-row" id="badge-Container"></div>
                   </div>
                 </div>
 
@@ -90,42 +104,63 @@
 
                 <div class="form-right">
                   <div class="date">
-                    <label for="date">Due date*</label>
+                    <label for="dueDate">Due date*</label>
                     <input
                       class="with440px"
                       required
-                      name="date"
-                      placeholder="Enter a title"
-                      id="title"
+                      name="dueDate"
+                      placeholder="Select a due date"
+                      id="dueDateInput"
                       type="date"
                     />
                   </div>
+
                   <div>
                     <p>Prio</p>
                     <div class="radio-container">
-                      <label class="add-task-container">
+                      <!-- Urgent -->
+                      <label for="priorityUrgent" class="add-task-container">
                         <input
                           type="radio"
-                          name="prio"
+                          name="priority"
+                          id="priorityUrgent"
                           value="urgent"
                           checked
                         />
-                        <span class="checkmark"
-                          >Urgent <img id="prio-image-urgent" src="" alt=""
-                        /></span>
+                        <span class="checkmark">
+                          Urgent
+                          <img id="prio-image-urgent" src="" alt="" />
+                        </span>
                       </label>
 
-                      <label class="add-task-container gab-prio">
-                        <input type="radio" name="prio" value="medium" />
-                        <span class="checkmark"
-                          >Medium <img id="prio-imag-mediumt" src="" alt=""
-                        /></span>
+                      <!-- Medium -->
+                      <label
+                        for="priorityMedium"
+                        class="add-task-container gab-prio"
+                      >
+                        <input
+                          type="radio"
+                          name="priority"
+                          id="priorityMedium"
+                          value="medium"
+                        />
+                        <span class="checkmark">
+                          Medium
+                          <img id="prio-imag-mediumt" src="" alt="" />
+                        </span>
                       </label>
 
-                      <label class="add-task-container">
-                        <input type="radio" name="prio" value="low" />
-                        <span class="checkmark"
-                          >Low <img id="prio-imag-low" src="" alt="" />
+                      <!-- Low -->
+                      <label for="priorityLow" class="add-task-container">
+                        <input
+                          type="radio"
+                          name="priority"
+                          id="priorityLow"
+                          value="low"
+                        />
+                        <span class="checkmark">
+                          Low
+                          <img id="prio-imag-low" src="" alt="" />
                         </span>
                       </label>
                     </div>
@@ -142,25 +177,35 @@
                       <option value="" disabled selected hidden>
                         Select task category
                       </option>
-                      <option value="technikalTask">Technikal Task</option>
+                      <option value="technikalTask">Technical Task</option>
                       <option value="userStory">User Story</option>
                     </select>
                   </div>
 
                   <div class="subtask">
-                    <label for="subtask">subtask</label>
+                    <label for="taskSubtask">Subtask</label>
                     <input
                       class="with440px"
                       placeholder="Add new subtask"
-                      id="title"
+                      id="taskSubtask"
                       type="text"
                     />
                   </div>
                 </div>
               </div>
+
               <div class="add-task-form-buttons">
-                <button>Clear</button>
-                <button type="submit">Create Task</button>
+                <button onclick="reset()">
+                  Clear
+                  <img
+                    src="/assets/icons/close.svg"
+                    alt="Cancel create task button"
+                  />
+                </button>
+                <button type="submit">
+                  Create Task
+                  <img src="/assets/icons/check.svg" alt="Create task button" />
+                </button>
               </div>
             </form>
           </main>

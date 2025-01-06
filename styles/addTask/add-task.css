@@ -2,6 +2,14 @@
   --prio-red: #ff3d00;
   --prio-orange: #ffa800;
   --prio-green: #7ae229;
+  --hover-checked:#EEEEEE;
+  --checkt:#091931;
+
+}
+
+.flex-row{
+  display: flex;
+  flex-direction: row;
 }
 
 .add-task-section {
@@ -87,72 +95,7 @@
   gap: 16px;
 }
 
-/* ----assigned */
-.add-flex {
-  display: flex;
-  flex-direction: column;
-}
 
-.selectBox {
-  position: relative;
-}
-
-.selectBox select {
-  width: 100%;
-  font-weight: bold;
-}
-
-.overSelect {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-}
-
-#checkboxes {
-  display: none;
-  border: 1px #D1D1D1 solid;
-}
-
-#checkboxes label {
-  display: flex;
-  flex-direction: row-reverse;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 16px;
-  
-}
-#checkboxes input {
-  width: 24px;
-  margin: 0 16px;
-}
-
-.patch {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 32px;
-  height: 32px;
-  margin-right: -5px;
-  border: 2px solid white;
-  border-radius: 16px;
-  color: white;
-  font-size: 12px;
-  margin: 0 16px;
-}
-
-.name-patch{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row-reverse;
-
-}
-
-#checkboxes label:hover {
-  background-color: #1e90ff;
-}
 
 /* -----radio */
 .radio {
@@ -276,3 +219,7 @@
   background-color: var(--color-light-blue);
   box-shadow: 0 4px 3px -1px rgba(0, 0, 0, 0.2);
 }
+
+
+
+
