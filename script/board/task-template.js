@@ -25,7 +25,12 @@ function renderNoTaskFeedback(feedbackText, found) {
 function renderTask(id, task) {
     return `
         <div id=${id} class="card light-box-shadow draggable" onclick="openTaskDetailView(this)" draggable="true">
-            <div class="card-tag ${getTagBackground(task)}">${task.category}</div>
+            <div class="fr jcac sb">
+                <div class="card-tag ${getTagBackground(task)}">${task.category}</div>
+                <div class="ui-icon-wrapper" onclick="openMoveTaskOverlay(event, '${id}')">
+                    <img src="/assets/icons/move-task.svg" alt="Button: Move task to different state" class="move-task-btn" >
+                </div>
+            </div>
             <div class="card-content">
                 <div class="card-title">${task.title}</div>
                 ${renderCardSummary(task.description)}
@@ -117,9 +122,9 @@ function renderAssignedTo(assignedTo) {
  * @param {Function} renderFunction - A function that takes a data element and returns the HTML string representation.
  * @returns {string} A concatenated string of HTML elements rendered for each item in the array.
  */
-function renderForAll(dataArray, renderFunction) {
+function renderForAll(dataArray, renderFunction, ...optionalArguments) {
     let renderedHTML = '';
-    dataArray.forEach((dataElement, index) => renderedHTML += renderFunction(dataElement, index));
+    dataArray.forEach((dataElement, index) => renderedHTML += renderFunction(dataElement, index, ...optionalArguments));
     return renderedHTML;
 }
 
