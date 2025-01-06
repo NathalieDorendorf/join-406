@@ -3,13 +3,13 @@ const tempItemsContainer = {};
 async function toggleSubtaskStatus(currentElement, index) {
     const taskId = document.getElementById('overlay').firstElementChild.id;
     const subtask = allData.tasks[taskId].subtasks[index];
-    saveState(subtask.done);
+    const tempSubtaskDone = subtask.done;
     subtask.done = !subtask.done;
     updateCheckbox();
     if (await updateTaskInDatabase(taskId)) {
         paintTasks();
     } else {
-        subtask.done = restoreState();
+        subtask.done = tempSubtaskDone;
         updateCheckbox();
     }
 
@@ -28,14 +28,4 @@ async function deleteTask() {
             closeOverlay();
         }
     }
-}
-
-function saveState(item, id = 'veryShortLifeSpan') {
-    tempItemsContainer[id] = structuredClone(item);
-}
-
-function restoreState(id = 'veryShortLifeSpan') {
-    const temp = structuredClone(tempItemsContainer[id]);
-    delete tempItemsContainer[id];
-    return temp;
 }

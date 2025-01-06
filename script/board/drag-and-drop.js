@@ -24,9 +24,7 @@ function addDragAndDropEventListeners() {
                 }
                 ghost.classList.remove('dni');
                 startDragColumnBody = taskCard.parentElement;
-                if (document.querySelector('.board-tasks').offsetWidth > 1220) { // prevent feature on grid wrap to prevent need to scroll while dragging
-                    extendColumns();
-                }
+                extendColumns();
             });
         }
 
@@ -119,14 +117,16 @@ function addDragAndDropEventListeners() {
         }
 
         function registerDrop() {
-            columnBody.addEventListener('drop', (e) => {
+            columnBody.addEventListener('drop', async (e) => {
                 const draggedElement = document.getElementById(`${e.dataTransfer.getData('text')}`);
                 if (columnBody !== startDragColumnBody) {
                     columnBody.appendChild(draggedElement);
-                    taskId = draggedElement.id;
+                    const taskId = draggedElement.id;
+                    const tempTaskState = allData.tasks[taskId].state;
                     allData.tasks[taskId].state = columnBody.dataset.tasksState;
                     paintTasks();
-                    if (!updateTaskInDatabase(taskId)) {
+                    if (!await updateTaskInDatabase(taskId)) {
+                        allData.tasks[taskId].state = tempTaskState;
                         paintTasks();
                     }
                 }
@@ -135,11 +135,13 @@ function addDragAndDropEventListeners() {
     })
 
     function extendColumns() {
-        setTimeout(() => {
-            columnBodies.forEach(columnBody => {
-                columnBody.style.height = `${columnBody.offsetHeight + 240}px`;
-            });
-        }, 0);
+        if (document.querySelector('.board-tasks').offsetWidth > 1220) { // prevent feature on grid wrap to prevent need to scroll while dragging
+            setTimeout(() => {
+                columnBodies.forEach(columnBody => {
+                    columnBody.style.height = `${columnBody.offsetHeight + 240}px`;
+                });
+            }, 0);
+        }
     }
 
     function shortenColumns() {
