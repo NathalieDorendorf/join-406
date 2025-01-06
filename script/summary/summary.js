@@ -1,7 +1,9 @@
 async function initSummary() {
+    renderSummaryContent();
     renderGreeting(userName);
     await loadTaskCountsFromFirebase();
     await showClosestDueDate();
+    showResponsiveContent();
 }
 
 let userName = "Sophia Müller";
@@ -10,7 +12,7 @@ function renderGreeting(userName = null) {
     const currentGreeting = document.getElementById("greeting").textContent = getGreetingTime();
     const greeting = userName 
         ? `<h5>${currentGreeting},</h5><span class="user-name">${userName}</span>` 
-        : `<h5>${currentGreeting}</h5>`;
+        : `<h5>${currentGreeting}!</h5>`;
     const greetingElement = document.getElementById('greeting');
     if (greetingElement) {
         console.log(greeting);
@@ -132,3 +134,28 @@ async function showClosestDueDate() {
     document.getElementById("taskDate").textContent = dateStr;
 }
 
+function showResponsiveContent() {
+    const greetingElement = document.getElementById("greeting");
+    const summaryContentElement = document.getElementById("summaryContent");
+    const summaryHeaderElement = document.getElementById("summaryHeader");
+
+    if (window.innerWidth <= 768) {
+        renderSummaryHeaderResponsive();
+        // Zeige die Begrüßung zuerst
+        greetingElement.classList.remove("hidden");
+        summaryContentElement.classList.add("d-none");
+
+        // Nach ein paar Sekunden die Begrüßung ausblenden und den Inhalt einblenden
+        setTimeout(() => {
+            greetingElement.classList.add("hidden");
+            greetingElement.classList.add("d-none");
+            summaryHeaderElement.classList.remove("d-none");
+            summaryContentElement.classList.remove("d-none");
+        }, 1500); // 1500 ms = 1,5 Sekunden
+    } else {
+        renderSummaryHeader();
+        // Auf größeren Bildschirmen direkt beide anzeigen
+        greetingElement.classList.remove("hidden");
+        summaryContentElement.classList.add("visible");
+    }
+}
