@@ -2,8 +2,6 @@
 const urlParams = new URLSearchParams(window.location.search);
 const msg = urlParams.get('msg');
 
-let userData = [];
-
 function getInputData() {
   let email = document.getElementById("email").value;
   let password = document.getElementById("password").value;
@@ -18,16 +16,19 @@ if (msg) {
 }
 
 async function logIn(path, enteredEmail, enteredPassword) {
-  let response = await fetch(BASE_URL + path + ".json");
-  let responseToJson = await response.json();
+  try {
+      let response = await fetch(BASE_URL + path + ".json");
+      let responseToJson = await response.json();
 
-  userData = Object.keys(responseToJson).map(key => (
-    { id: key, ...responseToJson[key] }
-  ));
+      const matchingUser = Object.values(responseToJson).find(user => 
+          user.email === enteredEmail && user.password === enteredPassword
+      );
 
-  const matchingUser = userData.find(user => user.email === enteredEmail && user.password === enteredPassword);
-  validateMatch(matchingUser)
-};
+      validateMatch(matchingUser);
+  } catch (error) {
+      console.error("Fehler beim Login:", error);
+  }
+}
 
 function validateMatch(matchingUser) {
   if (matchingUser) {
@@ -56,7 +57,5 @@ function clearLoginData(password) {
 };
 
 function addToLocalStorage(login) {
-  localStorage.setItem("user_Logged_in", login)
-}
-
-
+  localStorage.setItem("isLoggedIn", JSON.stringify(login))
+};
