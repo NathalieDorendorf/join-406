@@ -146,11 +146,11 @@ section {
 @media (max-height: 800px),
 (max-width:1100px) {
     .board {
-        overflow-y: unset;
+        overflow-y: auto;
     }
 
-    .main-content {
-        overflow-y: auto;
+    .board-tasks {
+        overflow-y: unset;
     }
 }
 
