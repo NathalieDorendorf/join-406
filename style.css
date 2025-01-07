@@ -405,3 +405,9 @@ a.current:hover {
         display: none;
     }
 }
+
+@media (max-width: 1024px) and (min-width: 769px) {
+    .navbar-header {
+        padding: 0 48px 0 64px;
+    }
+}

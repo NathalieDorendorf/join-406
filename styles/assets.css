@@ -264,6 +264,11 @@ textarea:focus {
         font-size: 19px;
     }
 
+    .h5-responsive {
+        font-size: 36px;
+        font-weight: 400;
+    }
+
     .sideline-blue {
         width: 60px;
         height: 3px;
@@ -290,6 +295,12 @@ textarea:focus {
         font-size: 20px;
     }
 
+    .h5-responsive {
+        font-size: 36px;
+        font-weight: 400;
+    }
+
+
     .sideline-blue {
         width: 60px;
         height: 3px;
@@ -302,4 +313,16 @@ textarea:focus {
     .section-header {
         flex-direction: column;
     }
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+    .section-header {
+        gap: 24px;
+    }
+
+    .h5-responsive {
+        font-size: 40px;
+        font-weight: 400;
+    }
+
 }

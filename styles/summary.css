@@ -1,14 +1,21 @@
+.section-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .summary-container {
   display: flex;
   align-items: center;
-  padding: 40px 0;
+  justify-content: space-evenly;
+  width: 100%;
+  padding: 16px 0;
 }
 
 .summary-content {
   display: flex;
   flex-direction: column;
-  gap: 32px;
-  width: 100%;
+  width: 50%;
 }
 
 .todo-container {
@@ -50,11 +57,11 @@
 }
 
 .urgent-container {
-  width: clamp(350px, 100%, 560px);
+  width: 100%;
   padding: 0 20px;
   display: flex;
   background-color: var(--bg-white);
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   gap: 20px;
   border-radius: 30px;
@@ -143,7 +150,6 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 24px;
 }
 
 .user-name {
@@ -189,10 +195,10 @@
 @media (max-width:480px) {
   .summary-container {
     flex-direction: column;
-    padding: 14px 0 0;
   }
 
   .summary-content {
+    width: 100%;
     gap: 12px;
     font-size: 14px;
   }
@@ -206,9 +212,9 @@
   }
 
   .todo-container {
-    height: 110px;
-    gap: 8px;
-    padding: 0 14px;
+    height: 100px;
+    gap: 14px;
+    padding: 0 12px;
   }
 
   .todo-icon {
@@ -226,9 +232,9 @@
 
   .urgent-container {
     width: 100%;
-    height: 120px;
+    height: 110px;
     gap: 16px;
-    padding: 0 14px;
+    padding: 0 16px;
   }
 
   .urgent-container>div:first-child {
@@ -236,12 +242,16 @@
   }
 
   .todo-icon-urgent {
-    height: 60px;
-    width: 60px;
+    height: 55px;
+    width: 55px;
   }
 
   .tasks-container {
-    height: 110px;
+    height: 100px;
+  }
+
+  .user-name {
+    font-size: 47px;
   }
   
 }
@@ -253,6 +263,7 @@
   }
 
   .summary-content {
+    width: 100%;
     gap: 16px;
     font-size: 14px;
   }
@@ -275,6 +286,18 @@
     width: 50px;
   }
 
+  .urgent-container {
+    width: 100%;
+    height: 120px;
+    gap: 24px;
+    padding: 0 16px;
+  }
+
+  .todo-icon-urgent {
+    height: 55px;
+    width: 55px;
+  }
+
   .counts {
     font-size: 47px;
   }
@@ -283,4 +306,30 @@
     font-size: 14px;
   }
 
+  .tasks-container {
+    height: 110px;
+  }
+
+  .user-name {
+    font-size: 47px;
+  }
+
 }
+
+@media (max-width: 1024px) and (min-width: 769px) {
+  .summary-content {
+    width: 100%;
+  }
+
+  .user-name {
+    font-size: 54px;
+  }
+
+}
+
+@media (max-width:1440px) and (min-width:1025px) {
+  .summary-content {
+    width: 80%;
+  }
+}
+

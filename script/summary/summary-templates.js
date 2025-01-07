@@ -16,7 +16,7 @@ function renderSummaryHeaderResponsive() {
 
 function renderSummaryContent() {
     document.getElementById("summaryContent").innerHTML = `
-        <div class="d-flex-c-c gap-32">
+        <div class="d-flex-c-c section-gap">
             <div class="todo-container" onclick="location.href='/html/board.html';">
                 <div class="todo-icon">
                     <img src="/assets/icons/edit.svg" alt="edit">
@@ -53,7 +53,7 @@ function renderSummaryContent() {
                 </div>
             </div>
         </div>
-        <div class="d-flex-c-c gap-16">
+        <div class="d-flex-c-c section-gap">
             <div class="tasks-container" onclick="location.href='/html/board.html';">
                 <span id="boardTasks" class="counts">5</span>
                 <p>Tasks in Board</p>

@@ -11,8 +11,8 @@ let userName = "Sophia Müller";
 function renderGreeting(userName = null) {
     const currentGreeting = document.getElementById("greeting").textContent = getGreetingTime();
     const greeting = userName 
-        ? `<h5>${currentGreeting},</h5><span class="user-name">${userName}</span>` 
-        : `<h5>${currentGreeting}!</h5>`;
+        ? `<h5 class="h5-responsive">${currentGreeting},</h5><span class="user-name">${userName}</span>` 
+        : `<h5 class="h5-responsive">${currentGreeting}!</h5>`;
     const greetingElement = document.getElementById('greeting');
     if (greetingElement) {
         console.log(greeting);
