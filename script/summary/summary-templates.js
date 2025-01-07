@@ -37,7 +37,7 @@ function renderSummaryContent() {
             </div>
         </div>
         <div class="urgent-container" onclick="location.href='/html/board.html';">
-            <div class="d-flex-c-c gap-24">
+            <div class="d-flex-c-c">
                 <div class="todo-icon-urgent">
                     <img src="/assets/icons/double-arrow-up.svg" alt="urgent">
                 </div>

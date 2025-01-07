@@ -69,6 +69,11 @@
   color: var(--bg-white);
 }
 
+.urgent-container>div:first-child {
+    gap: 24px;
+}
+
+
 .todo-icon-urgent {
   display: flex;
   justify-content: center;
@@ -184,11 +189,11 @@
 @media (max-width:480px) {
   .summary-container {
     flex-direction: column;
-    padding: 16px 0 0;
+    padding: 14px 0 0;
   }
 
   .summary-content {
-    gap: 14px;
+    gap: 12px;
     font-size: 14px;
   }
 
@@ -202,7 +207,8 @@
 
   .todo-container {
     height: 110px;
-    gap: 16px;
+    gap: 8px;
+    padding: 0 14px;
   }
 
   .todo-icon {
@@ -211,12 +217,21 @@
   }
 
   .counts {
-    font-size: 47px;
+    font-size: 44px;
+  }
+
+  .counts-container p {
+    font-size: 14px;
   }
 
   .urgent-container {
     width: 100%;
     height: 120px;
+    gap: 16px;
+    padding: 0 14px;
+  }
+
+  .urgent-container>div:first-child {
     gap: 16px;
   }
 
@@ -242,7 +257,7 @@
     font-size: 14px;
   }
 
-    .summary-date span {
+  .summary-date span {
     font-size: 16px;
   }
 
@@ -262,6 +277,10 @@
 
   .counts {
     font-size: 47px;
+  }
+
+  .counts-container p {
+    font-size: 14px;
   }
 
 }
