@@ -73,7 +73,6 @@ h5 {
     font-weight: 500;
 }
 
-
 .logo-little {
     height: 122px;
     width: 100px;
@@ -207,7 +206,7 @@ a.current:hover {
     align-items: flex-start;
     position: fixed;
     top: 100px;
-    right: -160px;
+    right: -164px;
     width: 160px;
     z-index: 2;
     background-color: var(--primary-blue);
@@ -394,6 +393,10 @@ a.current:hover {
 
     a.current {
         border-radius: 12px;
+    }
+
+    .user-menu-container {
+        top: 80px;
     }
 }
 

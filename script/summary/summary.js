@@ -157,5 +157,8 @@ function showResponsiveContent() {
         // Auf größeren Bildschirmen direkt beide anzeigen
         greetingElement.classList.remove("hidden");
         summaryContentElement.classList.add("visible");
+        summaryHeaderElement.classList.remove("d-none");
+        summaryContentElement.classList.remove("d-none");
+
     }
 }
