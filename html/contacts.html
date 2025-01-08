@@ -12,11 +12,13 @@
   <link rel="stylesheet" href="/styles/standard.css">
   <link rel="stylesheet" href="/style.css">
   <!-- <script src="/script/authentication.js"></script> -->
+  <script src="/script/contacts.js"></script>
+  <script src="/script/fetch.js"></script>
   <script src="/script/templates.js"></script>
   <script src="/script.js"></script>
 </head>
 
-<body>
+<body onload="initContacts()">
   <div class="d-flex">
     <div w3-include-html="/assets/templates/sidebar.html">
       <p>Die Sidebar konnte nicht geladen werden.</p>
@@ -25,9 +27,13 @@
       <div w3-include-html="/assets/templates/header.html">
         <p>Der Header konnte nicht geladen werden.</p>
       </div>
-      <section class="section-contacts section-pad">
-        <div class="contacts-container">
-
+      <section class="section-contacts">
+        <div id="contactList" class="contacts-container">
+          <button>Add new contact <img src="/assets/icons/person_add.svg" alt="add new contact"></button>
+          <ol type="A" id="orderedContactList">
+            <li></li>
+            <div class="underline"></div>
+          </ol>
         </div>
         <div class="contacts-details-container">
           <header class="section-header">

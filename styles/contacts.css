@@ -1,22 +1,85 @@
 .section-contacts {
     display: flex;
-    justify-content: flex-end;
 }
 
 .contacts-container {
-    position: fixed;
-    top: 100px;
-    left: 232px;
-    bottom: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 30%;
+    width: 40%;
     background-color: var(--bg-white);
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    padding: 24px;
 }
 
 .contacts-details-container {
-    margin-left: 280px;
+    display: flex;
+    flex-direction: column;
 }
+
+/* Kontakte Liste */
+.contacts-container ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.contacts-container li {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.contacts-container li:hover {
+    background-color: #f0f0f0;
+}
+
+.contacts-container .underline {
+    border-bottom: 1px solid #ccc;
+    margin: 8px 16px;
+}
+
+/* Overlay für mobile Ansicht */
+.contact-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    z-index: 1000;
+    display: none;
+    flex-direction: column;
+    padding: 16px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.contact-overlay.visible {
+    display: flex;
+    animation: slideIn 0.3s forwards;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* Kontakt Details */
+.contacts-details-container {
+    position: relative;
+    padding: 16px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.contacts-details-container.slide-in {
+    transform: translateX(0);
+}
+
