@@ -81,13 +81,6 @@ section {
     /* min-height: 240px; */
 }
 
-.ui-icon:hover,
-.ui-icon:focus {
-    outline: none;
-    filter: brightness(0) saturate(100%) invert(63%) sepia(14%) saturate(2444%) hue-rotate(157deg) brightness(91%) contrast(95%);
-    cursor: pointer;
-}
-
 .dashed-box {
     display: flex;
     justify-content: center;

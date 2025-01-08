@@ -10,6 +10,7 @@ let filteredTasks = {};
 let filtered = false;
 const taskStates = ['to-do', 'in-progress', 'await-feedback', 'done'];
 const taskStatesDescription = ['To Do', 'In progress', 'Await feedback', 'Done'];
+const categories = ['User Story', 'Technical Task'];
 
 document.addEventListener('DOMContentLoaded', async () => {
     getElementRefs();
@@ -117,15 +118,17 @@ function openTaskDetailView(currentElement) {
 }
 
 function openOverlayNewTask(state = 'to-do') {
-    const newTask = { state };
+    taskState = state;
     const addTaskOverlay = renderAddTaskOverlay();
-    openOverlay(addTaskOverlay, 'fly-out-to-right');
+    openOverlay(addTaskOverlay, 'fly-out-to-right', closeAddTaskOverlay);
+    turnOffFormSubmission(document.getElementById('ato-form'));
+    restoreForm();
 }
 
 function openMoveTaskOverlay(event, taskId) {
     event.stopPropagation();
     const moveTaskOverlay = renderMoveTaskOverlay(taskId);
-    openOverlay(moveTaskOverlay, 'fly-out-to-right')
+    openOverlay(moveTaskOverlay, 'fly-out-to-right');
 }
 
 async function moveTaskTo(taskId, index) {

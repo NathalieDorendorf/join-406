@@ -73,12 +73,6 @@
     line-height: 0px;
 }
 
-.member-and-priority {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
 .member-icon {
     width: 32px;
     height: 32px;
@@ -90,6 +84,7 @@
 }
 
 .priority {
+    margin-left: auto;
     width: 32px;
     height: 32px;
 }

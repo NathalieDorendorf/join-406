@@ -67,6 +67,7 @@ textarea {
     position: relative;
     padding: 12px 48px 12px 16px;
     z-index: 1;
+    user-select: none;
 
     .ui-icon-wrapper {
         pointer-events: none;
@@ -94,19 +95,27 @@ textarea {
     overflow-y: auto;
     background-color: rgb(248, 248, 248);
     border-radius: 0 0 8px 8px;
+    z-index: 2;
 }
 
 .custom-select-rendered .member-icon {
     margin-left: unset;
 }
 
-.assigend-to-contact {
+.assigend-to-contact,
+.category-to-select,
+.written-subtask {
     padding: 8px 16px;
     border-radius: 8px;
+    margin-bottom: 2px;
 }
 
 .assigend-to-contact:hover,
-.assigend-to-contact:focus {
+.assigend-to-contact:focus,
+.category-to-select:hover,
+.category-to-select:focus,
+.written-subtask:hover,
+.written-subtask:focus {
     cursor: pointer;
     background-color: var(--bg-color-gray);
 }
@@ -117,7 +126,7 @@ textarea {
 
 .assigend-to-contact.selected {
     color: white;
-    background-color: var(--bg-color-dark-blue);
+    background-color: var(--primary-blue);
 }
 
 .assigend-to-contact.selected img {
@@ -130,18 +139,25 @@ textarea {
     top: 50%;
     right: 16px;
     transform: translateY(-50%);
+
+    & img {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+.input-ui-icon.calendar-icon {
+    right: 14px;
 }
 
 .calendar-icon {
+    width: 40px;
+    height: 40px;
     background-color: white;
 
     &.ui-icon-wrapper {
         pointer-events: none;
     }
-}
-
-select {
-    appearance: none;
 }
 
 .ato-priority {
@@ -155,21 +171,30 @@ select {
     border: unset;
     border-radius: 10px;
     flex: 1;
+    user-select: none;
 }
 
-.priority-button.selected-prio {
+.priority-button:hover {
+    cursor: pointer;
+}
+
+.priority-button.selected-priority {
     color: white;
 }
 
-.priority-button:not(.selected-prio) {
+.priority-button.selected-priority:hover {
+    cursor: default;
+}
+
+.priority-button:not(.selected-priority) {
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 }
 
-.priority-button:not(.selected-prio):hover {
+.priority-button:not(.selected-priority):hover {
     box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.3);
 }
 
-.priority-button:nth-child(1).selected-prio {
+.priority-button:nth-child(1).selected-priority {
     background-color: var(--prio-red);
 
     >img {
@@ -177,7 +202,7 @@ select {
     }
 }
 
-.priority-button:nth-child(2).selected-prio {
+.priority-button:nth-child(2).selected-priority {
     background-color: var(--prio-orange);
 
     >img {
@@ -185,7 +210,7 @@ select {
     }
 }
 
-.priority-button:nth-child(3).selected-prio {
+.priority-button:nth-child(3).selected-priority {
     background-color: var(--prio-green);
 
     >img {
@@ -193,8 +218,22 @@ select {
     }
 }
 
-.custom-add-placeholder {
-    color: var(--color-light-gray);
+.ato-category-box {
+    height: auto;
+}
+
+.ato-subtasks {
+    padding: 12px 80px 12px 16px;
+}
+
+#ato-subtasks-cancel-btn {
+    right: 48px;
+}
+
+.ato-subtasks-box {
+    height: unset;
+    background-color: unset;
+    position: unset;
 }
 
 .required-hint {

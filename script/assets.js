@@ -1,9 +1,10 @@
 let overlayElement;
 let closeAnimation;
 
-function openOverlay(HTMLContent, closeAnimationClass) {
+function openOverlay(HTMLContent, closeAnimationClass, closeFunction = closeOverlay) {
     closeAnimation = closeAnimationClass;
     overlayElement = getOverlayElement(HTMLContent);
+    overlayElement.onclick = closeFunction;
     document.body.appendChild(overlayElement);
     overlayElement.firstElementChild.focus({ preventScroll: true });
 }
@@ -27,7 +28,7 @@ function closeOverlay() {
 
 function getOverlayElement(HTMLContent) {
     const tempElem = document.createElement('div');
-    tempElem.innerHTML = `<div id="overlay" class="overlay" onclick="closeOverlay()">${HTMLContent}</div>`;
+    tempElem.innerHTML = `<div id="overlay" class="overlay">${HTMLContent}</div>`;
     const overlay = tempElem.firstElementChild;
     const overlayInner = overlay.firstElementChild;
     overlayInner.tabIndex = -1;
@@ -102,4 +103,45 @@ function showToastMessage({
 
     const toast = toastContainer.lastElementChild;
     toast.addEventListener('animationend', () => toast.remove());
+}
+
+function turnOffFormSubmission(formElem) {
+    formElem.addEventListener('submit', (e) => e.preventDefault());
+    formElem.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && document.activeElement.tagName !== 'TEXTAREA' && document.activeElement.onkeydown !== inputKeyHandler) {
+            e.preventDefault();
+        }
+    });
+}
+
+function inputKeyHandler(event, elem, callbackFn = 'click') {
+    if (event.key === "Enter") {
+        if (callbackFn === 'click') {
+            elem.click();
+        } else {
+            callbackFn();
+        }
+        event.preventDefault();
+    }
+}
+
+function displayInputErrorMessage(inputElement, message, testToPassFn, listenForChangeElem = inputElement) {
+    if (!testToPassFn()) {
+        if (!inputElement.parentElement.querySelector('.input-error-message')) {
+            const errorElem = document.createElement('div');
+            errorElem.classList.add('input-error-message');
+            inputElement.insertAdjacentElement('afterend', errorElem);
+            errorElem.innerHTML = `<span>${message}</span>`;
+
+            inputElement.classList.add('red-border');
+            listenForChangeElem.addEventListener('change', () => {
+                if (testToPassFn()) {
+                    inputElement.classList.remove('red-border');
+                    errorElem.remove();
+                }
+            })
+        }
+        return false;
+    }
+    return true;
 }

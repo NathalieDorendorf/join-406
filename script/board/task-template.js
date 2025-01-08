@@ -36,7 +36,7 @@ function renderTask(id, task) {
                 ${renderCardSummary(task.description)}
             </div>
             ${renderCardSubtasks(task.subtasks)}
-            <div class="member-and-priority">
+            <div class="fr ac">
                 ${renderAssignedTo(task.assignedTo)}
                 <div class="priority d-flex-c-c"><img src="/assets/icons/priority-${task.priority.toLowerCase()}.svg"
                         alt="${task.priority} priority"></div>
