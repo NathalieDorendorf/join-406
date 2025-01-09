@@ -11,6 +11,21 @@
   display: flex;
   flex-direction: row;
 }
+.flex-column{
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.flex-center{
+  display: flex;
+  justify-content: center;
+
+}
+
+.width100{
+width: 100%;
+}
 
 .add-task-section {
   flex: 1;
@@ -18,30 +33,32 @@
   display: flex;
   flex-direction: column;
 }
-.with440px {
-  width: 440px;
-}
+
 .add-task-headline {
   display: flex;
-  padding: 86px 86px 0 100px;
+ 
 }
 
 .main-content-add-task {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  max-width: 1440px;
+  padding-left: 0;
+  padding-left: 0;
 }
-.form-content {
+.add-task-form-content {
   display: flex;
-  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  flex: 1;
 }
 .add-task-form {
   flex-direction: column;
-  max-width: 1140px;
   height: 100%;
+  width: 100%;
   align-items: center;
   justify-content: space-between;
+  max-width: 976.25px;
 }
 
 .form-left {
@@ -49,6 +66,8 @@
   gap: 32px;
   flex-direction: column;
   max-width: 440px;
+  width: 100%;
+  flex: 1 ; 
 }
 .form-middle {
   display: flex;
@@ -59,6 +78,7 @@
   flex-direction: column;
   gap: 32px;
   max-width: 440px;
+  flex: 1 ; 
 }
 
 .description {
@@ -90,22 +110,16 @@
   width: 100%;
 }
 
-.add-task-form-content {
-  display: flex;
-  gap: 16px;
-}
 
 
 
-/* -----radio */
+
+/* Prio section  */
 .radio {
   width: auto;
   height: auto;
 }
-.radio-container {
-  display: flex;
-  justify-content: space-between;
-}
+
 
 .add-task-container {
   display: flex;
@@ -116,12 +130,15 @@
   font-size: 16px;
   user-select: none;
 }
-.gab-prio {
-  margin: 0 16px;
+.radio-container {
+  display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
 }
 .checkmark {
   display: flex;
-  justify-content: center;
+  justify-content: space-between; 
   align-items: center;
   gap: 16px;
   height: 56px;
@@ -135,6 +152,8 @@
   font-size: 21px;
   padding: 16px 10px;
 }
+
+
 
 .add-task-container input {
   position: absolute;
@@ -222,4 +241,23 @@
 
 
 
+
+@media (max-width: 1288px ) {
+  .radio-container {
+    justify-content: center;
+    gap: 4px; 
+
+  }
+
+}
+
+@media (max-width: 768px  ){
+  .add-task-form-content{
+  flex-direction: column;
+  align-items: center;
+  }
+  .main-content-add-task{
+    padding-right: 0;
+  }
+}
 

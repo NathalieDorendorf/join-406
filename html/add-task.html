@@ -35,11 +35,11 @@
           <p>Der Header konnte nicht geladen werden.</p>
         </div>
 
-        <section class="add-task-section">
+        <section class="add-task-section section-pad">
           <header class="add-task-headline">
             <h1>Add Task</h1>
           </header>
-
+          <div class="flex-center">
           <main class="main-content-add-task">
             <form
               class="add-task-form"
@@ -48,10 +48,11 @@
             >
               <div class="add-task-form-content">
                 <div class="form-left">
-                  <div class="title">
+                  <!-- --------------------------------------Title -->
+                  <div class="title flex-column">
                     <label for="taskTitle">Title*</label>
                     <input
-                      class="with440px"
+                      class="width100"
                       required
                       name="title"
                       placeholder="Enter a title"
@@ -59,23 +60,23 @@
                       type="text"
                     />
                   </div>
-
+                  <!-- --------------------------------------Description -->
                   <div class="description">
                     <label for="description">Description</label>
                     <textarea
-                      class="with440px"
+                      class="width100"
                       name="description"
                       id="description"
                     ></textarea>
                   </div>
-
-                  <div class="multiselect with440px">
-                    <label>Assigned to</label>
+                  <!-- --------------------------------------AssignedTo -->
+                  <div class="multiselect">
+                    <label for="assigned">Assigned to</label>
                     <div class="relativ">
                       <input
                         onclick="showCheckboxes(),changeDropdownIcon()"
                         oninput="filterContacts()"
-                        class="with440px"
+                        class="width100"
                         placeholder="Select contacts to assign"
                         id="assigned"
                         type="text"
@@ -93,7 +94,7 @@
                       <div class="overSelect"></div>
                     </div>
                     <div
-                      class="position-absolute with440px"
+                      class="position-absolute"
                       id="checkboxes"
                     ></div>
                     <div class="flex-row" id="badge-Container"></div>
@@ -103,18 +104,19 @@
                 <div class="form-middle"></div>
 
                 <div class="form-right">
-                  <div class="date">
+                  <!-- --------------------------------------DueDate -->
+                  <div class="date flex-column">
                     <label for="dueDate">Due date*</label>
                     <input
-                      class="with440px"
+                      class="width100"
                       required
                       name="dueDate"
                       placeholder="Select a due date"
-                      id="dueDateInput"
+                      id="dueDate"
                       type="date"
                     />
                   </div>
-
+                  <!-- --------------------------------------Priority -->
                   <div>
                     <p>Prio</p>
                     <div class="radio-container">
@@ -136,7 +138,7 @@
                       <!-- Medium -->
                       <label
                         for="priorityMedium"
-                        class="add-task-container gab-prio"
+                        class="add-task-container"
                       >
                         <input
                           type="radio"
@@ -165,11 +167,11 @@
                       </label>
                     </div>
                   </div>
-
+                  <!-- --------------------------------------Category -->
                   <div class="category">
                     <label for="category">Category*</label>
                     <select
-                      class="with440px"
+                      class="width100"
                       required
                       name="category"
                       id="category"
@@ -181,11 +183,11 @@
                       <option value="userStory">User Story</option>
                     </select>
                   </div>
-
+                  <!-- --------------------------------------Subtask -->
                   <div class="subtask">
                     <label for="taskSubtask">Subtask</label>
                     <input
-                      class="with440px"
+                      class="width100"
                       placeholder="Add new subtask"
                       id="taskSubtask"
                       type="text"
@@ -194,6 +196,7 @@
                 </div>
               </div>
 
+              <!-- --------------------------------------botton area form -->
               <div class="add-task-form-buttons">
                 <button onclick="reset()">
                   Clear
@@ -209,6 +212,7 @@
               </div>
             </form>
           </main>
+        </div>
         </section>
       </div>
     </div>

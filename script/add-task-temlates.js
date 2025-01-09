@@ -2,7 +2,7 @@ function contactsTemlates(renderArry, index) {
   return ` 
    
   <div >
-    <label class ="checkbox-content">
+    <label  class ="checkbox-content">
     <div class="custom-checkbox">
   <img  id ="${renderArry[index].id}"
     src="/assets/icons/check-button-unchecked.svg" 
