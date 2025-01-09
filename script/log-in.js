@@ -32,8 +32,8 @@ async function logIn(path, enteredEmail, enteredPassword) {
 
 function validateMatch(matchingUser) {
   if (matchingUser) {
-    addToLocalStorage(login = true);
-    window.location.href = "board.html?msg=you have logged in successfully"
+    addToSessionStorage(login = true);
+    window.location.href = "board.html?msg=you have logged in successfully&isLoggedIn=true"
   } else {
     let email = document.getElementById('email');
     let password = document.getElementById('password');
@@ -56,6 +56,6 @@ function clearLoginData(password) {
   password.value = "";
 };
 
-function addToLocalStorage(login) {
-  localStorage.setItem("isLoggedIn", JSON.stringify(login))
+function addToSessionStorage(login) {
+  sessionStorage.setItem("isLoggedIn", JSON.stringify(login))
 };

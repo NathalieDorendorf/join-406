@@ -1,11 +1,36 @@
-function validateLoggin() {
-    const isLoggedIn = localStorage.getItem("isLoggedIn");
+function redirectWithLoginInfo(event, url) {
+    event.preventDefault();
 
-    if (isLoggedIn === "true") {
-        console.log("User ist eingelogged");
-    } else if (isLoggedIn === "false" || isLoggedIn === null) {
-        console.log("User ist nicht eingelogged");
-        window.location.href = "./log-in.html";
+    const isLoggedIn = sessionStorage.getItem("isLoggedIn") || "false"; // ist isLoggedIn nicht da, dann automatisch false
+
+    //Parameter an die URL heften
+    const newUrl = `${url}${url.includes('?') ? '&' : '?'}isLoggedIn=${isLoggedIn}`; //Parameter mit ? oder & anhängen
+
+    if (event.currentTarget.target === "_blank") {
+        window.open(newUrl, "_blank");
+    } else {
+        window.location.href = newUrl;
     }
 }
-  validateLoggin();
+
+function checkParams() {
+    const params = new URLSearchParams(window.location.search);
+    const isLoggedIn = params.get("isLoggedIn");
+    
+    if (isLoggedIn !== null) {
+        sessionStorage.setItem("isLoggedIn", isLoggedIn);
+    }
+
+    validateLoggin();
+}
+
+function validateLoggin() {
+    const isLoggedIn = sessionStorage.getItem("isLoggedIn");
+
+    if (isLoggedIn === "true") {
+        console.log("User ist eingeloggt");
+    } else {
+        console.log("User ist nicht eingeloggt");
+        // window.location.href = "./log-in.html"; // 
+    }
+}
