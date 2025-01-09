@@ -40,7 +40,7 @@
           <header class="add-task-headline">
             <h1>Add Task</h1>
           </header>
-          <div class="flex-center">
+          <div class="flex-center height">
           <main class="main-content-add-task">
             <form
               class="add-task-form"
@@ -50,7 +50,7 @@
               <div class="add-task-form-content">
                 <div class="form-left">
                   <!-- --------------------------------------Title -->
-                  <div class="title flex-column">
+                  <div class="title flex-column gab8px">
                     <label for="taskTitle">Title*</label>
                     <input
                       class="width100"
@@ -62,7 +62,7 @@
                     />
                   </div>
                   <!-- --------------------------------------Description -->
-                  <div class="description">
+                  <div class="description gab8px">
                     <label for="description">Description</label>
                     <textarea
                       class="width100"
@@ -71,8 +71,8 @@
                     ></textarea>
                   </div>
                   <!-- --------------------------------------AssignedTo -->
-                  <div class="multiselect">
-                    <label for="assigned">Assigned to</label>
+                  <div class="multiselect ">
+                    <label  for="assigned">Assigned to</label>
                     <div class="relativ">
                       <input
                         onclick="showCheckboxes(),changeDropdownIcon()"
@@ -106,7 +106,7 @@
 
                 <div class="form-right">
                   <!-- --------------------------------------DueDate -->
-                  <div class="date flex-column">
+                  <div class="date flex-column gab8px">
                     <label for="dueDate">Due date*</label>
                     <input
                       class="width100"
@@ -118,7 +118,7 @@
                     />
                   </div>
                   <!-- --------------------------------------Priority -->
-                  <div>
+                  <div class="add-flex gab8px">
                     <p>Prio</p>
                     <div class="radio-container">
                       <!-- Urgent -->
@@ -169,7 +169,7 @@
                     </div>
                   </div>
                   <!-- --------------------------------------Category -->
-                  <div class="category">
+                  <div class="category gab8px add-flex">
                     <label for="category">Category*</label>
                     <select
                       class="width100"
@@ -185,7 +185,7 @@
                     </select>
                   </div>
                   <!-- --------------------------------------Subtask -->
-                  <div class="subtask">
+                  <div class="subtask gab8px add-flex">
                     <label for="taskSubtask">Subtask</label>
                     <input
                       class="width100"

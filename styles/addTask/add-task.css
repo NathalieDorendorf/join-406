@@ -2,29 +2,32 @@
   --prio-red: #ff3d00;
   --prio-orange: #ffa800;
   --prio-green: #7ae229;
-  --hover-checked:#EEEEEE;
-  --checkt:#091931;
-
+  --hover-checked: #eeeeee;
+  --checkt: #091931;
 }
 
-.flex-row{
+.flex-row {
   display: flex;
   flex-direction: row;
 }
-.flex-column{
+.flex-column {
   display: flex;
   flex-direction: column;
-  
 }
 
-.flex-center{
+.flex-center {
   display: flex;
   justify-content: center;
-
+}
+.height{
+  height: 100%;
+}
+.width100 {
+  width: 100%;
 }
 
-.width100{
-width: 100%;
+.gab8px{
+  gap:8px;
 }
 
 .add-task-section {
@@ -32,25 +35,22 @@ width: 100%;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
 }
 
 .add-task-headline {
   display: flex;
- 
 }
 
 .main-content-add-task {
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding-left: 0;
-  padding-left: 0;
+  padding: 16px 0 0 0;
 }
+
 .add-task-form-content {
   display: flex;
+  justify-content: center;
   gap: 16px;
   width: 100%;
-  flex: 1;
 }
 .add-task-form {
   flex-direction: column;
@@ -58,27 +58,18 @@ width: 100%;
   width: 100%;
   align-items: center;
   justify-content: space-between;
-  max-width: 976.25px;
 }
 
-.form-left {
+.form-left,
+.form-right {
   display: flex;
   gap: 32px;
   flex-direction: column;
-  max-width: 440px;
   width: 100%;
-  flex: 1 ; 
 }
 .form-middle {
   display: flex;
   border: 1px solid rgba(209, 209, 209, 1);
-}
-.form-right {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  max-width: 440px;
-  flex: 1 ; 
 }
 
 .description {
@@ -87,7 +78,7 @@ width: 100%;
 }
 
 .description textarea {
-  max-width: 440px;
+  max-width: 1440px;
   height: 120px;
   border-radius: 10px;
   border: 1px solid var(--color-light-gray);
@@ -110,16 +101,11 @@ width: 100%;
   width: 100%;
 }
 
-
-
-
-
 /* Prio section  */
 .radio {
   width: auto;
   height: auto;
 }
-
 
 .add-task-container {
   display: flex;
@@ -129,20 +115,21 @@ width: 100%;
   cursor: pointer;
   font-size: 16px;
   user-select: none;
+  flex-grow: 1;
 }
 .radio-container {
   display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-grow: 1;
 }
 .checkmark {
   display: flex;
-  justify-content: space-between; 
+  justify-content: center;
   align-items: center;
   gap: 16px;
   height: 56px;
-  width: 136px;
   line-height: 56px;
   text-align: center;
   border: 1px solid rgba(209, 209, 209, 1);
@@ -151,15 +138,16 @@ width: 100%;
   transition: all 0.3s ease;
   font-size: 21px;
   padding: 16px 10px;
+  flex-grow: 1;
+  min-width: 132px;
 }
-
-
 
 .add-task-container input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
   width: auto;
+  flex-grow: 1;
 }
 
 .add-task-container:hover input ~ .checkmark {
@@ -239,25 +227,9 @@ width: 100%;
   box-shadow: 0 4px 3px -1px rgba(0, 0, 0, 0.2);
 }
 
-
-
-
-@media (max-width: 1288px ) {
-  .radio-container {
-    justify-content: center;
-    gap: 4px; 
-
-  }
-
-}
-
-@media (max-width: 768px  ){
-  .add-task-form-content{
-  flex-direction: column;
-  align-items: center;
-  }
-  .main-content-add-task{
-    padding-right: 0;
+@media (max-width: 768px) {
+  .add-task-form-content {
+    flex-direction: column;
+    align-items: center;
   }
 }
-
