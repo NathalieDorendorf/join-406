@@ -44,6 +44,12 @@ function toggleSelectContacts(customSelectElem) {
     console.log("selectContactsOpen? " + selectContactsOpen);
 }
 
+function closeDropdown(event, dropdownButtonSelector) {
+    if (!event.relatedTarget || !event.relatedTarget.closest(dropdownButtonSelector)) {
+        document.querySelector(dropdownButtonSelector).click();
+    }
+}
+
 function toggleSelectDropdown(customSelectElem, dropdownElement) {
     dropdownElement.classList.toggle('dni');
     !dropdownElement.classList.contains('dni') ? dropdownElement.focus() : undefined;

@@ -46,13 +46,13 @@ function renderInputFields() {
                     <span class="task-item-designator">Assigned to</span>
                     <div class="pos-rel">
                         <div name="ato-assigned-to" id="ato-assigned-to" class="custom-select ato-input"
-                            onclick="toggleSelectContacts(this)">
+                            onclick="toggleSelectContacts(this)" tabindex="-1">
                             <span>Select contacts to assign</span>
                             <div class="ui-icon-wrapper input-ui-icon">
                                 <img src="/assets/icons/arrow-drop-down.svg" alt="drop-down button">
                             </div>
                         </div>
-                        <div id="contacts-box" class="custom-select-rendered fc dni" tabindex="-1" onfocusout="document.getElementById('ato-assigned-to').click()"></div>
+                        <div id="contacts-box" class="custom-select-rendered fc dni" tabindex="-1" onfocusout="closeDropdown(event, '#ato-assigned-to')"></div>
                     </div>
                     <div id="ato-name-tags" class="ato-name-tags fr wrap">${renderForAll(selectedContacts, renderContactTag)}</div>
                 </div>
@@ -88,14 +88,14 @@ function renderInputFields() {
                 <div class="fc gap-8">
                     <span class="task-item-designator required-input">Category</span>
                     <div class="pos-rel">
-                        <div name="ato-category" id="ato-category" class="custom-select ato-input" onclick="toggleSelectCategory()">
+                        <div name="ato-category" id="ato-category" class="custom-select ato-input" onclick="toggleSelectCategory()" tabindex="-1">
                             <span id="ato-selected-category">Select task category</span>
                             <input type="hidden" id="ato-selected-category-input"></input>
                             <div class="ui-icon-wrapper input-ui-icon">
                                 <img src="/assets/icons/arrow-drop-down.svg" alt="drop-down button">
                             </div>
                         </div>
-                        <div id="category-box" class="custom-select-rendered ato-category-box fc dni" tabindex="-1" onfocusout="document.getElementById('ato-category').click()">
+                        <div id="category-box" class="custom-select-rendered ato-category-box fc dni" tabindex="-1" onfocusout="closeDropdown(event, '#ato-category')">
                             <div class="fr ac gap-16 category-to-select" onclick="selectCategory('Technical Task')"><span>Technical Task</span></div>
                             <div class="fr ac gap-16 category-to-select" onclick="selectCategory('User Story')"><span>User Story</span></div>
                         </div>
