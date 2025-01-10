@@ -20,10 +20,10 @@ function closeOverlay() {
             removeOverlay();
         }
     }
+}
 
-    function removeOverlay() {
-        document.body.removeChild(overlayElement);
-    }
+function removeOverlay() {
+    document.body.removeChild(overlayElement);
 }
 
 function getOverlayElement(HTMLContent) {
@@ -125,13 +125,12 @@ function inputKeyHandler(event, elem, callbackFn = 'click') {
     }
 }
 
-function displayInputErrorMessage(inputElement, message, testToPassFn, listenForChangeElem = inputElement) {
+function displayInputErrorMessage(inputElement, message, testToPassFn, marginBottomOfParent = 0, listenForChangeElem = inputElement) {
     if (!testToPassFn()) {
         if (!inputElement.parentElement.querySelector('.input-error-message')) {
-            const errorElem = document.createElement('div');
-            errorElem.classList.add('input-error-message');
-            inputElement.insertAdjacentElement('afterend', errorElem);
-            errorElem.innerHTML = `<span>${message}</span>`;
+            errorElemHTML = `<div class="input-error-message" style="margin-top: ${-marginBottomOfParent}px"><span>${message}</span></div>`
+            inputElement.insertAdjacentHTML('afterend', errorElemHTML);
+            const errorElem = inputElement.parentElement.querySelector('.input-error-message');
 
             inputElement.classList.add('red-border');
             listenForChangeElem.addEventListener('change', () => {
@@ -144,4 +143,9 @@ function displayInputErrorMessage(inputElement, message, testToPassFn, listenFor
         return false;
     }
     return true;
+}
+
+function adaptTextareaHeightToContent(id) {
+    const textarea = document.getElementById(id);
+    textarea.style.height = `${textarea.scrollHeight + 10}px`;
 }

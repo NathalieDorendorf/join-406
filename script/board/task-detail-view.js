@@ -20,12 +20,28 @@ async function toggleSubtaskStatus(currentElement, index) {
     }
 }
 
-async function deleteTask() {
+async function deleteTask(taskId) {
     if (window.confirm("Do you want to delete the task?")) {
-        const taskId = document.getElementById('overlay').firstElementChild.id;
         if (await deleteTaskInDatabase(taskId)) {
             await fetchAllDataAndPaintTasks();
             closeOverlay();
         }
     }
+}
+
+function editTask(taskId) {
+    removeOverlay();
+    taskState = allData.tasks[taskId].state;
+    const task = allData.tasks[taskId];
+    setDataForForm(task);
+    const editTaskOverlay = renderEditTaskOverlay(taskId);
+    openOverlay(editTaskOverlay, 'fly-out-to-right', closeEditTaskOverlay);
+    turnOffFormSubmission(document.getElementById('ato-form'));
+    fillForm(task);
+    adaptTextareaHeightToContent('ato-description');
+}
+
+function closeEditTaskOverlay() {
+    resetForm();
+    closeOverlay();
 }

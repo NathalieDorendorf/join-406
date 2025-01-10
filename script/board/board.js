@@ -49,7 +49,6 @@ function paintTasks(tasks = allData.tasks) {
 }
 
 function createHTMLContents(tasks) {
-
     const columnsHTMLContents = ['', '', '', ''];
     for (const [id, task] of Object.entries(tasks)) {
         const columnIndex = taskStates.indexOf(task.state);
@@ -119,10 +118,12 @@ function openTaskDetailView(currentElement) {
 
 function openOverlayNewTask(state = 'to-do') {
     taskState = state;
+    setDataForForm(taskToRestore);
     const addTaskOverlay = renderAddTaskOverlay();
     openOverlay(addTaskOverlay, 'fly-out-to-right', closeAddTaskOverlay);
     turnOffFormSubmission(document.getElementById('ato-form'));
-    restoreForm();
+    fillForm(taskToRestore);
+    adaptTextareaHeightToContent('ato-description');
 }
 
 function openMoveTaskOverlay(event, taskId) {

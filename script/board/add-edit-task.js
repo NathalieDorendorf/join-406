@@ -1,40 +1,52 @@
-let tempTask = null;
+let taskToRestore = null;
 let taskState;
 let selectedContacts = [];
 let selectedCategory = '';
 let writtenSubtasks = [];
 let currentSubtaskIndex = -1;
+let selectContactsOpen = false;
 
-function restoreForm() {
-    if (tempTask) {
-        document.getElementById('ato-title').value = tempTask.title;
-        document.getElementById('ato-description').value = tempTask.description;
-        selectedContacts = tempTask.assignedTo;
-        document.getElementById('ato-due-date').valueAsNumber = tempTask.dueDate;
+function setDataForForm(task) {
+    selectedContacts = task ? structuredClone(task.assignedTo) : [];
+    selectedCategory = task ? task.category : '';
+    writtenSubtasks = task ? structuredClone(task.subtasks) : [];
+}
+
+function fillForm(task) {
+    if (task) {
+        document.getElementById('ato-title').value = task.title;
+        document.getElementById('ato-description').value = task.description;
+        document.getElementById('ato-due-date').value = task.dueDate;
         document.querySelectorAll('.priority-button').forEach(priorityButton => priorityButton.classList.remove('selected-priority'));
-        document.querySelector(`.priority-button[data-priority="${tempTask.priority}"]`).classList.add('selected-priority');
-        document.getElementById('ato-selected-category-input').value = document.getElementById('ato-selected-category').textContent = !tempTask.category ? "Select task category" : tempTask.category;
-        writtenSubtasks = tempTask.subtasks.map(item => item.title)
+        document.querySelector(`.priority-button[data-priority="${task.priority.toLowerCase()}"]`).classList.add('selected-priority');
+        document.getElementById('ato-selected-category-input').value = document.getElementById('ato-selected-category').textContent = !task.category ? "Select task category" : task.category;
     }
 }
 
 function toggleSelectContacts(customSelectElem) {
     const assignToBox = document.getElementById('contacts-box');
-    const renderedContactOptions = renderForAll(Object.entries(allData.contacts), renderContactOption);
-    assignToBox.innerHTML = renderedContactOptions;
-    const contactOptions = assignToBox.querySelectorAll('.assigend-to-contact');
-    selectedContacts.forEach(selectedContact => {
-        contactOptions.forEach(elem => {
-            if (elem.id === selectedContact) {
-                elem.classList.add('selected');
-            }
+    if (!selectContactsOpen) {
+        const renderedContactOptions = renderForAll(Object.entries(allData.contacts), renderContactOption);
+        assignToBox.innerHTML = renderedContactOptions;
+        const contactOptions = assignToBox.querySelectorAll('.assigend-to-contact');
+        selectedContacts.forEach(selectedContact => {
+            contactOptions.forEach(elem => {
+                if (elem.id === selectedContact) {
+                    elem.classList.add('selected');
+                }
+            })
         })
-    })
+    } else {
+        document.getElementById('ato-name-tags').innerHTML = renderForAll(selectedContacts, renderContactTag);
+    }
     toggleSelectDropdown(customSelectElem, assignToBox);
+    selectContactsOpen = !selectContactsOpen;
+    console.log("selectContactsOpen? " + selectContactsOpen);
 }
 
 function toggleSelectDropdown(customSelectElem, dropdownElement) {
     dropdownElement.classList.toggle('dni');
+    !dropdownElement.classList.contains('dni') ? dropdownElement.focus() : undefined;
     toggleCustomSelectBackground(customSelectElem, 'rgb(245, 245, 245)');
 }
 
@@ -49,7 +61,8 @@ function toggleCustomSelectBackground(customSelectElem, backgroundColor = 'white
     }
 }
 
-function selectContact(contactOptionElem, contactId) {
+function selectContact(event, contactOptionElem, contactId) {
+    event.stopPropagation();
     contactOptionElem.classList.toggle('selected');
     contactOptionElem.querySelector('img').alt = contactOptionElem.querySelector('img').alt === "Contact not selected" ? "Contact selected" : "Contact not selected";
     const selectedContactPosition = selectedContacts.indexOf(contactId);
@@ -83,7 +96,8 @@ function confirmSubtask() {
     const inputSubtasks = document.getElementById('ato-subtasks');
     if (inputSubtasks.value.length > 0) {
         const index = currentSubtaskIndex !== -1 ? currentSubtaskIndex : writtenSubtasks.length;
-        writtenSubtasks[index] = inputSubtasks.value.trim();
+        const newSubtaskEntry = writtenSubtasks[index] = {};
+        newSubtaskEntry.title = inputSubtasks.value.trim();
         resetSubtasksInput();
         paintSubtasks();
     }
@@ -128,7 +142,7 @@ function resetSubtasksInput() {
 }
 
 function closeAddTaskOverlay() {
-    tempTask = createOrUpdateTask();
+    taskToRestore = createTask();
     closeOverlay();
 }
 
@@ -138,23 +152,34 @@ function cancelAddTask() {
 }
 
 function resetForm() {
-    tempTask = null;
-    selectedContacts = [];
-    selectedCategory = '';
-    writtenSubtasks = [];
+    taskToRestore = null;
     currentSubtaskIndex = -1;
     document.querySelectorAll('.assigend-to-contact').forEach(contactOption => contactOption.classList.remove('selected'));
 }
 
 async function addTask() {
     if (checkValidity()) {
-        const newTask = createOrUpdateTask();
+        const newTask = createTask();
         if (await fetchResource('tasks/', 'POST', newTask)) {
             resetForm();
             showToastMessage({ message: 'Task has been successfully created' });
             fetchAllDataAndPaintTasks();
+            closeOverlay();
         } else {
             showToastMessage({ message: 'Task could not be created.' });
+        }
+    }
+}
+
+async function saveTask(taskId) {
+    const tempTask = structuredClone(allData.tasks[taskId]);
+    if (checkValidity()) {
+        allData.tasks[taskId] = createTask();
+        if (await updateTaskInDatabase(taskId)) {
+            closeOverlay();
+            paintTasks();
+        } else {
+            allData.tasks[taskId] = tempTask;
         }
     }
 }
@@ -171,7 +196,7 @@ function checkValidity() {
 function checkTitle() {
     const title = document.getElementById('ato-title');
     const checkTitle = () => title.value.length > 2;
-    return displayInputErrorMessage(title, 'Please enter at least 3 characters.', checkTitle);
+    return displayInputErrorMessage(title, 'Please enter at least 3 characters.', checkTitle, 8);
 }
 
 function checkDueDate() {
@@ -182,30 +207,25 @@ function checkDueDate() {
         }
         return false;
     }
-    return displayInputErrorMessage(dueDate, 'Please pick a date. Must be in the future.', checkDueDate);
+    return displayInputErrorMessage(dueDate, 'Please pick a date. Must be in the future.', checkDueDate, 0);
 }
 
 function checkCategory() {
     const category = document.getElementById('ato-category');
     const hiddenInput = document.getElementById('ato-selected-category-input');
     const checkCategory = () => categories.indexOf(hiddenInput.value) !== -1;
-    return displayInputErrorMessage(category, 'Please pick a category.', checkCategory, hiddenInput);
+    return displayInputErrorMessage(category, 'Please pick a category.', checkCategory, 0, hiddenInput);
 }
 
-function createOrUpdateTask() {
+function createTask() {
     return {
         state: taskState,
         category: selectedCategory,
         title: document.getElementById('ato-title').value.trim(),
         description: document.getElementById('ato-description').value.trim(),
-        dueDate: document.getElementById('ato-due-date').valueAsNumber,
-        assignedTo: selectedContacts.slice(),
+        dueDate: document.getElementById('ato-due-date').value,
+        assignedTo: structuredClone(selectedContacts),
         priority: document.querySelector('.selected-priority').dataset.priority,
-        subtasks: writtenSubtasks.map(writtenSubtask => {
-            return {
-                title: writtenSubtask,
-                done: false
-            }
-        }),
+        subtasks: structuredClone(writtenSubtasks)
     }
 }

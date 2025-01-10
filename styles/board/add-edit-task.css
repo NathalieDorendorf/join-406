@@ -5,7 +5,7 @@
     background-color: white;
     padding: 48px 64px;
     border-radius: 30px;
-    width: clamp(1px, 1000px, 1200px);
+    width: clamp(1px, 1000px, 100%);
     --required: #FF8190;
 }
 
@@ -41,26 +41,10 @@
     color: var(--color-light-gray);
 }
 
-/* .textarea-container {
-    position: relative;
-}
-
-.textarea-container::before {
-    content: '';
-    background-image: url('../../assets/icons/resizer.svg');
-    background-repeat: no-repeat;
-    position: absolute;
-    width: 19px;
-    height: 19px;
-    bottom: 4px;
-    right: 4px;
-    pointer-events: none;
-    z-index: 1;
-} */
-
 textarea {
     display: block;
     resize: vertical;
+    min-height: fit-content;
 }
 
 .custom-select {
@@ -236,6 +220,28 @@ textarea {
     position: unset;
 }
 
+.written-subtask .ui-icon-wrapper:hover,
+.written-subtask .ui-icon-wrapper:focus {
+    border: 2px solid var(--color-light-blue);
+
+    & img {
+        filter: brightness(0) saturate(100%) invert(63%) sepia(14%) saturate(2444%) hue-rotate(157deg) brightness(91%) contrast(95%);
+    }
+}
+
+.custom-select-rendered>ul {
+    padding-left: 0px;
+}
+
+.written-subtask {
+    padding-left: 32px;
+}
+
+.written-subtask:hover .ui-icon-wrapper {
+    display: flex;
+    background-color: white;
+}
+
 .required-hint {
     font-size: 16px;
 }
@@ -255,12 +261,7 @@ textarea {
 @media (max-width: 850px) {
     .ato {
         padding: 24px 32px;
-        /* font-size: 16px; */
     }
-
-    /* .ato-input {
-        font-size: 16px;
-    } */
 
     .inputs {
         flex-direction: column;

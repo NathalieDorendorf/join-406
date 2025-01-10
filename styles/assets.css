@@ -218,7 +218,6 @@ textarea:focus {
     font-weight: 500;
     font-style: italic;
     height: 0;
-    margin-top: -8px;
 }
 
 .input-error-message>span {

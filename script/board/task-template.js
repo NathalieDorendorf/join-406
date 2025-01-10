@@ -107,7 +107,7 @@ function calcDoneSubtasks(subtasks) {
 function renderAssignedTo(assignedTo) {
     if (assignedTo) {
         return `
-            <div class="member d-flex">
+            <div class="member fr wrap">
                 ${renderForAll(assignedTo, renderContactTag)}
             </div>
         `;
