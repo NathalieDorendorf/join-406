@@ -24,20 +24,12 @@ async function logIn(path, enteredEmail, enteredPassword) {
     const matchingUser = Object.values(responseToJson).find(user =>
       user.email === enteredEmail && user.password === enteredPassword
     );
-    checkStatus(matchingUser);
-
+    validateMatch(matchingUser);
   } catch (error) {
     console.error("Fehler beim Login:", error);
   };
 };
 
-
-function checkStatus(matchingUser) {
-  if (matchingUser.email === 'hantelmarco@gmail.com') {
-    localStorage.setItem('logInStatus', 'guest')
-    validateMatch(matchingUser);
-  };
-};
 
 function validateMatch(matchingUser) {
   if (matchingUser) {
@@ -68,3 +60,4 @@ function clearLoginData(password) {
 function addToSessionStorage(login) {
   sessionStorage.setItem("isLoggedIn", JSON.stringify(login))
 };
+

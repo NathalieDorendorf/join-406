@@ -11,4 +11,3 @@ function checkGuestLogOut(){
         localStorage.removeItem('logInStatus')
     };
 };
-////// displaynone adden

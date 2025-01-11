@@ -30,16 +30,3 @@ function validateLoggin() {
         window.location.href = "./log-in.html"
     };
 };
-
-
-// document.addEventListener('DOMContentLoaded', function() {
-//     guestsLimitation();
-// });
-function guestsLimitation() {
-
-    var status = localStorage.getItem('logInStatus');
-    if (status === "guest") {
-        document.getElementById('sidebar-main').classList.remove('links-container');
-        document.getElementById('sidebar-main').classList.add('d-none');
-    }
-}
