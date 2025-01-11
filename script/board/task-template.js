@@ -119,7 +119,7 @@ function renderAssignedTo(assignedTo) {
 /**
  * Renders HTML for each element in the provided array using the given render function.
  * @param {Array} dataArray - An array of data elements to be rendered.
- * @param {Function} renderFunction - A function that takes a data element and returns the HTML string representation.
+ * @param {Function} renderFunction - A function that takes a data element, an index and optional arguments, and returns the HTML string representation.
  * @returns {string} A concatenated string of HTML elements rendered for each item in the array.
  */
 function renderForAll(dataArray, renderFunction, ...optionalArguments) {
