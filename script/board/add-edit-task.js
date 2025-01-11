@@ -26,7 +26,7 @@ function fillForm(task) {
 function toggleSelectContacts(customSelectElem) {
     const assignToBox = document.getElementById('contacts-box');
     if (!selectContactsOpen) {
-        const renderedContactOptions = renderForAll(Object.entries(allData.contacts), renderContactOption);
+        const renderedContactOptions = renderForAll(getSortedContactEntries(), renderContactOption);
         assignToBox.innerHTML = renderedContactOptions;
         const contactOptions = assignToBox.querySelectorAll('.assigend-to-contact');
         selectedContacts.forEach(selectedContact => {
@@ -41,11 +41,21 @@ function toggleSelectContacts(customSelectElem) {
     }
     toggleSelectDropdown(customSelectElem, assignToBox);
     selectContactsOpen = !selectContactsOpen;
-    console.log("selectContactsOpen? " + selectContactsOpen);
 }
 
-function closeDropdown(event, dropdownButtonSelector) {
+function getSortedContactEntries() {
+    return Object.entries(allData.contacts).sort((a, b) => (a[1].name.localeCompare(b[1].name)));
+}
+
+function closeAwaitSelectDropdown(event, dropdownButtonSelector) {
     if (!event.relatedTarget || !event.relatedTarget.closest(dropdownButtonSelector)) {
+        document.querySelector(dropdownButtonSelector).click();
+    }
+}
+
+function closeImmediateSelectDropdown(event, dropdownButtonSelector) {
+    if (!(event.relatedTarget == null && document.hasFocus())
+        && (!event.relatedTarget || !event.relatedTarget.closest(dropdownButtonSelector))) {
         document.querySelector(dropdownButtonSelector).click();
     }
 }

@@ -52,7 +52,7 @@ function renderInputFields() {
                                 <img src="/assets/icons/arrow-drop-down.svg" alt="drop-down button">
                             </div>
                         </div>
-                        <div id="contacts-box" class="custom-select-rendered fc dni" tabindex="-1" onfocusout="closeDropdown(event, '#ato-assigned-to')"></div>
+                        <div id="contacts-box" class="custom-select-rendered fc dni" tabindex="-1" onfocusout="closeAwaitSelectDropdown(event, '#ato-assigned-to')"></div>
                     </div>
                     <div id="ato-name-tags" class="ato-name-tags fr wrap">${renderForAll(selectedContacts, renderContactTag)}</div>
                 </div>
@@ -95,7 +95,7 @@ function renderInputFields() {
                                 <img src="/assets/icons/arrow-drop-down.svg" alt="drop-down button">
                             </div>
                         </div>
-                        <div id="category-box" class="custom-select-rendered ato-category-box fc dni" tabindex="-1" onfocusout="closeDropdown(event, '#ato-category')">
+                        <div id="category-box" class="custom-select-rendered ato-category-box fc dni" tabindex="-1" onfocusout="closeImmediateSelectDropdown(event, '#ato-category')">
                             <div class="fr ac gap-16 category-to-select" onclick="selectCategory('Technical Task')"><span>Technical Task</span></div>
                             <div class="fr ac gap-16 category-to-select" onclick="selectCategory('User Story')"><span>User Story</span></div>
                         </div>
