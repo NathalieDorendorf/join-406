@@ -51,6 +51,8 @@ document.addEventListener('DOMContentLoaded', initToastContainer = () => {
             <style>
                 .toast-container {
                     position: fixed;
+                    width: 100%;
+                    pointer-events: none;
                     bottom: 16px;
                     left: 50%;
                     transform: translateX(-50%);
@@ -66,6 +68,7 @@ document.addEventListener('DOMContentLoaded', initToastContainer = () => {
                     box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2);
                     font-size: 16px;
                     font-weight: 500;
+                    text-align: center;
                     animation: toastIt 4000ms cubic-bezier(0.785, 0.135, 0.15, 0.86) forwards;
                 }
 
