@@ -1,12 +1,13 @@
-
 const urlParams = new URLSearchParams(window.location.search);
 const msg = urlParams.get('msg');
 
 function getInputData() {
+
   let email = document.getElementById("email").value;
   let password = document.getElementById("password").value;
 
   logIn('/users', email, password)
+
 }
 
 if (msg) {
@@ -17,23 +18,31 @@ if (msg) {
 
 async function logIn(path, enteredEmail, enteredPassword) {
   try {
-      let response = await fetch(BASE_URL + path + ".json");
-      let responseToJson = await response.json();
+    let response = await fetch(BASE_URL + path + ".json");
+    let responseToJson = await response.json();
 
-      const matchingUser = Object.values(responseToJson).find(user => 
-          user.email === enteredEmail && user.password === enteredPassword
-      );
+    const matchingUser = Object.values(responseToJson).find(user =>
+      user.email === enteredEmail && user.password === enteredPassword
+    );
+    checkStatus(matchingUser);
 
-      validateMatch(matchingUser);
   } catch (error) {
-      console.error("Fehler beim Login:", error);
-  }
-}
+    console.error("Fehler beim Login:", error);
+  };
+};
+
+
+function checkStatus(matchingUser) {
+  if (matchingUser.email === 'hantelmarco@gmail.com') {
+    localStorage.setItem('logInStatus', 'guest')
+    validateMatch(matchingUser);
+  };
+};
 
 function validateMatch(matchingUser) {
   if (matchingUser) {
     addToSessionStorage(login = true);
-    window.location.href = "board.html?msg=you have logged in successfully&isLoggedIn=true"
+    window.location.href = "summary.html?msg=you have logged in successfully&isLoggedIn=true"
   } else {
     let email = document.getElementById('email');
     let password = document.getElementById('password');
