@@ -152,3 +152,13 @@ function adaptTextareaHeightToContent(id) {
     const textarea = document.getElementById(id);
     textarea.style.height = `${textarea.scrollHeight + 10}px`;
 }
+
+function toggleButtonDisabled(buttonElement) {
+    // do not immediately show not-allowed cursor - only when it takes more time to update in database than 200ms
+    setTimeout(() => {
+        if (buttonElement) {
+            buttonElement.disabled = !buttonElement.disabled
+            buttonElement.classList.toggle('button-disabled');
+        }
+    }, 200)
+}

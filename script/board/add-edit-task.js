@@ -174,6 +174,10 @@ function resetForm() {
 }
 
 async function addTask() {
+    const submitBtn = document.querySelector('button[type=submit]');
+    const cancelBtn = document.getElementById('cancel-add-task-btn');
+    toggleButtonDisabled(submitBtn);
+    toggleButtonDisabled(cancelBtn);
     if (checkValidity()) {
         const newTask = createTask();
         if (await fetchResource('tasks/', 'POST', newTask)) {
@@ -185,9 +189,13 @@ async function addTask() {
             showToastMessage({ message: 'Task could not be created.' });
         }
     }
+    toggleButtonDisabled(submitBtn);
+    toggleButtonDisabled(cancelBtn);
 }
 
 async function saveTask(taskId) {
+    const submitBtn = document.querySelector('button[type=submit]');
+    toggleButtonDisabled(submitBtn);
     const tempTask = structuredClone(allData.tasks[taskId]);
     if (checkValidity()) {
         allData.tasks[taskId] = createTask();
@@ -198,6 +206,7 @@ async function saveTask(taskId) {
             allData.tasks[taskId] = tempTask;
         }
     }
+    toggleButtonDisabled(submitBtn);
 }
 
 function checkValidity() {

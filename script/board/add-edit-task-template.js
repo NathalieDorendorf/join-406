@@ -15,7 +15,7 @@ function renderAddTaskOverlay() {
                         <span>This field is required</span>
                     </div>
                     <div class="fr gap-16 wrap ato-footer-buttons">
-                        <button class="button-2 fr jcac gap-8" onclick="cancelAddTask()">
+                        <button id="cancel-add-task-btn" class="button-2 fr jcac gap-8" onclick="cancelAddTask()">
                             <span>Cancel / Clear</span>
                             <img src="/assets/icons/close.svg" alt="Cancel create task button">
                         </button>

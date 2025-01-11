@@ -156,6 +156,10 @@ textarea:focus {
     }
 }
 
+.button-disabled:hover {
+    cursor: not-allowed;
+}
+
 .sideline-blue {
     height: 60px;
     width: 3px;
