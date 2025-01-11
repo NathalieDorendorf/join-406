@@ -89,6 +89,10 @@ a:hover {
     justify-content: end;
 }
 
+.ac {
+    align-items: center;
+}
+
 .ae {
     align-items: end;
 }

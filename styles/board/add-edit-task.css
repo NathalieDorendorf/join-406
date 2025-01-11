@@ -1,0 +1,273 @@
+/* add-task-overlay: ato */
+.ato {
+    color: black;
+    font-size: 20px;
+    background-color: white;
+    padding: 48px 64px;
+    border-radius: 30px;
+    width: clamp(1px, 1000px, 100%);
+    --required: #FF8190;
+}
+
+.ato .headline {
+    font-size: 61px;
+    color: black;
+    font-weight: 700;
+}
+
+.close-btn {
+    margin-left: auto;
+}
+
+.inputs {
+    margin-bottom: 64px;
+}
+
+.input-side {
+    flex: 1 0 300px;
+}
+
+.required-input::after {
+    content: '*';
+    color: var(--required);
+}
+
+.ato-input {
+    width: 100%;
+    border: 1px solid var(--color-light-gray);
+}
+
+.ato-input::placeholder {
+    color: var(--color-light-gray);
+}
+
+textarea {
+    display: block;
+    resize: vertical;
+    min-height: fit-content;
+}
+
+.custom-select {
+    position: relative;
+    padding: 12px 48px 12px 16px;
+    z-index: 1;
+    user-select: none;
+
+    .ui-icon-wrapper {
+        pointer-events: none;
+    }
+}
+
+.custom-select:hover {
+    cursor: pointer;
+    border: 1px solid var(--color-light-blue);
+}
+
+.cover-custom-select {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+}
+
+.custom-select-rendered {
+    position: absolute;
+    width: 100%;
+    height: 200px;
+    overflow-y: auto;
+    background-color: rgb(248, 248, 248);
+    border-radius: 0 0 8px 8px;
+    z-index: 2;
+}
+
+.custom-select-rendered .member-icon {
+    margin-left: unset;
+}
+
+.assigend-to-contact,
+.category-to-select,
+.written-subtask {
+    padding: 8px 16px;
+    border-radius: 8px;
+    margin-bottom: 2px;
+}
+
+.assigend-to-contact:hover,
+.assigend-to-contact:focus,
+.category-to-select:hover,
+.category-to-select:focus,
+.written-subtask:hover,
+.written-subtask:focus {
+    cursor: pointer;
+    background-color: var(--bg-color-gray);
+}
+
+.assigend-to-contact img {
+    margin-left: auto;
+}
+
+.assigend-to-contact.selected {
+    color: white;
+    background-color: var(--primary-blue);
+}
+
+.assigend-to-contact.selected img {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(0%) hue-rotate(134deg) brightness(101%) contrast(104%);
+    content: url(/assets/icons/check-button-checked.svg);
+}
+
+.input-ui-icon {
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    transform: translateY(-50%);
+
+    & img {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+.input-ui-icon.calendar-icon {
+    right: 14px;
+}
+
+.calendar-icon {
+    width: 40px;
+    height: 40px;
+    background-color: white;
+
+    &.ui-icon-wrapper {
+        pointer-events: none;
+    }
+}
+
+.ato-priority {
+    --prio-red: #ff3d00;
+    --prio-orange: #ffa800;
+    --prio-green: #7ae229;
+}
+
+.priority-button {
+    padding: 10px 16px;
+    border: unset;
+    border-radius: 10px;
+    flex: 1;
+    user-select: none;
+}
+
+.priority-button:hover {
+    cursor: pointer;
+}
+
+.priority-button.selected-priority {
+    color: white;
+}
+
+.priority-button.selected-priority:hover {
+    cursor: default;
+}
+
+.priority-button:not(.selected-priority) {
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+
+.priority-button:not(.selected-priority):hover {
+    box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.3);
+}
+
+.priority-button:nth-child(1).selected-priority {
+    background-color: var(--prio-red);
+
+    >img {
+        content: url(/assets/icons/priority-urgent-white.svg);
+    }
+}
+
+.priority-button:nth-child(2).selected-priority {
+    background-color: var(--prio-orange);
+
+    >img {
+        content: url(/assets/icons/priority-medium-white.svg);
+    }
+}
+
+.priority-button:nth-child(3).selected-priority {
+    background-color: var(--prio-green);
+
+    >img {
+        content: url(/assets/icons/priority-low-white.svg);
+    }
+}
+
+.ato-category-box {
+    height: auto;
+}
+
+.ato-subtasks {
+    padding: 12px 80px 12px 16px;
+}
+
+#ato-subtasks-cancel-btn {
+    right: 48px;
+}
+
+.ato-subtasks-box {
+    height: unset;
+    background-color: unset;
+    position: unset;
+}
+
+.written-subtask .ui-icon-wrapper:hover,
+.written-subtask .ui-icon-wrapper:focus {
+    border: 2px solid var(--color-light-blue);
+
+    & img {
+        filter: brightness(0) saturate(100%) invert(63%) sepia(14%) saturate(2444%) hue-rotate(157deg) brightness(91%) contrast(95%);
+    }
+}
+
+.custom-select-rendered>ul {
+    padding-left: 0px;
+}
+
+.written-subtask {
+    padding-left: 32px;
+}
+
+.written-subtask:hover .ui-icon-wrapper {
+    display: flex;
+    background-color: white;
+}
+
+.required-hint {
+    font-size: 16px;
+}
+
+.required-red {
+    color: var(--required);
+}
+
+.ato-footer-buttons {
+    margin-left: auto;
+}
+
+.ato-footer-buttons>button {
+    margin-left: auto;
+}
+
+@media (max-width: 850px) {
+    .ato {
+        padding: 24px 32px;
+    }
+
+    .inputs {
+        flex-direction: column;
+    }
+
+    .inputs .vertical-separator {
+        display: none;
+    }
+}

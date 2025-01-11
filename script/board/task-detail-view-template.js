@@ -26,12 +26,12 @@ function renderTaskDetailView(taskId) {
             ${renderDetailCardAssignedToSection(task.assignedTo)}
             ${renderDetailCardSubtasks(task.subtasks)}
             <div class="fr je gap-8 detail-card-ui-footer">
-                <div class="fr gap-8 ui-icon" onclick="deleteTask()">
+                <div class="fr gap-8 ui-icon" onclick="deleteTask('${taskId}')">
                     <img src="/assets/icons/delete-blue.svg" alt="Delete button">
                     <span>Delete</span>
                 </div>
                 <div class="vertical-separator"></div>
-                <div class="fr gap-8 ui-icon">
+                <div class="fr gap-8 ui-icon" onclick="editTask('${taskId}')">
                     <img src="/assets/icons/edit-blue.svg" alt="Edit button">
                     <span>Edit</span>
                 </div>
@@ -70,14 +70,14 @@ function renderDetailCardAssignedToSection(assignedTo) {
 function renderDetailCardAssignedTo(contactId) {
     return `
         <div class="member-card fr jsac">
-            ${renderMemberTag(contactId)}
+            ${renderContactTag(contactId)}
             <span>${allData.contacts[contactId].name}</span>
         </div>
     `
 }
 
 function renderDetailCardSubtasks(subtasks) {
-    if (subtasks) {
+    if (subtasks && subtasks.length > 0) {
         return `
             <div class="fc gap-8">
                 <span class="task-item-designator">Subtasks</span>
