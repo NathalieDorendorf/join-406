@@ -170,10 +170,6 @@ textarea:focus {
     border-radius: 8px;
 }
 
-.section {
-    margin-bottom: 12px;
-}
-
 .section-header {
     display: flex;
     justify-content: flex-start;
@@ -183,6 +179,17 @@ textarea:focus {
 
 .join-span {
     color: var(--color-light-blue);
+}
+
+.ui-icon:hover,
+.ui-icon:focus {
+    outline: none;
+    filter: brightness(0) saturate(100%) invert(63%) sepia(14%) saturate(2444%) hue-rotate(157deg) brightness(91%) contrast(95%);
+    cursor: pointer;
+}
+
+.ui-icon {
+    user-select: none;
 }
 
 .ui-icon-wrapper {
@@ -199,6 +206,22 @@ textarea:focus {
     outline: none;
     cursor: pointer;
     background-color: var(--bg-color-gray);
+}
+
+.red-border {
+    border: 1px solid red !important;
+}
+
+.input-error-message {
+    color: red;
+    font-size: 16px;
+    font-weight: 500;
+    font-style: italic;
+    height: 0;
+}
+
+.input-error-message>span {
+    padding: 0px 8px;
 }
 
 .overlay {
@@ -260,21 +283,73 @@ textarea:focus {
 }
 
 @media (max-width:480px) {
-    .section {
-        margin-bottom: 80px;
+    .h1-responsive {
+        font-size: 44px;
     }
 
-    .h1-responsive {
-        font-size: 47px;
+    .h4-responsive {
+        font-size: 19px;
     }
+
+    .h5-responsive {
+        font-size: 36px;
+        font-weight: 400;
+    }
+
+    .sideline-blue {
+        width: 60px;
+        height: 3px;
+    }
+
+    .sideline-gray {
+        height: 87px;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
 }
 
 @media (max-width: 768px) and (min-width: 481px) {
-    .section {
-        margin-bottom: 100px;
-    }
-
     .h1-responsive {
         font-size: 47px;
     }
+
+    .h4-responsive {
+        font-size: 20px;
+    }
+
+    .h5-responsive {
+        font-size: 36px;
+        font-weight: 400;
+    }
+
+
+    .sideline-blue {
+        width: 60px;
+        height: 3px;
+    }
+
+    .sideline-gray {
+        height: 87px;
+    }
+
+    .section-header {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+    .section-header {
+        gap: 24px;
+    }
+
+    .h5-responsive {
+        font-size: 40px;
+        font-weight: 400;
+    }
+
 }

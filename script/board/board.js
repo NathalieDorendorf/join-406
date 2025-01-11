@@ -8,6 +8,9 @@ let columnsBodies;
 let searchData = [];
 let filteredTasks = {};
 let filtered = false;
+const taskStates = ['to-do', 'in-progress', 'await-feedback', 'done'];
+const taskStatesDescription = ['To Do', 'In progress', 'Await feedback', 'Done'];
+const categories = ['User Story', 'Technical Task'];
 
 document.addEventListener('DOMContentLoaded', async () => {
     getElementRefs();
@@ -46,10 +49,9 @@ function paintTasks(tasks = allData.tasks) {
 }
 
 function createHTMLContents(tasks) {
-    const states = ['to-do', 'in-progress', 'await-feedback', 'done'];
     const columnsHTMLContents = ['', '', '', ''];
     for (const [id, task] of Object.entries(tasks)) {
-        const columnIndex = states.indexOf(task.state);
+        const columnIndex = taskStates.indexOf(task.state);
         if (columnIndex !== -1) {
             columnsHTMLContents[columnIndex] += renderTask(id, task);
         }
@@ -115,7 +117,28 @@ function openTaskDetailView(currentElement) {
 }
 
 function openOverlayNewTask(state = 'to-do') {
-    const newTask = { state };
+    taskState = state;
+    setDataForForm(taskToRestore);
     const addTaskOverlay = renderAddTaskOverlay();
-    openOverlay(addTaskOverlay, 'fly-out-to-right');
+    openOverlay(addTaskOverlay, 'fly-out-to-right', closeAddTaskOverlay);
+    turnOffFormSubmission(document.getElementById('ato-form'));
+    fillForm(taskToRestore);
+    adaptTextareaHeightToContent('ato-description');
+}
+
+function openMoveTaskOverlay(event, taskId) {
+    event.stopPropagation();
+    const moveTaskOverlay = renderMoveTaskOverlay(taskId);
+    openOverlay(moveTaskOverlay, 'fly-out-to-right');
+}
+
+async function moveTaskTo(taskId, index) {
+    const tempTaskState = allData.tasks[taskId].state;
+    allData.tasks[taskId].state = taskStates[index];
+    paintTasks();
+    if (!await updateTaskInDatabase(taskId)) {
+        allData.tasks[taskId].state = tempTaskState;
+        paintTasks();
+    }
+    closeOverlay();
 }

@@ -1,0 +1,138 @@
+#assigned:hover{
+  cursor:pointer;
+}
+
+.add-flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.selectBox {
+  position: relative;
+}
+
+.selectBox select {
+  width: 100%;
+  font-weight: bold;
+}
+
+.overSelect {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+#checkboxes {
+  display: none;
+  background-color: white;
+}
+
+.checkbox-content{
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 16px;
+  padding: 7px 16px;
+  border-radius: 10px;
+  margin: 1px 0;
+  flex-grow: 1;
+}
+
+#checkboxes input {
+  width: 24px;
+  margin: 0 16px;
+}
+
+.badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border: 2px solid white;
+  border-radius: 16px;
+  color: white;
+  font-size: 12px;
+  margin: 0 16px;
+}
+
+.name-badge{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row-reverse;
+
+}
+
+.margin0{
+  margin: 0 !important;
+}
+
+#checkboxes .checkbox-content:hover {
+  background-color: var(--hover-checked);
+}
+
+#badge-Container{
+  margin: 2px;
+  flex-wrap: wrap;
+}
+.relativ{
+  position: relative;
+}
+.input-icon{
+  position: absolute;
+  top: 30%;
+  right: 10px;
+ 
+ }
+
+ .input-icon:hover{
+  cursor: pointer;
+ }
+
+ /* Scrollbar  */
+ .position-absolute {
+  position: absolute;
+  max-height: 200px; 
+  overflow-y: scroll; 
+  z-index: 2;
+}
+
+
+.position-absolute::-webkit-scrollbar {
+  width: 16px; 
+  border: 5px solid white; 
+}
+
+
+.position-absolute::-webkit-scrollbar-track {
+  background-color: #f4f4f4; 
+  border-radius: 6px; 
+  margin-bottom: 30px; 
+}
+
+
+.position-absolute::-webkit-scrollbar-thumb {
+  background-color: #888; 
+  border-radius: 6px; 
+  background-clip: padding-box;
+  border: 0.05em solid #eeeeee; 
+}
+
+
+.custom-checkbox{
+  display: flex;
+  align-items: center;
+}
+
+
+.checkbox-content input[type="checkbox"] {
+  display: none;
+}
+
+
+
+

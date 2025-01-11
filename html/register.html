@@ -19,7 +19,7 @@
 
 </head>
 
-<body onload="clearAllUserData()">
+<body>
   <header class="section-pad section-gap">
     <div class="">
       <img src="/assets/icons/join-logo.svg" class="logo-little" alt="Join">
@@ -28,7 +28,7 @@
     <main>
         <div class="signup-container">
             <div class="signup-header">
-                <img src="/assets/icons/arrow-left.svg" alt="back to login">
+                <a class="arrow" href="./log-in.html"><img src="/assets/icons/arrow-left.svg" alt="back to login"></a>
                 <div class="headline-container">
                     <h1>Sign up</h1>
                     <div class="underline"></div>
@@ -41,7 +41,7 @@
                 <span id="errorMessageEmail" class="error-message"></span>
                 <input class="input-password"  type="password" id="password" placeholder="Password">
                 <span id="errorMessagePassword" class="error-message"></span>
-                <input class="input-password" type="password" id="confirmPassword" placeholder="Confirm Password" minlength="8" maxlength="20">
+                <input class="input-password" type="password" id="confirmPassword" placeholder="Confirm Password">
                 <span id="errorMessageConfirmPassword" class="error-message"></span>
                 <div class="signup-wrapper">
                   <div class="d-flex-c-c gap-16">

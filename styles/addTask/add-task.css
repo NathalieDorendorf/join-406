@@ -2,6 +2,32 @@
   --prio-red: #ff3d00;
   --prio-orange: #ffa800;
   --prio-green: #7ae229;
+  --hover-checked: #eeeeee;
+  --checkt: #091931;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+}
+.height{
+  height: 100%;
+}
+.width100 {
+  width: 100%;
+}
+
+.gab8px{
+  gap:8px;
 }
 
 .add-task-section {
@@ -9,48 +35,41 @@
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
 }
-.with440px {
-  width: 440px;
-}
+
 .add-task-headline {
   display: flex;
-  padding: 86px 86px 0 100px;
 }
 
 .main-content-add-task {
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1440px;
+  padding: 16px 0 0 0;
 }
-.form-content {
+
+.add-task-form-content {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
 }
 .add-task-form {
   flex-direction: column;
-  max-width: 1140px;
   height: 100%;
+  width: 100%;
   align-items: center;
   justify-content: space-between;
 }
 
-.form-left {
+.form-left,
+.form-right {
   display: flex;
   gap: 32px;
   flex-direction: column;
-  max-width: 440px;
+  width: 100%;
 }
 .form-middle {
   display: flex;
   border: 1px solid rgba(209, 209, 209, 1);
-}
-.form-right {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  max-width: 440px;
 }
 
 .description {
@@ -59,7 +78,7 @@
 }
 
 .description textarea {
-  max-width: 440px;
+  max-width: 1440px;
   height: 120px;
   border-radius: 10px;
   border: 1px solid var(--color-light-gray);
@@ -82,86 +101,10 @@
   width: 100%;
 }
 
-.add-task-form-content {
-  display: flex;
-  gap: 16px;
-}
-
-/* ----assigned */
-.add-flex {
-  display: flex;
-  flex-direction: column;
-}
-
-.selectBox {
-  position: relative;
-}
-
-.selectBox select {
-  width: 100%;
-  font-weight: bold;
-}
-
-.overSelect {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-}
-
-#checkboxes {
-  display: none;
-  border: 1px #D1D1D1 solid;
-}
-
-#checkboxes label {
-  display: flex;
-  flex-direction: row-reverse;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 16px;
-  
-}
-#checkboxes input {
-  width: 24px;
-  margin: 0 16px;
-}
-
-.patch {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 32px;
-  height: 32px;
-  margin-right: -5px;
-  border: 2px solid white;
-  border-radius: 16px;
-  color: white;
-  font-size: 12px;
-  margin: 0 16px;
-}
-
-.name-patch{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row-reverse;
-
-}
-
-#checkboxes label:hover {
-  background-color: #1e90ff;
-}
-
-/* -----radio */
+/* Prio section  */
 .radio {
   width: auto;
   height: auto;
-}
-.radio-container {
-  display: flex;
-  justify-content: space-between;
 }
 
 .add-task-container {
@@ -172,9 +115,14 @@
   cursor: pointer;
   font-size: 16px;
   user-select: none;
+  flex-grow: 1;
 }
-.gab-prio {
-  margin: 0 16px;
+.radio-container {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-grow: 1;
 }
 .checkmark {
   display: flex;
@@ -182,7 +130,6 @@
   align-items: center;
   gap: 16px;
   height: 56px;
-  width: 136px;
   line-height: 56px;
   text-align: center;
   border: 1px solid rgba(209, 209, 209, 1);
@@ -191,6 +138,8 @@
   transition: all 0.3s ease;
   font-size: 21px;
   padding: 16px 10px;
+  flex-grow: 1;
+  min-width: 132px;
 }
 
 .add-task-container input {
@@ -198,6 +147,7 @@
   opacity: 0;
   cursor: pointer;
   width: auto;
+  flex-grow: 1;
 }
 
 .add-task-container:hover input ~ .checkmark {
@@ -275,4 +225,11 @@
 .add-task-form-buttons button:hover {
   background-color: var(--color-light-blue);
   box-shadow: 0 4px 3px -1px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  .add-task-form-content {
+    flex-direction: column;
+    align-items: center;
+  }
 }

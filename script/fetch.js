@@ -3,7 +3,7 @@ const BASE_URL = "https://join-gruppenarbeit-137ed-default-rtdb.europe-west1.fir
 /**
  * Fetch Resource for a any path after BASE
  * @param {String} path - For example: 'users', 'contacts', 'tasks' or users/{id}...
- * @param {String} [httpMethod = GET] - also 'POST', 'PUT', 'PATCH', etc.
+ * @param {String} [httpMethod = GET] - 'GET', 'POST', 'PUT', 'PATCH', etc.
  * @param {Object} [data = 'undefined']
  * @returns {Object | boolean} - Returns the response body as Object or true if httpMethod is `DELETE` or false if error occured.
  */

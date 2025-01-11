@@ -28,6 +28,12 @@
     background-color: #1FD7C1;
 }
 
+.move-task-btn {
+    display: none;
+    width: 24px;
+    height: 24px;
+}
+
 .card-title {
     font-weight: 700;
     color: var(--primary-blue);
@@ -67,12 +73,6 @@
     line-height: 0px;
 }
 
-.member-and-priority {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
 .member-icon {
     width: 32px;
     height: 32px;
@@ -84,8 +84,15 @@
 }
 
 .priority {
+    margin-left: auto;
     width: 32px;
     height: 32px;
+}
+
+@media (max-width: 1437px) {
+    .move-task-btn {
+        display: block;
+    }
 }
 
 @media (max-width: 680px) {

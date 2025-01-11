@@ -25,13 +25,18 @@ function renderNoTaskFeedback(feedbackText, found) {
 function renderTask(id, task) {
     return `
         <div id=${id} class="card light-box-shadow draggable" onclick="openTaskDetailView(this)" draggable="true">
-            <div class="card-tag ${getTagBackground(task)}">${task.category}</div>
+            <div class="fr jcac sb">
+                <div class="card-tag ${getTagBackground(task)}">${task.category}</div>
+                <div class="ui-icon-wrapper" onclick="openMoveTaskOverlay(event, '${id}')">
+                    <img src="/assets/icons/move-task.svg" alt="Button: Move task to different state" class="move-task-btn" >
+                </div>
+            </div>
             <div class="card-content">
                 <div class="card-title">${task.title}</div>
                 ${renderCardSummary(task.description)}
             </div>
             ${renderCardSubtasks(task.subtasks)}
-            <div class="member-and-priority">
+            <div class="fr ac">
                 ${renderAssignedTo(task.assignedTo)}
                 <div class="priority d-flex-c-c"><img src="/assets/icons/priority-${task.priority.toLowerCase()}.svg"
                         alt="${task.priority} priority"></div>
@@ -102,8 +107,8 @@ function calcDoneSubtasks(subtasks) {
 function renderAssignedTo(assignedTo) {
     if (assignedTo) {
         return `
-            <div class="member d-flex">
-                ${renderForAll(assignedTo, renderMemberTag)}
+            <div class="member fr wrap">
+                ${renderForAll(assignedTo, renderContactTag)}
             </div>
         `;
     } else {
@@ -117,9 +122,9 @@ function renderAssignedTo(assignedTo) {
  * @param {Function} renderFunction - A function that takes a data element and returns the HTML string representation.
  * @returns {string} A concatenated string of HTML elements rendered for each item in the array.
  */
-function renderForAll(dataArray, renderFunction) {
+function renderForAll(dataArray, renderFunction, ...optionalArguments) {
     let renderedHTML = '';
-    dataArray.forEach((dataElement, index) => renderedHTML += renderFunction(dataElement, index));
+    dataArray.forEach((dataElement, index) => renderedHTML += renderFunction(dataElement, index, ...optionalArguments));
     return renderedHTML;
 }
 
@@ -128,10 +133,10 @@ function renderForAll(dataArray, renderFunction) {
  * @param {string} contactId - The ID of the contact.
  * @returns {string} The HTML string for the member tag.
  */
-function renderMemberTag(contactId) {
+function renderContactTag(contactId) {
     const contact = allData.contacts[contactId];
     return `
-        <div class="member-icon d-flex-c-c" style="${getMemberTagBackgroundColor(contact)}">${contact.initials}</div>
+        <div class="member-icon d-flex-c-c" style="${getContactTagBackgroundColor(contact)}">${contact.initials}</div>
     `;
 }
 
@@ -141,6 +146,6 @@ function renderMemberTag(contactId) {
  * @param {string} contact.color - The tag color of the contact.
  * @returns {string} The CSS style for the background color.
  */
-function getMemberTagBackgroundColor(contact) {
+function getContactTagBackgroundColor(contact) {
     return `background-color: var(${contact.color});`;
 }

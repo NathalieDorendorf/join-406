@@ -2,7 +2,7 @@ const dropOfferBox = document.createElement('div');
 dropOfferBox.innerHTML = `<div class="dashed-box drop-offer"></div>`;
 let startDragColumnBody;
 let counter = 0;
-let ghost = null;
+let ghost = document.createElement('div');
 
 function addDragAndDropEventListeners() {
     const taskCards = document.querySelectorAll('.draggable');
@@ -19,7 +19,9 @@ function addDragAndDropEventListeners() {
         function registerDragStart() {
             taskCard.addEventListener('dragstart', (e) => {
                 e.dataTransfer.setData('text/plain', taskCard.id);
-                createCloneAndSetDragImage(taskCard, e);
+                if (navigator.userAgent.indexOf("Firefox") == -1) { // Firefox has no dragevent.clientY
+                    createCloneAndSetDragImage(taskCard, e);
+                }
                 ghost.classList.remove('dni');
                 startDragColumnBody = taskCard.parentElement;
                 extendColumns();
@@ -28,15 +30,12 @@ function addDragAndDropEventListeners() {
 
         function registerDrag() {
             taskCard.addEventListener('drag', (e) => {
-                const topValue = e.clientY - ghost.offsetHeight / 2;
-                const leftValue = e.clientX - ghost.offsetWidth / 2;
-                ghost.style.top = `${topValue}px`;
-                ghost.style.left = `${leftValue}px`;
+                changePositionOfGhost(e);
             })
         }
 
         function registerDragEnd() {
-            taskCard.addEventListener('dragend', () => {
+            taskCard.addEventListener('dragend', (e) => {
                 removeGhost(taskCard);
                 counter = 0;
                 dropOfferBox.remove();
@@ -52,15 +51,25 @@ function addDragAndDropEventListeners() {
             ghost.classList.add('ghost', 'dni');
             ghost.style.width = `${width}px`;
             ghost.style.height = `${height}px`;
+            changePositionOfGhost(e, height, width);
             document.body.appendChild(ghost);
             const dragImg = document.createElement('img');
             dragImg.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='; // 1px transparent img
             e.dataTransfer.setDragImage(dragImg, 0, 0);
         }
 
+        function changePositionOfGhost(e, height = ghost.offsetHeight, width = ghost.offsetWidth) {
+            if (e.clientY != 0 && e.clientX != 0) {
+                const topValue = e.clientY - height / 2;
+                const leftValue = e.clientX - width / 2;
+                ghost.style.top = `${topValue}px`;
+                ghost.style.left = `${leftValue}px`;
+            }
+        }
+
         function removeGhost(taskCard) {
-            taskCard.classList.remove('grey-out');
             ghost.remove();
+            taskCard.classList.remove('grey-out');
         }
     });
 
@@ -108,14 +117,16 @@ function addDragAndDropEventListeners() {
         }
 
         function registerDrop() {
-            columnBody.addEventListener('drop', (e) => {
+            columnBody.addEventListener('drop', async (e) => {
                 const draggedElement = document.getElementById(`${e.dataTransfer.getData('text')}`);
                 if (columnBody !== startDragColumnBody) {
                     columnBody.appendChild(draggedElement);
-                    taskId = draggedElement.id;
+                    const taskId = draggedElement.id;
+                    const tempTaskState = allData.tasks[taskId].state;
                     allData.tasks[taskId].state = columnBody.dataset.tasksState;
                     paintTasks();
-                    if (!updateTaskInDatabase(taskId)) {
+                    if (!await updateTaskInDatabase(taskId)) {
+                        allData.tasks[taskId].state = tempTaskState;
                         paintTasks();
                     }
                 }
@@ -124,14 +135,16 @@ function addDragAndDropEventListeners() {
     })
 
     function extendColumns() {
-        columnBodies.forEach(columnBody => columnBody.style.height = `${columnBody.offsetHeight + 240}px`);
+        if (document.querySelector('.board-tasks').offsetWidth > 1220) { // prevent feature on grid wrap to prevent need to scroll while dragging
+            setTimeout(() => {
+                columnBodies.forEach(columnBody => {
+                    columnBody.style.height = `${columnBody.offsetHeight + 240}px`;
+                });
+            }, 0);
+        }
     }
 
     function shortenColumns() {
         columnBodies.forEach(columnBody => columnBody.style.height = 'unset');
     }
-}
-
-function updatePositionRemoteAndLocal(taskCard) {
-    const taskId = taskCard.id;
 }

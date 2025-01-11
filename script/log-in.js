@@ -1,14 +1,13 @@
-
 const urlParams = new URLSearchParams(window.location.search);
 const msg = urlParams.get('msg');
 
-let userData = [];
-
 function getInputData() {
+
   let email = document.getElementById("email").value;
   let password = document.getElementById("password").value;
 
   logIn('/users', email, password)
+
 }
 
 if (msg) {
@@ -18,21 +17,32 @@ if (msg) {
 }
 
 async function logIn(path, enteredEmail, enteredPassword) {
-  let response = await fetch(BASE_URL + path + ".json");
-  let responseToJson = await response.json();
+  try {
+    let response = await fetch(BASE_URL + path + ".json");
+    let responseToJson = await response.json();
 
-  userData = Object.keys(responseToJson).map(key => (
-    { id: key, ...responseToJson[key] }
-  ));
+    const matchingUser = Object.values(responseToJson).find(user =>
+      user.email === enteredEmail && user.password === enteredPassword
+    );
+    checkStatus(matchingUser);
 
-  const matchingUser = userData.find(user => user.email === enteredEmail && user.password === enteredPassword);
-  validateMatch(matchingUser)
+  } catch (error) {
+    console.error("Fehler beim Login:", error);
+  };
+};
+
+
+function checkStatus(matchingUser) {
+  if (matchingUser.email === 'hantelmarco@gmail.com') {
+    localStorage.setItem('logInStatus', 'guest')
+    validateMatch(matchingUser);
+  };
 };
 
 function validateMatch(matchingUser) {
   if (matchingUser) {
-    addToLocalStorage(login = true);
-    window.location.href = "board.html?msg=you have logged in successfully"
+    addToSessionStorage(login = true);
+    window.location.href = "summary.html?msg=you have logged in successfully&isLoggedIn=true"
   } else {
     let email = document.getElementById('email');
     let password = document.getElementById('password');
@@ -55,14 +65,6 @@ function clearLoginData(password) {
   password.value = "";
 };
 
-function addToLocalStorage(login) {
-  localStorage.setItem("user_Logged_in", login)
-}
-
-function validateLoggin() {
-  if (localStorage.getItem("user_Logged_in") === null) {
-    console.log('storage is not set');
-  } else {
-    console.log('storage is set'); }
-}
-
+function addToSessionStorage(login) {
+  sessionStorage.setItem("isLoggedIn", JSON.stringify(login))
+};

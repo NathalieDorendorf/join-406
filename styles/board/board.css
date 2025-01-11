@@ -15,7 +15,7 @@ section {
 }
 
 .board-header {
-    margin-top: 16px;
+    margin-top: 32px;
     align-items: center;
     flex-wrap: wrap;
 }
@@ -78,23 +78,17 @@ section {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    min-height: 240px;
-}
-
-.ui-icon:hover,
-.ui-icon:focus {
-    outline: none;
-    filter: brightness(0) saturate(100%) invert(63%) sepia(14%) saturate(2444%) hue-rotate(157deg) brightness(91%) contrast(95%);
-    cursor: pointer;
+    /* min-height: 240px; */
 }
 
 .dashed-box {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 48px;
-    background-color: var(--bg-color-gray-darker);
     color: var(--color-gray);
+    text-align: center;
+    padding: 12px 16px;
+    background-color: var(--bg-color-gray-darker);
     box-shadow: 0 0 4px 1px var(--bg-color-gray-darker);
     background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='10' ry='10' stroke='%23A8A8A8' stroke-width='2' stroke-dasharray='4 6' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
     border-radius: 10px;
@@ -117,14 +111,39 @@ section {
     background-color: white;
 }
 
+.move-task-ui {
+    width: clamp(0px, 500px, 100%);
+    padding: 64px;
+    border-radius: 30px;
+    background-color: var(--primary-blue);
+    color: white;
+    text-align: center;
+    user-select: none;
+}
+
+.move-task-headline {
+    font-size: 40px;
+    margin-bottom: 32px;
+}
+
+.choose-task-state {
+    padding: 12px 16px !important;
+    color: white;
+}
+
+.choose-task-state:hover {
+    color: var(--color-light-blue);
+    font-weight: bolder;
+}
+
 @media (max-height: 800px),
 (max-width:1100px) {
     .board {
-        overflow-y: unset;
+        overflow-y: auto;
     }
 
-    .main-content {
-        overflow-y: auto;
+    .board-tasks {
+        overflow-y: unset;
     }
 }
 
@@ -145,11 +164,17 @@ section {
     }
 }
 
-@media (max-width: 680px) {
+@media (max-width: 768px) {
     section {
-        padding: 16px;
+        padding: 32px 32px 32px 16px;
     }
 
+    .board-header {
+        margin-top: unset;
+    }
+}
+
+@media (max-width: 680px) {
     .board-tasks {
         grid-template-columns: minmax(250px, 1fr);
     }
@@ -162,8 +187,18 @@ section {
     }
 }
 
+@media (max-width: 480px) {
+    section {
+        padding: 32px 16px 16px 16px;
+    }
+}
+
 @media (max-width: 420px) {
     .board-header>button>span {
         display: none;
+    }
+
+    .move-task-ui {
+        padding: 64px 32px;
     }
 }
