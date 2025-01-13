@@ -1,3 +1,8 @@
+/**
+ * Renders the move task overlay HTML for a given task.
+ * @param {string} taskId - The ID of the task to be moved.
+ * @returns {string} The HTML string of the move task overlay.
+ */
 function renderMoveTaskOverlay(taskId) {
     return `
         <div class="move-task-ui">
@@ -9,6 +14,14 @@ function renderMoveTaskOverlay(taskId) {
     `
 }
 
+/**
+ * Renders an option for selecting a task state in the move task overlay.
+ * @param {string} taskState - One of the available task states
+ * @param {number} index - The index of the task state in the <code>taskStates</code> array.
+ * @param {string} taskToMoveTaskState - The current state of the task being moved (do not offer to move to)
+ * @param {string} taskId - The ID of the task being moved.
+ * @returns {string} The HTML string of the task state option.
+ */
 function renderMoveTaskSelectOption(taskState, index, taskToMoveTaskState, taskId) {
     if (taskToMoveTaskState !== taskState) {
         return `

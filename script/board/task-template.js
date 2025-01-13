@@ -16,7 +16,7 @@ function renderNoTaskFeedback(feedbackText, found) {
  * @param {Object} task - The task object containing its details.
  * @param {string} task.category - The category of the task ("User Story", "Technical Task")
  * @param {string} task.title - The title of the task.
- * @param {string} [task.description] - A description of the task.
+ * @param {string} [task.description] - The description of the task.
  * @param {Array<Object>} [task.subtasks] - An array of subtasks.
  * @param {Array<string>} [task.assignedTo] - An array of contact IDs, that are assigned to the task
  * @param {string} task.priority - The priority of the task ("low", "medium", "urgent").
