@@ -86,7 +86,10 @@ function errorFunctionName() {
 };
 
 function checkPassword(password, confirmPassword) {    
-    if (password.value !== confirmPassword.value || password.value.trim() === "" || password.value.length >= 8 || password.value.length <= 20) {
+    if (password.value !== confirmPassword.value ||
+        password.value.trim() === "" ||
+        password.value.length < 8 ||
+        password.value.length > 20) {
         errorFunctionPassword();
         return false;
     } else {
@@ -162,6 +165,6 @@ async function updateUser(data) {
     const result = await response.json();
     clearAllUserData()
 
-    // window.location.href = "log-in.html?msg=You Signed up successfully"
+    window.location.href = "log-in.html?msg=You Signed up successfully"
 };
 
