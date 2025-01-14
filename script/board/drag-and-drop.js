@@ -1,15 +1,31 @@
 /**
  * Drag-and-drop functionality for task management.
  * Adds event listeners to task cards and column bodies to enable dragging tasks between columns.
- * @constant {HTMLDivElement} dropOfferBox - A visual indicator element shown in a column when a task is dragged over it.
- * @type {HTMLDivElement} startDragColumnBody - The column body where the drag operation starts.
- * @type {number} counter - Counter to track dragenter/dragleave events for accurate event handling.
- * @type {HTMLDivElement} ghost - A clone of the dragged task card used as a visual representation during the drag.
+ */
+
+/**
+ * A visual indicator element shown in a column when a task is dragged over it.
+ * @constant {HTMLDivElement} dropOfferBox
  */
 const dropOfferBox = document.createElement('div');
 dropOfferBox.innerHTML = `<div class="dashed-box drop-offer"></div>`;
+
+/**
+ * The column body where the drag operation starts.
+ * @type {HTMLDivElement}
+ */
 let startDragColumnBody;
+
+/**
+ * Counter to track dragenter/dragleave events for accurate event handling.
+ * @type {number} 
+ */
 let counter = 0;
+
+/**
+ * A clone of the dragged task card used as a visual representation during the drag.
+ * @type {HTMLDivElement}
+ */
 let ghost = document.createElement('div');
 
 /**
@@ -18,9 +34,15 @@ let ghost = document.createElement('div');
  * - Updates task states in the UI and backend.
  */
 function addDragAndDropEventListeners() {
-    /** @type {NodeListOf<HTMLElement>} taskCards - List of draggable task cards. */
+    /** 
+     * taskCards - List of draggable task cards.
+     * @type {NodeListOf<HTMLElement>} 
+     */
     const taskCards = document.querySelectorAll('.draggable');
-    /** @type {NodeListOf<HTMLElement>} columnBodies - List of column bodies where tasks are displayed. */
+    /** 
+     * columnBodies - List of column bodies where tasks are displayed.
+     * @type {NodeListOf<HTMLElement>}
+     */
     const columnBodies = document.querySelectorAll('.column-body');
 
     // Register drag-and-drop events for task cards
