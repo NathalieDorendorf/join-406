@@ -33,8 +33,28 @@ async function addUser() {
         "email": email.value,
         "password": password.value
     };
-
+    await addToContacts(email, userName)
     await updateUser(singleLogInData);
+}
+
+/**
+ * Adds a new user to the contacts list in the database.
+ * Creates a new contact record with the provided email and user name.
+ * 
+ * @async
+ * @function addToContacts
+ * @param {HTMLInputElement} email - The email input element of the contact.
+ * @param {HTMLInputElement} userName - The user name input element of the contact.
+ * 
+ * @returns {Promise<void>} Resolves when the contact has been added successfully.
+ */
+async function addToContacts(email, userName) {
+    let registerData = {
+        "name": userName.value,
+        "mail": email.value
+    };
+    await updateContacts(registerData);
+    console.log(registerData);
 }
 
 /**
@@ -199,10 +219,41 @@ function clearData(password, confirmPassword) {
     confirmPassword.value = "";
 }
 
+
 /**
- * Sends user data to the server and redirects on success.
+ * Sends the contact data to the database to be stored in the "contacts" collection.
+ * 
  * @async
- * @param {Object} data - The user data to be sent.
+ * @function updateContacts
+ * @param {Object} registerData - The contact data to be saved.
+ * @param {string} registerData.name - The name of the contact.
+ * @param {string} registerData.mail - The email address of the contact.
+ * 
+ * @returns {Promise<void>} Resolves when the contact data has been successfully saved.
+ */
+async function updateContacts(registerData) {
+    const response = await fetch(BASE_URL + "/contacts" + ".json", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(registerData),
+    });
+
+    const result = await response.json();
+}
+
+/**
+ * Sends the user's login data to the database to be stored in the "users" collection.
+ * Clears form data and redirects the user to the login page on success.
+ * 
+ * @async
+ * @function updateUser
+ * @param {Object} data - The user data to be saved.
+ * @param {string} data.email - The email address of the user.
+ * @param {string} data.password - The password of the user.
+ * 
+ * @returns {Promise<void>} Resolves when the user data has been successfully saved.
  */
 async function updateUser(data) {
     const response = await fetch(BASE_URL + "/users" + ".json", {
