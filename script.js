@@ -3,11 +3,15 @@
  * @property {Object<string, User>} users - A map of user IDs to User objects.
  * @property {Object<string, Task>} tasks - A map of task IDs to Task objects.
  * @property {Object<string, Contact>} contacts - A map of contact IDs to Contact objects.
- * 
+ */
+
+/**
  * @typedef {Object} User
  * @property {string} mail - The email address of the user.
  * @property {string} password - The password of the user.
- * 
+ */
+
+/**
  * @typedef {Object} Task
  * @property {string} state - The state of the task: ('to-do', 'in-progress', 'await-feedback', 'done')
  * @property {string} category - The category of the task: ('User Story', 'Technical Task')
@@ -17,11 +21,15 @@
  * @property {string} priority - The priority level of the task ('low', 'medium', 'urgent')
  * @property {Array<string>} assignedTo - IDs of contacts assigned to the task.
  * @property {Array<Object>} subtasks - List of subtasks for the task {title, done}
- *
+ */
+
+/**
  * @typedef {Object} Subtask
  * @property {string} title - The title of the subtask.
  * @property {boolean} done - The completion status of the subtask.
- *
+ */
+
+/**
  * @typedef {Object} Contact
  * @property {string} name - The name of the contact.
  * @property {string} mail - The email address of the contact.
