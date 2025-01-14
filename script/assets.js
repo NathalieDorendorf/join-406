@@ -207,10 +207,12 @@ function adaptTextareaHeightToContent(id) {
  * @param {HTMLButtonElement} buttonElement - The button to toggle.
  */
 function toggleButtonDisabled(buttonElement) {
-    setTimeout(() => {
-        if (buttonElement) {
-            buttonElement.disabled = !buttonElement.disabled;
-            buttonElement.classList.toggle('button-disabled');
-        }
-    }, 200);
+    if (buttonElement) {
+        buttonElement.disabled = !buttonElement.disabled;
+        setTimeout(() => {
+            if (buttonElement) {
+                buttonElement.classList.toggle('button-disabled');
+            }
+        }, 200);
+    }
 }
