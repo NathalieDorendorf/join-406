@@ -123,6 +123,16 @@ async function deleteTaskInDatabase(itemId) {
     return await putOrDelteItem('tasks', itemId, 'delete', 'Task');
 }
 
+/**
+ * Restores all example data by fetching read-only data and updating tasks and contacts.
+ * @returns {Promise<void>}
+ */
+async function restoreAllExampleData() {
+    const readOnlyData = await getAllData('readOnly');
+    fetchResource('tasks', 'PUT', readOnlyData.tasks);
+    fetchResource('contacts', 'PUT', readOnlyData.contacts);
+}
+
 // for development purposes only (FDPO)
 // call for example like this: postData('contacts', localContacts);
 async function postArrayData(path, dataArray) {
