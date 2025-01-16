@@ -46,8 +46,25 @@ let allData = {};
 document.addEventListener("DOMContentLoaded", async () => {
     await includeHTML();
     document.body.style.visibility = 'visible';
+    outsideLogIn()
     paintActiveLink();
 });
+
+function outsideLogIn() {
+    let info = sessionStorage.getItem('isLoggedIn');
+    
+    if (info !== 'true') {
+        const sidebar = document.getElementById('sidebar-main');
+        const logOutFlyout = document.getElementById('logOutFlyout');
+        
+        if (sidebar) {
+            sidebar.classList.replace('links-container', 'dni');
+        } 
+        if (logOutFlyout) {
+            logOutFlyout.classList.add('dni');
+        } 
+    }
+}
 
 /**
  * Includes HTML from separate files into header and navbar with the attribute `w3-include-html`.
