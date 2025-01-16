@@ -248,7 +248,7 @@ function deleteSubtask(event, index) {
 function editSubtask(index) {
     const inputSubtasks = document.getElementById('ato-subtasks');
     currentSubtaskIndex = index;
-    inputSubtasks.value = writtenSubtasks[index];
+    inputSubtasks.value = writtenSubtasks[index].title;
     inputSubtasks.focus();
 }
 
