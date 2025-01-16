@@ -1,3 +1,9 @@
+/**
+ * Renders the detailed view of a task.
+ * @param {string} taskId - The ID of the task to display.
+ * @param {AllData} allData - the global data containing also tasks
+ * @returns {string} The HTML string of the task detail view.
+ */
 function renderTaskDetailView(taskId) {
     const task = allData.tasks[taskId];
     return `
@@ -40,10 +46,20 @@ function renderTaskDetailView(taskId) {
     `
 }
 
+/**
+ * Renders the task description.
+ * @param {string} description - The description of the task.
+ * @returns {string} The HTML string of the task description.
+ */
 function renderTaskDescription(description) {
     return description ? `<div>${description}</div>` : '';
 }
 
+/**
+ * Formats and renders the due date of a task.
+ * @param {string} dueDate - The due date of the task in ISO format.
+ * @returns {string} The formatted due date. (01/01/2000)
+ */
 function renderDueDate(dueDate) {
     return new Date(Date.parse(dueDate)).toLocaleDateString('en', {
         day: '2-digit',
@@ -52,6 +68,11 @@ function renderDueDate(dueDate) {
     });
 }
 
+/**
+ * Renders the "Assigned To" section of the task.
+ * @param {Array<string>} assignedTo - Array of contact IDs assigned to the task.
+ * @returns {string} The HTML string of the "Assigned To" section.
+ */
 function renderDetailCardAssignedToSection(assignedTo) {
     if (assignedTo) {
         return `
@@ -67,6 +88,11 @@ function renderDetailCardAssignedToSection(assignedTo) {
     }
 }
 
+/**
+ * Renders a member card for an assigned contact.
+ * @param {string} contactId - The ID of the contact assigned to the task.
+ * @returns {string} The HTML string of the assigned member card.
+ */
 function renderDetailCardAssignedTo(contactId) {
     return `
         <div class="member-card fr jsac">
@@ -76,6 +102,11 @@ function renderDetailCardAssignedTo(contactId) {
     `
 }
 
+/**
+ * Renders the subtasks section of the task.
+ * @param {Array<Object>} subtasks - Array of subtask objects.
+ * @returns {string} The HTML string of the subtasks section.
+ */
 function renderDetailCardSubtasks(subtasks) {
     if (subtasks && subtasks.length > 0) {
         return `
@@ -91,6 +122,14 @@ function renderDetailCardSubtasks(subtasks) {
     }
 }
 
+/**
+ * Renders a single subtask.
+ * @param {Object} subtask - The subtask object.
+ * @param {string} subtask.title - The title of the subtask.
+ * @param {boolean} subtask.done - Whether the subtask is completed.
+ * @param {number} index - The index of the subtask.
+ * @returns {string} The HTML string of the subtask.
+ */
 function renderDetailCardSubtask(subtask, index) {
     const svgPath = subtask.done ? 'checked' : 'unchecked';
     return `

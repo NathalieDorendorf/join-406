@@ -1,3 +1,7 @@
+/**
+ * Renders the overlay for adding a new task.
+ * @returns {string} HTML string for the "Add Task" overlay.
+ */
 function renderAddTaskOverlay() {
     return `
         <div id="ato" class="ato fly-in-from-right fc gap-32">
@@ -15,7 +19,7 @@ function renderAddTaskOverlay() {
                         <span>This field is required</span>
                     </div>
                     <div class="fr gap-16 wrap ato-footer-buttons">
-                        <button class="button-2 fr jcac gap-8" onclick="cancelAddTask()">
+                        <button id="cancel-add-task-btn" class="button-2 fr jcac gap-8" onclick="cancelAddTask()">
                             <span>Cancel / Clear</span>
                             <img src="/assets/icons/close.svg" alt="Cancel create task button">
                         </button>
@@ -27,9 +31,13 @@ function renderAddTaskOverlay() {
                 </div>
             </form>
         </div>
-    `
+    `;
 }
 
+/**
+ * Renders the input fields for the add-task and edit-task form.
+ * @returns {string} HTML string for task input fields.
+ */
 function renderInputFields() {
     return `
         <div class="inputs w-100 fr wrap gap-32">
@@ -52,7 +60,7 @@ function renderInputFields() {
                                 <img src="/assets/icons/arrow-drop-down.svg" alt="drop-down button">
                             </div>
                         </div>
-                        <div id="contacts-box" class="custom-select-rendered fc dni" tabindex="-1" onfocusout="closeDropdown(event, '#ato-assigned-to')"></div>
+                        <div id="contacts-box" class="custom-select-rendered fc dni" tabindex="-1" onfocusout="closeAwaitSelectDropdown(event, '#ato-assigned-to')"></div>
                     </div>
                     <div id="ato-name-tags" class="ato-name-tags fr wrap">${renderForAll(selectedContacts, renderContactTag)}</div>
                 </div>
@@ -95,7 +103,7 @@ function renderInputFields() {
                                 <img src="/assets/icons/arrow-drop-down.svg" alt="drop-down button">
                             </div>
                         </div>
-                        <div id="category-box" class="custom-select-rendered ato-category-box fc dni" tabindex="-1" onfocusout="closeDropdown(event, '#ato-category')">
+                        <div id="category-box" class="custom-select-rendered ato-category-box fc dni" tabindex="-1" onfocusout="closeImmediateSelectDropdown(event, '#ato-category')">
                             <div class="fr ac gap-16 category-to-select" onclick="selectCategory('Technical Task')"><span>Technical Task</span></div>
                             <div class="fr ac gap-16 category-to-select" onclick="selectCategory('User Story')"><span>User Story</span></div>
                         </div>
@@ -121,9 +129,14 @@ function renderInputFields() {
                 </div>
             </div>
         </div>
-    `
+    `;
 }
 
+/**
+ * Renders a contact-select-box for selection in the "Assigned to" field.
+ * @param {Array} contactEntry - Array containing contact ID and value.
+ * @returns {string} HTML string for a contact option.
+ */
 function renderContactOption(contactEntry) {
     contactId = contactEntry[0];
     contactValue = contactEntry[1];
@@ -133,9 +146,15 @@ function renderContactOption(contactEntry) {
             <span>${contactValue.name}</span>
             <img src="/assets/icons/check-button-unchecked.svg" alt="Contact not selected">
         </div>
-    `
+    `;
 }
 
+/**
+ * Renders a single subtask item.
+ * @param {Object} subtask - Subtask object containing subtask-title.
+ * @param {number} index - Index of the subtask in the array
+ * @returns {string} HTML string for a subtask item.
+ */
 function renderSubtask(subtask, index) {
     return `
         <div class="fr sb ac gap-16 written-subtask pos-rel" onclick="editSubtask(${index})">
@@ -151,9 +170,14 @@ function renderSubtask(subtask, index) {
                 </div>
             </li>
         </div>
-    `
+    `;
 }
 
+/**
+ * Renders the overlay for editing an existing task.
+ * @param {string} taskId - ID of the task to edit.
+ * @returns {string} HTML string for the "Edit Task" overlay.
+ */
 function renderEditTaskOverlay(taskId) {
     return `
         <div id="ato" class="ato fly-in-from-right fc gap-32">
@@ -176,5 +200,5 @@ function renderEditTaskOverlay(taskId) {
                     </div>
             </form>
         </div>
-    `
+    `;
 }
