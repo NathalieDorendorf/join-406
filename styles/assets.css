@@ -147,13 +147,16 @@ textarea:focus {
 
 .button-2:hover,
 .button-2:focus {
-    margin-right: -1px;
-    border: 2px solid var(--color-light-blue);
+    border: 1px solid var(--color-light-blue);
     color: var(--color-light-blue);
 
     >img {
         filter: brightness(0) saturate(100%) invert(63%) sepia(14%) saturate(2444%) hue-rotate(157deg) brightness(91%) contrast(95%);
     }
+}
+
+.button-disabled:hover {
+    cursor: not-allowed;
 }
 
 .sideline-blue {
@@ -311,6 +314,13 @@ textarea:focus {
         gap: 8px;
     }
 
+    .overlay {
+        padding: 0;
+
+        &>:first-child {
+            border-radius: 0;
+        }
+    }
 }
 
 @media (max-width: 768px) and (min-width: 481px) {

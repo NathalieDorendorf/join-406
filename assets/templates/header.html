@@ -6,13 +6,15 @@
             <img class="img-help" src="/assets/icons/help.svg" alt="Help">
         </a>
         <div class="user-icon-container" onclick="toggleUserMenu()">
-            <p class="initials">SM</p>
+            <span class="initials">SM</span>
         </div>
         <div class="user-menu-container hidden" id="userMenu">
             <a href="/html/help.html" onclick="redirectWithLoginInfo(event, '/html/help.html')">Help</a>
-            <a href="/html/legal-notice.html" onclick="redirectWithLoginInfo(event, '/html/legal-notice.html')" target="_blank">Legal Notice</a>
-            <a href="/html/privacy-policy.html" onclick="redirectWithLoginInfo(event, '/html/privacy-policy.html')" target="_blank">Privacy Policy</a>
-           <a href="/html/log-in.html" onclick="logOut()">Log out</a>
+            <a href="/html/legal-notice.html" onclick="redirectWithLoginInfo(event, '/html/legal-notice.html')"
+                target="_blank">Legal Notice</a>
+            <a href="/html/privacy-policy.html" onclick="redirectWithLoginInfo(event, '/html/privacy-policy.html')"
+                target="_blank">Privacy Policy</a>
+            <a href="/html/log-in.html" id="logOutFlyout" onclick="logOut()">Log out</a>
         </div>
     </div>
 </nav>

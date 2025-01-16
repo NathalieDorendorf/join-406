@@ -1,5 +1,10 @@
-const tempItemsContainer = {};
-
+/**
+ * Toggles the completion status of a subtask.
+ * @param {HTMLImageElement} currentElement - The checkbox element for the subtask.
+ * @param {number} index - The index of the subtask within the task's subtasks array.
+ * @param {AllData} allData - The global data containing tasks and their details.
+ * @returns {Promise<void>}
+ */
 async function toggleSubtaskStatus(currentElement, index) {
     const taskId = document.getElementById('overlay').firstElementChild.id;
     const subtask = allData.tasks[taskId].subtasks[index];
@@ -20,6 +25,11 @@ async function toggleSubtaskStatus(currentElement, index) {
     }
 }
 
+/**
+ * Deletes a task after user confirmation.
+ * @param {string} taskId - The ID of the task to delete.
+ * @returns {Promise<void>}
+ */
 async function deleteTask(taskId) {
     if (window.confirm("Do you want to delete the task?")) {
         if (await deleteTaskInDatabase(taskId)) {
@@ -29,6 +39,11 @@ async function deleteTask(taskId) {
     }
 }
 
+/**
+ * Opens the edit task overlay and sets up the form for editing a task.
+ * @param {string} taskId - The ID of the task to edit.
+ * @param {AllData} allData - The global data containing tasks and their details.
+ */
 function editTask(taskId) {
     removeOverlay();
     taskState = allData.tasks[taskId].state;
@@ -41,6 +56,9 @@ function editTask(taskId) {
     adaptTextareaHeightToContent('ato-description');
 }
 
+/**
+ * Closes the edit task overlay and resets the form.
+ */
 function closeEditTaskOverlay() {
     resetForm();
     closeOverlay();
