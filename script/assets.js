@@ -86,8 +86,8 @@ document.addEventListener('DOMContentLoaded', initToastContainer = () => {
                     z-index: 100;
                 }
                 .toast {
-                    padding: 8px 16px;
-                    border-radius: 32px;
+                    padding: 16px 32px;
+                    border-radius: 20px;
                     box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2);
                     font-size: 16px;
                     font-weight: 500;
@@ -118,8 +118,8 @@ document.addEventListener('DOMContentLoaded', initToastContainer = () => {
  */
 function showToastMessage({
     message,
-    backgroundColor = 'white',
-    color = 'black'
+    backgroundColor = '#2A3647',
+    color = 'white'
 }) {
     toastContainer.insertAdjacentHTML('beforeend',
         `<div class="toast" style="
