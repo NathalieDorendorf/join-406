@@ -80,13 +80,21 @@ function renderContactList(groupedContacts) {
         .forEach(letter => {
             // Kategorie erstellen
             const category = document.createElement("div");
-            category.innerHTML = `<h3>${letter}</h3><div class="underline"></div>`;
+            category.innerHTML = `<h3 class="underline-letter">${letter}</h3>`;
             contactList.appendChild(category);
 
             // Kontakte hinzufügen
             groupedContacts[letter].forEach(contact => {
                 const contactItem = document.createElement("li");
-                contactItem.textContent = `${contact.name} (${contact.mail})`;
+                contactItem.innerHTML = `
+                    <div class="contact-info-container">
+                        <div class="initials-circle" style="background-color: var(${contact.color});">${contact.initials}</div>
+                        <div>
+                            <p>${contact.name}</p>
+                            <a href="mailto:${contact.mail}">${contact.mail}</a>
+                        </div>
+                    </div>
+                `;
                 contactItem.onclick = () => showContactDetails(contact);
                 category.appendChild(contactItem);
             });
@@ -110,9 +118,21 @@ function showContactDetails(contact) {
     } else {
         // Desktop Ansicht: Rechts anzeigen
         detailsContainer.innerHTML = `
-            <h2>${contact.name}</h2>
-            <p>Email: ${contact.mail}</p>
-            <p>Phone: ${contact.phone}</p>
+            <div class="d-flex gap-24">
+                <div class="initials-circle-big" style="background-color: var(${contact.color});">${contact.initials}</div>
+                <div class="name-container">
+                    <h2>${contact.name}</h2>
+                    <div class="d-flex gap-8">
+                        <button class="button-contacts" onclick="showContactEditForm(${contact.id})"><img src="/assets/icons/edit-blue.svg" alt="edit">Edit</button>
+                        <button class="button-contacts"><img src="/assets/icons/delete-blue.svg" alt="delete">Delete</button>
+                    </div>
+                </div>
+            </div>
+            <h2>Contact Information</h2>
+            <h3>Email</h3>
+            <a href="mailto:${contact.mail}">${contact.mail}</a>
+            <h3>Phone</h3>
+            <a href="tel:${contact.phone}">${contact.phone}</a>
         `;
         detailsContainer.classList.add("slide-in");
     }

@@ -29,20 +29,20 @@
         <p>Der Header konnte nicht geladen werden.</p>
       </div>
       <section class="section-contacts">
-        <div id="contactList" class="contacts-container">
-          <button>Add new contact <img src="/assets/icons/person_add.svg" alt="add new contact"></button>
-          <ol type="A" id="orderedContactList">
-            <li></li>
-            <div class="underline"></div>
-          </ol>
+        <div class="contacts-container">
+          <button class="button add-new-contact-btn-desktop">Add new contact <img src="/assets/icons/person_add.svg" alt="add new contact"></button>
+          <div id="contactList" class="contact-list-container">
+            
+          </div>
+          <button class="button add-new-contact-btn-mobile" onclick="addNewContact()"><img src="/assets/icons/person_add.svg" alt="add new contact"></button>
         </div>
-        <div class="contacts-details-container">
+        <div class="contacts-details-container section-pad section-gap">
           <header class="section-header">
             <h1>Contacts</h1>
             <div class="sideline-blue"></div>
             <h4>Better with a team</h4>
           </header>
-          <div id="contactDetails">
+          <div id="contactDetails" class="contact-details">
 
           </div>
         </div>

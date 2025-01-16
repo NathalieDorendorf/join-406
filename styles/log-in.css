@@ -10,7 +10,7 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    height: 449px;
+    height: 489px;
     width: 652px;
     background-color: var(--bg-white);
     border-radius: 30px;
@@ -31,4 +31,36 @@
 
 .error-message {
     height: 16px;
+}
+
+@media(max-width: 600px ){
+
+    .button-container {
+        flex-direction: column;
+    }
+
+    .button-container {
+        padding-top: 0px;
+        width: 50%;
+        gap: 15px;
+    }
+
+    input, select, textarea, .custom-select {
+        width: 322px;
+    }
+}
+
+@media(max-width: 500px ){
+
+    .button-container {
+        width: 75%;
+    }
+
+    input, select, textarea, .custom-select {
+        width: 222px;
+    }
+
+    h1{
+        font-size: 50px !important;
+    }
 }
