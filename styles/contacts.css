@@ -125,7 +125,7 @@
 
 .button-contacts {
     border: unset;
-    background-color: var(--bg-color);
+    background-color: transparent;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -179,7 +179,7 @@
     width: 80%;
     max-width: 800px;
     background: white;
-    border-radius: 8px;
+    border-radius: 30px;
     overflow: hidden;
 }
 
@@ -191,8 +191,9 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     text-align: center;
+    gap: 16px;
 }
 
 .overlay-right {

@@ -349,6 +349,11 @@ textarea:focus {
         height: 3px;
     }
 
+    .sideline-blue-horizontal {
+        height: 3px;
+        width: 60px;
+    }
+
     .sideline-gray {
         height: 87px;
     }

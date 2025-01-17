@@ -149,12 +149,18 @@ function renderAddContactOverlay() {
         <div id="addContactOverlay" class="add-new-contact-overlay">
             <div class="overlay-content">
                 <div class="overlay-left">
-                    <h1>Add contact</h1>
-                    <p>Tasks are better with a team!</p>
+                    <img class="logo-mini" src="/assets/icons/join-logo-white.svg" alt="join">
+                    <header class="section-header fc">
+                        <h1 class="ft-47">Add contact</h1>
+                        <h4 class="ft-20">Tasks are better with a team!</h4>
+                        <div class="sideline-blue-horizontal"></div>
+                    </header>
                 </div>
                 <div class="overlay-right">
-                    <div class="initials-circle-big"><img src="/assets/icons/person.svg" alt="add-contact"></div>
-                    <button class="close-button" onclick="closeOverlay()"><img src="/assets/icons/close.svg" alt="Close"></button>
+                    <div class="initials-circle-big">
+                        <img src="/assets/icons/person.svg" alt="add-contact">
+                    </div>
+                    <button class="button-contacts" onclick="closeOverlay()"><img src="/assets/icons/close.svg" alt="Close"></button>
                     <form id="addContactForm" onsubmit="addNewContact(event); return false;">
                         <input class="input-name" type="text" id="user" placeholder="Name" minlength="2" maxlength="30">
                         <span id="errorMessageName" class="error-message"></span>
@@ -164,11 +170,11 @@ function renderAddContactOverlay() {
                         <span id="errorMessagePassword" class="error-message"></span>
                         <div class="fr gap-16 wrap ato-footer-buttons">
                             <button id="cancel-add-task-btn" class="button-2 fr jcac gap-8" onclick="cancelAddTask()">
-                                <span>Cancel / Clear</span>
+                                <span>Cancel</span>
                                 <img src="/assets/icons/close.svg" alt="Cancel create task button">
                             </button>
                             <button type="submit" name="submit" class="button fr jcac gap-8" onclick="addTask()">
-                                <span>Create Task</span>
+                                <span>Create contact</span>
                                 <img src="/assets/icons/check.svg" alt="Create task button">
                             </button>
                         </div>

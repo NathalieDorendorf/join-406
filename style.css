@@ -79,6 +79,10 @@ h5 {
     width: 100px;
 }
 
+.logo-mini {
+    height: 60px;
+}
+
 .container {
     max-width: 1920px;
     margin: 0 auto;
