@@ -33,7 +33,7 @@
     height: 16px;
 }
 
-@media(max-width: 600px ){
+@media(max-width: 600px) {
 
     .button-container {
         flex-direction: column;
@@ -51,12 +51,10 @@
     }
 }
 
-@media(max-width: 500px ){
+@media(max-width: 500px) {
 
-    .button-container {
-        width: 50%;
-    }
-    .button, .button-2{
+    .button,
+    .button-2 {
         font-size: 16px;
     }
 
@@ -64,7 +62,35 @@
         width: 280px;
     }
 
-    .h1-login{
+    .h1-login {
         font-size: 50px !important;
+    }
+}
+
+@media(max-width: 435px) {
+
+    input {
+        width: 200px;
+    }
+
+    main {
+        padding: 32px;
+    }
+}
+
+@media(max-width: 400px) {
+
+    .errorText {
+        text-align: center;
+        padding: 0px 5px 0px 5px;
+    }
+}
+
+@media(max-width: 375px) {
+    .errorText {
+        font-size: 10px !important;
+    }
+    .error-message{
+        font-size: 10px !important;
     }
 }

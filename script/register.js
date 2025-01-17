@@ -148,7 +148,7 @@ function checkPassword(password, confirmPassword) {
  * Displays an error for invalid or mismatched passwords.
  */
 function errorFunctionPassword() {
-    const errorMessage = '<div class="errorText">Your passwords do not match or have less than 8 or more than 20 characters. Please try again.</div>';
+    const errorMessage = '<div class="errorText">Your passwords must match and be 8–20 characters.</div>';
     document.getElementById('errorMessageConfirmPassword').innerHTML = errorMessage;
     document.getElementById('errorMessagePassword').innerHTML = errorMessage;
 

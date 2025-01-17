@@ -55,6 +55,7 @@
 .errorText {
     color: red;
     font-size: 12px;
+    max-width: 450px;
 }
 
 .error-message {
