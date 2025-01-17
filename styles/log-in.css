@@ -41,23 +41,27 @@
 
     .button-container {
         padding-top: 0px;
-        width: 50%;
+        width: 75%;
         gap: 15px;
     }
 
-    input, select, textarea, .custom-select {
+    input {
         width: 322px;
+        font-size: 16px;
     }
 }
 
 @media(max-width: 500px ){
 
     .button-container {
-        width: 75%;
+        width: 50%;
+    }
+    .button, .button-2{
+        font-size: 16px;
     }
 
-    input, select, textarea, .custom-select {
-        width: 222px;
+    input {
+        width: 280px;
     }
 
     .h1-login{
