@@ -138,7 +138,86 @@ function showContactDetails(contact) {
     }
 }
 
+// function closeOverlay() {
+//     const overlay = document.querySelector(".contact-overlay");
+//     overlay.classList.remove("visible");
+// }
+
+// Funktion zum Anzeigen des Overlays
+function renderAddContactOverlay() {
+    const overlayHTML = `
+        <div id="addContactOverlay" class="add-new-contact-overlay">
+            <div class="overlay-content">
+                <div class="overlay-left">
+                    <h1>Add contact</h1>
+                    <p>Tasks are better with a team!</p>
+                </div>
+                <div class="overlay-right">
+                    <div class="initials-circle-big"><img src="/assets/icons/person.svg" alt="add-contact"></div>
+                    <button class="close-button" onclick="closeOverlay()"><img src="/assets/icons/close.svg" alt="Close"></button>
+                    <form id="addContactForm" onsubmit="addNewContact(event); return false;">
+                        <input class="input-name" type="text" id="user" placeholder="Name" minlength="2" maxlength="30">
+                        <span id="errorMessageName" class="error-message"></span>
+                        <input class="input-email"  type="email" id="email" placeholder="Email">
+                        <span id="errorMessageEmail" class="error-message"></span>
+                        <input class="input-phone"  type="number" id="telephone" placeholder="Phone">
+                        <span id="errorMessagePassword" class="error-message"></span>
+                        <div class="fr gap-16 wrap ato-footer-buttons">
+                            <button id="cancel-add-task-btn" class="button-2 fr jcac gap-8" onclick="cancelAddTask()">
+                                <span>Cancel / Clear</span>
+                                <img src="/assets/icons/close.svg" alt="Cancel create task button">
+                            </button>
+                            <button type="submit" name="submit" class="button fr jcac gap-8" onclick="addTask()">
+                                <span>Create Task</span>
+                                <img src="/assets/icons/check.svg" alt="Create task button">
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', overlayHTML);
+    setTimeout(() => {
+        document.getElementById("addContactOverlay").classList.add("visible");
+    }, 10); // Timeout für Transition-Effekt
+}
+
+// Funktion zum Schließen des Overlays
 function closeOverlay() {
-    const overlay = document.querySelector(".contact-overlay");
-    overlay.classList.remove("visible");
+    const overlay = document.getElementById("addContactOverlay");
+    if (overlay) {
+        overlay.classList.remove("visible");
+        setTimeout(() => overlay.remove(), 300); // Timeout für Transition-Effekt
+    }
+}
+
+// Funktion zum Speichern eines neuen Kontakts in Firebase
+async function addNewContact(event) {
+    event.preventDefault(); // Verhindert das Standardformularverhalten
+
+    const name = document.getElementById("contactName").value;
+    const email = document.getElementById("contactEmail").value;
+    const phone = document.getElementById("contactPhone").value;
+
+    try {
+        const response = await fetch("https://your-firebase-database.firebaseio.com/contacts.json", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ name, email, phone }),
+        });
+
+        if (response.ok) {
+            alert("Contact successfully added!");
+            closeOverlay();
+        } else {
+            throw new Error("Failed to add contact.");
+        }
+    } catch (error) {
+        console.error("Error adding contact:", error);
+        alert("An error occurred while adding the contact.");
+    }
 }

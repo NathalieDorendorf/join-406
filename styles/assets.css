@@ -94,6 +94,12 @@ textarea:focus {
     background-position: right 22px center;
 }
 
+.input-phone {
+    background: url(/assets/icons/phone.svg);
+    background-repeat: no-repeat;
+    background-position: right 22px center;
+}
+
 .input-checkbox {
     height: 16px;
     width: 16px;
