@@ -1,19 +1,19 @@
 const contactColors = [
-    "#FF7A00",  // contact-color-orange
-    "#FF5EB3",  // contact-color-pink
-    "#6E52FF",  // contact-color-lavender
-    "#9327FF",  // contact-color-violet
-    "#00BEE8",  // contact-color-aqua
-    "#1FD7C1",  // contact-color-tropical
-    "#FF745E",  // contact-color-coral
-    "#FFA35E",  // contact-color-peach
-    "#FC71FF",  // contact-color-magenta
-    "#FFC701",  // contact-color-gold
-    "#0038FF",  // contact-color-blue
-    "#C3FF2B",  // contact-color-lime
-    "#462f8a",  // contact-color-purple
-    "#FF4646",  // contact-color-crimson
-    "#FFBB2B"   // contact-jcolor-honey
+    "--contact-color-orange",
+    "--contact-color-pink",
+    "--contact-color-lavender",
+    "--contact-color-violet",
+    "--contact-color-aqua",
+    "--contact-color-tropical",
+    "--contact-color-coral",
+    "--contact-color-peach",
+    "--contact-color-magenta",
+    "--contact-color-gold",
+    "--contact-color-blue",
+    "--contact-color-lime",
+    "--contact-color-purple",
+    "--contact-color-crimson",
+    "--contact-color-honey"
 ];
 
 async function initContacts() {
@@ -123,7 +123,7 @@ function showContactDetails(contact) {
                 <div class="name-container">
                     <h2>${contact.name}</h2>
                     <div class="d-flex gap-8">
-                        <button class="button-contacts" onclick="renderEditContactOverlay(${contact.id})"><img src="/assets/icons/edit-blue.svg" alt="edit">Edit</button>
+                        <button class="button-contacts" onclick="showEditContactOverlay(${contact.id})"><img src="/assets/icons/edit-blue.svg" alt="edit">Edit</button>
                         <button class="button-contacts"><img src="/assets/icons/delete-blue.svg" alt="delete">Delete</button>
                     </div>
                 </div>
@@ -148,30 +148,55 @@ function closeOverlay() {
 }
 
 // Funktion zum Speichern eines neuen Kontakts in Firebase
-async function addNewContact(event) {
-    event.preventDefault(); // Verhindert das Standardformularverhalten
-
-    const name = document.getElementById("contactName").value;
-    const email = document.getElementById("contactEmail").value;
-    const phone = document.getElementById("contactPhone").value;
+async function addNewContact(contact) {
+    const name = document.getElementById("user").value;
+    const email = document.getElementById("email").value;
+    const phone = document.getElementById("telephone").value;
 
     try {
-        const response = await fetch("https://your-firebase-database.firebaseio.com/contacts.json", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ name, email, phone }),
+        const randomColor = getRandomColor();
+        const initials = getInitials(name);
+        const response = await fetchResource('contacts','POST', {
+            color: randomColor,
+            initials: initials,
+            mail: email,
+            name: name,
+            phone: phone
         });
 
         if (response.ok) {
-            alert("Contact successfully added!");
+            console.log("Contact successfully added!");
             closeOverlay();
         } else {
-            throw new Error("Failed to add contact.");
+            console.error("Failed to add contact.", response.statusText);
         }
     } catch (error) {
         console.error("Error adding contact:", error);
-        alert("An error occurred while adding the contact.");
     }
 }
+
+function getRandomColor() {
+    const randomIndex = Math.floor(Math.random() * contactColors.length);
+    return contactColors[randomIndex];
+}
+
+function getInitials(name) {
+    if (!name) return '';
+    const nameParts = name.split(' ');
+    const initials = nameParts.map(part => part.charAt(0).toUpperCase()).join('');
+    return initials;
+}
+
+function showEditContactOverlay(contactId) {
+    fillInputFormWithContactsInfo(contact);
+    renderEditContactOverlay(contactId);
+}
+
+function fillInputFormWithContactsInfo(contact) {
+    if (contact) {
+        document.getElementById('user').value = contact.name;
+        document.getElementById('email').value = contact.mail;
+        document.getElementById('telephone').value = contact.phone;
+    }
+}
+

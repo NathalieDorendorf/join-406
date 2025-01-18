@@ -29,7 +29,7 @@ function renderAddContactOverlay() {
                                 <span>Cancel</span>
                                 <img src="/assets/icons/close.svg" alt="Cancel create task button">
                             </button>
-                            <button type="submit" name="submit" class="button fr jcac gap-8" onclick="addTask()">
+                            <button type="submit" name="submit" class="button fr jcac gap-8" onclick="addNewContact()">
                                 <span>Create contact</span>
                                 <img src="/assets/icons/check.svg" alt="Create task button">
                             </button>
@@ -75,7 +75,7 @@ function renderEditContactOverlay(contactId) {
                             <button id="cancel-add-task-btn" class="button-2 fr jcac gap-8" onclick="closeOverlay()">
                                 <span>Delete</span>
                             </button>
-                            <button type="submit" name="submit" class="button fr jcac gap-8" onclick="addTask()">
+                            <button type="submit" name="submit" class="button fr jcac gap-8" onclick="saveNewContact()">
                                 <span>Save</span>
                                 <img src="/assets/icons/check.svg" alt="Create task button">
                             </button>
