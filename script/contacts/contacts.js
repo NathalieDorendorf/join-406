@@ -123,7 +123,7 @@ function showContactDetails(contact) {
                 <div class="name-container">
                     <h2>${contact.name}</h2>
                     <div class="d-flex gap-8">
-                        <button class="button-contacts" onclick="showContactEditForm(${contact.id})"><img src="/assets/icons/edit-blue.svg" alt="edit">Edit</button>
+                        <button class="button-contacts" onclick="renderEditContactOverlay(${contact.id})"><img src="/assets/icons/edit-blue.svg" alt="edit">Edit</button>
                         <button class="button-contacts"><img src="/assets/icons/delete-blue.svg" alt="delete">Delete</button>
                     </div>
                 </div>
@@ -136,58 +136,6 @@ function showContactDetails(contact) {
         `;
         detailsContainer.classList.add("slide-in");
     }
-}
-
-// function closeOverlay() {
-//     const overlay = document.querySelector(".contact-overlay");
-//     overlay.classList.remove("visible");
-// }
-
-// Funktion zum Anzeigen des Overlays
-function renderAddContactOverlay() {
-    const overlayHTML = `
-        <div id="addContactOverlay" class="add-new-contact-overlay">
-            <div class="overlay-content">
-                <div class="overlay-left">
-                    <img class="logo-mini" src="/assets/icons/join-logo-white.svg" alt="join">
-                    <header class="section-header fc">
-                        <h1 class="ft-47">Add contact</h1>
-                        <h4 class="ft-20">Tasks are better with a team!</h4>
-                        <div class="sideline-blue-horizontal"></div>
-                    </header>
-                </div>
-                <div class="overlay-right">
-                    <div class="initials-circle-big">
-                        <img src="/assets/icons/person.svg" alt="add-contact">
-                    </div>
-                    <button class="button-contacts" onclick="closeOverlay()"><img src="/assets/icons/close.svg" alt="Close"></button>
-                    <form id="addContactForm" onsubmit="addNewContact(event); return false;">
-                        <input class="input-name" type="text" id="user" placeholder="Name" minlength="2" maxlength="30">
-                        <span id="errorMessageName" class="error-message"></span>
-                        <input class="input-email"  type="email" id="email" placeholder="Email">
-                        <span id="errorMessageEmail" class="error-message"></span>
-                        <input class="input-phone"  type="number" id="telephone" placeholder="Phone">
-                        <span id="errorMessagePassword" class="error-message"></span>
-                        <div class="fr gap-16 wrap ato-footer-buttons">
-                            <button id="cancel-add-task-btn" class="button-2 fr jcac gap-8" onclick="cancelAddTask()">
-                                <span>Cancel</span>
-                                <img src="/assets/icons/close.svg" alt="Cancel create task button">
-                            </button>
-                            <button type="submit" name="submit" class="button fr jcac gap-8" onclick="addTask()">
-                                <span>Create contact</span>
-                                <img src="/assets/icons/check.svg" alt="Create task button">
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    `;
-
-    document.body.insertAdjacentHTML('beforeend', overlayHTML);
-    setTimeout(() => {
-        document.getElementById("addContactOverlay").classList.add("visible");
-    }, 10); // Timeout für Transition-Effekt
 }
 
 // Funktion zum Schließen des Overlays
