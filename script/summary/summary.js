@@ -1,25 +1,38 @@
 async function initSummary() {
     renderSummaryContent();
-    renderGreeting(userName);
+    await renderGreeting();
     await loadTaskCountsFromFirebase();
     await showClosestDueDate();
     showResponsiveContent();
 }
 
-let userName = "Sophia Müller";
+async function renderGreeting(userEmail) {
+    try {
+        // 1. Abrufen aller Kontakte aus der Firebase Realtime Database
+        const contacts = await fetchResource('contacts'); // Kontakte aus Firebase abrufen
 
-function renderGreeting(userName = null) {
-    const currentGreeting = document.getElementById("greeting").textContent = getGreetingTime();
-    const greeting = userName 
-        ? `<h5 class="h5-responsive">${currentGreeting},</h5><span class="user-name">${userName}</span>` 
-        : `<h5 class="h5-responsive">${currentGreeting}!</h5>`;
-    const greetingElement = document.getElementById('greeting');
-    if (greetingElement) {
-        console.log(greeting);
-        greetingElement.innerHTML = greeting;
+        // 2. Kontakt suchen, dessen E-Mail mit der des Benutzers übereinstimmt
+        const matchingContact = Object.values(contacts).find(contact => contact.mail === userEmail);
+
+        // 3. Namen des Kontakts extrahieren oder Standardwert verwenden
+        const userName = matchingContact ? matchingContact.name : null;
+
+        // 4. Begrüßungstext basierend auf der Tageszeit
+        const currentGreeting = getGreetingTime();
+        const greeting = userName
+            ? `<h5 class="h5-responsive">${currentGreeting},</h5><span class="user-name">${userName}</span>`
+            : `<h5 class="h5-responsive">${currentGreeting}!</h5>`;
+
+        // 5. Begrüßung im HTML aktualisieren
+        const greetingElement = document.getElementById('greeting');
+        if (greetingElement) {
+            greetingElement.innerHTML = greeting;
+        }
+
+        return greeting;
+    } catch (error) {
+        console.error("Error rendering greeting:", error);
     }
-    console.log(greeting);
-    return greeting;
 }
 
 /**
