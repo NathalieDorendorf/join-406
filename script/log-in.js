@@ -1,4 +1,19 @@
 /**
+ * Shows logo-animation, when page is loaded
+ */
+(showLogoAnimation = document.addEventListener('DOMContentLoaded', () => {
+    if (window.innerWidth > 768) { // media-breakpoint, where logo is display: none
+        const overlay = document.createElement('div');
+        overlay.classList.add('animation-overlay');
+        document.body.appendChild(overlay);
+        document.body.style.visibility = 'visible';
+        const logo = document.querySelector('.logo-little');
+        logo.classList.add('animate');
+        overlay.classList.add('close-overlay');
+    }
+}));
+
+/**
  * Extracts the message parameter from the URL and displays it in the message box.
  * If no message is present, hides the message box.
  */
@@ -9,25 +24,15 @@ const msg = urlParams.get('msg');
  * Retrieves the email and password values from the input fields and attempts to log in the user.
  */
 function getInputData(guest) {
-  if (!guest) {
-    let email = document.getElementById("email").value;
-    let password = document.getElementById("password").value;
-    logIn('/users', email, password);
-  } else {
-    let email = 'guest@maxmusterman.de';
-    let password = '1234567890';
-    logIn('/guest', email, password, true);
-  }
-}
-
-/**
- * Displays the message from the URL query parameter in the message box.
- * Hides the message box if no message is found.
- */
-if (msg) {
-  messageBox.innerHTML = msg;
-} else {
-  messageBox.style.display = "none";
+    if (!guest) {
+        let email = document.getElementById("email").value;
+        let password = document.getElementById("password").value;
+        logIn('/users', email, password);
+    } else {
+        let email = 'guest@maxmusterman.de';
+        let password = '1234567890';
+        logIn('/guest', email, password, true);
+    }
 }
 
 /**
@@ -40,22 +45,22 @@ if (msg) {
  */
 
 async function logIn(path, enteredEmail, enteredPassword, isGuest) {
-  try {
-    let response = await fetch(BASE_URL + path + ".json");
-    let responseToJson = await response.json();
+    try {
+        let response = await fetch(BASE_URL + path + ".json");
+        let responseToJson = await response.json();
 
-    if (isGuest) {
-      const guestUser = { email: enteredEmail, password: enteredPassword };
-      validateMatch(guestUser, true);  
-    } else {
-      const matchingUser = Object.values(responseToJson).find(user =>
-        user.email === enteredEmail && user.password === enteredPassword
-      );
-      validateMatch(matchingUser);
+        if (isGuest) {
+            const guestUser = { email: enteredEmail, password: enteredPassword };
+            validateMatch(guestUser, true);
+        } else {
+            const matchingUser = Object.values(responseToJson).find(user =>
+                user.email === enteredEmail && user.password === enteredPassword
+            );
+            validateMatch(matchingUser);
+        }
+    } catch (error) {
+        console.error("Login error:", error);
     }
-  } catch (error) {
-    console.error("Login error:", error);
-  }
 }
 
 /**
@@ -66,17 +71,17 @@ async function logIn(path, enteredEmail, enteredPassword, isGuest) {
  */
 
 function validateMatch(matchingUser, isGuest = false) {
-  if (matchingUser || isGuest) {
-    // Wenn es ein regulärer Benutzer ist und eine Übereinstimmung gefunden wurde, oder es ein Gast-Login ist
-    addToSessionStorage(true);  // Speichern im Session Storage, dass der Benutzer eingeloggt ist
-    window.location.href = "summary.html?msg=you have logged in successfully&isLoggedIn=true";  // Weiterleitung zur gleichen Seite für alle User
-  } else {
-    // Wenn keine Übereinstimmung gefunden wurde
-    let email = document.getElementById('email');
-    let password = document.getElementById('password');
-    checkLogin(email, password);  // Fehlermeldung für falsche Login-Daten
-    clearLoginData(password);  // Zurücksetzen der Eingabefelder
-  }
+    if (matchingUser || isGuest) {
+        // Wenn es ein regulärer Benutzer ist und eine Übereinstimmung gefunden wurde, oder es ein Gast-Login ist
+        addToSessionStorage(true);  // Speichern im Session Storage, dass der Benutzer eingeloggt ist
+        window.location.href = "/html/summary.html?msg=you have logged in successfully&isLoggedIn=true";  // Weiterleitung zur gleichen Seite für alle User
+    } else {
+        // Wenn keine Übereinstimmung gefunden wurde
+        let email = document.getElementById('email');
+        let password = document.getElementById('password');
+        checkLogin(email, password);  // Fehlermeldung für falsche Login-Daten
+        clearLoginData(password);  // Zurücksetzen der Eingabefelder
+    }
 }
 
 
@@ -99,13 +104,13 @@ function validateMatch(matchingUser, isGuest = false) {
  * @param {HTMLElement} password - The password input element.
  */
 function checkLogin(email, password) {
-  if (email || password) {
-    document.getElementById('errorMessageLogin').innerHTML = `
+    if (email || password) {
+        document.getElementById('errorMessageLogin').innerHTML = `
       <div class="errorText">Check your email and password. Please try again</div>
     `;
-    document.getElementById('email').style.border = "1px solid red";
-    document.getElementById('password').style.border = "1px solid red";
-  }
+        document.getElementById('email').style.border = "1px solid red";
+        document.getElementById('password').style.border = "1px solid red";
+    }
 }
 
 /**
@@ -113,7 +118,7 @@ function checkLogin(email, password) {
  * @param {HTMLElement} password - The password input element.
  */
 function clearLoginData(password) {
-  password.value = "";
+    password.value = "";
 }
 
 /**
@@ -121,5 +126,5 @@ function clearLoginData(password) {
  * @param {boolean} login - The login status (true if logged in, false if not).
  */
 function addToSessionStorage(login) {
-  sessionStorage.setItem("isLoggedIn", JSON.stringify(login));
+    sessionStorage.setItem("isLoggedIn", JSON.stringify(login));
 }

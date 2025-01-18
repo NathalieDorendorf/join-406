@@ -8,8 +8,8 @@
 function redirectWithLoginInfo(event, url) {
     event.preventDefault();
 
-    const isLoggedIn = sessionStorage.getItem("isLoggedIn") || "false"; 
-    const newUrl = `${url}${url.includes('?') ? '&' : '?'}isLoggedIn=${isLoggedIn}`; 
+    const isLoggedIn = sessionStorage.getItem("isLoggedIn") || "false";
+    const newUrl = `${url}${url.includes('?') ? '&' : '?'}isLoggedIn=${isLoggedIn}`;
 
     if (event.currentTarget.target === "_blank") {
         window.open(newUrl, "_blank");
@@ -41,6 +41,6 @@ function validateLoggin() {
     const isLoggedIn = sessionStorage.getItem("isLoggedIn");
 
     if (isLoggedIn !== "true") {
-        window.location.href = "./log-in.html";
+        window.location.href = "/index.html";
     }
 };

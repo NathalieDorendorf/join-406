@@ -3,6 +3,7 @@
     justify-content: center;
     align-items: baseline;
     gap: 32px;
+    margin-left: auto;
 }
 
 .login-container {
@@ -31,6 +32,52 @@
 
 .error-message {
     height: 16px;
+}
+
+.animation-overlay {
+    overflow-y: auto;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: var(--bg-color);
+    opacity: 1;
+    z-index: 10;
+}
+
+.animate {
+    animation: shrinkToLeft 1000ms ease-in-out forwards;
+}
+
+.close-overlay {
+    animation: closeAnimation 500ms ease-in-out 500ms forwards;
+}
+
+@keyframes shrinkToLeft {
+
+    0%,
+    50% {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(200%);
+        z-index: 11;
+    }
+
+    100% {
+        position: fixed;
+        top: 48px;
+        left: 64px;
+        z-index: 11;
+    }
+}
+
+@keyframes closeAnimation {
+    100% {
+        opacity: 0;
+        display: none;
+    }
 }
 
 @media(max-width: 600px) {
@@ -90,7 +137,8 @@
     .errorText {
         font-size: 10px !important;
     }
-    .error-message{
+
+    .error-message {
         font-size: 10px !important;
     }
 }

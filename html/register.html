@@ -2,33 +2,33 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register</title>
-  <link rel="icon" href="/assets/icons/join-favicon.png" type="image/png" sizes="32x32">
-  <link rel="stylesheet" href="/styles/assets.css">
-  <link rel="stylesheet" href="/styles/fonts.css">
-  <link rel="stylesheet" href="/styles/log-in.css">
-  <link rel="stylesheet" href="/styles/register.css">
-  <link rel="stylesheet" href="/styles/standard.css">
-  <link rel="stylesheet" href="/style.css">
-  <script src="/script/log-in.js"></script>
-  <script src="/script/register.js"></script>
-  <script src="/script/templates.js"></script>
-  <script src="/script.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="icon" href="/assets/icons/join-favicon.png" type="image/png" sizes="32x32">
+    <link rel="stylesheet" href="/styles/assets.css">
+    <link rel="stylesheet" href="/styles/fonts.css">
+    <link rel="stylesheet" href="/styles/log-in.css">
+    <link rel="stylesheet" href="/styles/register.css">
+    <link rel="stylesheet" href="/styles/standard.css">
+    <link rel="stylesheet" href="/style.css">
+    <script src="/script/log-in.js"></script>
+    <script src="/script/register.js"></script>
+    <script src="/script/templates.js"></script>
+    <script src="/script.js"></script>
 
 </head>
 
 <body>
-  <header class="section-pad section-gap">
-    <div class="">
-      <img src="/assets/icons/join-logo.svg" class="logo-little" alt="Join">
-    </div>
+    <header class="section-pad section-gap">
+        <div class="">
+            <img src="/assets/icons/join-logo.svg" class="logo-little" alt="Join">
+        </div>
     </header>
     <main>
         <div class="signup-container">
             <div class="signup-header">
-                <a class="arrow" href="./log-in.html"><img src="/assets/icons/arrow-left.svg" alt="back to login"></a>
+                <a class="arrow" href="/index.html"><img src="/assets/icons/arrow-left.svg" alt="back to login"></a>
                 <div class="headline-container">
                     <h1 class="h1-gergister">Sign up</h1>
                     <div class="underline"></div>
@@ -37,28 +37,29 @@
             <form novalidate class="form-register" onsubmit="addUser(); return false;">
                 <input class="input-name" type="text" id="user" placeholder="Name" minlength="2" maxlength="30">
                 <span id="errorMessageName" class="error-message"></span>
-                <input class="input-email"  type="email" id="email" placeholder="Email">
+                <input class="input-email" type="email" id="email" placeholder="Email">
                 <span id="errorMessageEmail" class="error-message"></span>
-                <input class="input-password"  type="password" id="password" placeholder="Password">
+                <input class="input-password" type="password" id="password" placeholder="Password">
                 <span id="errorMessagePassword" class="error-message"></span>
                 <input class="input-password" type="password" id="confirmPassword" placeholder="Confirm Password">
                 <span id="errorMessageConfirmPassword" class="error-message"></span>
                 <div class="signup-wrapper">
-                  <div class="d-flex-c-c gap-16">
-                    <input class="input-checkbox" type="checkbox" name="remember-me" id="privacyPolicy">
-                    <p class="accept-text">I accept the <a class="link-privacy-policy" href="/html/privacy-policy.html" target="_blank">Privacy policy</a></p>
-                </div>                
-                <span id="errorMessageprivacyPolicy" class="error-message"></span>
-                <button class="button">Sign up</button>
+                    <div class="d-flex-c-c gap-16">
+                        <input class="input-checkbox" type="checkbox" name="remember-me" id="privacyPolicy">
+                        <p class="accept-text">I accept the <a class="link-privacy-policy"
+                                href="/html/privacy-policy.html" target="_blank">Privacy policy</a></p>
+                    </div>
+                    <span id="errorMessageprivacyPolicy" class="error-message"></span>
+                    <button class="button">Sign up</button>
                 </div>
             </form>
         </div>
-    </div>
-  </main>
-  <footer class="section-pad section-gap">
-    <a href="/html/privacy-policy.html" target="_blank">Privacy Policy</a>
-    <a href="/html/legal-notice.html" target="_blank">Legal Notice</a>
-  </footer>
+        </div>
+    </main>
+    <footer class="section-pad section-gap">
+        <a href="/html/privacy-policy.html" target="_blank">Privacy Policy</a>
+        <a href="/html/legal-notice.html" target="_blank">Legal Notice</a>
+    </footer>
 </body>
 
 </html>

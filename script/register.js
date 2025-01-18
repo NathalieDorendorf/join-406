@@ -267,5 +267,5 @@ async function updateUser(data) {
     const result = await response.json();
     clearAllUserData();
 
-    window.location.href = "log-in.html?msg=You Signed up successfully";
+    window.location.href = "/index.html?msg=You Signed up successfully";
 }
