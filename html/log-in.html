@@ -33,13 +33,13 @@
         <h1 class="h1-login">Log in</h1>
         <div class="underline"></div>
       </div>
-      <form onsubmit="getInputData(); return false;">
+      <form onsubmit="getInputData(); return false;"> 
         <input class="input-email" type="text" id="email" placeholder="Email">
         <input class="input-password" type="password" id="password" placeholder="Password">
         <span id="errorMessageLogin" class="error-message"></span>
         <div class="button-container">
-          <button class="button">Log in</button>
-          <button onclick="getInputData('guest')" class="button-2">Guest Log in</button>
+          <button type="submit" class="button">Log in</button>
+          <button type="button" onclick="getInputData('guest')" class="button-2">Guest Log in</button> 
         </div>
       </form>
       <div id="messageBox"></div>
