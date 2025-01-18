@@ -315,6 +315,10 @@ a.current:hover {
         display: none;
     }
 
+    .header-login {
+        margin-left: unset;
+    }
+
     .links-container {
         flex-direction: row;
         align-items: center;
@@ -371,10 +375,6 @@ a.current:hover {
 
     .logo-little {
         display: none;
-    }
-
-    .header-login {
-        margin-left: unset;
     }
 
     .links-container {

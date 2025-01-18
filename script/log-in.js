@@ -11,6 +11,7 @@
         logo.classList.add('animate');
         overlay.classList.add('close-overlay');
     }
+    document.body.style.visibility = 'visible';
 }));
 
 /**
