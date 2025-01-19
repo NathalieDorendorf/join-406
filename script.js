@@ -56,13 +56,13 @@ function outsideLogIn() {
 
     if (info !== 'true') {
         const sidebar = document.getElementById('sidebar-main');
-        const logOutFlyout = document.getElementById('logOutFlyout');
+        const account = document.getElementById('account-menue');
 
         if (sidebar) {
             sidebar.classList.replace('links-container', 'dni');
         }
-        if (logOutFlyout) {
-            logOutFlyout.classList.add('dni');
+        if (account) {
+            account.classList.add('dni');
         }
     }
 }

@@ -5,7 +5,14 @@
 const BASE_URL = "https://join-gruppenarbeit-137ed-default-rtdb.europe-west1.firebasedatabase.app/";
 
 
-
+/**
+ * Generates a random color from predefined CSS variables.
+ * 
+ * This function selects a random CSS variable from a list of color variables,
+ * retrieves its value from the computed styles, and returns the corresponding color as a string.
+ * 
+ * @returns {string} The randomly selected color value (e.g., `"#FF7A00"`).
+ */
 function getRandomColor() {
     const colorVars = [
         '--contact-color-orange',
@@ -25,18 +32,33 @@ function getRandomColor() {
         '--contact-color-honey'
     ];
 
+    // Access CSS variable values from the root element
     const rootStyles = getComputedStyle(document.documentElement);
+
+    // Pick a random variable from the list
     const randomVar = colorVars[Math.floor(Math.random() * colorVars.length)];
+
+    // Return the corresponding color value
     return rootStyles.getPropertyValue(randomVar).trim();
-};
+}
 
-
+/**
+ * Assigns a random color to a guest user.
+ * 
+ * This function uses `getRandomColor` to fetch a random color and logs the assigned color to the console.
+ * 
+ * @returns {string} The assigned color value for the guest user.
+ */
 function assignGuestColor() {
+    // Get a random color
     let color = getRandomColor();
+
+    // Log the assigned color
     console.log('Assigned color:', color);
 
+    // Return the color
     return color;
-};
+}
 
 /**
  * Fügt einen neuen Benutzer in die Datenbank ein, nachdem die Eingabefelder validiert wurden.
