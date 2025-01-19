@@ -4,12 +4,47 @@
  */
 const BASE_URL = "https://join-gruppenarbeit-137ed-default-rtdb.europe-west1.firebasedatabase.app/";
 
+
+
+function getRandomColor() {
+    const colorVars = [
+        '--contact-color-orange',
+        '--contact-color-pink',
+        '--contact-color-lavender',
+        '--contact-color-violet',
+        '--contact-color-aqua',
+        '--contact-color-tropical',
+        '--contact-color-coral',
+        '--contact-color-peach',
+        '--contact-color-magenta',
+        '--contact-color-gold',
+        '--contact-color-blue',
+        '--contact-color-lime',
+        '--contact-color-purple',
+        '--contact-color-crimson',
+        '--contact-color-honey'
+    ];
+
+    const rootStyles = getComputedStyle(document.documentElement);
+    const randomVar = colorVars[Math.floor(Math.random() * colorVars.length)];
+    return rootStyles.getPropertyValue(randomVar).trim();
+};
+
+
+function assignGuestColor() {
+    let color = getRandomColor();
+    console.log('Assigned color:', color);
+
+    return color;
+};
+
 /**
- * Adds a new user to the database after validating input fields.
- * Clears invalid data and redirects on success.
+ * Fügt einen neuen Benutzer in die Datenbank ein, nachdem die Eingabefelder validiert wurden.
+ * Löscht ungültige Daten und leitet im Erfolgsfall weiter.
  * @async
  */
 async function addUser() {
+    let color = getRandomColor();  
     let email = document.getElementById("email");
     let password = document.getElementById("password");
     let confirmPassword = document.getElementById("confirmPassword");
@@ -31,9 +66,12 @@ async function addUser() {
 
     let singleLogInData = {
         "email": email.value,
-        "password": password.value
+        "password": password.value,
+        "name": userName.value,
+        "color": color
     };
-    await addToContacts(email, userName)
+
+    await addToContacts(email, userName, color);
     await updateUser(singleLogInData);
 }
 
@@ -48,13 +86,13 @@ async function addUser() {
  * 
  * @returns {Promise<void>} Resolves when the contact has been added successfully.
  */
-async function addToContacts(email, userName) {
+async function addToContacts(email, userName, color) {
     let registerData = {
+        "mail": email.value,
         "name": userName.value,
-        "mail": email.value
+        "color": color
     };
     await updateContacts(registerData);
-    console.log(registerData);
 }
 
 /**
