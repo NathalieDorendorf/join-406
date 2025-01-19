@@ -65,39 +65,32 @@ async function logIn(path, enteredEmail, enteredPassword, isGuest) {
 }
 
 /**
- * Validates whether a matching user was found.
- * Redirects the user to the summary page if a match is found.
- * Displays an error message if no match is found.
- * @param {Object|null} matchingUser - The user object if a match is found, or null if no match is found.
+ * Validates a user match or guest login and handles the subsequent actions.
+ *
+ * @param {boolean} matchingUser - Indicates if the user matches the login criteria.
+ * @param {boolean} [isGuest=false] - Optional parameter to specify if the user is logging in as a guest.
+ *
+ * If the user matches (`matchingUser` is true) or is a guest (`isGuest` is true), the function:
+ * - Adds a login status to the session storage.
+ * - Redirects the user to the summary page with a success message.
+ *
+ * If neither condition is true, the function:
+ * - Retrieves the email and password input fields.
+ * - Validates the login credentials by calling `checkLogin`.
+ * - Clears the password field using `clearLoginData`.
  */
-
 function validateMatch(matchingUser, isGuest = false) {
     if (matchingUser || isGuest) {
-        // Wenn es ein regulärer Benutzer ist und eine Übereinstimmung gefunden wurde, oder es ein Gast-Login ist
-        addToSessionStorage(true);  // Speichern im Session Storage, dass der Benutzer eingeloggt ist
-        window.location.href = "/html/summary.html?msg=you have logged in successfully&isLoggedIn=true";  // Weiterleitung zur gleichen Seite für alle User
+        addToSessionStorage(true);
+        clearLoginData();  
+        window.location.href = "/html/summary.html?msg=you have logged in successfully&isLoggedIn=true";
     } else {
-        // Wenn keine Übereinstimmung gefunden wurde
         let email = document.getElementById('email');
         let password = document.getElementById('password');
-        checkLogin(email, password);  // Fehlermeldung für falsche Login-Daten
-        clearLoginData(password);  // Zurücksetzen der Eingabefelder
+        checkLogin(email, password); 
+        clearLoginData(password);  
     }
 }
-
-
-
-// function validateMatch(matchingUser) {
-//   if (matchingUser) {
-//     addToSessionStorage(true);
-//     window.location.href = "summary.html?msg=you have logged in successfully&isLoggedIn=true";
-//   } else {
-//     let email = document.getElementById('email');
-//     let password = document.getElementById('password');
-//     checkLogin(email, password);
-//     clearLoginData(password);
-//   }
-// }
 
 /**
  * Displays an error message if the email or password does not match.
@@ -128,4 +121,12 @@ function clearLoginData(password) {
  */
 function addToSessionStorage(login) {
     sessionStorage.setItem("isLoggedIn", JSON.stringify(login));
+}
+
+/**
+ * Clears all user data from the form.
+ */
+function clearLoginData() {
+    document.getElementById("email").value = "";
+    document.getElementById("password").value = "";
 }
