@@ -1,6 +1,4 @@
-#assigned:hover{
-  cursor:pointer;
-}
+
 
 .add-flex {
   display: flex;
@@ -23,10 +21,15 @@
   top: 0;
   bottom: 0;
 }
-
+.multiselect{
+  position: relative;   
+  display: inline-block; 
+}
 #checkboxes {
   display: none;
   background-color: white;
+  position: absolute;
+  width: 100%;
 }
 
 .checkbox-content{
@@ -39,6 +42,7 @@
   border-radius: 10px;
   margin: 1px 0;
   flex-grow: 1;
+
 }
 
 #checkboxes input {
@@ -72,7 +76,7 @@
 }
 
 #checkboxes .checkbox-content:hover {
-  background-color: var(--hover-checked);
+  background-color: var(--hover);
 }
 
 #badge-Container{
@@ -82,40 +86,35 @@
 .relativ{
   position: relative;
 }
-.input-icon{
-  position: absolute;
-  top: 30%;
-  right: 10px;
- 
- }
 
- .input-icon:hover{
-  cursor: pointer;
- }
+
+
+
+
+
 
  /* Scrollbar  */
- .position-absolute {
-  position: absolute;
+ .render-container {
   max-height: 200px; 
   overflow-y: scroll; 
   z-index: 2;
 }
 
 
-.position-absolute::-webkit-scrollbar {
-  width: 16px; 
+.render-container::-webkit-scrollbar {
+  width: 10px; 
   border: 5px solid white; 
 }
 
 
-.position-absolute::-webkit-scrollbar-track {
+.render-container::-webkit-scrollbar-track {
   background-color: #f4f4f4; 
   border-radius: 6px; 
   margin-bottom: 30px; 
 }
 
 
-.position-absolute::-webkit-scrollbar-thumb {
+.render-container::-webkit-scrollbar-thumb {
   background-color: #888; 
   border-radius: 6px; 
   background-clip: padding-box;

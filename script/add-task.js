@@ -1,5 +1,5 @@
 let contactsArray = [];
-let badgeArry = [];
+let badgeArry = []; 
 let expanded = false;
 
 
@@ -10,6 +10,25 @@ async function init() {
   await fetchContacts();
   render(contactsArray)
 }
+
+// duDate
+
+document.addEventListener('DOMContentLoaded', function() {
+  const dateInput = document.getElementById('dueDate');
+  const dateIcon = document.getElementById('custom-date-icon');
+
+  
+  dateIcon.addEventListener('click', function() {
+    
+    if (dateInput.showPicker) {
+      dateInput.showPicker();
+    } else {
+      
+      dateInput.focus();
+     
+    }
+  });
+});
 
 
 function filterContacts() {
@@ -75,17 +94,6 @@ function removeStyle(checkboxContent,customCheckbox) {
   customCheckbox.src = "/assets/icons/check-button-unchecked.svg";
 }
 
-function changeDropdownIcon() {
-  const icon = document.getElementById("arrow-drop-down");
-
-  // Prüfe, ob das aktuelle Icon das "down"-Icon ist
-  if (icon.src.includes("arrow-drop-down.svg")) {
-    icon.src = "/assets/icons/arrow_drop_downaa-up.svg"; // Ändere zu "up"-Icon
-  } else {
-    icon.src = "/assets/icons/arrow-drop-down.svg"; // Ändere zu "down"-Icon
-  }
-}
-
 
 
 /**
@@ -104,11 +112,14 @@ function changeDropdownIcon() {
 
 function showCheckboxes() {
   let checkboxes = document.getElementById("checkboxes");
+  let badgeContainer = document.getElementById("badge-Container")
   if (!expanded) {
+    badgeContainer.style.display = "none";
     checkboxes.style.display = "flex";
     checkboxes.style.flexDirection = "column";
     expanded = true;
   } else {
+    badgeContainer.style.display = "flex";
     checkboxes.style.display = "none";
     expanded = false;
   }
@@ -148,25 +159,7 @@ function arrayContacts(contactObject) {
 
 
 
-/**
- * processForm - Processes form input and creates a data object.
- * 
- * @param {Event} event - The submit event of the form.
- * 
- * Functionality:
- * - Prevents the default browser submit behavior.
- * - Captures all form input data using `FormData`.
- * - Constructs an object (`data`) containing form data as key-value pairs.
- *   - If a key occurs multiple times (e.g., for checkboxes), the values are stored in an array.
- * - Logs the resulting object to the console.
- * 
- * Example Output:
- * {
- *   taskName: "My Task",
- *   assigned: ["Peter", "Lara"],
- *   priority: "high"
- * }
- */
+
 
 
 
@@ -190,6 +183,8 @@ async function processForm(event) {
       data[key] = value;
     }
   });
+  data.subtasks = subtask;
+  data.state = "to-do";
 
   console.log("Formulardaten:", data);
 
@@ -199,7 +194,7 @@ async function processForm(event) {
 
   if (response) {
     console.log("Daten erfolgreich in die DB geschickt:", response);
-    // Falls gewünscht, kannst du das Formular zurücksetzen oder eine Erfolgsnachricht anzeigen
+  
     form.reset();
     alert('Task erfolgreich angelegt!');
   } else {
@@ -210,9 +205,9 @@ async function processForm(event) {
 
 function reset() {
   const form = document.getElementById("add-task-form");
-  const badgeContainer = document.getElementById("badge-Container");
 
-  badgeContainer.innerHTML = "";
-
+  subtask.splice(0, subtask.length);
+  renderSubtask();
+  clearInput()
   form.reset();
 }

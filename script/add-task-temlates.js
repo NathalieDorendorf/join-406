@@ -26,6 +26,24 @@ function contactsTemlates(renderArry, index) {
 `;
 }
 
+function renderList(indexSubtask) {
+  return `
+ 
+  <li ondblclick="edit('${indexSubtask}');" >
+    <div class="flex-row list-container"> <span class="task-text">${subtask[indexSubtask].title}</span>
+      <div class="option-container flex-row gab8px">
+        <img onclick="delet(${indexSubtask})" src="/assets/icons/delete-blue.svg" alt="delet" />
+        <div class="form-middle"></div>
+  <img onclick="edit('${indexSubtask}'); hide()" src="/assets/icons/edit-blue.svg" alt="Bearbeiten" />
+
+      </div>
+    </div>
+  </li>
+  
+  `;
+}
+
+
 
 
 function renderBadge(color,initials) {

@@ -23,6 +23,8 @@
     <script src="/script/add-task.js"></script>
     <script src="/script.js"></script>
     <script src="/script/add-task-temlates.js"></script>
+    <script src="/script/add-task-subtask.js"></script>
+    <script src="/script/add-task-category.js"></script>
     <script src="/script/log-out.js"></script>
   </head>
 
@@ -42,179 +44,232 @@
             <h1>Add Task</h1>
           </header>
           <div class="flex-center height">
-          <main class="main-content-add-task">
-            <form
-              class="add-task-form"
-              id="add-task-form"
-              onsubmit="processForm(event)"
-            >
-              <div class="add-task-form-content">
-                <div class="form-left">
-                  <!-- --------------------------------------Title -->
-                  <div class="title flex-column gab8px">
-                    <label for="taskTitle">Title*</label>
-                    <input
-                      class="width100"
-                      required
-                      name="title"
-                      placeholder="Enter a title"
-                      id="taskTitle"
-                      type="text"
-                    />
-                  </div>
-                  <!-- --------------------------------------Description -->
-                  <div class="description gab8px">
-                    <label for="description">Description</label>
-                    <textarea
-                      class="width100"
-                      name="description"
-                      id="description"
-                    ></textarea>
-                  </div>
-                  <!-- --------------------------------------AssignedTo -->
-                  <div class="multiselect ">
-                    <label  for="assigned">Assigned to</label>
-                    <div class="relativ">
-                      <input
-                        onclick="showCheckboxes(),changeDropdownIcon()"
-                        oninput="filterContacts()"
-                        class="width100"
-                        placeholder="Select contacts to assign"
-                        id="assigned"
-                        type="text"
-                      />
-
-                      <img
-                        onclick="showCheckboxes(),changeDropdownIcon()"
-                        id="arrow-drop-down"
-                        src="/assets/icons/arrow-drop-down.svg"
-                        alt="Icon"
-                        class="input-icon"
-                      />
-                    </div>
-                    <div class="selectBox">
-                      <div class="overSelect"></div>
-                    </div>
-                    <div
-                      class="position-absolute"
-                      id="checkboxes"
-                    ></div>
-                    <div class="flex-row" id="badge-Container"></div>
-                  </div>
-                </div>
-
-                <div class="form-middle"></div>
-
-                <div class="form-right">
-                  <!-- --------------------------------------DueDate -->
-                  <div class="date flex-column gab8px">
-                    <label for="dueDate">Due date*</label>
-                    <input
-                      class="width100"
-                      required
-                      name="dueDate"
-                      placeholder="Select a due date"
-                      id="dueDate"
-                      type="date"
-                    />
-                  </div>
-                  <!-- --------------------------------------Priority -->
-                  <div class="add-flex gab8px">
-                    <p>Prio</p>
-                    <div class="radio-container">
-                      <!-- Urgent -->
-                      <label for="priorityUrgent" class="add-task-container">
-                        <input
-                          type="radio"
-                          name="priority"
-                          id="priorityUrgent"
-                          value="urgent"
-                          checked
-                        />
-                        <span class="checkmark">
-                          Urgent
-                          <img id="prio-image-urgent" src="" alt="" />
-                        </span>
-                      </label>
-
-                      <!-- Medium -->
-                      <label
-                        for="priorityMedium"
-                        class="add-task-container"
+            <main class="main-content-add-task">
+              <form
+                class="add-task-form"
+                id="add-task-form"
+                onsubmit="processForm(event)"
+              >
+                <div class="add-task-form-content">
+                  <div class="form-left">
+                    <!-- --------------------------------------Title -->
+                    <div class="title flex-column gab8px">
+                      <label for="taskTitle"
+                        >Titles<span class="required">*</span></label
                       >
-                        <input
-                          type="radio"
-                          name="priority"
-                          id="priorityMedium"
-                          value="medium"
+                      <input
+                        class="width100"
+                        required
+                        name="title"
+                        placeholder="Enter a title"
+                        id="taskTitle"
+                        type="text"
+                        minlength="3"
+                        maxlength="15"
+                      />
+                    </div>
+                    <!-- --------------------------------------Description -->
+                    <div class="description gab8px">
+                      <label for="description">Description</label>
+                      <textarea
+                        class="width100"
+                        name="description"
+                        id="description"
+                        minlength="3"
+                        maxlength="40"
+                      ></textarea>
+                    </div>
+                    <!-- --------------------------------------AssignedTo -->
+                    <div class="multiselect">
+                      <label for="assigned">Assigned to</label>
+                      <div class="relativ flex-reverse">
+                        <img
+                          onclick="showCheckboxes(),changeDropdownIcon()"
+                          id="arrow-drop-down"
+                          src="/assets/icons/arrow-drop-down.svg"
+                          alt="Icon"
+                          class="input-icon"
                         />
-                        <span class="checkmark">
-                          Medium
-                          <img id="prio-imag-mediumt" src="" alt="" />
-                        </span>
-                      </label>
-
-                      <!-- Low -->
-                      <label for="priorityLow" class="add-task-container">
                         <input
-                          type="radio"
-                          name="priority"
-                          id="priorityLow"
-                          value="low"
+                          onclick="showCheckboxes(),changeDropdownIcon()"
+                          oninput="filterContacts()"
+                          class="width100 hover-blue"
+                          placeholder="Select contacts to assign"
+                          id="assigned"
+                          type="text"
                         />
-                        <span class="checkmark">
-                          Low
-                          <img id="prio-imag-low" src="" alt="" />
-                        </span>
-                      </label>
+                      </div>
+                      <div class="selectBox">
+                        <div class="overSelect"></div>
+                      </div>
+                      <div class="render-container" id="checkboxes"></div>
+                      <div class="flex-row" id="badge-Container"></div>
                     </div>
                   </div>
-                  <!-- --------------------------------------Category -->
-                  <div class="category gab8px add-flex">
-                    <label for="category">Category*</label>
-                    <select
-                      class="width100"
-                      required
-                      name="category"
-                      id="category"
-                    >
-                      <option value="" disabled selected hidden>
-                        Select task category
-                      </option>
-                      <option value="technikalTask">Technical Task</option>
-                      <option value="userStory">User Story</option>
-                    </select>
-                  </div>
-                  <!-- --------------------------------------Subtask -->
-                  <div class="subtask gab8px add-flex">
-                    <label for="taskSubtask">Subtask</label>
-                    <input
-                      class="width100"
-                      placeholder="Add new subtask"
-                      id="taskSubtask"
-                      type="text"
-                    />
+
+                  <div class="form-middle"></div>
+
+                  <div class="form-right">
+                    <!-- --------------------------------------DueDate -->
+                    <div class="date flex-column gab8px">
+                      <label for="dueDate"
+                        >Due date<span class="required">*</span></label
+                      >
+                      <div class="date-wrapper">
+                        <input
+                          class="width100"
+                          required
+                          name="dueDate"
+                          placeholder="Select a due date"
+                          id="dueDate"
+                          type="date"
+                        />
+                        <img
+                          src="/assets/icons/calendar-icon.svg"
+                          alt="Kalender Icon"
+                          class="date-icon"
+                          id="custom-date-icon"
+                        />
+                      </div>
+                    </div>
+
+                    <!-- --------------------------------------Priority -->
+                    <div class="add-flex gab8px">
+                      <p>Prio</p>
+                      <div class="radio-container">
+                        <!-- Urgent -->
+                        <label for="priorityUrgent" class="add-task-container">
+                          <input
+                            type="radio"
+                            name="priority"
+                            id="priorityUrgent"
+                            value="urgent"
+                            
+                          />
+                          <span class="checkmark">
+                            Urgent
+                          
+                            <img id="prio-image-urgent" src="" alt="" />
+                          </span>
+                        </label>
+
+                        <!-- Medium -->
+                        <label for="priorityMedium" class="add-task-container">
+                          <input
+                            type="radio"
+                            name="priority"
+                            id="priorityMedium"
+                            value="medium"
+                          />
+                          <span class="checkmark">
+                            Medium
+                            <img id="prio-imag-mediumt" src="" alt="" />
+                          </span>
+                        </label>
+
+                        <!-- Low -->
+                        <label for="priorityLow" class="add-task-container">
+                          <input
+                            type="radio"
+                            name="priority"
+                            id="priorityLow"
+                            value="low"
+                          />
+                          <span class="checkmark">
+                            Low
+                            <img id="prio-imag-low" src="" alt="" />
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                    <!-- --------------------------------------Category -->
+                    <div class="category gab8px add-flex">
+                      <label for="category">
+                        Category<span class="required">*</span>
+                      </label>
+                      <div class="flex-reverse">
+                        <img
+                          id="arrow-drop-down-category"
+                          src="/assets/icons/arrow-drop-down.svg"
+                          alt="Icon"
+                          class="input-icon"
+                        />
+                        <div class="select-trigger" onclick="changeDropdownIconCategory(), toggleDropdown()">
+                          <span id="category-display">Select task category</span>
+                        </div>
+                        <div class="select-options" id="selectOptions">
+                          <div class="select-option" onclick="selectOption('Technical Task')" value="Technical Task">
+                            Technical Task
+                          </div>
+                          <div class="select-option" onclick="selectOption('User Story')" value="User Story">
+                            User Story
+                          </div>
+                        </div>
+                      </div>
+                     
+                      <input type="hidden" id="category-input" name="category" value="" required>
+                    </div>
+                   
+                    <div class="subtask gab8px add-flex">
+                      <label for="taskSubtask">Subtask</label>
+                      <div class="flex-reverse">
+                        <img
+                          id="add-blue"
+                          class="input-icon"
+                          onclick="editAndFocus('taskSubtask')"
+                          src="/assets/icons/add-blue.svg"
+                          alt=""
+                        />
+
+                        <div id="close-check" class="input-icon display-none ">
+                          <img
+                            class=""
+                            onclick="clearInput(),show()"
+                            src="/assets/icons/close.svg"
+                            alt=""
+                          />
+                          <img
+                            class=""
+                            onclick="addSubtask(),show()"
+                            src="/assets/icons/check-blue.svg"
+                            alt=""
+                          />
+                        </div>
+                        <input
+                          class="width100 hover-blue"
+                          placeholder="Add new subtask"
+                          id="taskSubtask"
+                          type="text"
+                        />
+                      </div>
+                      <ul class="list-styl flex-column" id="subtask-list"></ul>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <!-- --------------------------------------botton area form -->
-              <div class="add-task-form-buttons">
-                <button onclick="reset()">
-                  Clear
-                  <img
-                    src="/assets/icons/close.svg"
-                    alt="Cancel create task button"
-                  />
-                </button>
-                <button type="submit">
-                  Create Task
-                  <img src="/assets/icons/check.svg" alt="Create task button" />
-                </button>
-              </div>
-            </form>
-          </main>
-        </div>
+                <!-- --------------------------------------botton area form -->
+
+                <div class="flex-row form-bottom">
+                  <span class="required-text"
+                    >This field is required<span class="required">*</span></span
+                  >
+                  <div class="add-task-form-buttons">
+                    <button type="button"class="add-task-button1 gab8px" onclick="reset()">
+                      Clear
+                   <div class="button-icon"></div>
+                    </button>
+                    <button class="add-task-button2 gab8px" type="submit">
+                      Create Task
+                      <img
+                        src="/assets/icons/check.svg"
+                        alt="Create task button"
+                      />
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </main>
+          </div>
         </section>
       </div>
     </div>
