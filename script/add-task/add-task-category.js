@@ -1,19 +1,19 @@
 function toggleDropdown() {
-    // Öffnen/Schließen des Dropdowns
+    
     const dropdown = document.getElementById('selectOptions');
     dropdown.classList.toggle('open');
   }
   
   function selectOption(value) {
-    // Aktualisiere die Anzeige des ausgewählten Werts
+   
     const display = document.getElementById('category-display');
     display.textContent = value;
   
-    // Setze den Wert im versteckten Eingabefeld
-    const hiddenInput = document.getElementById('category-input');
+    
+    const hiddenInput = document.getElementById('category');
     hiddenInput.value = value;
   
-    // Schließe das Dropdown
+ 
     const dropdown = document.getElementById('selectOptions');
     dropdown.classList.remove('open');
   }
@@ -42,3 +42,17 @@ function toggleDropdown() {
     }
   
   }
+function resetCategory(){    
+  
+    document.getElementById("category").value = "";
+
+  
+    document.getElementById("category-display").innerText = "Select task category";
+  
+  
+    document.getElementById("taskSubtask").value = "";
+  
+  
+    const subtaskList = document.getElementById("subtask-list");
+    subtaskList.innerHTML = "";
+  } 

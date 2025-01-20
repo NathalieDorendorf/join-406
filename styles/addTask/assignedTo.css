@@ -25,6 +25,8 @@
   position: relative;   
   display: inline-block; 
 }
+
+
 #checkboxes {
   display: none;
   background-color: white;

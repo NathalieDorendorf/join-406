@@ -16,19 +16,23 @@
     <link rel="stylesheet" href="/styles/standard.css" />
     <link rel="stylesheet" href="/styles/addTask/add-task.css" />
     <link rel="stylesheet" href="/styles/addTask/assignedTo.css" />
+    <link rel="stylesheet" href="/styles/addTask/category.css" />
+    <link rel="stylesheet" href="/styles/addTask/subtask.css" />
+    <link rel="stylesheet" href="/styles/addTask/prio.css" />
     <link rel="stylesheet" href="/style.css" />
     <script src="/script/authentication.js"></script>
     <script src="/script/templates.js"></script>
     <script src="/script/fetch.js"></script>
-    <script src="/script/add-task.js"></script>
+    <script src="/script/add-task/add-task.js"></script>
+    <script src="/script/add-task/assignedTo.js"></script>
     <script src="/script.js"></script>
-    <script src="/script/add-task-temlates.js"></script>
-    <script src="/script/add-task-subtask.js"></script>
-    <script src="/script/add-task-category.js"></script>
+    <script src="/script/add-task/add-task-temlates.js"></script>
+    <script src="/script/add-task/add-task-subtask.js"></script>
+    <script src="/script/add-task/add-task-category.js"></script>
     <script src="/script/log-out.js"></script>
   </head>
 
-   <body onload="init(), checkParams()"> 
+   <body onload="init() , checkParams()"> 
     <div class="d-flex">
       <div w3-include-html="/assets/templates/sidebar.html">
         <p>Die Sidebar konnte nicht geladen werden.</p>
@@ -83,15 +87,15 @@
                     <div class="multiselect">
                       <label for="assigned">Assigned to</label>
                       <div class="relativ flex-reverse">
-                        <img
-                          onclick="showCheckboxes(),changeDropdownIcon()"
+                        <img 
+                          onclick=""
                           id="arrow-drop-down"
                           src="/assets/icons/arrow-drop-down.svg"
                           alt="Icon"
-                          class="input-icon"
+                          class="input-icon pointer-events-none"
                         />
                         <input
-                          onclick="showCheckboxes(),changeDropdownIcon()"
+                          onclick="showCheckboxes()"
                           oninput="filterContacts()"
                           class="width100 hover-blue"
                           placeholder="Select contacts to assign"
@@ -160,6 +164,7 @@
                             name="priority"
                             id="priorityMedium"
                             value="medium"
+                            checked
                           />
                           <span class="checkmark">
                             Medium
@@ -198,16 +203,16 @@
                           <span id="category-display">Select task category</span>
                         </div>
                         <div class="select-options" id="selectOptions">
-                          <div class="select-option" onclick="selectOption('Technical Task')" value="Technical Task">
+                          <div class="select-option" onclick="selectOption('Technical Task'),changeDropdownIconCategory()" value="Technical Task">
                             Technical Task
                           </div>
-                          <div class="select-option" onclick="selectOption('User Story')" value="User Story">
+                          <div class="select-option" onclick="selectOption('User Story'),changeDropdownIconCategory()" value="User Story">
                             User Story
                           </div>
                         </div>
                       </div>
                      
-                      <input type="hidden" id="category-input" name="category" value="" required>
+                      <input type="hidden" id="category" name="category" value="" >
                     </div>
                    
                     <div class="subtask gab8px add-flex">
@@ -221,16 +226,16 @@
                           alt=""
                         />
 
-                        <div id="close-check" class="input-icon display-none ">
+                        <div id="close-check" class="input-icon display-none flex-center">
                           <img
                             class=""
-                            onclick="clearInput(),show()"
+                            onclick="clearInput(),showAddBlue()"
                             src="/assets/icons/close.svg"
                             alt=""
                           />
                           <img
                             class=""
-                            onclick="addSubtask(),show()"
+                            onclick="addSubtask(),showAddBlue()"
                             src="/assets/icons/check-blue.svg"
                             alt=""
                           />
@@ -254,7 +259,7 @@
                     >This field is required<span class="required">*</span></span
                   >
                   <div class="add-task-form-buttons">
-                    <button type="button"class="add-task-button1 gab8px" onclick="reset()">
+                    <button type="button"class="add-task-button1 gab8px" onclick="resetForm()">
                       Clear
                    <div class="button-icon"></div>
                     </button>

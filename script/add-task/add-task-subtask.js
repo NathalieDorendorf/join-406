@@ -7,21 +7,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
   inputField.addEventListener("input", function (event) {
     if (event.target.value === "") {
-      show();
+      showAddBlue();
     } else {
-      hide();
+      hidenAddBlue();
     }
   });
 });
 
-function hide() {
+function hidenAddBlue() {
   let addBlue = document.getElementById("add-blue");
   let closeCheck = document.getElementById("close-check");
   closeCheck.classList.remove("display-none");
   addBlue.classList.add("display-none");
 }
 
-function show() {
+function showAddBlue() {
   let addBlue = document.getElementById("add-blue");
   let closeCheck = document.getElementById("close-check");
   closeCheck.classList.add("display-none");
@@ -77,7 +77,7 @@ function edit(indexSubtask) {
   updateIndex = indexSubtask;
   update = true;
 
-  show();
+  showAddBlue();
   renderSubtask();
 }
 

@@ -1,0 +1,108 @@
+.radio {
+    width: auto;
+    height: auto;
+  }
+  
+  .add-task-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    cursor: pointer;
+    font-size: 16px;
+    user-select: none;
+    flex-grow: 1;
+  }
+  .radio-container {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-grow: 1;
+  }
+  .checkmark {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    height: 56px;
+    line-height: 56px;
+    text-align: center;
+    border: 1px solid rgba(209, 209, 209, 1);
+    border-radius: 10px;
+    background-color: white;
+    transition: all 0.3s ease;
+    font-size: 21px;
+    padding: 16px 10px;
+    flex-grow: 1;
+    min-width: 132px;
+  }
+  
+  .add-task-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    width: auto;
+    flex-grow: 1;
+  }
+  
+  .add-task-container:hover  {
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+    border-radius: 10%;
+  }
+  
+  .radio-container label:nth-of-type(1) input:checked ~ .checkmark {
+    background-color: var(--prio-red);
+    color: white;
+    border: none;
+  }
+  #prio-image-urgent {
+    background-image: url("/assets/icons/priority-urgent.svg");
+    background-size: contain;
+    width: 20px;
+    height: 14.51px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  #prio-imag-mediumt {
+    background-image: url("/assets/icons/priority-medium.svg");
+    background-size: contain;
+    width: 20px;
+    height: 14.51px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  #prio-imag-low {
+    background-image: url("/assets/icons/priority-low.svg");
+    background-size: contain;
+    width: 20px;
+    height: 14.51px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  .radio-container label:nth-of-type(1) input:checked ~ span #prio-image-urgent {
+    background-image: url("/assets/icons/priority-urgent-white.svg");
+  }
+  
+  .radio-container label:nth-of-type(2) input:checked ~ .checkmark {
+    background-color: var(--prio-orange);
+    color: white;
+    border: none;
+  }
+  
+  .radio-container label:nth-of-type(2) input:checked ~ span #prio-imag-mediumt {
+    background-image: url("/assets/icons/priority-medium-white.svg");
+  }
+  
+  .radio-container label:nth-of-type(3) input:checked ~ .checkmark {
+    background-color: var(--prio-green);
+    color: white;
+    border: none;
+  }
+  
+  .radio-container label:nth-of-type(3) input:checked ~ span #prio-imag-low {
+    background-image: url("/assets/icons/priority-low-white.svg");
+  }
