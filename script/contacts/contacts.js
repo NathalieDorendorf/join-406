@@ -158,21 +158,20 @@ function closeOverlay() {
 }
 
 // Funktion zum Speichern eines neuen Kontakts in Firebase
-async function addNewContact(contact) {
-    let name = document.getElementById("user").value;
-    let email = document.getElementById("email").value;
-    let phone = document.getElementById("telephone").value;
-    let color = getRandomColor();
-    let initials = getInitials(name);
+async function addNewContact(event) {
+    event.preventDefault();
 
-    const isNameValid = await checkName(userName);
-    const isEmailValid = await checkEmail(email);
-    const mailAlreadyExists = await checkEmailExisting (email);
+    let name = document.getElementById("user").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let phone = document.getElementById("telephone").value.trim();
 
-    if (!isNameValid || !isEmailValid || mailAlreadyExists) {
-        clearData(name, email);
+    if (!name || !email) {
+        alert("Bitte füllen Sie alle Felder aus!");
         return;
     }
+
+    let color = getRandomColor();
+    let initials = getInitials(name);
 
     let singleContactData = {
         color: color,
@@ -180,9 +179,35 @@ async function addNewContact(contact) {
         mail: email,
         name: name,
         phone: phone
-    }
+    };
 
-    await updateContacts(singleContactData);
+    console.log({name, email, phone, color, initials});
+
+    await addContactsToFirebase(singleContactData);
+    clearDataContacts(name, email, phone);
+    closeOverlay();
+    await fetchContacts();
+}
+
+async function addContactsToFirebase(contact) {
+    try {
+        const response = await fetch(BASE_URL + "/contacts" + ".json", {
+            method: 'POST', // 'POST' für das Hinzufügen neuer Daten
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(contact)
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to add contact');
+        }
+
+        const data = await response.json();
+        console.log('Contact added successfully:', data);
+    } catch (error) {
+        console.error('Error adding contact:', error);
+    }
 }
 
 function getRandomColor() {
@@ -195,6 +220,12 @@ function getInitials(name) {
     const nameParts = name.split(' ');
     const initials = nameParts.map(part => part.charAt(0).toUpperCase()).join('');
     return initials;
+}
+
+function clearDataContacts(name, email, phone) {
+    name.value = "";
+    email.value = "";
+    phone.value = "";
 }
 
 function showEditContactOverlay(contactId) {

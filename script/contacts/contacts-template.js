@@ -25,11 +25,11 @@ function renderAddContactOverlay() {
                             <span id="errorMessagePassword" class="error-message"></span>
                         </div>
                         <div class="fr gap-16 wrap ato-footer-buttons">
-                            <button id="cancel-add-task-btn" class="button-2 fr jcac gap-8" onclick="closeOverlay()">
+                            <button type="button" id="cancel-add-task-btn" class="button-2 fr jcac gap-8" onclick="closeOverlay()">
                                 <span>Cancel</span>
                                 <img src="/assets/icons/close.svg" alt="Cancel create task button">
                             </button>
-                            <button type="submit" name="submit" class="button fr jcac gap-8" onclick="addNewContact()">
+                            <button type="submit" name="submit" class="button fr jcac gap-8">
                                 <span>Create contact</span>
                                 <img src="/assets/icons/check.svg" alt="Create task button">
                             </button>
@@ -72,10 +72,10 @@ function renderEditContactOverlay(contact) {
                             <span id="errorMessagePassword" class="error-message"></span>
                         </div>
                         <div class="fr gap-16 wrap ato-footer-buttons">
-                            <button id="cancel-add-task-btn" class="button-2 fr jcac gap-8" onclick="closeOverlay()">
+                            <button type="button" id="cancel-add-task-btn" class="button-2 fr jcac gap-8" onclick="closeOverlay()">
                                 <span>Delete</span>
                             </button>
-                            <button type="submit" name="submit" class="button fr jcac gap-8" onclick="saveNewContact()">
+                            <button type="submit" name="submit" class="button fr jcac gap-8">
                                 <span>Save</span>
                                 <img src="/assets/icons/check.svg" alt="Create task button">
                             </button>
