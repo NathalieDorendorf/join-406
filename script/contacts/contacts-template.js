@@ -17,9 +17,9 @@ function renderAddContactOverlay() {
                     <button class="button-contacts" onclick="closeOverlay()"><img src="/assets/icons/close.svg" alt="Close"></button>
                     <form id="addContactForm" onsubmit="addNewContact(event); return false;">
                         <div class="fc gap-8">
-                            <input class="input-name input-width" type="text" id="user" placeholder="Name" minlength="2" maxlength="30">
+                            <input class="input-name input-width" type="text" id="user" placeholder="Name" minlength="2" maxlength="30" required>
                             <span id="errorMessageName" class="error-message"></span>
-                            <input class="input-email input-width"  type="email" id="email" placeholder="Email">
+                            <input class="input-email input-width"  type="email" id="email" placeholder="Email" required>
                             <span id="errorMessageEmail" class="error-message"></span>
                             <input class="input-phone input-width"  type="number" id="telephone" placeholder="Phone">
                             <span id="errorMessagePassword" class="error-message"></span>
@@ -48,7 +48,7 @@ function renderAddContactOverlay() {
 
 
 // Funktion zum Anzeigen des Overlays
-function renderEditContactOverlay(contactId) {
+function renderEditContactOverlay(contact) {
     const overlayHTML = `
         <div id="addContactOverlay" class="add-new-contact-overlay">
             <div class="overlay-content">
@@ -62,7 +62,7 @@ function renderEditContactOverlay(contactId) {
                 <div class="overlay-right d-flex">
                     <div class="initials-circle-big" style="background-color: var(${contact.color});">${contact.initials}</div>
                     <button class="button-contacts" onclick="closeOverlay()"><img src="/assets/icons/close.svg" alt="Close"></button>
-                    <form id="addContactForm" onsubmit="addNewContact(event); return false;">
+                    <form id="addContactForm" onsubmit="saveNewContact(event); return false;">
                         <div class="fc gap-8">
                             <input class="input-name input-width" type="text" id="user" placeholder="Name" minlength="2" maxlength="30">
                             <span id="errorMessageName" class="error-message"></span>

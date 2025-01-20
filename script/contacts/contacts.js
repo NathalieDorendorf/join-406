@@ -30,8 +30,11 @@ async function fetchContacts() {
         return;
     }
 
+    // Firebase-ID jedem Kontakt hinzufügen
+    const contactsWithIds = addFirebaseIdsToContacts(contacts);
+
     // Kontakte alphabetisch sortieren
-    const sortedContacts = sortContactsByName(contacts);
+    const sortedContacts = sortContactsByName(contactsWithIds);
     console.log('Sorted contacts:', sortedContacts);
 
     // Kontakte gruppieren
@@ -41,12 +44,19 @@ async function fetchContacts() {
     renderContactList(groupedContacts);
 }
 
-function sortContactsByName(contacts) {
-    // Konvertiere das Objekt in ein Array
-    const contactsArray = Object.values(contacts);
+function addFirebaseIdsToContacts(contacts) {
+    // Konvertiere das Objekt in ein Array mit IDs
+    return Object.entries(contacts).map(([id, contact]) => {
+        return {
+            ...contact, // Bestehende Kontakt-Daten
+            firebaseId: id // Firebase-ID hinzufügen
+        };
+    });
+}
 
+function sortContactsByName(contactsWithIds) {
     // Sortiere das Array alphabetisch nach dem Namen
-    contactsArray.sort((a, b) => {
+    return contactsWithIds.sort((a, b) => {
         const nameA = a.name.toUpperCase(); // Groß-/Kleinschreibung ignorieren
         const nameB = b.name.toUpperCase();
         if (nameA < nameB) return -1;
@@ -87,7 +97,7 @@ function renderContactList(groupedContacts) {
             groupedContacts[letter].forEach(contact => {
                 const contactItem = document.createElement("li");
                 contactItem.innerHTML = `
-                    <div class="contact-info-container">
+                    <div class="contact-info-container" id="${contact.firebaseId}">
                         <div class="initials-circle" style="background-color: var(${contact.color});">${contact.initials}</div>
                         <div>
                             <p>${contact.name}</p>
@@ -123,7 +133,7 @@ function showContactDetails(contact) {
                 <div class="name-container">
                     <h2>${contact.name}</h2>
                     <div class="d-flex gap-8">
-                        <button class="button-contacts" onclick="showEditContactOverlay(${contact.id})"><img src="/assets/icons/edit-blue.svg" alt="edit">Edit</button>
+                        <button class="button-contacts" onclick="showEditContactOverlay(${contact.firebaseId})"><img src="/assets/icons/edit-blue.svg" alt="edit">Edit</button>
                         <button class="button-contacts"><img src="/assets/icons/delete-blue.svg" alt="delete">Delete</button>
                     </div>
                 </div>
@@ -149,30 +159,30 @@ function closeOverlay() {
 
 // Funktion zum Speichern eines neuen Kontakts in Firebase
 async function addNewContact(contact) {
-    const name = document.getElementById("user").value;
-    const email = document.getElementById("email").value;
-    const phone = document.getElementById("telephone").value;
+    let name = document.getElementById("user").value;
+    let email = document.getElementById("email").value;
+    let phone = document.getElementById("telephone").value;
+    let color = getRandomColor();
+    let initials = getInitials(name);
 
-    try {
-        const randomColor = getRandomColor();
-        const initials = getInitials(name);
-        const response = await fetchResource('contacts','POST', {
-            color: randomColor,
-            initials: initials,
-            mail: email,
-            name: name,
-            phone: phone
-        });
+    const isNameValid = await checkName(userName);
+    const isEmailValid = await checkEmail(email);
+    const mailAlreadyExists = await checkEmailExisting (email);
 
-        if (response.ok) {
-            console.log("Contact successfully added!");
-            closeOverlay();
-        } else {
-            console.error("Failed to add contact.", response.statusText);
-        }
-    } catch (error) {
-        console.error("Error adding contact:", error);
+    if (!isNameValid || !isEmailValid || mailAlreadyExists) {
+        clearData(name, email);
+        return;
     }
+
+    let singleContactData = {
+        color: color,
+        initials: initials,
+        mail: email,
+        name: name,
+        phone: phone
+    }
+
+    await updateContacts(singleContactData);
 }
 
 function getRandomColor() {

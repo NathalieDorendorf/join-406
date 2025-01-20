@@ -5,42 +5,42 @@
 const BASE_URL = "https://join-gruppenarbeit-137ed-default-rtdb.europe-west1.firebasedatabase.app/";
 
 
-/**
- * Generates a random color from predefined CSS variables.
- * 
- * This function selects a random CSS variable from a list of color variables,
- * retrieves its value from the computed styles, and returns the corresponding color as a string.
- * 
- * @returns {string} The randomly selected color value (e.g., `"#FF7A00"`).
- */
-function getRandomColor() {
-    const colorVars = [
-        '--contact-color-orange',
-        '--contact-color-pink',
-        '--contact-color-lavender',
-        '--contact-color-violet',
-        '--contact-color-aqua',
-        '--contact-color-tropical',
-        '--contact-color-coral',
-        '--contact-color-peach',
-        '--contact-color-magenta',
-        '--contact-color-gold',
-        '--contact-color-blue',
-        '--contact-color-lime',
-        '--contact-color-purple',
-        '--contact-color-crimson',
-        '--contact-color-honey'
-    ];
+// /**
+//  * Generates a random color from predefined CSS variables.
+//  * 
+//  * This function selects a random CSS variable from a list of color variables,
+//  * retrieves its value from the computed styles, and returns the corresponding color as a string.
+//  * 
+//  * @returns {string} The randomly selected color value (e.g., `"#FF7A00"`).
+//  */
+// function getRandomColor() {
+//     const colorVars = [
+//         '--contact-color-orange',
+//         '--contact-color-pink',
+//         '--contact-color-lavender',
+//         '--contact-color-violet',
+//         '--contact-color-aqua',
+//         '--contact-color-tropical',
+//         '--contact-color-coral',
+//         '--contact-color-peach',
+//         '--contact-color-magenta',
+//         '--contact-color-gold',
+//         '--contact-color-blue',
+//         '--contact-color-lime',
+//         '--contact-color-purple',
+//         '--contact-color-crimson',
+//         '--contact-color-honey'
+//     ];
 
-    // Access CSS variable values from the root element
-    const rootStyles = getComputedStyle(document.documentElement);
+//     // Access CSS variable values from the root element
+//     const rootStyles = getComputedStyle(document.documentElement);
 
-    // Pick a random variable from the list
-    const randomVar = colorVars[Math.floor(Math.random() * colorVars.length)];
+//     // Pick a random variable from the list
+//     const randomVar = colorVars[Math.floor(Math.random() * colorVars.length)];
 
-    // Return the corresponding color value
-    return rootStyles.getPropertyValue(randomVar).trim();
-}
+//     // Return the corresponding color value
+//     return rootStyles.getPropertyValue(randomVar).trim();
+// }
 
 /**
  * Assigns a random color to a guest user.
