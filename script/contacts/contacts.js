@@ -117,12 +117,37 @@ function showContactDetails(contact) {
 
     if (isMobile) {
         // Mobile Ansicht: Overlay anzeigen
-        const overlay = document.querySelector(".contact-overlay");
+        const contactsContainer = document.querySelector('.contacts-container'); // Zugriff auf das erste Element mit der Klasse
+        if (contactsContainer) {
+            contactsContainer.classList.remove('contacts-container'); // Entferne die bestehende Klasse
+            contactsContainer.classList.add('d-none');    // Füge eine neue Klasse hinzu
+        }
+
+        const overlay = document.querySelector(".contact-details-overlay");
         overlay.innerHTML = `
-            <h2>${contact.name}</h2>
-            <p>Email: ${contact.mail}</p>
-            <p>Phone: ${contact.phone}</p>
-            <button onclick="closeOverlay()">Close</button>
+            <header class="section-header">
+                <div class="d-flex-sb-c">
+                    <h1>Contacts</h1>
+                    <button onclick="closeContactDetailsOverlay()"><img src="/assets/icons/arrow-left.svg" alt="back"></button>
+                <div class="sideline-blue"></div>
+                <h4>Better with a team</h4>
+            </header>
+            <div class="d-flex gap-24">
+                <div class="initials-circle-big" style="background-color: var(${contact.color});">${contact.initials}</div>
+                <div class="name-container">
+                    <h2>${contact.name}</h2>
+                    <div class="d-flex gap-8">
+                        <button class="button-contacts" onclick="showEditContactOverlay(${contact.firebaseId})"><img src="/assets/icons/edit-blue.svg" alt="edit">Edit</button>
+                        <button class="button-contacts"><img src="/assets/icons/delete-blue.svg" alt="delete">Delete</button>
+                    </div>
+                </div>
+            </div>
+            <h2>Contact Information</h2>
+            <h3>Email</h3>
+            <a href="mailto:${contact.mail}">${contact.mail}</a>
+            <h3>Phone</h3>
+            <a href="tel:${contact.phone}">${contact.phone}</a>
+            <button onclick="closeContactDetailsOverlay()">Close</button>
         `;
         overlay.classList.add("visible");
     } else {
@@ -155,6 +180,15 @@ function closeOverlay() {
         overlay.classList.remove("visible");
         setTimeout(() => overlay.remove(), 300); // Timeout für Transition-Effekt
     }
+}
+
+function closeContactDetailsOverlay() {
+    const contactsContainer = document.querySelector('.d-none'); // Zugriff auf das erste Element mit der Klasse
+    if (contactsContainer) {
+        contactsContainer.classList.remove('d-none'); // Entferne die bestehende Klasse
+        contactsContainer.classList.add('contacts-container');    // Füge eine neue Klasse hinzu
+    }
+
 }
 
 // Funktion zum Speichern eines neuen Kontakts in Firebase
