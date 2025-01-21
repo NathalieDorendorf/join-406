@@ -1,5 +1,5 @@
 function contactsTemlates(renderArry, index) {
-  return ` 
+    return ` 
    
   <div >
     <label  class ="checkbox-content">
@@ -11,7 +11,7 @@ function contactsTemlates(renderArry, index) {
   />
    </div>
   <input type="checkbox" 
-  value = "${renderArry[index].id}'" 
+  value = "${renderArry[index].id}" 
   name="assignedTo"
   id = "${renderArry[index].id}" 
   onchange="checkt(event, '${renderArry[index].initials}', '${renderArry[index].color}','${renderArry[index].id}')"/>
@@ -27,7 +27,7 @@ function contactsTemlates(renderArry, index) {
 }
 
 function renderList(indexSubtask) {
-  return `
+    return `
  
   <li ondblclick="edit('${indexSubtask}');" >
     <div class="flex-row list-container"> <span class="task-text">${subtask[indexSubtask].title}</span>
@@ -46,8 +46,8 @@ function renderList(indexSubtask) {
 
 
 
-function renderBadge(color,initials) {
-  return `
+function renderBadge(color, initials) {
+    return `
   <div style="background-color: var(${color});" class="badge margin0">${initials}</div>
   
   `;
