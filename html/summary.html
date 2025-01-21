@@ -2,47 +2,47 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Summary</title>
-  <link rel="icon" href="/assets/icons/join-favicon.png" type="image/png" sizes="32x32">
-  <link rel="stylesheet" href="/styles/assets.css">
-  <link rel="stylesheet" href="/styles/fonts.css">
-  <link rel="stylesheet" href="/styles/summary.css">
-  <link rel="stylesheet" href="/styles/standard.css">
-  <link rel="stylesheet" href="/style.css">
-  <script src="/script/authentication.js"></script>
-  <script src="/script/summary/summary-templates.js" defer></script>
-  <script src="/script/summary/summary.js" defer></script>
-  <script src="/script/fetch.js"></script>
-  <script src="/script.js"></script>
-  <script src="/script/log-out.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summary</title>
+    <link rel="icon" href="/assets/icons/join-favicon.png" type="image/png" sizes="32x32">
+    <link rel="stylesheet" href="/styles/assets.css">
+    <link rel="stylesheet" href="/styles/fonts.css">
+    <link rel="stylesheet" href="/styles/summary.css">
+    <link rel="stylesheet" href="/styles/standard.css">
+    <link rel="stylesheet" href="/style.css">
+    <script src="/script/authentication.js"></script>
+    <script src="/script/summary/summary-templates.js" defer></script>
+    <script src="/script/summary/summary.js" defer></script>
+    <script src="/script/fetch.js"></script>
+    <script src="/script.js"></script>
+    <script src="/script/log-out.js"></script>
 </head>
 
 <body onload="initSummary(), checkParams()">
-  <div class="d-flex">
-    <div w3-include-html="/assets/templates/sidebar.html">
-      <p>Die Sidebar konnte nicht geladen werden.</p>
+    <div class="d-flex height-100">
+        <div w3-include-html="/assets/templates/sidebar.html">
+            <p>Die Sidebar konnte nicht geladen werden.</p>
+        </div>
+        <div class="main-content">
+            <div w3-include-html="/assets/templates/header.html">
+                <p>Der Header konnte nicht geladen werden.</p>
+            </div>
+            <section class="section-summary section-pad">
+                <header id="summaryHeader" class="section-header d-none">
+
+                </header>
+                <main class="summary-container section-gap">
+                    <div id="summaryContent" class="summary-content section-gap d-none">
+
+                    </div>
+                    <div id="greeting" class="summary-greetings hidden">
+
+                    </div>
+                </main>
+            </section>
+        </div>
     </div>
-    <div class="main-content">
-      <div w3-include-html="/assets/templates/header.html">
-        <p>Der Header konnte nicht geladen werden.</p>
-      </div>
-      <section class="section-summary section-pad">
-        <header id="summaryHeader" class="section-header d-none">
-
-        </header>
-        <main class="summary-container section-gap">
-          <div id="summaryContent" class="summary-content section-gap d-none">
-
-          </div>
-          <div id="greeting" class="summary-greetings hidden">
-
-          </div>
-        </main>
-      </section>
-    </div>
-  </div>
 </body>
 
 </html>

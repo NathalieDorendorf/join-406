@@ -34,12 +34,16 @@
 }
 
 .contact-list-container {
-    overflow-y: auto; /* Vertikales Scrollen erlauben */
-    max-height: 100%; /* Begrenze die Höhe auf die Elternkomponente */
+    overflow-y: auto;
+    /* Vertikales Scrollen erlauben */
+    max-height: 100%;
+    /* Begrenze die Höhe auf die Elternkomponente */
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Inhalte oben ausrichten */
-    align-items: flex-start; /* Inhalte links ausrichten */
+    justify-content: flex-start;
+    /* Inhalte oben ausrichten */
+    align-items: flex-start;
+    /* Inhalte links ausrichten */
 }
 
 .contacts-details-container {
@@ -199,7 +203,7 @@
 .overlay-content {
     display: flex;
     width: clamp(700px, 90%, 1000px);
-    height: clamp(450px, 60%,592px);
+    height: clamp(450px, 60%, 592px);
     background: white;
     border-radius: 30px;
     overflow: hidden;
@@ -247,6 +251,7 @@
     from {
         transform: translateX(100%);
     }
+
     to {
         transform: translateX(0);
     }
@@ -268,8 +273,13 @@
         display: none;
     }
 
+    .contact-list-container {
+        overflow-y: unset;
+    }
+
     .contacts-container {
         width: 100%;
+        overflow-y: auto;
     }
 
     .contacts-details-container {

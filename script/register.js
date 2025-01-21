@@ -51,8 +51,6 @@ async function addUser() {
     let singleLogInData = {
         "email": email.value,
         "password": password.value,
-        "name": userName.value,
-        "color": color
     };
 
     await addToContacts(email, userName, color, getInitials(userName.value));

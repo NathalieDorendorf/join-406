@@ -237,7 +237,7 @@ const readOnly = {
             "phone": "+44 394938683"
         },
         "-OF7zRDOvz7zWWz41_J2": {
-            "color": "--contact-color-lemon",
+            "color": "--contact-color-purple",
             "initials": "JS",
             "mail": "james.smith@gmail.com",
             "name": "James Smith",
