@@ -64,6 +64,10 @@ justify-content: center;
 }
 
 
+#required-title , #required-date ,#required-category{
+  padding: 0 16px;
+}
+
 /* -------------hover */
 .hover-blue:hover{
   border: 1px solid var(--color-light-blue);

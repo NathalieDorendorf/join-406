@@ -64,14 +64,13 @@
                       >
                       <input
                         class="width100"
-                        required
                         name="title"
                         placeholder="Enter a title"
                         id="taskTitle"
                         type="text"
-                        minlength="3"
-                        maxlength="15"
+                         
                       />
+                      <span id = "required-title" class="required display-none">Please enter between 3 and 15 characters.</span>
                     </div>
                     <!-- --------------------------------------Description -->
                     <div class="description gab8px">
@@ -125,12 +124,13 @@
                       <div class="date-wrapper">
                         <input
                           class="width100"
-                          required
+                         
                           name="dueDate"
                           placeholder="Select a due date"
                           id="dueDate"
                           type="date"
                         />
+                       
                         <img
                           src="/assets/icons/calendar-icon.svg"
                           alt="Kalender Icon"
@@ -138,6 +138,7 @@
                           id="custom-date-icon"
                         />
                       </div>
+                      <span id = "required-date" class="required display-none">Please pick a date. Must be in the future.</span>
                     </div>
 
                     <!-- --------------------------------------Priority -->
@@ -213,12 +214,14 @@
                         >
                           <span id="category-display">Select task category</span>
                         </div>
+                       
                         <div
                           class="select-options"
                           id="selectOptions"
                           role="listbox"
                           aria-labelledby="category-select"
                         >
+                        
                           <div
                             class="select-option"
                             role="option"
@@ -239,7 +242,7 @@
                           </div>
                         </div>
                       </div>
-                    
+                      <span id = "required-category" class="required display-none">Please pick a category.</span>
                       <input type="hidden" id="category" name="category" value="" />
                     </div>
                     
