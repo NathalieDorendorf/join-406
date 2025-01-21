@@ -29,10 +29,11 @@
     <script src="/script/add-task/add-task-temlates.js"></script>
     <script src="/script/add-task/add-task-subtask.js"></script>
     <script src="/script/add-task/add-task-category.js"></script>
+    <script src="/script/assets.js"></script>
     <script src="/script/log-out.js"></script>
   </head>
 
-   <body onload="init() , checkParams()"> 
+  <body onload="init() , checkParams()">
     <div class="d-flex">
       <div w3-include-html="/assets/templates/sidebar.html">
         <p>Die Sidebar konnte nicht geladen werden.</p>
@@ -84,10 +85,10 @@
                       ></textarea>
                     </div>
                     <!-- --------------------------------------AssignedTo -->
-                    <div class="multiselect">
+                    <div class="multiselect flex-column gab8px">
                       <label for="assigned">Assigned to</label>
                       <div class="relativ flex-reverse">
-                        <img 
+                        <img
                           onclick=""
                           id="arrow-drop-down"
                           src="/assets/icons/arrow-drop-down.svg"
@@ -111,7 +112,9 @@
                     </div>
                   </div>
 
-                  <div class="form-middle"></div>
+                  <div class="form-middle">
+                  
+                  </div>
 
                   <div class="form-right">
                     <!-- --------------------------------------DueDate -->
@@ -148,11 +151,10 @@
                             name="priority"
                             id="priorityUrgent"
                             value="urgent"
-                            
                           />
                           <span class="checkmark">
                             Urgent
-                          
+
                             <img id="prio-image-urgent" src="" alt="" />
                           </span>
                         </label>
@@ -189,9 +191,9 @@
                     </div>
                     <!-- --------------------------------------Category -->
                     <div class="category gab8px add-flex">
-                      <label for="category">
-                        Category<span class="required">*</span>
-                      </label>
+                      <span>Category<span class="required">*</span></span>
+                        
+                      
                       <div class="flex-reverse">
                         <img
                           id="arrow-drop-down-category"
@@ -199,24 +201,52 @@
                           alt="Icon"
                           class="input-icon"
                         />
-                        <div class="select-trigger" onclick="changeDropdownIconCategory(), toggleDropdown()">
+                        <div
+                          class="select-trigger"
+                          id="category-select"
+                          tabindex="0"
+                          role="combobox"
+                          aria-expanded="false"
+                          aria-controls="selectOptions"
+                          aria-haspopup="listbox"
+                          onclick="changeDropdownIconCategory(), toggleDropdown()"
+                        >
                           <span id="category-display">Select task category</span>
                         </div>
-                        <div class="select-options" id="selectOptions">
-                          <div class="select-option" onclick="selectOption('Technical Task'),changeDropdownIconCategory()" value="Technical Task">
+                        <div
+                          class="select-options"
+                          id="selectOptions"
+                          role="listbox"
+                          aria-labelledby="category-select"
+                        >
+                          <div
+                            class="select-option"
+                            role="option"
+                            aria-selected="false"
+                            onclick="selectOption('Technical Task'), changeDropdownIconCategory()"
+                            value="Technical Task"
+                          >
                             Technical Task
                           </div>
-                          <div class="select-option" onclick="selectOption('User Story'),changeDropdownIconCategory()" value="User Story">
+                          <div
+                            class="select-option"
+                            role="option"
+                            aria-selected="false"
+                            onclick="selectOption('User Story'), changeDropdownIconCategory()"
+                            value="User Story"
+                          >
                             User Story
                           </div>
                         </div>
                       </div>
-                     
-                      <input type="hidden" id="category" name="category" value="" >
+                    
+                      <input type="hidden" id="category" name="category" value="" />
                     </div>
-                   
+                    
+                    
+                    <!-- -----------------------------------------------------subtask -->
                     <div class="subtask gab8px add-flex">
-                      <label for="taskSubtask">Subtask</label>
+                      <span>Subtask</span>
                       <div class="flex-reverse">
                         <img
                           id="add-blue"
@@ -226,7 +256,10 @@
                           alt=""
                         />
 
-                        <div id="close-check" class="input-icon display-none flex-center">
+                        <div
+                          id="close-check"
+                          class="input-icon display-none flex-center"
+                        >
                           <img
                             class=""
                             onclick="clearInput(),showAddBlue()"
@@ -259,9 +292,13 @@
                     >This field is required<span class="required">*</span></span
                   >
                   <div class="add-task-form-buttons">
-                    <button type="button"class="add-task-button1 gab8px" onclick="resetForm()">
+                    <button
+                      type="button"
+                      class="add-task-button1 gab8px"
+                      onclick="resetForm()"
+                    >
                       Clear
-                   <div class="button-icon"></div>
+                      <div class="button-icon"></div>
                     </button>
                     <button class="add-task-button2 gab8px" type="submit">
                       Create Task
@@ -272,11 +309,16 @@
                     </button>
                   </div>
                 </div>
+              
               </form>
+              
             </main>
           </div>
+          
         </section>
+      
       </div>
     </div>
+  
   </body>
 </html>

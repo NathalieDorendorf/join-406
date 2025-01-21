@@ -31,15 +31,53 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-
+// form validation
   
 
+function processForm(event) {
+  event.preventDefault(); // Verhindert das automatische Absenden des Formulars
+  
+  let isValid = true;
+
+  // Überprüfe alle required-Felder
+  const requiredFields = document.querySelectorAll("#add-task-form [required]");
+  requiredFields.forEach((field) => {
+    if (!field.value.trim()) {
+      // Zeigt eine rote Border für ungültige Felder an
+      field.style.border = "2px solid red";
+      isValid = false;
+    } else {
+      // Entfernt die rote Border, wenn das Feld gültig ist
+      field.style.border = "";
+    }
+  });
+
+  // Überprüfe, ob die Kategorie ausgewählt ist
+  const categoryInput = document.getElementById("category");
+  if (!categoryInput.value) {
+    const categoryDisplay = document.getElementById("category-display");
+    categoryDisplay.style.border = "2px solid red";
+    isValid = false;
+  } else {
+    const categoryDisplay = document.getElementById("category-display");
+    categoryDisplay.style.border = "";
+  }
+
+  // Wenn alle Felder gültig sind, Formular abschicken oder weitere Logik ausführen
+  if (isValid) {
+    alert("Formular erfolgreich validiert!");
+    // Hier könntest du das Formular absenden:
+    // event.target.submit();
+  } else {
+    alert("Bitte fülle alle erforderlichen Felder aus!");
+  }
+}
 
 
 
 
 
-
+// Send form data
 
 async function processForm(event) {
   event.preventDefault();
@@ -73,13 +111,15 @@ async function processForm(event) {
   if (response) {
     console.log("Daten erfolgreich in die DB geschickt:", response);
   
-    form.reset();
-    alert('Task erfolgreich angelegt!');
+    resetForm()
+    showToastMessage({ message: 'Task has been successfully created' });
   } else {
     console.error("Fehler beim Übermitteln der Daten.");
     alert('Fehler beim Anlegen des Tasks!');
   }
 }
+
+
 
 function resetForm() {
   const form = document.getElementById("add-task-form");

@@ -54,7 +54,14 @@ display: none;
   pointer-events: none;
 }
 
-
+.toast-container {
+align-items: center;
+justify-content: center;
+  top: 50%;
+  width: 100%;
+  height: 61px;
+  padding-left: 232px;
+}
 
 
 /* -------------hover */
@@ -274,6 +281,9 @@ align-items: center;
   }
   .add-task-form-buttons{
   margin-bottom: 30px;
+  }
+  .toast-container{
+    padding: 0;
   }
 }
 
