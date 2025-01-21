@@ -1,10 +1,4 @@
 /**
- * Base URL for the Firebase database.
- * @constant {string}
- */
-const BASE_URL = "https://join-gruppenarbeit-137ed-default-rtdb.europe-west1.firebasedatabase.app/";
-
-/**
  * Assigns a random color to a guest user.
  * 
  * This function uses `getRandomColor` to fetch a random color and logs the assigned color to the console.

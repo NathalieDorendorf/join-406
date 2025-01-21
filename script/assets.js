@@ -119,7 +119,8 @@ document.addEventListener('DOMContentLoaded', initToastContainer = () => {
 function showToastMessage({
     message,
     backgroundColor = '#2A3647',
-    color = 'white'
+    color = 'white',
+    onAnimationEnd = function () { }
 }) {
     toastContainer.insertAdjacentHTML('beforeend',
         `<div class="toast" style="
@@ -130,7 +131,10 @@ function showToastMessage({
     );
 
     const toast = toastContainer.lastElementChild;
-    toast.addEventListener('animationend', () => toast.remove());
+    toast.addEventListener('animationend', () => {
+        toast.remove();
+        onAnimationEnd();
+    });
 }
 
 /**

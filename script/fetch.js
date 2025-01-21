@@ -1,3 +1,7 @@
+/**
+ * Base URL for the Firebase database.
+ * @constant {string}
+ */
 const BASE_URL = "https://join-gruppenarbeit-137ed-default-rtdb.europe-west1.firebasedatabase.app/";
 
 /**
