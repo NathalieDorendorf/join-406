@@ -16,32 +16,36 @@ const contactColors = [
     "--contact-color-honey"
 ];
 
+let contacts = [];
+
 async function initContacts() {
     await fetchContacts();
 }
 
 async function fetchContacts() {
-    const contacts = await fetchResource('contacts');
-    console.log('Fetched contacts:', contacts);
-    console.table(contacts);
+    try {
+        const response = await fetch(`${BASE_URL}/contacts.json`);
+        if (!response.ok) {
+            throw new Error('Fehler beim Abrufen der Kontakte');
+        }
 
-    if (!contacts || typeof contacts !== 'object') {
-        console.error('Contacts data is not valid:', contacts);
-        return;
+        const data = await response.json();
+        contacts = Object.keys(data).map(firebaseId => ({
+            firebaseId,
+            ...data[firebaseId]
+        }));
+
+        // Kontakte alphabetisch sortieren
+        const sortedContacts = sortContactsByName(contacts);
+        console.log('Sorted contacts:', sortedContacts);
+
+        // Kontakte gruppieren
+        const groupedContacts = groupContactsByFirstLetter(sortedContacts);
+
+        renderContactList(groupedContacts); // Funktion, die die Kontakte im Frontend darstellt
+    } catch (error) {
+        console.error('Fehler beim Abrufen der Kontakte:', error);
     }
-
-    // Firebase-ID jedem Kontakt hinzufügen
-    const contactsWithIds = addFirebaseIdsToContacts(contacts);
-
-    // Kontakte alphabetisch sortieren
-    const sortedContacts = sortContactsByName(contactsWithIds);
-    console.log('Sorted contacts:', sortedContacts);
-
-    // Kontakte gruppieren
-    const groupedContacts = groupContactsByFirstLetter(sortedContacts);
-
-    // Kontaktliste rendern
-    renderContactList(groupedContacts);
 }
 
 function addFirebaseIdsToContacts(contacts) {
@@ -63,8 +67,6 @@ function sortContactsByName(contactsWithIds) {
         if (nameA > nameB) return 1;
         return 0;
     });
-
-    return contactsArray;
 }
 
 function groupContactsByFirstLetter(contacts) {
@@ -137,7 +139,7 @@ function showContactDetails(contact) {
                 <div class="name-container">
                     <h2>${contact.name}</h2>
                     <div class="d-flex gap-8">
-                        <button class="button-contacts" onclick="showEditContactOverlay(${contact.firebaseId})"><img src="/assets/icons/edit-blue.svg" alt="edit">Edit</button>
+                        <button class="button-contacts" onclick="showEditContactOverlay('${contact.firebaseId}')"><img src="/assets/icons/edit-blue.svg" alt="edit">Edit</button>
                         <button class="button-contacts"><img src="/assets/icons/delete-blue.svg" alt="delete">Delete</button>
                     </div>
                 </div>
@@ -158,7 +160,7 @@ function showContactDetails(contact) {
                 <div class="name-container">
                     <h2>${contact.name}</h2>
                     <div class="d-flex gap-8">
-                        <button class="button-contacts" onclick="showEditContactOverlay(${contact.firebaseId})"><img src="/assets/icons/edit-blue.svg" alt="edit">Edit</button>
+                        <button class="button-contacts" onclick="showEditContactOverlay('${contact.firebaseId}')"><img src="/assets/icons/edit-blue.svg" alt="edit">Edit</button>
                         <button class="button-contacts"><img src="/assets/icons/delete-blue.svg" alt="delete">Delete</button>
                     </div>
                 </div>
@@ -182,13 +184,20 @@ function closeOverlay() {
     }
 }
 
+function closeEditOverlay() {
+    const overlay = document.getElementById("editContactOverlay");
+    if (overlay) {
+        overlay.classList.remove("visible");
+        setTimeout(() => overlay.remove(), 300); // Timeout für Transition-Effekt
+    }
+}
+
 function closeContactDetailsOverlay() {
     const contactsContainer = document.querySelector('.d-none'); // Zugriff auf das erste Element mit der Klasse
     if (contactsContainer) {
         contactsContainer.classList.remove('d-none'); // Entferne die bestehende Klasse
         contactsContainer.classList.add('contacts-container');    // Füge eine neue Klasse hinzu
     }
-
 }
 
 // Funktion zum Speichern eines neuen Kontakts in Firebase
@@ -262,16 +271,79 @@ function clearDataContacts(name, email, phone) {
     phone.value = "";
 }
 
-function showEditContactOverlay(contactId) {
-    fillInputFormWithContactsInfo(contact);
-    renderEditContactOverlay(contactId);
+function showEditContactOverlay(firebaseId) {
+    // Suche den Kontakt anhand der Firebase-ID
+    const contact = findContactById(firebaseId);
+
+    if (!contact) {
+        console.error('Kontakt nicht gefunden:', firebaseId);
+        return;
+    }
+
+    // Render das Overlay mit den Kontaktinformationen
+    renderEditContactOverlay(contact);
+}
+
+// Funktion zum Abrufen eines Kontakts anhand der ID
+function findContactById(firebaseId) {
+    // Kontakte durchgehen und den passenden Kontakt finden
+    return contacts.find(contact => contact.firebaseId === firebaseId);
 }
 
 function fillInputFormWithContactsInfo(contact) {
     if (contact) {
-        document.getElementById('user').value = contact.name;
-        document.getElementById('email').value = contact.mail;
-        document.getElementById('telephone').value = contact.phone;
+        document.getElementById('user').value = contact.name || '';
+        document.getElementById('email').value = contact.mail || '';
+        document.getElementById('telephone').value = contact.phone || '';
     }
 }
 
+async function saveContact(event, firebaseId) {
+    event.preventDefault();
+    let editName = document.getElementById('user').value.trim();
+    let editEmail = document.getElementById('email').value.trim();
+    let editPhone = document.getElementById('telephone').value.trim();
+
+    if (!editName || !editEmail) {
+        alert("Bitte füllen Sie alle Felder aus!");
+        return;
+    }
+
+    let updateSingleData = {
+        name: editName,
+        mail: editEmail,
+        phone: editPhone
+    };
+    await putContactsDataToFirebase(firebaseId, updateSingleData);
+    closeEditOverlay();
+    await fetchContacts();
+}
+
+async function putContactsDataToFirebase(firebaseId, contact) {
+    try {
+        const response = await fetch(`${BASE_URL}/contacts/${firebaseId}.json`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(contact)
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to edit contact');
+        }
+
+        const data = await response.json();
+        console.log('Contact edited successfully:', data);
+    } catch (error) {
+        console.error('Error editing contact:', error);
+    }
+}
+
+async function deleteContact(path = '/contacts') {
+    await fetchResource(BASE_URL + path + '.json', {
+        method: 'DELETE'
+    });
+    closeOverlay();
+    await fetchContacts();
+}
