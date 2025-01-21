@@ -45,7 +45,7 @@ const localContacts = [
         mail: 'julia.schneider@hotmail.com',
         phone: '+44 394938683',
         initials: 'JS',
-        color: '--contact-jcolor-honey'
+        color: '--contact-color-honey'
     },
     {
         name: 'James Smith',
@@ -230,14 +230,14 @@ const readOnly = {
             "phone": "+44 129299768"
         },
         "-OF7zRDI9PeHAsV0MusW": {
-            "color": "--contact-jcolor-honey",
+            "color": "--contact-color-honey",
             "initials": "JS",
             "mail": "julia.schneider@hotmail.com",
             "name": "Julia Schneider",
             "phone": "+44 394938683"
         },
         "-OF7zRDOvz7zWWz41_J2": {
-            "color": "--contact-color-lemon",
+            "color": "--contact-color-purple",
             "initials": "JS",
             "mail": "james.smith@gmail.com",
             "name": "James Smith",

@@ -1,0 +1,71 @@
+.subtask{
+    position: relative;
+  }
+  .subtask input {
+    padding-right: 67px !important;
+  }
+  ul{
+    position: relative;
+  }
+  .list-styl {
+    list-style: none; 
+    padding-left: 0; 
+  }
+  
+  .list-styl li {
+    flex-wrap: wrap;
+    margin-bottom: 5px;
+    padding: 10px 40px;
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  
+    
+  }
+  
+  .list-styl li::before {
+    content: '•'; 
+    position: absolute; 
+    color: black; 
+    
+    
+   
+  }
+  .list-container{
+    padding-left: 15px;
+    justify-content: space-between; 
+    width: 100%;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .option-container {
+    display: flex; 
+    opacity: 0; 
+    visibility: hidden; 
+    transition: opacity 0.3s ease, visibility 0.3s ease; 
+  }
+  
+  .subtask li:hover .option-container {
+    opacity: 1; 
+    visibility: visible; 
+  }
+  
+  .option-container img:hover {
+    display: flex;
+  }
+  
+  .list-styl li:hover{
+    background-color: var(--hover);
+    transition: all 0.3s ease;
+  }
+  
+  
+  .task-text {
+    flex: 1; 
+    white-space: normal; 
+    overflow-wrap: anywhere; 
+  }
+  

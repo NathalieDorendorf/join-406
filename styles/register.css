@@ -45,8 +45,9 @@
     align-items: center;
 }
 
-.arrow{
+.arrow {
     margin-top: 24px;
+    padding-left: 10px;
 }
 
 /* ErrorBox */
@@ -54,8 +55,50 @@
 .errorText {
     color: red;
     font-size: 12px;
+    max-width: 450px;
 }
 
 .error-message {
     height: 16px;
+}
+
+@media(max-width: 600px) {
+
+    .h1-gergister {
+        font-size: 50px !important;
+    }
+
+    .signup-header {
+        padding-right: 80px;
+        gap: 50px;
+    }
+
+    .form-register {
+        align-items: center;
+    }
+}
+
+@media(max-width: 500px) {
+    .h1-gergister {
+        font-size: 40px !important;
+    }
+
+    .accept-text {
+        font-size: 16px;
+    }
+
+    input {
+        font-size: 15px;
+    }
+}
+
+@media(max-width:350px) {
+    .signup-container {
+        width: 295px;
+    }
+
+    .signup-header {
+        padding-right: 70px;
+        gap: 40px;
+    }
 }

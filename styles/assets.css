@@ -94,6 +94,12 @@ textarea:focus {
     background-position: right 22px center;
 }
 
+.input-phone {
+    background: url(/assets/icons/phone.svg);
+    background-repeat: no-repeat;
+    background-position: right 22px center;
+}
+
 .input-checkbox {
     height: 16px;
     width: 16px;
@@ -162,6 +168,13 @@ textarea:focus {
 .sideline-blue {
     height: 60px;
     width: 3px;
+    background-color: var(--color-light-blue);
+    border-radius: 8px;
+}
+
+.sideline-blue-horizontal {
+    width: 60px;
+    height: 3px;
     background-color: var(--color-light-blue);
     border-radius: 8px;
 }

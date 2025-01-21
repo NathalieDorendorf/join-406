@@ -5,11 +5,30 @@
 const BASE_URL = "https://join-gruppenarbeit-137ed-default-rtdb.europe-west1.firebasedatabase.app/";
 
 /**
- * Adds a new user to the database after validating input fields.
- * Clears invalid data and redirects on success.
+ * Assigns a random color to a guest user.
+ * 
+ * This function uses `getRandomColor` to fetch a random color and logs the assigned color to the console.
+ * 
+ * @returns {string} The assigned color value for the guest user.
+ */
+function assignGuestColor() {
+    // Get a random color
+    let color = getRandomColor();
+
+    // Log the assigned color
+    console.log('Assigned color:', color);
+
+    // Return the color
+    return color;
+}
+
+/**
+ * Fügt einen neuen Benutzer in die Datenbank ein, nachdem die Eingabefelder validiert wurden.
+ * Löscht ungültige Daten und leitet im Erfolgsfall weiter.
  * @async
  */
 async function addUser() {
+    let color = getRandomColor();
     let email = document.getElementById("email");
     let password = document.getElementById("password");
     let confirmPassword = document.getElementById("confirmPassword");
@@ -31,9 +50,10 @@ async function addUser() {
 
     let singleLogInData = {
         "email": email.value,
-        "password": password.value
+        "password": password.value,
     };
-    await addToContacts(email, userName)
+
+    await addToContacts(email, userName, color, getInitials(userName.value));
     await updateUser(singleLogInData);
 }
 
@@ -48,13 +68,14 @@ async function addUser() {
  * 
  * @returns {Promise<void>} Resolves when the contact has been added successfully.
  */
-async function addToContacts(email, userName) {
+async function addToContacts(email, userName, color, initials) {
     let registerData = {
+        "mail": email.value,
         "name": userName.value,
-        "mail": email.value
+        "color": color,
+        "initials": initials
     };
     await updateContacts(registerData);
-    console.log(registerData);
 }
 
 /**
@@ -148,7 +169,7 @@ function checkPassword(password, confirmPassword) {
  * Displays an error for invalid or mismatched passwords.
  */
 function errorFunctionPassword() {
-    const errorMessage = '<div class="errorText">Your passwords do not match or have less than 8 or more than 20 characters. Please try again.</div>';
+    const errorMessage = '<div class="errorText">Your passwords must match and be 8–20 characters.</div>';
     document.getElementById('errorMessageConfirmPassword').innerHTML = errorMessage;
     document.getElementById('errorMessagePassword').innerHTML = errorMessage;
 
@@ -267,5 +288,5 @@ async function updateUser(data) {
     const result = await response.json();
     clearAllUserData();
 
-    window.location.href = "log-in.html?msg=You Signed up successfully";
+    window.location.href = "/index.html?msg=You Signed up successfully";
 }

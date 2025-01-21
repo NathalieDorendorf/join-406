@@ -3,6 +3,7 @@
     justify-content: center;
     align-items: baseline;
     gap: 32px;
+    margin-left: auto;
 }
 
 .login-container {
@@ -33,7 +34,53 @@
     height: 16px;
 }
 
-@media(max-width: 600px ){
+.animation-overlay {
+    overflow-y: auto;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: var(--bg-color);
+    opacity: 1;
+    z-index: 10;
+}
+
+.animate {
+    animation: shrinkToLeft 1000ms ease-in-out forwards;
+}
+
+.close-overlay {
+    animation: closeAnimation 500ms ease-in-out 500ms forwards;
+}
+
+@keyframes shrinkToLeft {
+
+    0%,
+    50% {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(200%);
+        z-index: 11;
+    }
+
+    100% {
+        position: fixed;
+        top: 48px;
+        left: 64px;
+        z-index: 11;
+    }
+}
+
+@keyframes closeAnimation {
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}
+
+@media(max-width: 600px) {
 
     .button-container {
         flex-direction: column;
@@ -41,26 +88,57 @@
 
     .button-container {
         padding-top: 0px;
-        width: 50%;
+        width: 75%;
         gap: 15px;
     }
 
-    input, select, textarea, .custom-select {
+    input {
         width: 322px;
+        font-size: 16px;
     }
 }
 
-@media(max-width: 500px ){
+@media(max-width: 500px) {
 
-    .button-container {
-        width: 75%;
+    .button,
+    .button-2 {
+        font-size: 16px;
     }
 
-    input, select, textarea, .custom-select {
-        width: 222px;
+    input {
+        width: 280px;
     }
 
-    h1{
+    .h1-login {
         font-size: 50px !important;
+    }
+}
+
+@media(max-width: 435px) {
+
+    input {
+        width: 200px;
+    }
+
+    main {
+        padding: 32px;
+    }
+}
+
+@media(max-width: 400px) {
+
+    .errorText {
+        text-align: center;
+        padding: 0px 5px 0px 5px;
+    }
+}
+
+@media(max-width: 375px) {
+    .errorText {
+        font-size: 10px !important;
+    }
+
+    .error-message {
+        font-size: 10px !important;
     }
 }

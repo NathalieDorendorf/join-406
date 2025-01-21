@@ -44,6 +44,7 @@ let allData = {};
  * Include HTML templates on startup and show where user is on page by highlighting active-page-link
  */
 document.addEventListener("DOMContentLoaded", async () => {
+    if (window.history.length === 1) window.history.replaceState({ previousURL: document.referrer }, "");
     await includeHTML();
     document.body.style.visibility = 'visible';
     outsideLogIn()
@@ -52,17 +53,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 function outsideLogIn() {
     let info = sessionStorage.getItem('isLoggedIn');
-    
+
     if (info !== 'true') {
         const sidebar = document.getElementById('sidebar-main');
-        const logOutFlyout = document.getElementById('logOutFlyout');
-        
+        const account = document.getElementById('account-menue');
+
         if (sidebar) {
             sidebar.classList.replace('links-container', 'dni');
-        } 
-        if (logOutFlyout) {
-            logOutFlyout.classList.add('dni');
-        } 
+        }
+        if (account) {
+            account.classList.add('dni');
+        }
     }
 }
 
@@ -110,7 +111,11 @@ function paintActiveLink() {
  * Navigates back to the previous page in the browser history.
  */
 function goBackToPreviousPage() {
-    window.history.back();
+    if (window.history.back() === undefined) {
+        window.location.href = window.history.state.previousURL;
+    } else {
+        window.history.back();
+    }
 }
 
 /**
