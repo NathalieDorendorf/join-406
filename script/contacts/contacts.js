@@ -140,7 +140,7 @@ function showContactDetails(contact) {
                     <h2>${contact.name}</h2>
                     <div class="d-flex gap-8">
                         <button class="button-contacts" onclick="showEditContactOverlay('${contact.firebaseId}')"><img src="/assets/icons/edit-blue.svg" alt="edit">Edit</button>
-                        <button class="button-contacts"><img src="/assets/icons/delete-blue.svg" alt="delete">Delete</button>
+                        <button class="button-contacts" onclick="deleteContact('${contact.firebaseId}')"><img src="/assets/icons/delete-blue.svg" alt="delete">Delete</button>
                     </div>
                 </div>
             </div>
@@ -161,7 +161,7 @@ function showContactDetails(contact) {
                     <h2>${contact.name}</h2>
                     <div class="d-flex gap-8">
                         <button class="button-contacts" onclick="showEditContactOverlay('${contact.firebaseId}')"><img src="/assets/icons/edit-blue.svg" alt="edit">Edit</button>
-                        <button class="button-contacts"><img src="/assets/icons/delete-blue.svg" alt="delete">Delete</button>
+                        <button class="button-contacts" onclick="deleteContact('${contact.firebaseId}')"><img src="/assets/icons/delete-blue.svg" alt="delete">Delete</button>
                     </div>
                 </div>
             </div>
@@ -303,15 +303,26 @@ async function saveContact(event, firebaseId) {
     let editName = document.getElementById('user').value.trim();
     let editEmail = document.getElementById('email').value.trim();
     let editPhone = document.getElementById('telephone').value.trim();
+    let editInitials = getInitials(editName);
 
     if (!editName || !editEmail) {
         alert("Bitte füllen Sie alle Felder aus!");
         return;
     }
 
+    // Finde den bestehenden Kontakt anhand der Firebase-ID
+    const existingContact = findContactById(firebaseId);
+
+    if (!existingContact) {
+        console.error('Kontakt nicht gefunden:', firebaseId);
+        return;
+    }
+
     let updateSingleData = {
-        name: editName,
+        color: existingContact.color,
+        initials: editInitials,
         mail: editEmail,
+        name: editName,
         phone: editPhone
     };
     await putContactsDataToFirebase(firebaseId, updateSingleData);
@@ -340,10 +351,24 @@ async function putContactsDataToFirebase(firebaseId, contact) {
     }
 }
 
-async function deleteContact(path = '/contacts') {
-    await fetchResource(BASE_URL + path + '.json', {
-        method: 'DELETE'
-    });
-    closeOverlay();
+async function deleteContact(firebaseId, contact) {
+    try {
+        const response = await fetch(`${BASE_URL}/contacts/${firebaseId}.json`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(contact)
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to delete contact');
+        }
+
+        const data = await response.json();
+        console.log('Contact deleted successfully:', data);
+    } catch (error) {
+        console.error('Error deleting contact:', error);
+    }
     await fetchContacts();
 }
