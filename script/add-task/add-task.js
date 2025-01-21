@@ -113,6 +113,9 @@ async function processForm(event) {
   
     resetForm()
     showToastMessage({ message: 'Task has been successfully created' });
+    setTimeout(() => {
+      window.location.href = "/html/board.html";
+    }, 4000);
   } else {
     console.error("Fehler beim Übermitteln der Daten.");
     alert('Fehler beim Anlegen des Tasks!');
