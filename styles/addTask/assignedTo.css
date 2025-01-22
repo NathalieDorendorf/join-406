@@ -1,11 +1,10 @@
-
-
 .add-flex {
   display: flex;
   flex-direction: column;
 }
 
-.selectBox {
+.selectBox,
+.multiselect {
   position: relative;
 }
 
@@ -21,10 +20,6 @@
   top: 0;
   bottom: 0;
 }
-.multiselect{
-  position: relative;    
-}
-
 
 #checkboxes {
   display: none;
@@ -32,10 +27,9 @@
   position: absolute;
   width: 100%;
   margin-top: 82px;
-
 }
 
-.checkbox-content{
+.checkbox-content {
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
@@ -45,7 +39,6 @@
   border-radius: 10px;
   margin: 1px 0;
   flex-grow: 1;
-
 }
 
 #checkboxes input {
@@ -66,15 +59,14 @@
   margin: 0 16px;
 }
 
-.name-badge{
+.name-badge {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row-reverse;
-
 }
 
-.margin0{
+.margin0 {
   margin: 0 !important;
 }
 
@@ -82,64 +74,50 @@
   background-color: var(--hover);
 }
 
-#badge-Container{
+#badge-Container {
   margin: 2px;
   flex-wrap: wrap;
 }
-.relativ{
+
+.relativ {
   position: relative;
 }
 
-
-
-
-
-
-
- /* Scrollbar  */
- .render-container {
-  max-height: 200px; 
-  overflow-y: scroll; 
+/* Scrollbar */
+.render-container {
+  max-height: 200px;
+  overflow-y: scroll;
   z-index: 2;
 }
 
-
 .render-container::-webkit-scrollbar {
-  width: 10px; 
-  border: 5px solid white; 
+  width: 10px;
+  border: 5px solid white;
 }
-
 
 .render-container::-webkit-scrollbar-track {
-  background-color: #f4f4f4; 
-  border-radius: 6px; 
-  margin-bottom: 30px; 
+  background-color: #f4f4f4;
+  border-radius: 6px;
+  margin-bottom: 30px;
 }
-
 
 .render-container::-webkit-scrollbar-thumb {
-  background-color: #888; 
-  border-radius: 6px; 
+  background-color: #888;
+  border-radius: 6px;
   background-clip: padding-box;
-  border: 0.05em solid #eeeeee; 
+  border: 0.05em solid #eeeeee;
 }
 
-
-.custom-checkbox{
+.custom-checkbox {
   display: flex;
   align-items: center;
 }
-
 
 .checkbox-content input[type="checkbox"] {
   display: none;
 }
 
-.no-results{
-
+.no-results {
+  display: flex;
   flex-direction: row;
 }
-
-
-
-

@@ -21,9 +21,11 @@
     transition: background-color 0.3s;
   }
   
- 
+
   
-  
+  #category-display{
+    white-space: nowrap;
+  }
   
   /* Dropdown-Optionen */
   .select-options {
@@ -55,4 +57,7 @@
   .select-options .select-option:hover {
     background-color: var(--hover);
   }
-  
+  #category-select:focus {
+    border-color: var(--contact-color-aqua) ;
+    outline: none ; 
+  }

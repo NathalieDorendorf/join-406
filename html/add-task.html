@@ -63,8 +63,7 @@
                         >Titles<span class="required">*</span></label
                       >
                       <input
-                      onclick="titleValidaishon()"
-                        class="width100"
+                        class="width100 hover-shadow"
                         name="title"
                         placeholder="Enter a title"
                         id="taskTitle"
@@ -78,11 +77,12 @@
                     <div class="description gab8px">
                       <label for="description">Description</label>
                       <textarea
-                        class="width100"
+                        class="width100 hover-shadow"
                         name="description"
                         id="description"
                         minlength="3"
                         maxlength="40"
+                        placeholder="Enter a Description"
                       ></textarea>
                     </div>
                     <!-- --------------------------------------AssignedTo -->
@@ -99,7 +99,7 @@
                         <input
                           onclick="showCheckboxes()"
                           oninput="filterContacts()"
-                          class="width100 hover-blue"
+                          class="width100 hover-shadow cursor-pointer padding-right50px"
                           placeholder="Select contacts to assign"
                           id="assigned"
                           type="text"
@@ -123,8 +123,7 @@
                       >
                       <div class="date-wrapper">
                         <input
-                        onclick="dateValidaishon()"
-                          class="width100"
+                          class="width100 hover-shadow cursor-pointer padding-right50px"
                           name="dueDate"
                           placeholder="Select a due date"
                           id="dueDate"
@@ -197,7 +196,7 @@
                     <div class="category gab8px add-flex">
                       <span>Category<span class="required">*</span></span>
 
-                      <div class="flex-reverse">
+                      <div class="flex-reverse ">
                         <img
                           id="arrow-drop-down-category"
                           src="/assets/icons/arrow-drop-down.svg"
@@ -205,7 +204,7 @@
                           class="input-icon"
                         />
                         <div
-                          class="select-trigger"
+                          class="select-trigger hover-shadow cursor-pointer padding-right50px"
                           id="category-select"
                           tabindex="0"
                           role="combobox"
@@ -286,7 +285,7 @@
                           />
                         </div>
                         <input
-                          class="width100 hover-blue"
+                          class="width100 hover-shadow padding-right50px"
                           placeholder="Add new subtask"
                           id="taskSubtask"
                           type="text"
@@ -303,14 +302,14 @@
                   <span class="required-text"
                     >This field is required<span class="required">*</span></span
                   >
-                  <div class="add-task-form-buttons">
+                  <div class="add-task-form-buttons flex-row ">
                     <button
                       type="button"
                       class="add-task-button1 gab8px"
                       onclick="resetForm()"
                     >
                       Clear
-                      <div class="button-icon"></div>
+                      <div class="button-icon flex-center"></div>
                     </button>
                     <button class="add-task-button2 gab8px" type="submit">
                       Create Task

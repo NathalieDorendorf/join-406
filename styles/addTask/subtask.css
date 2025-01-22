@@ -1,9 +1,7 @@
 .subtask{
     position: relative;
   }
-  .subtask input {
-    padding-right: 67px !important;
-  }
+
   ul{
     position: relative;
   }

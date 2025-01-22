@@ -24,6 +24,7 @@
 .flex-center {
   display: flex;
   justify-content: center;
+ 
 }
 .height {
   height: 100%;
@@ -66,16 +67,21 @@ justify-content: center;
 
 #required-title , #required-date ,#required-category{
   padding: 0 16px;
+  font-size: 12px;
 }
 
-/* -------------hover */
-.hover-blue:hover{
+
+.hover-shadow:hover{
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+ 
+}
+.cursor-pointer:hover{
   cursor: pointer;
 }
 
-
-
+.padding-right50px{
+  padding-right: 50px !important;
+}
 
 
 
@@ -266,6 +272,19 @@ background-color: white;
 width: 100%;
 display: flex;
 align-items: center;
+}
+
+
+@media (max-width: 850px) and (min-width: 768px) {
+  .badge {
+    margin-left: 2px !important;
+    margin-right: 2px !important;
+  }
+
+  .checkbox-content {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+  }
 }
 
 
