@@ -82,13 +82,14 @@ async function logIn(path, enteredEmail, enteredPassword, isGuest) {
 function validateMatch(matchingUser, isGuest = false) {
     if (matchingUser || isGuest) {
         addToSessionStorage(true);
-        clearLoginData();  
+        localStorage.setItem("mail", matchingUser.email);
+        clearLoginData();
         window.location.href = "/html/summary.html?msg=you have logged in successfully&isLoggedIn=true";
     } else {
         let email = document.getElementById('email');
         let password = document.getElementById('password');
-        checkLogin(email, password); 
-        clearLoginData(password);  
+        checkLogin(email, password);
+        clearLoginData(password);
     }
 }
 

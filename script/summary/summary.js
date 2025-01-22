@@ -1,6 +1,7 @@
 async function initSummary() {
     renderSummaryContent();
-    await renderGreeting();
+    const mail = localStorage.getItem('mail');
+    await renderGreeting(mail);
     await loadTaskCountsFromFirebase();
     await showClosestDueDate();
     showResponsiveContent();
@@ -20,7 +21,7 @@ async function renderGreeting(userEmail) {
         // 4. Begrüßungstext basierend auf der Tageszeit
         const currentGreeting = getGreetingTime();
         const greeting = userName
-            ? `<h5 class="h5-responsive">${currentGreeting},</h5><span class="user-name">${greeting}</span>`
+            ? `<h5 class="h5-responsive">${currentGreeting},</h5><span class="user-name">${userName}</span>`
             : `<h5 class="h5-responsive">${currentGreeting}!</h5>`;
 
         // 5. Begrüßung im HTML aktualisieren
@@ -113,7 +114,7 @@ async function showClosestDueDate() {
         }
     }
     console.log("gefilterte Tasks", urgentTasksWithDueDate);
-    
+
 
     if (urgentTasksWithDueDate.length === 0) {
         // Wenn keine Tasks mit dueDate vorhanden sind, zeige das aktuelle Datum an

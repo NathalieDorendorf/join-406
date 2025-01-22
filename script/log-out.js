@@ -8,17 +8,17 @@ function logOut() {
     logstatus = false;
     sessionStorage.setItem('isLoggedIn', logstatus);
     checkGuestLogOut();
- };
- 
- /**
-  * Checks if the user is logged in as a guest by checking the 'logInStatus' in the localStorage.
-  * If found, it removes the 'logInStatus' from the localStorage.
-  * @function
-  */
- function checkGuestLogOut() {
-     let status = localStorage.getItem('logInStatus');
-     if (status) {
-         localStorage.removeItem('logInStatus');
-     }
- };
- 
+    localStorage.clear();
+};
+
+/**
+ * Checks if the user is logged in as a guest by checking the 'logInStatus' in the localStorage.
+ * If found, it removes the 'logInStatus' from the localStorage.
+ * @function
+ */
+function checkGuestLogOut() {
+    let status = localStorage.getItem('logInStatus');
+    if (status) {
+        localStorage.removeItem('logInStatus');
+    }
+};

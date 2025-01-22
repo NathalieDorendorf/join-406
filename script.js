@@ -48,8 +48,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     await includeHTML();
     document.body.style.visibility = 'visible';
     outsideLogIn()
+    setInitialsSpan();
     paintActiveLink();
 });
+
+async function setInitialsSpan() {
+    const queryContactWhereMailMatch = `?orderBy=%22mail%22&equalTo=%22${encodeURIComponent(localStorage.getItem('mail'))}%22`;
+    const contactOfLoggedInUser = await fetchResource('contacts', 'GET', undefined, queryContactWhereMailMatch);
+    document.getElementById('user-initials').textContent = Object.values(contactOfLoggedInUser)[0].initials;
+}
 
 function outsideLogIn() {
     let info = sessionStorage.getItem('isLoggedIn');

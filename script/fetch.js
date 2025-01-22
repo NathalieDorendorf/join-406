@@ -9,11 +9,12 @@ const BASE_URL = "https://join-gruppenarbeit-137ed-default-rtdb.europe-west1.fir
  * @param {String} path - For example: 'users', 'contacts', 'tasks' or users/{id}...
  * @param {String} [httpMethod = GET] - 'GET', 'POST', 'PUT', 'PATCH', etc.
  * @param {Object} [data = 'undefined']
+ * @param {String} [queryString = '']
  * @returns {Object | boolean} - Returns the response body as Object or true if httpMethod is `DELETE` or false if error occured.
  */
-async function fetchResource(path, httpMethod = 'GET', data = undefined) {
+async function fetchResource(path, httpMethod = 'GET', data = undefined, queryString = "") {
     try {
-        const response = await fetch(BASE_URL + path + ".json", getRequestInit(httpMethod, data));
+        const response = await fetch(BASE_URL + path + ".json" + queryString, getRequestInit(httpMethod, data));
         console.log(response.status); // FDPO
         if (response.ok) {
             const responseJson = await response.json();
