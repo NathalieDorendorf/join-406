@@ -2,6 +2,23 @@ let subtask = [];
 let update = false;
 let updateIndex = null;
 
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const inputField = document.getElementById("taskSubtask");
+  if (inputField) {
+      inputField.addEventListener("keydown", (event) => {
+          if (event.key === "Enter") {
+              event.preventDefault();
+              addSubtask();
+              showAddBlue()
+             
+          }
+      });
+  } 
+});
+
 /**
  * Adds an event listener to handle input field interactions after the DOM has fully loaded.
  */

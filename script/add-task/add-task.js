@@ -1,7 +1,5 @@
 const dataToSubmit = {};
-let contactsArray = [];
-let badgeArry = [];
-let expanded = false;
+
 
 async function init() {
   includeHTML();
