@@ -1,4 +1,51 @@
-// Funktion zum Anzeigen des Overlays
+function generateContactsDetailsDesktopHTML(contact) {
+    return `
+            <div class="d-flex gap-24">
+                <div class="initials-circle-big" style="background-color: var(${contact.color});">${contact.initials}</div>
+                <div class="name-container">
+                    <h2>${contact.name}</h2>
+                    <div class="d-flex gap-8">
+                        <button class="button-contacts" onclick="showEditContactOverlay('${contact.firebaseId}')"><img src="/assets/icons/edit-blue.svg" alt="edit">Edit</button>
+                        <button class="button-contacts" onclick="deleteContact('${contact.firebaseId}')"><img src="/assets/icons/delete-blue.svg" alt="delete">Delete</button>
+                    </div>
+                </div>
+            </div>
+            <h2>Contact Information</h2>
+            <h3>Email</h3>
+            <a href="mailto:${contact.mail}">${contact.mail}</a>
+            <h3>Phone</h3>
+            <a href="tel:${contact.phone}">${contact.phone}</a>
+        `;
+}
+
+function generateContactsDetailsMobileHTML(contact) {
+    return `
+            <header class="section-header">
+                <div class="d-flex-sb-c">
+                    <h1>Contacts</h1>
+                    <button onclick="closeContactDetailsOverlay()"><img src="/assets/icons/arrow-left.svg" alt="back"></button>
+                <div class="sideline-blue"></div>
+                <h4>Better with a team</h4>
+            </header>
+            <div class="d-flex gap-24">
+                <div class="initials-circle-big" style="background-color: var(${contact.color});">${contact.initials}</div>
+                <div class="name-container">
+                    <h2>${contact.name}</h2>
+                    <div class="d-flex gap-8">
+                        <button class="button-contacts" onclick="showEditContactOverlay('${contact.firebaseId}')"><img src="/assets/icons/edit-blue.svg" alt="edit">Edit</button>
+                        <button class="button-contacts" onclick="deleteContact('${contact.firebaseId}')"><img src="/assets/icons/delete-blue.svg" alt="delete">Delete</button>
+                    </div>
+                </div>
+            </div>
+            <h2>Contact Information</h2>
+            <h3>Email</h3>
+            <a href="mailto:${contact.mail}">${contact.mail}</a>
+            <h3>Phone</h3>
+            <a href="tel:${contact.phone}">${contact.phone}</a>
+            <button onclick="closeContactDetailsOverlay()">Close</button>
+        `;
+}
+
 function renderAddContactOverlay() {
     const overlayHTML = `
         <div id="addContactOverlay" class="add-new-contact-overlay">
@@ -18,11 +65,9 @@ function renderAddContactOverlay() {
                     <form id="addContactForm" onsubmit="addNewContact(event); return false;">
                         <div class="fc gap-8">
                             <input class="input-name input-width" type="text" id="user" placeholder="Name" minlength="2" maxlength="30" required>
-                            <span id="errorMessageName" class="error-message"></span>
                             <input class="input-email input-width"  type="email" id="email" placeholder="Email" required>
                             <span id="errorMessageEmail" class="error-message"></span>
                             <input class="input-phone input-width"  type="number" id="telephone" placeholder="Phone">
-                            <span id="errorMessagePassword" class="error-message"></span>
                         </div>
                         <div class="fr gap-16 wrap ato-footer-buttons">
                             <button type="button" id="cancel-add-task-btn" class="button-2 fr jcac gap-8" onclick="closeOverlay()">
@@ -65,11 +110,9 @@ function renderEditContactOverlay(contact) {
                     <form id="editContactForm" onsubmit="saveContact(event, '${contact.firebaseId}'); return false;">
                         <div class="fc gap-8">
                             <input class="input-name input-width" type="text" id="user" placeholder="Name" value="${contact.name}" minlength="2" maxlength="30" required>
-                            <span id="errorMessageName" class="error-message"></span>
                             <input class="input-email input-width" type="email" id="email" placeholder="Email" value="${contact.mail}" required>
-                            <span id="errorMessageEmail" class="error-message"></span>
+                            <span id="errorMessageEmailExists" class="error-message"></span>
                             <input class="input-phone input-width" type="number" id="telephone" placeholder="Phone" value="${contact.phone}">
-                            <span id="errorMessagePassword" class="error-message"></span>
                         </div>
                         <div class="fr gap-16 wrap ato-footer-buttons">
                             <button type="button" id="cancel-edit-task-btn" class="button-2 fr jcac gap-8" onclick="closeEditOverlay()">

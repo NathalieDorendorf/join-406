@@ -84,13 +84,9 @@
     color: var(--bg-white);
 }
 
-.contact-info-container a {
+.contact-info-container span {
     font-size: 16px;
     color: var(--color-blue);
-}
-
-.contact-info-container a:hover {
-    text-decoration: underline;
 }
 
 .initials-circle {

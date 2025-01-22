@@ -103,7 +103,7 @@ function renderContactList(groupedContacts) {
                         <div class="initials-circle" style="background-color: var(${contact.color});">${contact.initials}</div>
                         <div>
                             <p>${contact.name}</p>
-                            <a href="mailto:${contact.mail}">${contact.mail}</a>
+                            <span>${contact.mail}</span>
                         </div>
                     </div>
                 `;
@@ -126,51 +126,11 @@ function showContactDetails(contact) {
         }
 
         const overlay = document.querySelector(".contact-details-overlay");
-        overlay.innerHTML = `
-            <header class="section-header">
-                <div class="d-flex-sb-c">
-                    <h1>Contacts</h1>
-                    <button onclick="closeContactDetailsOverlay()"><img src="/assets/icons/arrow-left.svg" alt="back"></button>
-                <div class="sideline-blue"></div>
-                <h4>Better with a team</h4>
-            </header>
-            <div class="d-flex gap-24">
-                <div class="initials-circle-big" style="background-color: var(${contact.color});">${contact.initials}</div>
-                <div class="name-container">
-                    <h2>${contact.name}</h2>
-                    <div class="d-flex gap-8">
-                        <button class="button-contacts" onclick="showEditContactOverlay('${contact.firebaseId}')"><img src="/assets/icons/edit-blue.svg" alt="edit">Edit</button>
-                        <button class="button-contacts" onclick="deleteContact('${contact.firebaseId}')"><img src="/assets/icons/delete-blue.svg" alt="delete">Delete</button>
-                    </div>
-                </div>
-            </div>
-            <h2>Contact Information</h2>
-            <h3>Email</h3>
-            <a href="mailto:${contact.mail}">${contact.mail}</a>
-            <h3>Phone</h3>
-            <a href="tel:${contact.phone}">${contact.phone}</a>
-            <button onclick="closeContactDetailsOverlay()">Close</button>
-        `;
+        overlay.innerHTML = generateContactsDetailsMobileHTML(contact);
         overlay.classList.add("visible");
     } else {
         // Desktop Ansicht: Rechts anzeigen
-        detailsContainer.innerHTML = `
-            <div class="d-flex gap-24">
-                <div class="initials-circle-big" style="background-color: var(${contact.color});">${contact.initials}</div>
-                <div class="name-container">
-                    <h2>${contact.name}</h2>
-                    <div class="d-flex gap-8">
-                        <button class="button-contacts" onclick="showEditContactOverlay('${contact.firebaseId}')"><img src="/assets/icons/edit-blue.svg" alt="edit">Edit</button>
-                        <button class="button-contacts" onclick="deleteContact('${contact.firebaseId}')"><img src="/assets/icons/delete-blue.svg" alt="delete">Delete</button>
-                    </div>
-                </div>
-            </div>
-            <h2>Contact Information</h2>
-            <h3>Email</h3>
-            <a href="mailto:${contact.mail}">${contact.mail}</a>
-            <h3>Phone</h3>
-            <a href="tel:${contact.phone}">${contact.phone}</a>
-        `;
+        detailsContainer.innerHTML = generateContactsDetailsDesktopHTML(contact);
         detailsContainer.classList.add("slide-in");
     }
 }
@@ -205,8 +165,17 @@ async function addNewContact(event) {
     event.preventDefault();
 
     let name = document.getElementById("user").value.trim();
-    let email = document.getElementById("email").value.trim();
+    let email = document.getElementById("email");
     let phone = document.getElementById("telephone").value.trim();
+
+    checkEmailExisting(email);
+
+    const isEmailValid = await checkEmail(email);
+    const mailAlreadyExists = await checkEmailExisting(email);
+
+    if (!isEmailValid || mailAlreadyExists) {
+        return;
+    }
 
     if (!name || !email) {
         alert("Bitte füllen Sie alle Felder aus!");

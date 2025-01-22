@@ -20,7 +20,7 @@ async function renderGreeting(userEmail) {
         // 4. Begrüßungstext basierend auf der Tageszeit
         const currentGreeting = getGreetingTime();
         const greeting = userName
-            ? `<h5 class="h5-responsive">${currentGreeting},</h5><span class="user-name">${userName}</span>`
+            ? `<h5 class="h5-responsive">${currentGreeting},</h5><span class="user-name">${greeting}</span>`
             : `<h5 class="h5-responsive">${currentGreeting}!</h5>`;
 
         // 5. Begrüßung im HTML aktualisieren
