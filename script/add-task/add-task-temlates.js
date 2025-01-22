@@ -52,3 +52,8 @@ function renderBadge(color, initials) {
   
   `;
 }
+
+
+function renderEmptyContacts() {
+  return `<div class="checkbox-content no-results"> no contact found</div>`
+}

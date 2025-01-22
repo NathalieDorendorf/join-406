@@ -135,6 +135,11 @@
   display: none;
 }
 
+.no-results{
+
+  flex-direction: row;
+}
+
 
 
 
