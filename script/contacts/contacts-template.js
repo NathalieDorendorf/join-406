@@ -1,4 +1,4 @@
-function generateContactsDetailsDesktopHTML(contact) {
+function generateContactsDetailsDesktopHTML(contact, phoneNumber) {
     return `
             <div class="d-flex gap-24">
                 <div class="initials-circle-big" style="background-color: var(${contact.color});">${contact.initials}</div>
@@ -14,11 +14,11 @@ function generateContactsDetailsDesktopHTML(contact) {
             <h3>Email</h3>
             <a href="mailto:${contact.mail}">${contact.mail}</a>
             <h3>Phone</h3>
-            <a href="tel:${contact.phone}">${contact.phone}</a>
+            ${phoneNumber ? `<a href="tel:${phoneNumber}">${phoneNumber}</a>` : ""}
         `;
 }
 
-function generateContactsDetailsMobileHTML(contact) {
+function generateContactsDetailsMobileHTML(contact, phoneNumber) {
     return `
             <header class="section-header">
                 <div class="d-flex-sb-c">
@@ -41,7 +41,7 @@ function generateContactsDetailsMobileHTML(contact) {
             <h3>Email</h3>
             <a href="mailto:${contact.mail}">${contact.mail}</a>
             <h3>Phone</h3>
-            <a href="tel:${contact.phone}">${contact.phone}</a>
+            ${phoneNumber ? `<a href="tel:${phoneNumber}">${phoneNumber}</a>` : ""}
             <button onclick="closeContactDetailsOverlay()">Close</button>
         `;
 }

@@ -116,6 +116,7 @@ function renderContactList(groupedContacts) {
 function showContactDetails(contact) {
     const isMobile = window.innerWidth <= 768;
     const detailsContainer = document.getElementById("contactDetails");
+    const phoneNumber = contact.phone ? contact.phone : "";
 
     if (isMobile) {
         // Mobile Ansicht: Overlay anzeigen
@@ -126,11 +127,11 @@ function showContactDetails(contact) {
         }
 
         const overlay = document.querySelector(".contact-details-overlay");
-        overlay.innerHTML = generateContactsDetailsMobileHTML(contact);
+        overlay.innerHTML = generateContactsDetailsMobileHTML(contact, phoneNumber);
         overlay.classList.add("visible");
     } else {
         // Desktop Ansicht: Rechts anzeigen
-        detailsContainer.innerHTML = generateContactsDetailsDesktopHTML(contact);
+        detailsContainer.innerHTML = generateContactsDetailsDesktopHTML(contact, phoneNumber);
         detailsContainer.classList.add("slide-in");
     }
 }
