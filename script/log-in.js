@@ -10,6 +10,7 @@
         const logo = document.querySelector('.logo-little');
         logo.classList.add('animate');
         overlay.classList.add('close-overlay');
+        overlay.addEventListener('animationend', () => overlay.classList.add('dni'));
     }
     document.body.style.visibility = 'visible';
 }));
