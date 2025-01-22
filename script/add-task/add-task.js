@@ -51,7 +51,7 @@ function titleValidaishon() {
   const requiredText = document.getElementById("required-title");
   const valueTitle = taskTitle.value.trim();
 
-  if (valueTitle.length < 3 || valueTitle.length > 15) {
+  if (valueTitle.length < 3 || valueTitle.length > 30) {
     taskTitle.style.border = "1px solid red";
     requiredText.classList.remove("display-none");
     return false;

@@ -70,16 +70,13 @@ justify-content: center;
 
 /* -------------hover */
 .hover-blue:hover{
-  border: 1px solid var(--color-light-blue);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
 
 
 
-.relativ:hover .width100,
-.flex-reverse:hover .width100 {
-  border: 1px solid var(--color-light-blue); 
-}
+
 
 
 .add-task-section {

@@ -21,9 +21,7 @@
     transition: background-color 0.3s;
   }
   
-  .flex-reverse .select-trigger:hover {
-    border: 1px solid var(--color-light-blue);
-  }
+ 
   
   
   

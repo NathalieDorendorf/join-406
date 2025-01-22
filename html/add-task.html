@@ -32,7 +32,7 @@
     <script src="/script/assets.js"></script>
     <script src="/script/log-out.js"></script>
   </head>
-  <!--  -->
+
   <body onload="init() ,checkParams()">
     <div class="d-flex height-100">
       <div w3-include-html="/assets/templates/sidebar.html">
@@ -63,6 +63,7 @@
                         >Titles<span class="required">*</span></label
                       >
                       <input
+                      onclick="titleValidaishon()"
                         class="width100"
                         name="title"
                         placeholder="Enter a title"
@@ -70,7 +71,7 @@
                         type="text"
                       />
                       <span id="required-title" class="required display-none"
-                        >Please enter between 3 and 15 characters.</span
+                        >Please enter between 3 and 30 characters.</span
                       >
                     </div>
                     <!-- --------------------------------------Description -->
@@ -122,6 +123,7 @@
                       >
                       <div class="date-wrapper">
                         <input
+                        onclick="dateValidaishon()"
                           class="width100"
                           name="dueDate"
                           placeholder="Select a due date"
