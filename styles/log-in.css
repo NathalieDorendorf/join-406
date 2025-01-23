@@ -145,9 +145,6 @@
 }
 
 @media(max-width: 375px) {
-    .errorText {
-        font-size: 10px !important;
-    }
 
     .error-message {
         font-size: 10px !important;
