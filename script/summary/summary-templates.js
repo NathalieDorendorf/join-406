@@ -1,3 +1,7 @@
+/**
+ * Renders the header for the summary view in desktop layout.
+ * Updates the `#summaryHeader` element with a title and subtitle.
+ */
 function renderSummaryHeader() {
     document.getElementById("summaryHeader").innerHTML = `
         <h1 class="h1-responsive">Join 360</h1>
@@ -6,6 +10,10 @@ function renderSummaryHeader() {
     `;
 }
 
+/**
+ * Renders the header for the summary view in responsive (mobile) layout.
+ * Updates the `#summaryHeader` element with a title, subtitle, and rearranged structure.
+ */
 function renderSummaryHeaderResponsive() {
     document.getElementById("summaryHeader").innerHTML = `
         <h1 class="h1-responsive">Join 360</h1>
@@ -14,6 +22,10 @@ function renderSummaryHeaderResponsive() {
     `;
 }
 
+/**
+ * Renders the main content of the summary view, including task metrics and navigation links.
+ * Updates the `#summaryContent` element with task counts, urgent task information, and board statistics.
+ */
 function renderSummaryContent() {
     document.getElementById("summaryContent").innerHTML = `
         <div class="d-flex-c-c section-gap">
