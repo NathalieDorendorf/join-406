@@ -7,7 +7,7 @@
 function renderTaskDetailView(taskId) {
     const task = allData.tasks[taskId];
     return `
-        <div id="${taskId}" class="detail-card light-box-shadow fly-in-from-right">
+        <div id="${taskId}" class="detail-card light-box-shadow">
             <div class="d-flex-sb-c gap-16">
                 <div class="card-tag ${getTagBackground(task)}">${task.category}</div>
                 <div class="ui-icon-wrapper">
