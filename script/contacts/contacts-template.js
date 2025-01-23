@@ -48,7 +48,7 @@ function generateContactsDetailsMobileHTML(contact, phoneNumber) {
 
 function renderAddContactOverlay() {
     const overlayHTML = `
-        <div id="addContactOverlay" class="add-new-contact-overlay">
+        <div id="addContactOverlay" class="overlay">
             <div class="overlay-content">
                 <div class="overlay-left">
                     <img class="logo-mini" src="/assets/icons/join-logo-white.svg" alt="join">
@@ -95,7 +95,7 @@ function renderAddContactOverlay() {
 // Funktion zum Anzeigen des Overlays
 function renderEditContactOverlay(contact) {
     const overlayHTML = `
-        <div id="editContactOverlay" class="add-new-contact-overlay">
+        <div id="editContactOverlay" class="overlay">
             <div class="overlay-content">
                 <div class="overlay-left">
                     <img class="logo-mini" src="/assets/icons/join-logo-white.svg" alt="join">

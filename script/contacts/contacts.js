@@ -199,6 +199,10 @@ async function addNewContact(event) {
     await addContactsToFirebase(singleContactData);
     clearDataContacts(name, email, phone);
     closeOverlay();
+    showToastMessage({ message: "Contact successfully created" });
+    setTimeout(() => {
+        window.location.href = "/index.html?msg=Contact successfully created";
+    }, 2000);
     await fetchContacts();
 }
 
