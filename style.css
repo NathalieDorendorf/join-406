@@ -305,6 +305,10 @@ a.current:hover {
         width: 60px;
     }
 
+    .logo-little{
+        display: none;
+    }
+
     .sidebar-container {
         height: 100px;
         width: 100%;
@@ -320,19 +324,6 @@ a.current:hover {
     .sidebar-mainbox {
         flex-direction: row;
     }
-
-    header{
-        order: 1;
-    }
-
-    footer{
-        order: 2;
-    }
-
-    main{
-        flex: 0;
-    }
-
 
     .header-login {
         margin-left: unset;
