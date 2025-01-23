@@ -329,6 +329,10 @@ a.current:hover {
         order: 2;
     }
 
+    main{
+        flex: 0;
+    }
+
 
     .header-login {
         margin-left: unset;
