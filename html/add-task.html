@@ -1,15 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Add Task</title>
-    <link
-      rel="icon"
-      href="/assets/icons/join-favicon.png"
-      type="image/png"
-      sizes="32x32"
-    />
+    <link rel="icon" href="/assets/icons/join-favicon.png" type="image/png" sizes="32x32" />
     <link rel="stylesheet" href="/styles/assets.css" />
     <link rel="stylesheet" href="/styles/fonts.css" />
     <link rel="stylesheet" href="/styles/log-in.css" />
@@ -21,7 +17,6 @@
     <link rel="stylesheet" href="/styles/addTask/prio.css" />
     <link rel="stylesheet" href="/style.css" />
     <script src="/script/authentication.js"></script>
-    <script src="/script/templates.js"></script>
     <script src="/script/fetch.js"></script>
     <script src="/script/add-task/add-task.js"></script>
     <script src="/script/add-task/assignedTo.js"></script>
@@ -31,300 +26,189 @@
     <script src="/script/add-task/add-task-category.js"></script>
     <script src="/script/assets.js"></script>
     <script src="/script/log-out.js"></script>
-  </head>
+</head>
 
-  <body onload="init() ,checkParams()">
+<body onload="init() ,checkParams()">
     <div class="d-flex height-100">
-      <div w3-include-html="/assets/templates/sidebar.html">
-        <p>Die Sidebar konnte nicht geladen werden.</p>
-      </div>
-
-      <div class="main-content">
-        <div w3-include-html="/assets/templates/header.html">
-          <p>Der Header konnte nicht geladen werden.</p>
+        <div w3-include-html="/assets/templates/sidebar.html">
+            <p>Die Sidebar konnte nicht geladen werden.</p>
         </div>
 
-        <section class="add-task-section section-pad">
-          <header class="add-task-headline">
-            <h1>Add Task</h1>
-          </header>
-          <div class="flex-center height">
-            <main class="main-content-add-task">
-              <form
-                class="add-task-form"
-                id="add-task-form"
-                onsubmit="processForm(event)"
-              >
-                <div class="add-task-form-content">
-                  <div class="form-left">
-                    <!-- --------------------------------------Title -->
-                    <div class="title flex-column gab8px">
-                      <label for="taskTitle"
-                        >Titles<span class="required">*</span></label
-                      >
-                      <input
-                        class="width100 hover-shadow"
-                        name="title"
-                        placeholder="Enter a title"
-                        id="taskTitle"
-                        type="text"
-                      />
-                      <span id="required-title" class="required display-none"
-                        >Please enter between 3 and 30 characters.</span
-                      >
-                    </div>
-                    <!-- --------------------------------------Description -->
-                    <div class="description gab8px">
-                      <label for="description">Description</label>
-                      <textarea
-                        class="width100 hover-shadow"
-                        name="description"
-                        id="description"
-                        minlength="3"
-                        maxlength="40"
-                        placeholder="Enter a Description"
-                      ></textarea>
-                    </div>
-                    <!-- --------------------------------------AssignedTo -->
-                    <div class="multiselect flex-column gab8px">
-                      <label for="assigned">Assigned to</label>
-                      <div class="relativ flex-reverse">
-                        <img
-                          onclick=""
-                          id="arrow-drop-down"
-                          src="/assets/icons/arrow-drop-down.svg"
-                          alt="Icon"
-                          class="input-icon pointer-events-none"
-                        />
-                        <input
-                          onclick="showCheckboxes()"
-                          oninput="filterContacts()"
-                          class="width100 hover-shadow cursor-pointer padding-right50px"
-                          placeholder="Select contacts to assign"
-                          id="assigned"
-                          type="text"
-                        />
-                      </div>
-                      <div class="selectBox">
-                        <div class="overSelect"></div>
-                      </div>
-                      <div class="render-container" id="checkboxes"></div>
-                      <div class="flex-row" id="badge-Container"></div>
-                    </div>
-                  </div>
+        <div class="main-content">
+            <div w3-include-html="/assets/templates/header.html">
+                <p>Der Header konnte nicht geladen werden.</p>
+            </div>
 
-                  <div class="form-middle"></div>
+            <section class="add-task-section section-pad">
+                <header class="add-task-headline">
+                    <h1>Add Task</h1>
+                </header>
+                <div class="flex-center height">
+                    <main class="main-content-add-task">
+                        <form class="add-task-form" id="add-task-form" onsubmit="processForm(event)">
+                            <div class="add-task-form-content">
+                                <div class="form-left">
+                                    <!-- --------------------------------------Title -->
+                                    <div class="title flex-column gab8px">
+                                        <label for="taskTitle">Titles<span class="required">*</span></label>
+                                        <input class="width100 hover-shadow" name="title" placeholder="Enter a title"
+                                            id="taskTitle" type="text" />
+                                        <span id="required-title" class="required display-none">Please enter between 3
+                                            and 30 characters.</span>
+                                    </div>
+                                    <!-- --------------------------------------Description -->
+                                    <div class="description gab8px">
+                                        <label for="description">Description</label>
+                                        <textarea class="width100 hover-shadow" name="description" id="description"
+                                            minlength="3" maxlength="40" placeholder="Enter a Description"></textarea>
+                                    </div>
+                                    <!-- --------------------------------------AssignedTo -->
+                                    <div class="multiselect flex-column gab8px">
+                                        <label for="assigned">Assigned to</label>
+                                        <div class="relativ flex-reverse">
+                                            <img onclick="" id="arrow-drop-down" src="/assets/icons/arrow-drop-down.svg"
+                                                alt="Icon" class="input-icon pointer-events-none" />
+                                            <input onclick="showCheckboxes()" oninput="filterContacts()"
+                                                class="width100 hover-shadow cursor-pointer padding-right50px"
+                                                placeholder="Select contacts to assign" id="assigned" type="text" />
+                                        </div>
+                                        <div class="selectBox">
+                                            <div class="overSelect"></div>
+                                        </div>
+                                        <div class="render-container" id="checkboxes"></div>
+                                        <div class="flex-row" id="badge-Container"></div>
+                                    </div>
+                                </div>
 
-                  <div class="form-right">
-                    <!-- --------------------------------------DueDate -->
-                    <div class="date flex-column gab8px">
-                      <label for="dueDate"
-                        >Due date<span class="required">*</span></label
-                      >
-                      <div class="date-wrapper">
-                        <input
-                          class="width100 hover-shadow cursor-pointer padding-right50px"
-                          name="dueDate"
-                          placeholder="Select a due date"
-                          id="dueDate"
-                          type="date"
-                        />
+                                <div class="form-middle"></div>
 
-                        <img
-                          src="/assets/icons/calendar-icon.svg"
-                          alt="Kalender Icon"
-                          class="date-icon"
-                          id="custom-date-icon"
-                        />
-                      </div>
-                      <span id="required-date" class="required display-none"
-                        >Please pick a date. Must be in the future.</span
-                      >
-                    </div>
+                                <div class="form-right">
+                                    <!-- --------------------------------------DueDate -->
+                                    <div class="date flex-column gab8px">
+                                        <label for="dueDate">Due date<span class="required">*</span></label>
+                                        <div class="date-wrapper">
+                                            <input class="width100 hover-shadow cursor-pointer padding-right50px"
+                                                name="dueDate" placeholder="Select a due date" id="dueDate"
+                                                type="date" />
 
-                    <!-- --------------------------------------Priority -->
-                    <div class="add-flex gab8px">
-                      <p>Prio</p>
-                      <div class="radio-container">
-                        <!-- Urgent -->
-                        <label for="priorityUrgent" class="add-task-container">
-                          <input
-                            type="radio"
-                            name="priority"
-                            id="priorityUrgent"
-                            value="urgent"
-                          />
-                          <span class="checkmark">
-                            Urgent
+                                            <img src="/assets/icons/calendar-icon.svg" alt="Kalender Icon"
+                                                class="date-icon" id="custom-date-icon" />
+                                        </div>
+                                        <span id="required-date" class="required display-none">Please pick a date. Must
+                                            be in the future.</span>
+                                    </div>
 
-                            <img id="prio-image-urgent" src="" alt="" />
-                          </span>
-                        </label>
+                                    <!-- --------------------------------------Priority -->
+                                    <div class="add-flex gab8px">
+                                        <p>Prio</p>
+                                        <div class="radio-container">
+                                            <!-- Urgent -->
+                                            <label for="priorityUrgent" class="add-task-container">
+                                                <input type="radio" name="priority" id="priorityUrgent"
+                                                    value="urgent" />
+                                                <span class="checkmark">
+                                                    Urgent
 
-                        <!-- Medium -->
-                        <label for="priorityMedium" class="add-task-container">
-                          <input
-                            type="radio"
-                            name="priority"
-                            id="priorityMedium"
-                            value="medium"
-                            checked
-                          />
-                          <span class="checkmark">
-                            Medium
-                            <img id="prio-imag-mediumt" src="" alt="" />
-                          </span>
-                        </label>
+                                                    <img id="prio-image-urgent" src="" alt="" />
+                                                </span>
+                                            </label>
 
-                        <!-- Low -->
-                        <label for="priorityLow" class="add-task-container">
-                          <input
-                            type="radio"
-                            name="priority"
-                            id="priorityLow"
-                            value="low"
-                          />
-                          <span class="checkmark">
-                            Low
-                            <img id="prio-imag-low" src="" alt="" />
-                          </span>
-                        </label>
-                      </div>
-                    </div>
+                                            <!-- Medium -->
+                                            <label for="priorityMedium" class="add-task-container">
+                                                <input type="radio" name="priority" id="priorityMedium" value="medium"
+                                                    checked />
+                                                <span class="checkmark">
+                                                    Medium
+                                                    <img id="prio-imag-mediumt" src="" alt="" />
+                                                </span>
+                                            </label>
 
-                    <!-- --------------------------------------Category -->
-                    <div class="category gab8px add-flex">
-                      <span>Category<span class="required">*</span></span>
+                                            <!-- Low -->
+                                            <label for="priorityLow" class="add-task-container">
+                                                <input type="radio" name="priority" id="priorityLow" value="low" />
+                                                <span class="checkmark">
+                                                    Low
+                                                    <img id="prio-imag-low" src="" alt="" />
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
 
-                      <div class="flex-reverse ">
-                        <img
-                          id="arrow-drop-down-category"
-                          src="/assets/icons/arrow-drop-down.svg"
-                          alt="Icon"
-                          class="input-icon"
-                        />
-                        <div
-                          class="select-trigger hover-shadow cursor-pointer padding-right50px"
-                          id="category-select"
-                          tabindex="0"
-                          role="combobox"
-                          aria-expanded="false"
-                          aria-controls="selectOptions"
-                          aria-haspopup="listbox"
-                          onclick="changeDropdownIconCategory(), toggleDropdown()"
-                        >
-                          <span id="category-display"
-                            >Select task category</span
-                          >
-                        </div>
+                                    <!-- --------------------------------------Category -->
+                                    <div class="category gab8px add-flex">
+                                        <span>Category<span class="required">*</span></span>
 
-                        <div
-                          class="select-options"
-                          id="selectOptions"
-                          role="listbox"
-                          aria-labelledby="category-select"
-                        >
-                          <div
-                            class="select-option"
-                            role="option"
-                            aria-selected="false"
-                            onclick="selectOption('Technical Task'), changeDropdownIconCategory()"
-                            value="Technical Task"
-                          >
-                            Technical Task
-                          </div>
-                          <div
-                            class="select-option"
-                            role="option"
-                            aria-selected="false"
-                            onclick="selectOption('User Story'), changeDropdownIconCategory()"
-                            value="User Story"
-                          >
-                            User Story
-                          </div>
-                        </div>
-                      </div>
-                      <span id="required-category" class="required display-none"
-                        >Please pick a category.</span
-                      >
-                      <input
-                        type="hidden"
-                        id="category"
-                        name="category"
-                        value=""
-                      />
-                    </div>
+                                        <div class="flex-reverse ">
+                                            <img id="arrow-drop-down-category" src="/assets/icons/arrow-drop-down.svg"
+                                                alt="Icon" class="input-icon" />
+                                            <div class="select-trigger hover-shadow cursor-pointer padding-right50px"
+                                                id="category-select" tabindex="0" role="combobox" aria-expanded="false"
+                                                aria-controls="selectOptions" aria-haspopup="listbox"
+                                                onclick="changeDropdownIconCategory(), toggleDropdown()">
+                                                <span id="category-display">Select task category</span>
+                                            </div>
 
-                    <!-- -----------------------------------------------------subtask -->
-                    <div class="subtask gab8px add-flex">
-                      <span>Subtask</span>
-                      <div class="flex-reverse">
-                        <img
-                          id="add-blue"
-                          class="input-icon"
-                          onclick="editAndFocus('taskSubtask')"
-                          src="/assets/icons/add-blue.svg"
-                          alt=""
-                        />
+                                            <div class="select-options" id="selectOptions" role="listbox"
+                                                aria-labelledby="category-select">
+                                                <div class="select-option" role="option" aria-selected="false"
+                                                    onclick="selectOption('Technical Task'), changeDropdownIconCategory()"
+                                                    value="Technical Task">
+                                                    Technical Task
+                                                </div>
+                                                <div class="select-option" role="option" aria-selected="false"
+                                                    onclick="selectOption('User Story'), changeDropdownIconCategory()"
+                                                    value="User Story">
+                                                    User Story
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <span id="required-category" class="required display-none">Please pick a
+                                            category.</span>
+                                        <input type="hidden" id="category" name="category" value="" />
+                                    </div>
 
-                        <div
-                          id="close-check"
-                          class="input-icon display-none flex-center"
-                        >
-                          <img
-                            class=""
-                            onclick="clearInput(),showAddBlue() , clearInput()"
-                            src="/assets/icons/close.svg"
-                            alt=""
-                          />
-                          <img
-                            class=""
-                            onclick="addSubtask(),showAddBlue()"
-                            src="/assets/icons/check-blue.svg"
-                            alt=""
-                          />
-                        </div>
-                        <input
-                          class="width100 hover-shadow padding-right50px"
-                          placeholder="Add new subtask"
-                          id="taskSubtask"
-                          type="text"
-                        />
-                      </div>
-                      <ul class="list-styl flex-column" id="subtask-list"></ul>
-                    </div>
-                  </div>
+                                    <!-- -----------------------------------------------------subtask -->
+                                    <div class="subtask gab8px add-flex">
+                                        <span>Subtask</span>
+                                        <div class="flex-reverse">
+                                            <img id="add-blue" class="input-icon" onclick="editAndFocus('taskSubtask')"
+                                                src="/assets/icons/add-blue.svg" alt="" />
+
+                                            <div id="close-check" class="input-icon display-none flex-center">
+                                                <img class="" onclick="clearInput(),showAddBlue() , clearInput()"
+                                                    src="/assets/icons/close.svg" alt="" />
+                                                <img class="" onclick="addSubtask(),showAddBlue()"
+                                                    src="/assets/icons/check-blue.svg" alt="" />
+                                            </div>
+                                            <input class="width100 hover-shadow padding-right50px"
+                                                placeholder="Add new subtask" id="taskSubtask" type="text" />
+                                        </div>
+                                        <ul class="list-styl flex-column" id="subtask-list"></ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- --------------------------------------botton area form -->
+
+                            <div class="flex-row form-bottom">
+                                <span class="required-text">This field is required<span class="required">*</span></span>
+                                <div class="add-task-form-buttons flex-row ">
+                                    <button type="button" class="add-task-button1 gab8px" onclick="resetForm()">
+                                        Clear
+                                        <div class="button-icon flex-center"></div>
+                                    </button>
+                                    <button class="add-task-button2 gab8px" type="submit">
+                                        Create Task
+                                        <img src="/assets/icons/check.svg" alt="Create task button" />
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </main>
                 </div>
-
-                <!-- --------------------------------------botton area form -->
-
-                <div class="flex-row form-bottom">
-                  <span class="required-text"
-                    >This field is required<span class="required">*</span></span
-                  >
-                  <div class="add-task-form-buttons flex-row ">
-                    <button
-                      type="button"
-                      class="add-task-button1 gab8px"
-                      onclick="resetForm()"
-                    >
-                      Clear
-                      <div class="button-icon flex-center"></div>
-                    </button>
-                    <button class="add-task-button2 gab8px" type="submit">
-                      Create Task
-                      <img
-                        src="/assets/icons/check.svg"
-                        alt="Create task button"
-                      />
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </main>
-          </div>
-        </section>
-      </div>
+            </section>
+        </div>
     </div>
-  </body>
+</body>
+
 </html>
