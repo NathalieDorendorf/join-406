@@ -280,14 +280,6 @@ a.current:hover {
     position: relative;
 }
 
-@media(max-width: 1025px) {
-
-    .logo-little {
-        height: 61px;
-        width: 50px;
-    }
-}
-
 @media (max-width: 768px) {
     .navbar-header {
         padding: 24px;
