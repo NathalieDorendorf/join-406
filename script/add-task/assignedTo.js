@@ -189,3 +189,27 @@ function handleEmptyContacts(renderArry, assaigtList) {
     icon.classList.remove("dropdown-icon-up");
   }
   
+  document.addEventListener('DOMContentLoaded', function() {
+    const inputElement = document.getElementById('assigned');
+    const mediaQuery853 = window.matchMedia('(min-width: 853px)');
+    const mediaQuery918 = window.matchMedia('(max-width: 918px)');
+  
+    mediaQuery853.addEventListener('change', () => {
+      updatePlaceholder();
+    });
+  
+    mediaQuery918.addEventListener('change', () => {
+      updatePlaceholder();
+    });
+  
+    function updatePlaceholder() {
+      if (mediaQuery853.matches && mediaQuery918.matches) {
+        inputElement.placeholder = "Select contacts";
+      } else {
+        inputElement.placeholder = "Select contacts to assign";
+      }
+    }
+  
+    
+    updatePlaceholder();
+  });
