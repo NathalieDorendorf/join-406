@@ -153,10 +153,11 @@ function showResponsiveContent() {
     const summaryContentElement = document.getElementById("summaryContent");
     const summaryHeaderElement = document.getElementById("summaryHeader");
 
-    if (window.innerWidth <= 768) {
+    if (window.innerWidth <= 1024) {
         renderSummaryHeaderResponsive();
         // Zeige die Begrüßung zuerst
         greetingElement.classList.remove("hidden");
+        greetingElement.classList.remove("summary-greetings");
         summaryContentElement.classList.add("d-none");
 
         // Nach ein paar Sekunden die Begrüßung ausblenden und den Inhalt einblenden
@@ -170,6 +171,7 @@ function showResponsiveContent() {
         renderSummaryHeader();
         // Auf größeren Bildschirmen direkt beide anzeigen
         greetingElement.classList.remove("hidden");
+        greetingElement.classList.add("summary-greetings")
         summaryContentElement.classList.add("visible");
         summaryHeaderElement.classList.remove("d-none");
         summaryContentElement.classList.remove("d-none");
