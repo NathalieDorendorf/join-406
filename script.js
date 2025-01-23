@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", async () => {
  * Set the initials of the user in the top right of page.
  */
 async function setInitialsSpan() {
-    if (!localStorage.getItem('mail') === "guest@maxmusterman.de") {
+    if (localStorage.getItem('mail') !== "guest@maxmusterman.de") {
         const queryContactWhereMailMatch = `?orderBy=%22mail%22&equalTo=%22${encodeURIComponent(localStorage.getItem('mail'))}%22`;
         const contactOfLoggedInUser = await fetchResource('contacts', 'GET', undefined, queryContactWhereMailMatch);
         document.getElementById('user-initials').textContent = Object.values(contactOfLoggedInUser)[0].initials;
