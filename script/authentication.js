@@ -40,7 +40,14 @@ function checkParams() {
 function validateLoggin() {
     const isLoggedIn = sessionStorage.getItem("isLoggedIn");
 
-    if (isLoggedIn !== "true") {
+    if (isLoggedIn !== "true" && !hasAccessWithoutLogin(window.location.pathname)) {
         window.location.href = "/index.html";
     }
 };
+
+function hasAccessWithoutLogin(pathname) {
+    if (pathname === '/html/privacy-policy.html' || pathname === '/html/legal-notice.html') {
+        return true;
+    }
+    return false;
+}
