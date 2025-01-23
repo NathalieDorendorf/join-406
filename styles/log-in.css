@@ -79,6 +79,16 @@
     }
 }
 
+@media(max-width: 768px){
+    .login-page header {
+        order: 1;
+    }
+    .login-page footer {
+        order: 3;
+    }
+
+}
+
 @media(max-width: 600px) {
 
     .button-container {
