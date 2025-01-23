@@ -136,23 +136,6 @@ function showContactDetails(contact) {
     }
 }
 
-// Funktion zum Schließen des Overlays
-function closeOverlay() {
-    const overlay = document.getElementById("addContactOverlay");
-    if (overlay) {
-        overlay.classList.remove("visible");
-        setTimeout(() => overlay.remove(), 300); // Timeout für Transition-Effekt
-    }
-}
-
-function closeEditOverlay() {
-    const overlay = document.getElementById("editContactOverlay");
-    if (overlay) {
-        overlay.classList.remove("visible");
-        setTimeout(() => overlay.remove(), 300); // Timeout für Transition-Effekt
-    }
-}
-
 function closeContactDetailsOverlay() {
     const contactsContainer = document.querySelector('.d-none'); // Zugriff auf das erste Element mit der Klasse
     if (contactsContainer) {
@@ -166,13 +149,14 @@ async function addNewContact(event) {
     event.preventDefault();
 
     let name = document.getElementById("user").value.trim();
-    let email = document.getElementById("email");
+    let emailElement = document.getElementById("email");
+    let email = emailElement.value;
     let phone = document.getElementById("telephone").value.trim();
 
     checkEmailExisting(email);
 
-    const isEmailValid = await checkEmail(email);
-    const mailAlreadyExists = await checkEmailExisting(email);
+    const isEmailValid = await checkEmail(emailElement);
+    const mailAlreadyExists = await checkEmailExisting(emailElement);
 
     if (!isEmailValid || mailAlreadyExists) {
         return;
@@ -200,9 +184,6 @@ async function addNewContact(event) {
     clearDataContacts(name, email, phone);
     closeOverlay();
     showToastMessage({ message: "Contact successfully created" });
-    setTimeout(() => {
-        window.location.href = "/index.html?msg=Contact successfully created";
-    }, 2000);
     await fetchContacts();
 }
 
@@ -243,19 +224,6 @@ function clearDataContacts(name, email, phone) {
     name.value = "";
     email.value = "";
     phone.value = "";
-}
-
-function showEditContactOverlay(firebaseId) {
-    // Suche den Kontakt anhand der Firebase-ID
-    const contact = findContactById(firebaseId);
-
-    if (!contact) {
-        console.error('Kontakt nicht gefunden:', firebaseId);
-        return;
-    }
-
-    // Render das Overlay mit den Kontaktinformationen
-    renderEditContactOverlay(contact);
 }
 
 // Funktion zum Abrufen eines Kontakts anhand der ID
@@ -300,7 +268,7 @@ async function saveContact(event, firebaseId) {
         phone: editPhone
     };
     await putContactsDataToFirebase(firebaseId, updateSingleData);
-    closeEditOverlay();
+    closeOverlay();
     await fetchContacts();
 }
 

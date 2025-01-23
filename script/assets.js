@@ -7,9 +7,9 @@ let closeAnimation;
  * @param {string} closeAnimationClass - The CSS class for the closing animation.
  * @param {Function} [closeFunction=closeOverlay] - Function to handle closing the overlay.
  */
-function openOverlay(HTMLContent, closeAnimationClass, closeFunction = closeOverlay) {
+function openOverlay(HTMLContent, openAnimationClass=null, closeAnimationClass=null, closeFunction = closeOverlay) {
     closeAnimation = closeAnimationClass;
-    overlayElement = getOverlayElement(HTMLContent);
+    overlayElement = getOverlayElement(HTMLContent, openAnimationClass);
     overlayElement.onclick = closeFunction;
     document.body.appendChild(overlayElement);
     overlayElement.firstElementChild.focus({ preventScroll: true });
@@ -43,7 +43,7 @@ function removeOverlay() {
  * @param {string} HTMLContent - The HTML content to embed inside the overlay.
  * @returns {HTMLElement} The constructed overlay element.
  */
-function getOverlayElement(HTMLContent) {
+function getOverlayElement(HTMLContent, openAnimationClass) {
     const tempElem = document.createElement('div');
     tempElem.innerHTML = `<div id="overlay" class="overlay">${HTMLContent}</div>`;
     const overlay = tempElem.firstElementChild;
@@ -51,6 +51,9 @@ function getOverlayElement(HTMLContent) {
     overlayInner.tabIndex = -1;
     overlayInner.onclick = (event) => event.stopPropagation();
     overlayInner.onkeydown = (event) => handleOverlayInnerKeyInput(event);
+    if (openAnimationClass) { 
+        overlayInner.classList.add(openAnimationClass);
+    }
     return overlay;
 }
 

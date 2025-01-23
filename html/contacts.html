@@ -32,12 +32,12 @@
             </div>
             <section class="section-contacts">
                 <div class="contacts-container">
-                    <button class="button add-new-contact-btn-desktop" onclick="renderAddContactOverlay()">Add new
+                    <button class="button add-new-contact-btn-desktop" onclick="openOverlay(renderAddContactOverlay(),'fly-in-from-right', 'fly-out-to-right')">Add new
                         contact <img src="/assets/icons/person_add.svg" alt="add new contact"></button>
                     <div id="contactList" class="contact-list-container">
 
                     </div>
-                    <button class="button add-new-contact-btn-mobile" onclick="renderAddContactOverlay()"><img
+                    <button class="button add-new-contact-btn-mobile" onclick="openOverlay(renderAddContactOverlay())"><img
                             src="/assets/icons/person_add.svg" alt="add new contact"></button>
                 </div>
                 <div class="contacts-details-container section-pad section-gap">
@@ -49,9 +49,6 @@
                     <div id="contactDetails" class="contact-details">
 
                     </div>
-                </div>
-                <div id="contactDetailsOverlay" class="contact-details-overlay">
-
                 </div>
             </section>
         </div>

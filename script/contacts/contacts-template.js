@@ -5,7 +5,7 @@ function generateContactsDetailsDesktopHTML(contact, phoneNumber) {
                 <div class="name-container">
                     <h2>${contact.name}</h2>
                     <div class="d-flex gap-8">
-                        <button class="button-contacts" onclick="showEditContactOverlay('${contact.firebaseId}')"><img src="/assets/icons/edit-blue.svg" alt="edit">Edit</button>
+                        <button class="button-contacts" onclick="openOverlay(renderEditContactOverlay('${contact.firebaseId}'), 'fly-out-to-right')"><img src="/assets/icons/edit-blue.svg" alt="edit">Edit</button>
                         <button class="button-contacts" onclick="deleteContact('${contact.firebaseId}')"><img src="/assets/icons/delete-blue.svg" alt="delete">Delete</button>
                     </div>
                 </div>
@@ -32,7 +32,7 @@ function generateContactsDetailsMobileHTML(contact, phoneNumber) {
                 <div class="name-container">
                     <h2>${contact.name}</h2>
                     <div class="d-flex gap-8">
-                        <button class="button-contacts" onclick="showEditContactOverlay('${contact.firebaseId}')"><img src="/assets/icons/edit-blue.svg" alt="edit">Edit</button>
+                        <button class="button-contacts" onclick="openOverlay(renderEditContactOverlay('${contact.firebaseId}'))"><img src="/assets/icons/edit-blue.svg" alt="edit">Edit</button>
                         <button class="button-contacts" onclick="deleteContact('${contact.firebaseId}')"><img src="/assets/icons/delete-blue.svg" alt="delete">Delete</button>
                     </div>
                 </div>
@@ -47,8 +47,7 @@ function generateContactsDetailsMobileHTML(contact, phoneNumber) {
 }
 
 function renderAddContactOverlay() {
-    const overlayHTML = `
-        <div id="addContactOverlay" class="overlay">
+    return overlayHTML = `
             <div class="overlay-content">
                 <div class="overlay-left">
                     <img class="logo-mini" src="/assets/icons/join-logo-white.svg" alt="join">
@@ -82,20 +81,14 @@ function renderAddContactOverlay() {
                     </form>
                 </div>
             </div>
-        </div>
     `;
-
-    document.body.insertAdjacentHTML('beforeend', overlayHTML);
-    setTimeout(() => {
-        document.getElementById("addContactOverlay").classList.add("visible");
-    }, 10); // Timeout für Transition-Effekt
 }
 
 
 // Funktion zum Anzeigen des Overlays
-function renderEditContactOverlay(contact) {
-    const overlayHTML = `
-        <div id="editContactOverlay" class="overlay">
+function renderEditContactOverlay(firebaseId) {
+    const contact = findContactById(firebaseId);
+    return overlayHTML = `
             <div class="overlay-content">
                 <div class="overlay-left">
                     <img class="logo-mini" src="/assets/icons/join-logo-white.svg" alt="join">
@@ -112,10 +105,10 @@ function renderEditContactOverlay(contact) {
                             <input class="input-name input-width" type="text" id="user" placeholder="Name" value="${contact.name}" minlength="2" maxlength="30" required>
                             <input class="input-email input-width" type="email" id="email" placeholder="Email" value="${contact.mail}" required>
                             <span id="errorMessageEmailExists" class="error-message"></span>
-                            <input class="input-phone input-width" type="number" id="telephone" placeholder="Phone" value="${contact.phone}">
+                            <input class="input-phone input-width" type="tel" id="telephone" placeholder="Phone" value="${contact.phone}">
                         </div>
                         <div class="fr gap-16 wrap ato-footer-buttons">
-                            <button type="button" id="cancel-edit-task-btn" class="button-2 fr jcac gap-8" onclick="closeEditOverlay()">
+                            <button type="button" id="cancel-edit-task-btn" class="button-2 fr jcac gap-8" onclick="closeOverlay()">
                                 <span>Cancel</span>
                                 <img src="/assets/icons/close.svg" alt="Cancel edit contact button">
                             </button>
@@ -127,11 +120,5 @@ function renderEditContactOverlay(contact) {
                     </form>
                 </div>
             </div>
-        </div>
     `;
-
-    document.body.insertAdjacentHTML('beforeend', overlayHTML);
-    setTimeout(() => {
-        document.getElementById("editContactOverlay").classList.add("visible");
-    }, 10); // Timeout für Transition-Effekt
 }
