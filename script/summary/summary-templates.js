@@ -1,28 +1,4 @@
 /**
- * Renders the header for the summary view in desktop layout.
- * Updates the `#summaryHeader` element with a title and subtitle.
- */
-function renderSummaryHeader() {
-    document.getElementById("summaryHeader").innerHTML = `
-        <h1 class="h1-responsive">Join 360</h1>
-        <div class="sideline-blue"></div>
-        <h4>Key Metrics at a Glance</h4>
-    `;
-}
-
-/**
- * Renders the header for the summary view in responsive (mobile) layout.
- * Updates the `#summaryHeader` element with a title, subtitle, and rearranged structure.
- */
-function renderSummaryHeaderResponsive() {
-    document.getElementById("summaryHeader").innerHTML = `
-        <h1 class="h1-responsive">Join 360</h1>
-        <h4 class="h4-responsive">Key Metrics at a Glance</h4>
-        <div class="sideline-blue"></div>
-    `;
-}
-
-/**
  * Renders the main content of the summary view, including task metrics and navigation links.
  * Updates the `#summaryContent` element with task counts, urgent task information, and board statistics.
  */
@@ -80,4 +56,40 @@ function renderSummaryContent() {
             </div>
         </div>
     `;
+}
+
+/**
+ * Renders the header for the summary view in responsive (mobile) layout.
+ * Updates the `#summaryHeader` element with a title, subtitle, and rearranged structure.
+ */
+function renderSummaryHeaderResponsive() {
+    document.getElementById("summaryHeader").innerHTML = `
+        <h1 class="h1-responsive">Join 360</h1>
+        <h4 class="h4-responsive">Key Metrics at a Glance</h4>
+        <div class="sideline-blue"></div>
+    `;
+}
+
+/**
+ * Renders the header for the summary view in desktop layout.
+ * Updates the `#summaryHeader` element with a title and subtitle.
+ */
+function renderSummaryHeader() {
+    document.getElementById("summaryHeader").innerHTML = `
+        <h1 class="h1-responsive">Join 360</h1>
+        <div class="sideline-blue"></div>
+        <h4>Key Metrics at a Glance</h4>
+    `;
+}
+
+/**
+ * Generates the HTML for the greeting message.
+ * @param {string|null} userName - The user's name or null.
+ * @returns {string} The HTML string for the greeting.
+ */
+function generateGreetingHTML(userName) {
+    const currentGreeting = getGreetingTime();
+    return userName
+        ? `<h5 class="h5-responsive">${currentGreeting},</h5><span class="user-name">${userName}</span>`
+        : `<h5 class="h5-responsive">${currentGreeting}!</h5>`;
 }

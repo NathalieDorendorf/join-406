@@ -18,21 +18,78 @@ async function initializeContent() {
 }
 
 /**
+ * Displays responsive content based on the current screen width.
+ */
+function showResponsiveContent() {
+    if (window.innerWidth <= 1024) {
+        handleMobileView();
+    } else {
+        handleDesktopView();
+    }
+}
+
+/**
+ * Handles the display logic for mobile view.
+ */
+function handleMobileView() {
+    renderSummaryHeaderResponsive();
+    showGreetingFirstOnMobile();
+    setTimeout(showContentAfterGreetingOnMobile, 1500);
+}
+
+/**
+ * Displays the greeting first on mobile view.
+ */
+function showGreetingFirstOnMobile() {
+    const greetingElement = document.getElementById("greeting");
+    const summaryContentElement = document.getElementById("summaryContent");
+    greetingElement.classList.remove("hidden");
+    greetingElement.classList.remove("summary-greetings");
+    summaryContentElement.classList.add("d-none");
+}
+
+/**
+ * Displays the summary content after a delay on mobile view.
+ */
+function showContentAfterGreetingOnMobile() {
+    const greetingElement = document.getElementById("greeting");
+    const summaryContentElement = document.getElementById("summaryContent");
+    const summaryHeaderElement = document.getElementById("summaryHeader");
+    greetingElement.classList.add("hidden");
+    greetingElement.classList.add("d-none");
+    summaryHeaderElement.classList.remove("d-none");
+    summaryContentElement.classList.remove("d-none");
+}
+
+/**
+ * Handles the display logic for desktop view.
+ */
+function handleDesktopView() {
+    renderSummaryHeader();
+    showGreetingAndContentOnDesktop();
+}
+
+/**
+ * Displays the greeting and summary content on desktop view.
+ */
+function showGreetingAndContentOnDesktop() {
+    const greetingElement = document.getElementById("greeting");
+    const summaryContentElement = document.getElementById("summaryContent");
+    const summaryHeaderElement = document.getElementById("summaryHeader");
+    greetingElement.classList.remove("hidden");
+    greetingElement.classList.add("summary-greetings");
+    summaryContentElement.classList.add("visible");
+    summaryHeaderElement.classList.remove("d-none");
+    summaryContentElement.classList.remove("d-none");
+}
+
+/**
  * Retrieves the user's email from local storage and renders the greeting.
  * @async
  */
 async function initializeGreeting() {
     const mail = localStorage.getItem('mail');
     await renderGreeting(mail);
-}
-
-/**
- * Loads task data and displays relevant counts and the closest due date.
- * @async
- */
-async function initializeTaskData() {
-    await loadTaskCounts();
-    await showClosestDueDate();
 }
 
 /**
@@ -63,29 +120,6 @@ async function getUserNameByEmail(email) {
 }
 
 /**
- * Generates the HTML for the greeting message.
- * @param {string|null} userName - The user's name or null.
- * @returns {string} The HTML string for the greeting.
- */
-function generateGreetingHTML(userName) {
-    const currentGreeting = getGreetingTime();
-    return userName
-        ? `<h5 class="h5-responsive">${currentGreeting},</h5><span class="user-name">${userName}</span>`
-        : `<h5 class="h5-responsive">${currentGreeting}!</h5>`;
-}
-
-/**
- * Updates the greeting element with the provided HTML content.
- * @param {string} html - The HTML string for the greeting.
- */
-function updateGreetingElement(html) {
-    const greetingElement = document.getElementById('greeting');
-    if (greetingElement) {
-        greetingElement.innerHTML = html;
-    }
-}
-
-/**
  * Determines the current greeting time based on the hour of the day.
  * @returns {string} The appropriate greeting ("Good morning", "Good afternoon", etc.).
  */
@@ -100,6 +134,26 @@ function getGreetingTime() {
     } else {
         return "Good night";
     }
+}
+
+/**
+ * Updates the greeting element with the provided HTML content.
+ * @param {string} html - The HTML string for the greeting.
+ */
+function updateGreetingElement(html) {
+    const greetingElement = document.getElementById('greeting');
+    if (greetingElement) {
+        greetingElement.innerHTML = html;
+    }
+}
+
+/**
+ * Loads task data and displays relevant counts and the closest due date.
+ * @async
+ */
+async function initializeTaskData() {
+    await loadTaskCounts();
+    await showClosestDueDate();
 }
 
 /**
@@ -195,14 +249,6 @@ function getClosestDueDate(tasks) {
 }
 
 /**
- * Gets the current date formatted as a string.
- * @returns {string} The formatted current date.
- */
-function getCurrentDateString() {
-    return formatDate(new Date());
-}
-
-/**
  * Formats a date object as a string.
  * @param {Date} date - The date to format.
  * @returns {string} The formatted date string.
@@ -214,6 +260,15 @@ function formatDate(date) {
     return `${month.charAt(0).toUpperCase() + month.slice(1)} ${day}, ${year}`;
 }
 
+
+/**
+ * Gets the current date formatted as a string.
+ * @returns {string} The formatted current date.
+ */
+function getCurrentDateString() {
+    return formatDate(new Date());
+}
+
 /**
  * Updates the task date element in the HTML with the given date string.
  * @param {string} dateStr - The date string to display.
@@ -221,70 +276,4 @@ function formatDate(date) {
 function updateTaskDateElement(dateStr) {
     const element = document.getElementById("taskDate");
     if (element) element.textContent = dateStr;
-}
-
-/**
- * Displays responsive content based on the current screen width.
- */
-function showResponsiveContent() {
-    if (window.innerWidth <= 1024) {
-        handleMobileView();
-    } else {
-        handleDesktopView();
-    }
-}
-
-/**
- * Handles the display logic for mobile view.
- */
-function handleMobileView() {
-    renderSummaryHeaderResponsive();
-    showGreetingFirstOnMobile();
-    setTimeout(showContentAfterGreetingOnMobile, 1500);
-}
-
-/**
- * Handles the display logic for desktop view.
- */
-function handleDesktopView() {
-    renderSummaryHeader();
-    showGreetingAndContentOnDesktop();
-}
-
-/**
- * Displays the greeting first on mobile view.
- */
-function showGreetingFirstOnMobile() {
-    const greetingElement = document.getElementById("greeting");
-    const summaryContentElement = document.getElementById("summaryContent");
-    greetingElement.classList.remove("hidden");
-    greetingElement.classList.remove("summary-greetings");
-    summaryContentElement.classList.add("d-none");
-}
-
-/**
- * Displays the summary content after a delay on mobile view.
- */
-function showContentAfterGreetingOnMobile() {
-    const greetingElement = document.getElementById("greeting");
-    const summaryContentElement = document.getElementById("summaryContent");
-    const summaryHeaderElement = document.getElementById("summaryHeader");
-    greetingElement.classList.add("hidden");
-    greetingElement.classList.add("d-none");
-    summaryHeaderElement.classList.remove("d-none");
-    summaryContentElement.classList.remove("d-none");
-}
-
-/**
- * Displays the greeting and summary content on desktop view.
- */
-function showGreetingAndContentOnDesktop() {
-    const greetingElement = document.getElementById("greeting");
-    const summaryContentElement = document.getElementById("summaryContent");
-    const summaryHeaderElement = document.getElementById("summaryHeader");
-    greetingElement.classList.remove("hidden");
-    greetingElement.classList.add("summary-greetings");
-    summaryContentElement.classList.add("visible");
-    summaryHeaderElement.classList.remove("d-none");
-    summaryContentElement.classList.remove("d-none");
 }
