@@ -90,6 +90,9 @@
     input {
         font-size: 15px;
     }
+    .errorText {
+        font-size: 10px !important;
+    }
 }
 
 @media(max-width:350px) {

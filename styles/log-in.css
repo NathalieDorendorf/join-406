@@ -83,17 +83,28 @@
 
     .button-container {
         flex-direction: column;
-    }
-
-    .button-container {
+        align-items: center;
         padding-top: 0px;
         width: 75%;
         gap: 15px;
     }
 
+    .button,
+    .button-2 {
+        width: 100%;
+    }
+
+    .button-signup {
+        width: 110px;
+    }
+
     input {
-        width: 322px;
         font-size: 16px;
+        width: 100%;
+    }
+
+    form{
+        width: 80%;
     }
 }
 
@@ -104,20 +115,21 @@
         font-size: 16px;
     }
 
-    input {
-        width: 280px;
-    }
-
     .h1-login {
         font-size: 50px !important;
     }
+
+    .login-container {
+        width: 370px;
+    }
+
+    input {
+        width: 100%;
+    }
+
 }
 
 @media(max-width: 435px) {
-
-    input {
-        width: 200px;
-    }
 
     main {
         padding: 32px;
@@ -133,9 +145,6 @@
 }
 
 @media(max-width: 375px) {
-    .errorText {
-        font-size: 10px !important;
-    }
 
     .error-message {
         font-size: 10px !important;
