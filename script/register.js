@@ -17,39 +17,81 @@ function assignGuestColor() {
 }
 
 /**
- * Fügt einen neuen Benutzer in die Datenbank ein, nachdem die Eingabefelder validiert wurden.
- * Löscht ungültige Daten und leitet im Erfolgsfall weiter.
- * @async
+ * Retrieves user inputs from the DOM and assigns a random color.
+ * @returns {Object} An object containing the user's inputs and a random color.
  */
-async function addUser() {
-    let color = getRandomColor();
-    let email = document.getElementById("email");
-    let password = document.getElementById("password");
-    let confirmPassword = document.getElementById("confirmPassword");
-    let userName = document.getElementById("user");
-    let privacyPolicy = document.getElementById("privacyPolicy");
+function getUserInputs() {
+    return {
+        color: getRandomColor(),
+        email: document.getElementById("email"),
+        password: document.getElementById("password"),
+        confirmPassword: document.getElementById("confirmPassword"),
+        userName: document.getElementById("user"),
+        privacyPolicy: document.getElementById("privacyPolicy"),
+    };
+}
 
-    checkEmailExisting(email);
-
+/**
+ * Validates user inputs such as email, password, name, and privacy policy.
+ * @async
+ * @param {HTMLElement} email - The email input element.
+ * @param {HTMLElement} password - The password input element.
+ * @param {HTMLElement} confirmPassword - The confirm password input element.
+ * @param {HTMLElement} userName - The username input element.
+ * @param {HTMLElement} privacyPolicy - The privacy policy checkbox element.
+ * @returns {Promise<Object>} A promise resolving to an object containing the validation results.
+ */
+async function validateUserInputs(email, password, confirmPassword, userName, privacyPolicy) {
     const isPasswordValid = await checkPassword(password, confirmPassword);
     const isNameValid = await checkName(userName);
     const isEmailValid = await checkEmail(email);
     const isPrivacyPolicyChecked = await checkPrivacyPolicy(privacyPolicy.checked);
     const mailAlreadyExists = await checkEmailExisting(email);
 
+    return {
+        isPasswordValid,
+        isNameValid,
+        isEmailValid,
+        isPrivacyPolicyChecked,
+        mailAlreadyExists,
+    };
+}
+
+/**
+ * Adds a new user to the system after validating inputs.
+ * If validation fails, it clears the password fields and exits.
+ * @async
+ */
+async function addUser() {
+    // Retrieve user inputs
+    const { color, email, password, confirmPassword, userName, privacyPolicy } = getUserInputs();
+
+    // Validate user inputs
+    const {
+        isPasswordValid,
+        isNameValid,
+        isEmailValid,
+        isPrivacyPolicyChecked,
+        mailAlreadyExists,
+    } = await validateUserInputs(email, password, confirmPassword, userName, privacyPolicy);
+
+    // Check if any validation failed
     if (!isPasswordValid || !isNameValid || !isEmailValid || !isPrivacyPolicyChecked || mailAlreadyExists) {
         clearData(password, confirmPassword);
         return;
     }
 
+    // Create user data object
     let singleLogInData = {
         "email": email.value,
         "password": password.value,
     };
 
+    // Add the user to contacts and update the system
     await addToContacts(email, userName, color, getInitials(userName.value));
     await updateUser(singleLogInData);
 }
+
 
 /**
  * Adds a new user to the contacts list in the database.
