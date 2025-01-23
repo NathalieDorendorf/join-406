@@ -321,9 +321,14 @@ a.current:hover {
         flex-direction: row;
     }
 
-    .logo-little {
-        display: none;
+    header{
+        order: 1;
     }
+
+    footer{
+        order: 2;
+    }
+
 
     .header-login {
         margin-left: unset;
@@ -381,10 +386,6 @@ a.current:hover {
 
     .sidebar-mainbox {
         flex-direction: row;
-    }
-
-    .logo-little {
-        display: none;
     }
 
     .links-container {
