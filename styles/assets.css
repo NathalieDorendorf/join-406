@@ -298,6 +298,27 @@ textarea:focus {
     }
 }
 
+@keyframes flyInFromBottom {
+    0% {
+        transform: translateY(calc(50vh + 51%));
+    }
+
+    100% {
+        transform: translateY(0%);
+    }
+}
+
+
+@keyframes flyOutToBottom {
+    0% {
+        transform: translateY(0%);
+    }
+
+    100% {
+        transform: translateY(calc(50vh + 51%));
+    }
+}
+
 @media (max-width:480px) {
     .h1-responsive {
         font-size: 44px;
@@ -364,6 +385,15 @@ textarea:focus {
         align-items: flex-start;
         gap: 16px
     }
+
+    .fly-in-from-right {
+        animation: flyInFromBottom 200ms ease-out;
+    }
+
+    .fly-out-to-right {
+        animation: flyOutToBottom 200ms ease-out forwards;
+    }
+
 }
 
 @media (max-width: 1024px) and (min-width: 769px) {
@@ -373,7 +403,7 @@ textarea:focus {
         gap: 24px;
     }
 
-        .sideline-blue {
+    .sideline-blue {
         width: 60px;
         height: 3px;
     }
