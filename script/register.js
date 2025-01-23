@@ -259,18 +259,16 @@ async function updateContacts(registerData) {
 }
 
 /**
- * Sends the user's login data to the database to be stored in the "users" collection.
- * Clears form data and redirects the user to the login page on success.
- * 
+ * Updates the user information by sending data to the server, clearing local user data,
+ * showing a toast message, and redirecting the user to the homepage.
+ *
  * @async
  * @function updateUser
- * @param {Object} data - The user data to be saved.
- * @param {string} data.email - The email address of the user.
- * @param {string} data.password - The password of the user.
- * 
- * @returns {Promise<void>} Resolves when the user data has been successfully saved.
+ * @param {Object} data - The user data to be sent to the server.
+ * @returns {Promise<void>} Resolves once the operation is complete.
  */
 async function updateUser(data) {
+    // Send user data to the server
     const response = await fetch(BASE_URL + "/users" + ".json", {
         method: "POST",
         headers: {
@@ -279,8 +277,17 @@ async function updateUser(data) {
         body: JSON.stringify(data),
     });
 
+    // Parse the server's response
     const result = await response.json();
+
+    // Clear all locally stored user data
     clearAllUserData();
 
-    window.location.href = "/index.html?msg=You Signed up successfully";
+    // Show a toast message to indicate success
+    showToastMessage({ message: "You signed up successfully" });
+
+    // Redirect to the homepage after 2 seconds
+    setTimeout(() => {
+        window.location.href = "/index.html?msg=You Signed up successfully";
+    }, 2000);
 }
