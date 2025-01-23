@@ -218,7 +218,7 @@ async function fetchTask() {
     showToastMessage({ message: "Task has been successfully created" });
     setTimeout(() => {
       window.location.href = "/html/board.html";
-    }, 4000);
+    }, 1500);
   } else {
     alert("Error when creating the tasks!");
   }
