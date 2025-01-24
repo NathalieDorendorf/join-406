@@ -90,6 +90,61 @@ function createContactElement(contact) {
     return contactItem;
 }
 
+let activeContactId = null;
+
+function showContactDetails(contact) {
+    const detailsContainer = document.getElementById("contactDetails");
+
+    // Wenn derselbe Kontakt erneut geklickt wird
+    if (activeContactId === contact.firebaseId) {
+        // Hintergrundfarbe und Stile entfernen
+        const activeElement = document.getElementById(activeContactId);
+        if (activeElement) {
+            activeElement.style.backgroundColor = "";
+            activeElement.style.color = ""; // Schriftfarbe zurücksetzen
+            const initialsCircle = activeElement.querySelector(".initials-circle");
+            if (initialsCircle) initialsCircle.style.border = "";
+        }
+
+        // Detailansicht ausblenden
+        if (detailsContainer) {
+            detailsContainer.classList.remove("slide-in");
+            detailsContainer.classList.add("slide-out");
+        }
+
+        activeContactId = null; // Aktiver Kontakt zurücksetzen
+        return;
+    }
+
+    // Entfernt die Hintergrundfarbe und Stile vom vorherigen Kontakt
+    if (activeContactId) {
+        const previousActive = document.getElementById(activeContactId);
+        if (previousActive) {
+            previousActive.style.backgroundColor = "";
+            previousActive.style.color = ""; // Schriftfarbe zurücksetzen
+            const previousInitialsCircle = previousActive.querySelector(".initials-circle");
+            if (previousInitialsCircle) previousInitialsCircle.style.border = "";
+        }
+    }
+
+    // Setzt die Hintergrundfarbe, Schriftfarbe und Rand für den neuen Kontakt
+    const contactElement = document.getElementById(contact.firebaseId);
+    if (contactElement) {
+        contactElement.style.backgroundColor = "var(--primary-blue)";
+        contactElement.style.color = "white"; // Schriftfarbe auf Weiß setzen
+        const initialsCircle = contactElement.querySelector(".initials-circle");
+        if (initialsCircle) initialsCircle.style.border = "2px solid var(--bg-white)";
+    }
+    activeContactId = contact.firebaseId;
+
+    // Details in das Detail-Div einfügen und einblenden
+    if (detailsContainer) {
+        detailsContainer.innerHTML = generateContactsDetailsDesktopHTML(contact, contact.phone || "");
+        detailsContainer.classList.remove("slide-out");
+        detailsContainer.classList.add("slide-in");
+    }
+}
+
 async function addNewContact(event) {
     event.preventDefault();
     const { name, email, phone } = getContactFormData();

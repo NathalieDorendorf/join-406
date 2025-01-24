@@ -35,15 +35,11 @@
 
 .contact-list-container {
     overflow-y: auto;
-    /* Vertikales Scrollen erlauben */
     max-height: 100%;
-    /* Begrenze die Höhe auf die Elternkomponente */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    /* Inhalte oben ausrichten */
     align-items: flex-start;
-    /* Inhalte links ausrichten */
 }
 
 .contacts-details-container {
@@ -133,12 +129,30 @@
     background-position: center;
 }
 
-.contact-details {
+#contactDetails {
+    top: 0;
+    right: 0;
+    width: 100%;
+    max-width: 400px;
+    height: 100%;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+#contactDetails.slide-in {
+    transform: translateX(0);
+}
+
+#contactDetails.slide-out {
+    transform: translateX(200%);
+}
+
+/* .contact-details {
     display: flex;
     flex-direction: column;
     gap: 16px;
     animation: slideIn 1s ease-in-out;
-}
+} */
 
 .name-container {
     display: flex;
@@ -168,7 +182,7 @@
     font-size: 16px;
 }
 
-.contact-details-overlay {
+/* .contact-details-overlay {
     background-color: var(--bg-color);
     display: flex;
     flex-direction: column;
@@ -182,7 +196,7 @@
 .contact-details-overlay.visible {
     opacity: 1;
     visibility: visible;
-}
+} */
 
 .overlay-content {
     display: flex;
@@ -240,7 +254,7 @@
 }
 
 @media (min-width: 1025px) {
-    .add-new-contact-btn-mobile {
+    .btn-mobile {
         display: none;
     }
 
@@ -271,7 +285,7 @@
         display: none;
     }
 
-    .add-new-contact-btn-mobile {
+    .btn-mobile {
         bottom: 24px;
     }
 
@@ -289,7 +303,7 @@
 }
 
 @media (max-width: 768px) {
-    .add-new-contact-btn-mobile {
+    .btn-mobile {
         bottom: 124px;
     }
 
@@ -357,7 +371,7 @@
         padding: 16px 12px;
     }
 
-    .add-new-contact-btn-mobile {
+    .btn-mobile {
         bottom: 104px;
     }
 
