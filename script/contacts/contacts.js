@@ -18,6 +18,8 @@ const contactColors = [
 
 let contacts = [];
 
+let activeContactId = null;
+
 async function initContacts() {
     await loadContacts();
     renderContacts();
@@ -86,11 +88,17 @@ function createCategoryElement(letter) {
 function createContactElement(contact) {
     const contactItem = document.createElement("li");
     contactItem.innerHTML = generateContactsHTML(contact);
-    contactItem.onclick = () => showContactDetails(contact);
+    contactItem.onclick = () => handleContactClick(contact);
     return contactItem;
 }
 
-let activeContactId = null;
+function handleContactClick(contact) {
+    if (window.innerWidth < 1025) {
+        showContactDetailsOverlay(contact);
+    } else {
+        showContactDetails(contact);
+    }
+}
 
 function showContactDetails(contact) {
     const detailsContainer = document.getElementById("contactDetails");
@@ -110,6 +118,8 @@ function showContactDetails(contact) {
         if (detailsContainer) {
             detailsContainer.classList.remove("slide-in");
             detailsContainer.classList.add("slide-out");
+            detailsContainer.classList.remove("slide-out");
+            detailsContainer.style.display = "none";
         }
 
         activeContactId = null; // Aktiver Kontakt zurücksetzen
@@ -140,9 +150,37 @@ function showContactDetails(contact) {
     // Details in das Detail-Div einfügen und einblenden
     if (detailsContainer) {
         detailsContainer.innerHTML = generateContactsDetailsDesktopHTML(contact, contact.phone || "");
+        detailsContainer.style.display = "block"; // Sicherstellen, dass es sichtbar ist
         detailsContainer.classList.remove("slide-out");
         detailsContainer.classList.add("slide-in");
     }
+}
+
+function showContactDetailsOverlay(contact) {
+    const contactsList = document.getElementById('contactsContainer');
+    const overlayContainer = document.getElementById("contactDetailsOverlay");
+
+    if (!overlayContainer) return;
+
+    // Details in das Overlay einfügen
+    overlayContainer.innerHTML = generateContactsDetailsMobileHTML(contact, contact.phone || "");
+
+    // Overlay anzeigen und Animation starten
+    contactsList.classList.add("d-none");
+    overlayContainer.style.display = "flex";
+    overlayContainer.classList.remove("slide-out-bottom");
+    overlayContainer.classList.add("slide-in-bottom");
+}
+
+function closeContactDetailsOverlay() {
+    const contactsList = document.getElementById('contactsContainer');
+    const overlayContainer = document.getElementById("contactDetailsOverlay");
+    if (!overlayContainer) return;
+    overlayContainer.classList.remove("slide-in-bottom");
+    overlayContainer.classList.add("slide-out-bottom");
+    contactsList.classList.remove("d-none");
+    overlayContainer.style.display = "none";
+    overlayContainer.classList.remove("slide-out-bottom");
 }
 
 async function addNewContact(event) {
