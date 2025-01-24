@@ -86,7 +86,7 @@ function renderAddContactOverlay() {
                             <input class="input-name input-width" type="text" id="user" placeholder="Name" minlength="2" maxlength="30" required>
                             <input class="input-email input-width"  type="email" id="email" placeholder="Email" required>
                             <span id="errorMessageEmail" class="error-message"></span>
-                            <input class="input-phone input-width"  type="tel" id="telephone" placeholder="Phone">
+                            <input class="input-phone input-width"  type="tel" pattern="^\\+?[0-9]+(\\s[0-9]+)*$" id="telephone" placeholder="+49 123456789">
                         </div>
                         <div class="fr gap-16 wrap ato-footer-buttons">
                             <button type="button" id="cancel-add-task-btn" class="button-2 fr jcac gap-8 cancel-btn" onclick="closeOverlay()">
@@ -124,7 +124,7 @@ function renderEditContactOverlay(firebaseId) {
                             <input class="input-name input-width" type="text" id="user" placeholder="Name" value="${contact.name}" minlength="2" maxlength="30" required>
                             <input class="input-email input-width" type="email" id="email" placeholder="Email" value="${contact.mail}" required>
                             <span id="errorMessageEmailExists" class="error-message"></span>
-                            <input class="input-phone input-width" type="tel" id="telephone" placeholder="Phone" value="${contact.phone}">
+                            <input class="input-phone input-width" type="tel" pattern="^\\+?[0-9]+(\\s[0-9]+)*$" id="telephone" placeholder="+49 123456789" value="${contact.phone}">
                         </div>
                         <div class="fr gap-16 wrap ato-footer-buttons">
                             <button type="button" id="cancel-edit-task-btn" class="button-2 fr jcac gap-8" onclick="closeOverlay()">

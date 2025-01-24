@@ -1,3 +1,5 @@
+// const phoneRegex = /^[+]?(\d{1,4})?[-.\s]?(\(?\d{1,3}\)?)[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/;
+
 const contactColors = [
     "--contact-color-orange",
     "--contact-color-pink",
@@ -21,6 +23,7 @@ let contacts = [];
 let activeContactId = null;
 
 async function initContacts() {
+    allData = await getAllData();
     await loadContacts();
     renderContacts();
 }
@@ -185,15 +188,20 @@ function closeContactDetailsOverlay() {
 
 async function addNewContact(event) {
     event.preventDefault();
-    const { name, email, phone } = getContactFormData();
-    if (!name || !email) return alert("Please fill in all required fields");
-    if (await isEmailInvalid(email)) return;
+    if (document.querySelector('form').checkValidity()) {
+        const { name, email, phone } = getContactFormData();
 
-    const contact = createNewContact(name, email, phone);
-    await saveContactToFirebase(contact);
-    await initContacts();
-    showToastMessage({ message: "Contact successfully created" });
+        if (!name || !email) return alert("Please fill in all required fields");
+        if (await isEmailInvalid(email)) return;
+
+        const contact = createNewContact(name, email, phone);
+        await saveContactToFirebase(contact);
+        await initContacts();
+        closeOverlay();
+        showToastMessage({ message: "Contact successfully created" });
+    }
 }
+
 
 function getContactFormData() {
     return {
@@ -239,13 +247,21 @@ async function saveContactToFirebase(contact) {
 
 async function saveContact(event, firebaseId) {
     event.preventDefault();
-    if (!validateContactForm()) return;
+    if (document.querySelector('form').checkValidity()) {
+        const { name, email, phone } = getContactFormData();
 
-    const updatedContact = createUpdatedContact(firebaseId);
-    if (!updatedContact) return;
+        if (!validateContactForm()) return;
 
-    await updateContactInFirebase(firebaseId, updatedContact);
-    await initContacts();
+        const updatedContact = createUpdatedContact(firebaseId);
+        if (!updatedContact) return;
+
+        await updateContactInFirebase(firebaseId, updatedContact);
+        closeOverlay();
+        await initContacts();
+        const contact = findContactById(firebaseId);
+        const detailsContainer = document.getElementById("contactDetails");
+        detailsContainer.innerHTML = generateContactsDetailsDesktopHTML(contact, contact.phone || "");
+    }
 }
 
 function validateContactForm() {
@@ -288,9 +304,36 @@ async function updateContactInFirebase(firebaseId, contact) {
 }
 
 async function deleteContact(firebaseId) {
+    // Lösche den Kontakt aus der Datenbank
     const response = await fetch(`${BASE_URL}/contacts/${firebaseId}.json`, {
         method: 'DELETE'
     });
     if (!response.ok) throw new Error('Failed to delete contact');
+
+    // Initialisiere die Kontakte erneut
     await initContacts();
+
+    // Entferne die Kontakt-ID aus den 'assignedTo'-Listen aller Aufgaben und aktualisiere die Datenbank
+    const tasksToUpdate = [];
+    Object.keys(allData.tasks).forEach(taskId => {
+        const task = allData.tasks[taskId];
+        if (task.assignedTo.includes(firebaseId)) {
+            // Entferne die Kontakt-ID aus der Liste
+            task.assignedTo = task.assignedTo.filter(contactId => contactId !== firebaseId);
+            tasksToUpdate.push(taskId); // Markiere die Aufgabe zum Update
+        }
+    });
+
+    // Aktualisiere die betroffenen Tasks in der Datenbank
+    for (const taskId of tasksToUpdate) {
+        await updateTaskInDatabase(taskId);
+    }
+
+    // Aktualisiere den UI-Bereich der Kontakt-Details
+    const detailsContainer = document.getElementById("contactDetails");
+    detailsContainer.innerHTML = "";
+
+    // Schließe das Overlay
+    closeContactDetailsOverlay();
 }
+

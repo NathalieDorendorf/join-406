@@ -182,7 +182,7 @@
     opacity: 0;
 }
 
-.initials-name-container{
+.initials-name-container {
     display: flex;
     gap: 24px;
 }
@@ -258,6 +258,10 @@
     position: absolute;
     top: 20px;
     right: 20px;
+}
+
+.contact-details {
+    display: none;
 }
 
 @keyframes slideIn {
@@ -417,7 +421,7 @@
         padding: 24px 8px;
     }
 
-    .initials-name-container{
+    .initials-name-container {
         gap: 16px;
     }
 }
