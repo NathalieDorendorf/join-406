@@ -1,11 +1,12 @@
 const dataToSubmit = {};
 
-
 async function init() {
   includeHTML();
   await fetchContacts();
   render(contactsArray);
 }
+
+
 
 // duDate
 
@@ -219,11 +220,8 @@ async function fetchTask() {
     setTimeout(() => {
       window.location.href = "/html/board.html";
     }, 1500);
-  } else {
-    alert("Error when creating the tasks!");
   }
 }
-
 
 function resetForm() {
   const form = document.getElementById("add-task-form");

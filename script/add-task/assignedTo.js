@@ -2,7 +2,6 @@ let contactsArray = [];
 let badgeArry = [];
 let expanded = false;
 
-
 /**
  * Event listener to close the dropdown if clicked outside.
  * @param {Event} event - The click event.
@@ -13,13 +12,13 @@ document.addEventListener("click", (event) => {
   const dropdownToggle = document.getElementById("assigned");
 
   if (
-      expanded &&
-      !checkboxes.contains(event.target) &&
-      !badgeContainer.contains(event.target) &&
-      !dropdownToggle.contains(event.target)
+    expanded &&
+    !checkboxes.contains(event.target) &&
+    !badgeContainer.contains(event.target) &&
+    !dropdownToggle.contains(event.target)
   ) {
-      expanded = true;
-      showCheckboxes(); 
+    expanded = true;
+    showCheckboxes();
   }
 });
 
@@ -27,16 +26,16 @@ document.addEventListener("click", (event) => {
  * Filters the contacts based on the input value and updates the dropdown.
  */
 function filterContacts() {
-    const filterInput = document.getElementById("assigned"); 
-    const filterText = filterInput.value.toLowerCase();
-    const regexPattern = filterText.split("").join(".*"); 
-    const regex = new RegExp(regexPattern, "i");  
-    const filteredItems = contactsArray.filter(contact => 
-      regex.test(contact.name) 
-    );
-    render(filteredItems);
-    expanded = false;
-    showCheckboxes();
+  const filterInput = document.getElementById("assigned");
+  const filterText = filterInput.value.toLowerCase();
+  const regexPattern = filterText.split("").join(".*");
+  const regex = new RegExp(regexPattern, "i");
+  const filteredItems = contactsArray.filter((contact) =>
+    regex.test(contact.name)
+  );
+  render(filteredItems);
+  expanded = false;
+  showCheckboxes();
 }
 
 /**
@@ -47,27 +46,27 @@ function filterContacts() {
  * @param {string} id - The ID of the checkbox.
  */
 function checkt(event, initials, color, id) {
-    const badgeContainer = document.getElementById("badge-Container");
-    const checkboxContent = event.target.closest(".checkbox-content"); 
-    const customCheckbox = document.getElementById(id);
+  const badgeContainer = document.getElementById("badge-Container");
+  const checkboxContent = event.target.closest(".checkbox-content");
+  const customCheckbox = document.getElementById(id);
 
-    if (event.target.checked) {
-        badgeArry.push({ initials: initials, color: color });
-        updateStyle(checkboxContent, customCheckbox);
-        badgeContainer.innerHTML = "";
-        badgeArry.forEach((badge) => {
-            badgeContainer.innerHTML += renderBadge(badge.color, badge.initials);
-        });
-    } else {
-        removeStyle(checkboxContent, customCheckbox);
-        badgeArry = badgeArry.filter(
-            (badge) => badge.initials !== initials || badge.color !== color
-        );
-        badgeContainer.innerHTML = "";
-        badgeArry.forEach((badge) => {
-            badgeContainer.innerHTML += renderBadge(badge.color, badge.initials);
-        });
-    }
+  if (event.target.checked) {
+    badgeArry.push({ initials: initials, color: color });
+    updateStyle(checkboxContent, customCheckbox);
+    badgeContainer.innerHTML = "";
+    badgeArry.forEach((badge) => {
+      badgeContainer.innerHTML += renderBadge(badge.color, badge.initials);
+    });
+  } else {
+    removeStyle(checkboxContent, customCheckbox);
+    badgeArry = badgeArry.filter(
+      (badge) => badge.initials !== initials || badge.color !== color
+    );
+    badgeContainer.innerHTML = "";
+    badgeArry.forEach((badge) => {
+      badgeContainer.innerHTML += renderBadge(badge.color, badge.initials);
+    });
+  }
 }
 
 /**
@@ -76,9 +75,9 @@ function checkt(event, initials, color, id) {
  * @param {HTMLElement} customCheckbox - The custom checkbox element.
  */
 function updateStyle(checkboxContent, customCheckbox) {
-    checkboxContent.style.backgroundColor = "var(--checkt)";
-    checkboxContent.style.color = "white";
-    customCheckbox.src = "/assets/icons/check-button-checked-white.svg"; 
+  checkboxContent.style.backgroundColor = "var(--checkt)";
+  checkboxContent.style.color = "white";
+  customCheckbox.src = "/assets/icons/check-button-checked-white.svg";
 }
 
 /**
@@ -87,29 +86,29 @@ function updateStyle(checkboxContent, customCheckbox) {
  * @param {HTMLElement} customCheckbox - The custom checkbox element.
  */
 function removeStyle(checkboxContent, customCheckbox) {
-    checkboxContent.style.backgroundColor = ""; 
-    checkboxContent.style.color = "";
-    customCheckbox.src = "/assets/icons/check-button-unchecked.svg";
+  checkboxContent.style.backgroundColor = "";
+  checkboxContent.style.color = "";
+  customCheckbox.src = "/assets/icons/check-button-unchecked.svg";
 }
 
 /**
  * Toggles the visibility of the checkboxes.
  */
 function showCheckboxes() {
-    const checkboxes = document.getElementById("checkboxes");
-    const badgeContainer = document.getElementById("badge-Container");
+  const checkboxes = document.getElementById("checkboxes");
+  const badgeContainer = document.getElementById("badge-Container");
 
-    if (!expanded) {
-        badgeContainer.style.display = "none";
-        checkboxes.style.display = "flex";
-        checkboxes.style.flexDirection = "column";
-        expanded = true;
-    } else {
-        badgeContainer.style.display = "flex";
-        checkboxes.style.display = "none";
-        expanded = false;
-    }
-    changeDropdownIconAssign(expanded);
+  if (!expanded) {
+    badgeContainer.style.display = "none";
+    checkboxes.style.display = "flex";
+    checkboxes.style.flexDirection = "column";
+    expanded = true;
+  } else {
+    badgeContainer.style.display = "flex";
+    checkboxes.style.display = "none";
+    expanded = false;
+  }
+  changeDropdownIconAssign(expanded);
 }
 
 /**
@@ -129,11 +128,11 @@ function render(renderArry) {
  */
 function handleEmptyContacts(renderArry, assaigtList) {
   if (renderArry.length == 0) {
-      assaigtList.innerHTML = renderEmptyContacts();
+    assaigtList.innerHTML = renderEmptyContacts();
   } else {
-      for (let index = 0; index < renderArry.length; index++) {
-          assaigtList.innerHTML += contactsTemlates(renderArry, index);
-      }
+    for (let index = 0; index < renderArry.length; index++) {
+      assaigtList.innerHTML += contactsTemlates(renderArry, index);
+    }
   }
 }
 
@@ -141,8 +140,8 @@ function handleEmptyContacts(renderArry, assaigtList) {
  * Fetches the contact data asynchronously and populates the contact array.
  */
 async function fetchContacts() {
-    let allData = await getAllData(); 
-    arrayContacts(allData.contacts); 
+  let allData = await getAllData();
+  arrayContacts(allData.contacts);
 }
 
 /**
@@ -150,32 +149,34 @@ async function fetchContacts() {
  * @param {Object} contactObject - Object containing contact data.
  */
 function arrayContacts(contactObject) {
-    for (const [key, value] of Object.entries(contactObject)) {
-      contactsArray.push({ id: key, ...value });
-    }
-    contactsArray.sort((a, b) => a.name.localeCompare(b.name));
+  for (const [key, value] of Object.entries(contactObject)) {
+    contactsArray.push({ id: key, ...value });
+  }
+  contactsArray.sort((a, b) => a.name.localeCompare(b.name));
 }
 
 /**
  * Resets the contact selection and UI to the default state.
  */
 function resetContacts() {
-    badgeArry.splice(0, badgeArry.length);
-    const badgeContainer = document.getElementById("badge-Container");
-    badgeContainer.innerHTML = "";
-    const filterInput = document.getElementById("assigned");
-    if (filterInput) filterInput.value = "";
-    const checkboxes = document.querySelectorAll("#checkboxes input[type='checkbox']");
-    checkboxes.forEach((checkbox) => {
-      checkbox.checked = false;
-      const checkboxContent = checkbox.closest(".checkbox-content");
-      const customCheckbox = document.getElementById(checkbox.id);
-      if (checkboxContent && customCheckbox) {
-        removeStyle(checkboxContent, customCheckbox);
-      }
-    });
-    expanded = true;
-    showCheckboxes();
+  badgeArry.splice(0, badgeArry.length);
+  const badgeContainer = document.getElementById("badge-Container");
+  badgeContainer.innerHTML = "";
+  const filterInput = document.getElementById("assigned");
+  if (filterInput) filterInput.value = "";
+  const checkboxes = document.querySelectorAll(
+    "#checkboxes input[type='checkbox']"
+  );
+  checkboxes.forEach((checkbox) => {
+    checkbox.checked = false;
+    const checkboxContent = checkbox.closest(".checkbox-content");
+    const customCheckbox = document.getElementById(checkbox.id);
+    if (checkboxContent && customCheckbox) {
+      removeStyle(checkboxContent, customCheckbox);
+    }
+  });
+  expanded = true;
+  showCheckboxes();
 }
 
 /**
@@ -183,48 +184,48 @@ function resetContacts() {
  * @param {boolean} isExpanded - The state of the dropdown.
  */
 function changeDropdownIconAssign(isExpanded) {
-    const icon = document.getElementById("arrow-drop-down");
-    if (isExpanded) {
-        icon.src = "/assets/icons/arrow_drop_downaa-up.svg";
-    } else {
-        icon.src = "/assets/icons/arrow-drop-down.svg";
-    }
+  const icon = document.getElementById("arrow-drop-down");
+  if (isExpanded) {
+    icon.src = "/assets/icons/arrow_drop_downaa-up.svg";
+  } else {
+    icon.src = "/assets/icons/arrow-drop-down.svg";
+  }
 }
 
 /**
  * Resets the dropdown icon to its default state.
  */
-function resetIconAssign(){
-    const icon = document.getElementById("arrow-drop-down");
-    icon.src = "/assets/icons/arrow-drop-down.svg";
-    icon.classList.remove("dropdown-icon-up");
+function resetIconAssign() {
+  const icon = document.getElementById("arrow-drop-down");
+  icon.src = "/assets/icons/arrow-drop-down.svg";
+  icon.classList.remove("dropdown-icon-up");
 }
 
 /**
  * Adjusts the placeholder text based on screen size.
  */
-document.addEventListener('DOMContentLoaded', function() {
-    const inputElement = document.getElementById('assigned');
-    const mediaQuery853 = window.matchMedia('(min-width: 853px)');
-    const mediaQuery918 = window.matchMedia('(max-width: 918px)');
+document.addEventListener("DOMContentLoaded", function () {
+  const inputElement = document.getElementById("assigned");
+  const mediaQuery853 = window.matchMedia("(min-width: 853px)");
+  const mediaQuery918 = window.matchMedia("(max-width: 918px)");
 
-    mediaQuery853.addEventListener('change', () => {
-      updatePlaceholder();
-    });
-
-    mediaQuery918.addEventListener('change', () => {
-      updatePlaceholder();
-    });
-
-    /**
-     * Updates the placeholder text based on media queries.
-     */
-    function updatePlaceholder() {
-      if (mediaQuery853.matches && mediaQuery918.matches) {
-        inputElement.placeholder = "Select contacts";
-      } else {
-        inputElement.placeholder = "Select contacts to assign";
-      }
-    }
+  mediaQuery853.addEventListener("change", () => {
     updatePlaceholder();
+  });
+
+  mediaQuery918.addEventListener("change", () => {
+    updatePlaceholder();
+  });
+
+  /**
+   * Updates the placeholder text based on media queries.
+   */
+  function updatePlaceholder() {
+    if (mediaQuery853.matches && mediaQuery918.matches) {
+      inputElement.placeholder = "Select contacts";
+    } else {
+      inputElement.placeholder = "Select contacts to assign";
+    }
+  }
+  updatePlaceholder();
 });

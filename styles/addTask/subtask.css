@@ -1,69 +1,93 @@
-.subtask{
-    position: relative;
-  }
+.subtask {
+  position: relative;
+}
 
-  ul{
-    position: relative;
-  }
-  .list-styl {
-    list-style: none; 
-    padding-left: 0; 
-  }
-  
-  .list-styl li {
-    flex-wrap: wrap;
-    margin-bottom: 5px;
-    padding: 10px 40px;
-    border-radius: 10px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-  
-    
-  }
-  
-  .list-styl li::before {
-    content: '•'; 
-    position: absolute; 
-    color: black; 
-    
-    
-   
-  }
-  .list-container{
-    padding-left: 15px;
-    justify-content: space-between; 
-    width: 100%;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  
-  .option-container {
-    display: flex; 
-    opacity: 0; 
-    visibility: hidden; 
-    transition: opacity 0.3s ease, visibility 0.3s ease; 
-  }
-  
-  .subtask li:hover .option-container {
-    opacity: 1; 
-    visibility: visible; 
-  }
-  
-  .option-container img:hover {
-    display: flex;
-  }
-  
-  .list-styl li:hover{
-    background-color: var(--hover);
-    transition: all 0.3s ease;
-  }
-  
-  
-  .task-text {
-    flex: 1; 
-    white-space: normal; 
-    overflow-wrap: anywhere; 
-  }
-  
+.subtask input {
+  padding-right: 65px;
+}
+
+.subtask-list-container {
+  max-height: 105px;
+  overflow-y: auto;
+  position: relative;
+}
+
+ul {
+  position: relative;
+}
+
+#subtask-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.subtask-list-container li {
+  flex-wrap: wrap;
+  padding: 5px 40px;
+  border-radius: 10px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.task-text {
+  margin-right: 10px;
+}
+.subtask-list-container li::before {
+  content: "•";
+  position: absolute;
+  color: black;
+}
+.list-container {
+  padding-left: 15px;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.option-container {
+  display: flex;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.subtask li:hover .option-container {
+  opacity: 1;
+  visibility: visible;
+  cursor: pointer;
+}
+
+.option-container img:hover {
+  display: flex;
+}
+
+.subtask-list-container li:hover {
+  background-color: var(--hover);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.task-text {
+  flex: 1;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.subtask-list-container::-webkit-scrollbar {
+  width: 10px;
+  border: 5px solid #f6f7f8;
+}
+
+.subtask-list-container::-webkit-scrollbar-track {
+  background-color: #f4f4f4;
+  border-radius: 6px;
+  margin-bottom: 40px;
+}
+
+.subtask-list-container::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 6px;
+  background-clip: padding-box;
+  border: 0.05em solid #eeeeee;
+}

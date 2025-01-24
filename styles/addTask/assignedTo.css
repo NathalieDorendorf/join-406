@@ -87,6 +87,7 @@
 .render-container {
   max-height: 200px;
   overflow-y: scroll;
+  overflow-y: auto;
   z-index: 2;
 }
 
@@ -96,16 +97,16 @@
 }
 
 .render-container::-webkit-scrollbar-track {
-  background-color: #f4f4f4;
+  background-color: white;
   border-radius: 6px;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
 }
 
 .render-container::-webkit-scrollbar-thumb {
   background-color: #888;
   border-radius: 6px;
   background-clip: padding-box;
-  border: 0.05em solid #eeeeee;
+  border: 0.05em solid white;
 }
 
 .custom-checkbox {
