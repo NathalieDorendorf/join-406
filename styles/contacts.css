@@ -274,6 +274,16 @@
     }
 }
 
+@media (max-width: 1200px) {
+    .h1-responsive {
+        font-size: 44px;
+    }
+
+    .h4-responsive {
+        font-size: 19px;
+    }
+}
+
 @media (min-width: 1025px) {
     .btn-mobile {
         display: none;
@@ -288,10 +298,6 @@
     }
 
     .button-contacts-white {
-        display: none;
-    }
-
-    #contactDetailsOverlay {
         display: none;
     }
 }
