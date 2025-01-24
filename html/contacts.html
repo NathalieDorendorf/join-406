@@ -31,7 +31,7 @@
                 <p>Der Header konnte nicht geladen werden.</p>
             </div>
             <section class="section-contacts">
-                <div class="contacts-container">
+                <div class="contacts-container" id="contactsContainer">
                     <button class="button add-new-contact-btn-desktop" onclick="openOverlay(renderAddContactOverlay(),'fly-in-from-right', 'fly-out-to-right')">Add new
                         contact <img src="/assets/icons/person_add.svg" alt="add new contact"></button>
                     <div id="contactList" class="contact-list-container">
@@ -50,7 +50,7 @@
 
                     </div>
                 </div>
-                <div id="contactDetailsOverlay" class="contact-details-overlay">
+                <div id="contactDetailsOverlay" style="display: none;">
 
                 </div>
             </section>

@@ -218,6 +218,8 @@ textarea {
     height: unset;
     background-color: unset;
     position: unset;
+    height: 150px;
+    overflow-y: auto;
 }
 
 .written-subtask .ui-icon-wrapper:hover,

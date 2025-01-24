@@ -27,7 +27,7 @@ function renderTask(id, task) {
         <div id=${id} class="card light-box-shadow draggable" onclick="openTaskDetailView(this)" draggable="true">
             <div class="fr jcac sb">
                 <div class="card-tag ${getTagBackground(task)}">${task.category}</div>
-                <div class="ui-icon-wrapper" onclick="openMoveTaskOverlay(event, '${id}')">
+                <div class="move-task-btn-wrapper ui-icon-wrapper" onclick="openMoveTaskOverlay(event, '${id}')">
                     <img src="/assets/icons/move-task.svg" alt="Button: Move task to different state" class="move-task-btn" >
                 </div>
             </div>

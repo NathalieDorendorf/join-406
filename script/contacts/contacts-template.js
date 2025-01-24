@@ -36,15 +36,15 @@ function generateContactsDetailsDesktopHTML(contact, phoneNumber) {
 
 function generateContactsDetailsMobileHTML(contact, phoneNumber) {
     return `
-        <header class="section-header">
-            <div class="d-flex-sb-c">
-                <h1>Contacts</h1>
+        <header class="">
+            <div class="fc sb gap-8">
+                <h1 class="h1-responsive">Contacts</h1>
+                <h4 class="h4-responsive">Better with a team</h4>
                 <div class="sideline-blue"></div>
-                <h4>Better with a team</h4>
             </div>
-            <button onclick="closeContactDetailsOverlay()"><img src="/assets/icons/arrow-left.svg" alt="back"></button>
+            <button class="button-contacts" onclick="closeContactDetailsOverlay()"><img src="/assets/icons/arrow-left.svg" alt="back"></button>
         </header>
-        <div class="d-flex gap-24">
+        <div class="initials-name-container">
             <div class="initials-circle-big" style="background-color: var(${contact.color});">
                 ${contact.initials}
             </div>
@@ -61,7 +61,7 @@ function generateContactsDetailsMobileHTML(contact, phoneNumber) {
         <a href="mailto:${contact.mail}">${contact.mail}</a>
         <h3>Phone</h3>
         ${phoneNumber ? `<a href="tel:${phoneNumber}">${phoneNumber}</a>` : ""}
-        <button class="button btn-mobile" onclick="showLittleMenu()"><img src="/assets/icons/three-dots.svg" alt="menu"</button>
+        <button class="button btn-mobile-little-menu" onclick="showLittleMenu()"><img src="/assets/icons/three-dots.svg" alt="menu"</button>
     `;
 }
 
