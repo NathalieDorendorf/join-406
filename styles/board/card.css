@@ -28,6 +28,10 @@
     background-color: #1FD7C1;
 }
 
+.move-task-btn-wrapper {
+    display: none;
+}
+
 .move-task-btn {
     display: none;
     width: 24px;
@@ -35,6 +39,7 @@
 }
 
 .card-title {
+    word-break: break-word;
     font-weight: 700;
     color: var(--primary-blue);
 }
@@ -91,6 +96,10 @@
 }
 
 @media (max-width: 1437px) {
+    .move-task-btn-wrapper {
+        display: flex;
+    }
+
     .move-task-btn {
         display: block;
     }
