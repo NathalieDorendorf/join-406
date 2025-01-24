@@ -1,19 +1,32 @@
 /**
  * Shows logo-animation, when page is loaded
  */
-(showLogoAnimation = document.addEventListener('DOMContentLoaded', () => {
-    if (window.innerWidth > 768) { // media-breakpoint, where logo is display: none
-        const overlay = document.createElement('div');
+document.addEventListener('DOMContentLoaded', () => {
+    const overlay = document.createElement('div');
+    if (window.innerWidth <= 768) {
+        overlay.classList.add('animation-overlay-dark');
+        const logo = document.querySelector('.logo-little');
+        logo.remove();
+        document.body.insertAdjacentElement('afterbegin', logo);
+        showAnimation('animate-mobile');
+        logo.addEventListener('animationend', () => {
+            document.querySelector('main').style.marginTop = '0px';
+            logo.classList.add('logo-relative');
+        });
+    } else {
+        showAnimation('animate');
+    }
+
+    function showAnimation(animationClass) {
         overlay.classList.add('animation-overlay');
         document.body.appendChild(overlay);
         document.body.style.visibility = 'visible';
         const logo = document.querySelector('.logo-little');
-        logo.classList.add('animate');
+        logo.classList.add(animationClass);
         overlay.classList.add('close-overlay');
         overlay.addEventListener('animationend', () => overlay.classList.add('dni'));
     }
-    document.body.style.visibility = 'visible';
-}));
+});
 
 /**
  * Extracts the message parameter from the URL and displays it in the message box.

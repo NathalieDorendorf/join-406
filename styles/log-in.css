@@ -46,8 +46,16 @@
     z-index: 10;
 }
 
+.animation-overlay-dark {
+    background-color: var(--primary-blue);
+}
+
 .animate {
     animation: shrinkToLeft 1000ms ease-in-out forwards;
+}
+
+.animate-mobile {
+    animation: shrinkToLeftMobile 1000ms ease-in-out forwards;
 }
 
 .close-overlay {
@@ -73,20 +81,60 @@
     }
 }
 
+@keyframes shrinkToLeftMobile {
+
+    0%,
+    50% {
+        content: url('/assets/icons/join-logo-white.svg');
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(200%);
+        z-index: 11;
+    }
+
+    100% {
+        content: url('/assets/icons/join-logo.svg');
+        position: absolute;
+        top: 32px;
+        left: 32px;
+        z-index: 11;
+        transform: scale(0.8);
+    }
+}
+
 @keyframes closeAnimation {
     100% {
         opacity: 0;
     }
 }
 
-@media(max-width: 768px){
+@media(max-width: 768px) {
+    .login-page .section-pad {
+        padding: 24px 8px;
+    }
+
     .login-page header {
         order: 1;
+        margin: auto;
     }
+
     .login-page footer {
         order: 3;
     }
 
+    .login-page main {
+        margin-top: 122px;
+        padding: 64px 24px;
+    }
+
+    .login-page .logo-little {
+        display: block;
+    }
+
+    .logo-relative {
+        position: relative !important;
+    }
 }
 
 @media(max-width: 600px) {
@@ -113,7 +161,7 @@
         width: 100%;
     }
 
-    form{
+    form {
         width: 80%;
     }
 }
@@ -139,15 +187,7 @@
 
 }
 
-@media(max-width: 435px) {
-
-    main {
-        padding: 32px;
-    }
-}
-
 @media(max-width: 400px) {
-
     .errorText {
         text-align: center;
         padding: 0px 5px 0px 5px;
