@@ -1,5 +1,3 @@
-// const phoneRegex = /^[+]?(\d{1,4})?[-.\s]?(\(?\d{1,3}\)?)[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/;
-
 const contactColors = [
     "--contact-color-orange",
     "--contact-color-pink",
@@ -26,6 +24,7 @@ async function initContacts() {
     allData = await getAllData();
     await loadContacts();
     renderContacts();
+    handleResponsiveView();
 }
 
 async function loadContacts() {
@@ -97,93 +96,110 @@ function createContactElement(contact) {
 
 function handleContactClick(contact) {
     if (window.innerWidth < 1025) {
-        showContactDetailsOverlay(contact);
-    } else {
-        showContactDetails(contact);
+        renderHeaderResponsive();
     }
+    showContactDetails(contact);
 }
 
 function showContactDetails(contact) {
-    const detailsContainer = document.getElementById("contactDetails");
-
-    // Wenn derselbe Kontakt erneut geklickt wird
-    if (activeContactId === contact.firebaseId) {
-        // Hintergrundfarbe und Stile entfernen
-        const activeElement = document.getElementById(activeContactId);
-        if (activeElement) {
-            activeElement.style.backgroundColor = "";
-            activeElement.style.color = ""; // Schriftfarbe zurücksetzen
-            const initialsCircle = activeElement.querySelector(".initials-circle");
-            if (initialsCircle) initialsCircle.style.border = "";
-        }
-
-        // Detailansicht ausblenden
-        if (detailsContainer) {
-            detailsContainer.classList.remove("slide-in");
-            detailsContainer.classList.add("slide-out");
-            detailsContainer.classList.remove("slide-out");
-            detailsContainer.style.display = "none";
-        }
-
-        activeContactId = null; // Aktiver Kontakt zurücksetzen
+    if (isSameContactClicked(contact)) {
+        resetActiveContact();
+        hideDetailsView();
         return;
     }
 
-    // Entfernt die Hintergrundfarbe und Stile vom vorherigen Kontakt
-    if (activeContactId) {
-        const previousActive = document.getElementById(activeContactId);
-        if (previousActive) {
-            previousActive.style.backgroundColor = "";
-            previousActive.style.color = ""; // Schriftfarbe zurücksetzen
-            const previousInitialsCircle = previousActive.querySelector(".initials-circle");
-            if (previousInitialsCircle) previousInitialsCircle.style.border = "";
-        }
-    }
+    resetPreviousContact();
+    highlightActiveContact(contact);
+    displayContactDetails(contact);
+}
 
-    // Setzt die Hintergrundfarbe, Schriftfarbe und Rand für den neuen Kontakt
+function isSameContactClicked(contact) {
+    return activeContactId === contact.firebaseId;
+}
+
+function resetActiveContact() {
+    const activeElement = document.getElementById(activeContactId);
+    if (activeElement) {
+        resetStyles(activeElement);
+    }
+    activeContactId = null;
+}
+
+function hideDetailsView() {
+    const detailsContainer = document.getElementById("contactDetails");
+    if (detailsContainer) {
+        detailsContainer.classList.remove("slide-in");
+        detailsContainer.classList.add("slide-out");
+        detailsContainer.style.display = "none";
+    }
+}
+
+function resetPreviousContact() {
+    if (!activeContactId) return;
+    const previousActive = document.getElementById(activeContactId);
+    if (previousActive) {
+        resetStyles(previousActive);
+    }
+}
+
+function resetStyles(element) {
+    element.style.backgroundColor = "";
+    element.style.color = "";
+    const initialsCircle = element.querySelector(".initials-circle");
+    if (initialsCircle) initialsCircle.style.border = "";
+}
+
+function highlightActiveContact(contact) {
     const contactElement = document.getElementById(contact.firebaseId);
     if (contactElement) {
         contactElement.style.backgroundColor = "var(--primary-blue)";
-        contactElement.style.color = "white"; // Schriftfarbe auf Weiß setzen
+        contactElement.style.color = "white";
         const initialsCircle = contactElement.querySelector(".initials-circle");
         if (initialsCircle) initialsCircle.style.border = "2px solid var(--bg-white)";
     }
     activeContactId = contact.firebaseId;
+}
 
-    // Details in das Detail-Div einfügen und einblenden
+function displayContactDetails(contact) {
+    const detailsContainer = document.getElementById("contactDetails");
     if (detailsContainer) {
-        detailsContainer.innerHTML = generateContactsDetailsDesktopHTML(contact, contact.phone || "");
-        detailsContainer.style.display = "block"; // Sicherstellen, dass es sichtbar ist
+        detailsContainer.innerHTML = generateContactsDetailsHTML(contact, contact.phone || "");
+        detailsContainer.style.display = "flex";
         detailsContainer.classList.remove("slide-out");
         detailsContainer.classList.add("slide-in");
     }
 }
 
-function showContactDetailsOverlay(contact) {
-    const contactsList = document.getElementById('contactsContainer');
-    const overlayContainer = document.getElementById("contactDetailsOverlay");
-
-    if (!overlayContainer) return;
-
-    // Details in das Overlay einfügen
-    overlayContainer.innerHTML = generateContactsDetailsMobileHTML(contact, contact.phone || "");
-
-    // Overlay anzeigen und Animation starten
-    contactsList.classList.add("d-none");
-    overlayContainer.style.display = "flex";
-    overlayContainer.classList.remove("slide-out-bottom");
-    overlayContainer.classList.add("slide-in-bottom");
+function handleResponsiveView() {
+    if (window.innerWidth < 1025) {
+        if (activeContactId) showResponsiveView();
+    } else {
+        showDesktopView();
+    }
 }
 
-function closeContactDetailsOverlay() {
-    const contactsList = document.getElementById('contactsContainer');
-    const overlayContainer = document.getElementById("contactDetailsOverlay");
-    if (!overlayContainer) return;
-    overlayContainer.classList.remove("slide-in-bottom");
-    overlayContainer.classList.add("slide-out-bottom");
-    contactsList.classList.remove("d-none");
-    overlayContainer.style.display = "none";
-    overlayContainer.classList.remove("slide-out-bottom");
+window.addEventListener("resize", handleResponsiveView);
+
+function showResponsiveView() {
+    renderHeaderResponsive();
+    console.log("Switching to responsive view");
+    document.querySelector(".contacts-container").style.display = "none";
+    const contactDetailsContainer = document.querySelector(".contact-details-container");
+    if (contactDetailsContainer) {
+        contactDetailsContainer.style.width = "100%";
+        contactDetailsContainer.style.display = "flex";
+    }
+}
+
+function showDesktopView() {
+    renderHeader();
+    console.log("Switching to desktop view");
+    document.querySelector(".contacts-container").style.display = "flex";
+    const contactDetailsContainer = document.querySelector(".contact-details-container");
+    if (contactDetailsContainer) {
+        contactDetailsContainer.style.width = "";
+        contactDetailsContainer.style.display = "flex";
+    }
 }
 
 async function addNewContact(event) {
@@ -201,7 +217,6 @@ async function addNewContact(event) {
         showToastMessage({ message: "Contact successfully created" });
     }
 }
-
 
 function getContactFormData() {
     return {
@@ -304,36 +319,26 @@ async function updateContactInFirebase(firebaseId, contact) {
 }
 
 async function deleteContact(firebaseId) {
-    // Lösche den Kontakt aus der Datenbank
     const response = await fetch(`${BASE_URL}/contacts/${firebaseId}.json`, {
         method: 'DELETE'
     });
     if (!response.ok) throw new Error('Failed to delete contact');
 
-    // Initialisiere die Kontakte erneut
     await initContacts();
 
-    // Entferne die Kontakt-ID aus den 'assignedTo'-Listen aller Aufgaben und aktualisiere die Datenbank
     const tasksToUpdate = [];
     Object.keys(allData.tasks).forEach(taskId => {
         const task = allData.tasks[taskId];
         if (task.assignedTo.includes(firebaseId)) {
-            // Entferne die Kontakt-ID aus der Liste
             task.assignedTo = task.assignedTo.filter(contactId => contactId !== firebaseId);
-            tasksToUpdate.push(taskId); // Markiere die Aufgabe zum Update
+            tasksToUpdate.push(taskId);
         }
     });
-
-    // Aktualisiere die betroffenen Tasks in der Datenbank
     for (const taskId of tasksToUpdate) {
         await updateTaskInDatabase(taskId);
     }
-
-    // Aktualisiere den UI-Bereich der Kontakt-Details
     const detailsContainer = document.getElementById("contactDetails");
     detailsContainer.innerHTML = "";
-
-    // Schließe das Overlay
     closeContactDetailsOverlay();
 }
 

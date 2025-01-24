@@ -118,7 +118,7 @@ a:hover {
 }
 
 .section-pad {
-    padding: 16px 50px;
+    padding: 32px;
 }
 
 .section-gap {
@@ -185,16 +185,12 @@ a:hover {
 
 
 @media (max-width:1440px) and (min-width:1025px) {
-
-
     .section-gap {
         gap: 32px;
     }
 }
 
 @media (max-width:1920px) and (min-width:1441px) {
-
-
     .section-gap {
         gap: 64px;
     }
@@ -202,7 +198,7 @@ a:hover {
 
 @media (min-width:1921px) {
     .section-pad {
-         max-width: 1920px;
+        max-width: 1920px;
     }
 
     .section-gap {

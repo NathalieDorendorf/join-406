@@ -57,6 +57,7 @@
 .contacts-details-container {
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .contacts-container li {
@@ -70,7 +71,6 @@
 .contacts-container .underline-letter {
     border-bottom: 1px solid var(--color-light-gray);
     padding: 16px 32px;
-    min-width: 320px;
 }
 
 .contact-info-container {
@@ -142,11 +142,10 @@
 }
 
 #contactDetails {
-    top: 0;
-    right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
     width: 100%;
-    max-width: 400px;
-    height: 100%;
     transform: translateX(100%);
     transition: transform 0.3s ease-in-out;
 }
@@ -157,29 +156,6 @@
 
 #contactDetails.slide-out {
     transform: translateX(200%);
-}
-
-#contactDetailsOverlay {
-    width: 100%;
-    height: 100%;
-    padding: 24px;
-    gap: 24px;
-    flex-direction: column;
-    transform: translateY(100%);
-    opacity: 0;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    display: none;
-}
-
-#contactDetailsOverlay.slide-in-bottom {
-    transform: translateY(0);
-    opacity: 1;
-    display: flex;
-}
-
-#contactDetailsOverlay.slide-out-bottom {
-    transform: translateY(100%);
-    opacity: 0;
 }
 
 .initials-name-container {
@@ -196,6 +172,18 @@
 }
 
 .button-contacts {
+    border: unset;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+}
+
+.button-contacts-back {
+    position: absolute;
+    right: 24px;
     border: unset;
     background-color: transparent;
     display: flex;
@@ -274,16 +262,6 @@
     }
 }
 
-@media (max-width: 1200px) {
-    .h1-responsive {
-        font-size: 44px;
-    }
-
-    .h4-responsive {
-        font-size: 19px;
-    }
-}
-
 @media (min-width: 1025px) {
     .btn-mobile {
         display: none;
@@ -303,10 +281,6 @@
 }
 
 @media (max-width: 1024px) {
-    .contacts-details-container {
-        display: none;
-    }
-
     .contacts-container {
         width: 100%;
         overflow-y: auto;
@@ -399,6 +373,10 @@
 @media (max-width: 480px) {
     .contacts-container li {
         padding: 0;
+    }
+
+    .contact-list-container {
+        width: 300px;
     }
 
     .contact-info-container {

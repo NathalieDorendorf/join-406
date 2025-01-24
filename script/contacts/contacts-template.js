@@ -12,9 +12,33 @@ function generateContactsHTML(contact) {
     `;
 }
 
-function generateContactsDetailsDesktopHTML(contact, phoneNumber) {
+function renderHeader() {
+    let header = document.getElementById('header');
+    header.innerHTML = '';
+    header.innerHTML = `
+        <h1>Contacts</h1>
+        <div class="sideline-blue"></div>
+        <h4>Better with a team</h4>
+    `;
+}
+
+function renderHeaderResponsive() {
+    let header = document.getElementById('header');
+    header.innerHTML = '';
+    header.innerHTML = `
+        <div class="fc sb gap-8">
+            <h1 class="h1-responsive">Contacts</h1>
+            <h4 class="h4-responsive">Better with a team</h4>
+            <div class="sideline-blue"></div>
+        </div>
+        <button class="button-contacts-back" onclick="closeContactOverlay()"><img src="/assets/icons/arrow-left.svg" alt="back"></button>
+        <button class="button btn-mobile-little-menu" onclick="showLittleMenu()"><img src="/assets/icons/three-dots.svg" alt="menu"</button>
+    `;
+}
+
+function generateContactsDetailsHTML(contact, phoneNumber) {
     return `
-        <div class="d-flex gap-24">
+        <div class="initials-name-container">
             <div class="initials-circle-big" style="background-color: var(${contact.color});">
                 ${contact.initials}
             </div>
@@ -31,37 +55,6 @@ function generateContactsDetailsDesktopHTML(contact, phoneNumber) {
         <a href="mailto:${contact.mail}">${contact.mail}</a>
         <h3>Phone</h3>
         ${phoneNumber ? `<a href="tel:${phoneNumber}">${phoneNumber}</a>` : ""}
-    `;
-}
-
-function generateContactsDetailsMobileHTML(contact, phoneNumber) {
-    return `
-        <header class="">
-            <div class="fc sb gap-8">
-                <h1 class="h1-responsive">Contacts</h1>
-                <h4 class="h4-responsive">Better with a team</h4>
-                <div class="sideline-blue"></div>
-            </div>
-            <button class="button-contacts" onclick="closeContactDetailsOverlay()"><img src="/assets/icons/arrow-left.svg" alt="back"></button>
-        </header>
-        <div class="initials-name-container">
-            <div class="initials-circle-big" style="background-color: var(${contact.color});">
-                ${contact.initials}
-            </div>
-            <div class="name-container">
-                <h2>${contact.name}</h2>
-                <div class="d-flex gap-8">
-                    <button class="button-contacts" onclick="openOverlay(renderEditContactOverlay('${contact.firebaseId}'),'fly-in-from-right', 'fly-out-to-right')"><img src="/assets/icons/edit-blue.svg" alt="edit">Edit</button>
-                    <button class="button-contacts" onclick="deleteContact('${contact.firebaseId}')"><img src="/assets/icons/delete-blue.svg" alt="delete">Delete</button>
-                </div>
-            </div>
-        </div>
-        <h2>Contact Information</h2>
-        <h3>Email</h3>
-        <a href="mailto:${contact.mail}">${contact.mail}</a>
-        <h3>Phone</h3>
-        ${phoneNumber ? `<a href="tel:${phoneNumber}">${phoneNumber}</a>` : ""}
-        <button class="button btn-mobile-little-menu" onclick="showLittleMenu()"><img src="/assets/icons/three-dots.svg" alt="menu"</button>
     `;
 }
 
