@@ -118,7 +118,7 @@ a:hover {
 }
 
 .section-pad {
-    padding: 48px 24px;
+    padding: 16px 50px;
 }
 
 .section-gap {
@@ -182,20 +182,10 @@ a:hover {
     }
 }
 
-@media (max-width: 1024px) and (min-width: 769px) {
-    .section_pad {
-        padding: 48px 64px 32px;
-    }
 
-    .section_gap {
-        gap: 32px;
-    }
-}
 
 @media (max-width:1440px) and (min-width:1025px) {
-    .section-pad {
-        padding: 48px 64px 32px;
-    }
+
 
     .section-gap {
         gap: 32px;
@@ -203,9 +193,7 @@ a:hover {
 }
 
 @media (max-width:1920px) and (min-width:1441px) {
-    .section-pad {
-        padding: 48px 100px 32px;
-    }
+
 
     .section-gap {
         gap: 64px;
@@ -214,8 +202,7 @@ a:hover {
 
 @media (min-width:1921px) {
     .section-pad {
-        /* calculation: (100% - 1920px)/2 = 50% - 960px */
-        padding: 64px max(160px, calc(50% - 960px));
+         max-width: 1920px;
     }
 
     .section-gap {

@@ -5,11 +5,11 @@
 }
 
 .summary-container {
+
   display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 100%;
-  padding: 16px 0;
+   justify-content: flex-start;
+   width: 100%;
+   padding: 16px 0;
 }
 
 .summary-content {
@@ -149,6 +149,7 @@
 .summary-greetings {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 12px;
 }
 
@@ -182,6 +183,9 @@
 }
 
 #greeting {
+  margin-right: auto;
+  margin-left: auto;
+  white-space: nowrap;
     opacity: 1;
     transition: opacity 1s ease-in-out;
 }
@@ -197,7 +201,7 @@
   }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1140px) {
   .summary-greetings {
     display: none;
   }
