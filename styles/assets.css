@@ -273,6 +273,14 @@ textarea:focus {
     animation: flyOutToRight 200ms ease-out forwards;
 }
 
+.fly-in-from-bottom {
+    animation: flyInFromBottom 200ms ease-out;
+}
+
+.fly-out-to-bottom {
+    animation: flyOutToBottom 200ms ease-out forwards;
+}
+
 .overlay:has(.fly-in-from-right, .fly-out-to-right) {
     overflow-x: hidden;
 }
@@ -286,7 +294,6 @@ textarea:focus {
         transform: translateX(0%);
     }
 }
-
 
 @keyframes flyOutToRight {
     0% {
@@ -307,7 +314,6 @@ textarea:focus {
         transform: translateY(0%);
     }
 }
-
 
 @keyframes flyOutToBottom {
     0% {
