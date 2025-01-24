@@ -1,9 +1,13 @@
 const dataToSubmit = {};
 
 async function init() {
+  buttonDisabled(true); 
+
   includeHTML();
   await fetchContacts();
   render(contactsArray);
+
+  buttonDisabled(false); 
 }
 
 
@@ -221,6 +225,16 @@ async function fetchTask() {
       window.location.href = "/html/board.html";
     }, 1500);
   }
+}
+
+function buttonDisabled(isDisabled) {
+  const buttons = ['button-creat', 'button-clear']; 
+  buttons.forEach(id => {
+      const button = document.getElementById(id);
+      if (button) {
+          button.disabled = isDisabled; 
+      }
+  });
 }
 
 function resetForm() {
