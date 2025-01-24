@@ -207,7 +207,7 @@ function resetIconAssign() {
 document.addEventListener("DOMContentLoaded", function () {
   const inputElement = document.getElementById("assigned");
   const mediaQuery853 = window.matchMedia("(min-width: 853px)");
-  const mediaQuery918 = window.matchMedia("(max-width: 918px)");
+  const mediaQuery918 = window.matchMedia("(max-width: 964px)");
 
   mediaQuery853.addEventListener("change", () => {
     updatePlaceholder();
