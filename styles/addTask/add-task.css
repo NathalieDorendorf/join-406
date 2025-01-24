@@ -277,7 +277,7 @@ align-items: center;
 #button-creat:disabled, #button-clear:disabled {
   filter: grayscale(100%);
   cursor: not-allowed;
-  opacity: 0.8; 
+  opacity: 0.5; 
 }
 
 
