@@ -200,7 +200,7 @@ function getMatchingTasks(searchString) {
 function openTaskDetailView(currentElement) {
     const taskId = currentElement.id;
     const taskDetailView = renderTaskDetailView(taskId);
-    openOverlay(taskDetailView, 'fly-out-to-right');
+    openOverlay(taskDetailView, 'fly-in-from-right', 'fly-out-to-right');
 }
 
 /**
@@ -211,7 +211,7 @@ function openOverlayNewTask(state = 'to-do') {
     taskState = state;
     setDataForForm(taskToRestore);
     const addTaskOverlay = renderAddTaskOverlay();
-    openOverlay(addTaskOverlay, 'fly-out-to-right', closeAddTaskOverlay);
+    openOverlay(addTaskOverlay, 'fly-in-from-right', 'fly-out-to-right', closeAddTaskOverlay);
     turnOffFormSubmission(document.getElementById('ato-form'));
     fillForm(taskToRestore);
     adaptTextareaHeightToContent('ato-description');
@@ -225,7 +225,7 @@ function openOverlayNewTask(state = 'to-do') {
 function openMoveTaskOverlay(event, taskId) {
     event.stopPropagation();
     const moveTaskOverlay = renderMoveTaskOverlay(taskId);
-    openOverlay(moveTaskOverlay, 'fly-out-to-right');
+    openOverlay(moveTaskOverlay, 'fly-in-from-right', 'fly-out-to-right');
 }
 
 /**

@@ -5,11 +5,11 @@
 }
 
 .summary-container {
+
   display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 100%;
-  padding: 16px 0;
+   justify-content: flex-start;
+   width: 100%;
+   padding: 16px 0;
 }
 
 .summary-content {
@@ -149,6 +149,7 @@
 .summary-greetings {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 12px;
 }
 
@@ -182,6 +183,9 @@
 }
 
 #greeting {
+  margin-right: auto;
+  margin-left: auto;
+  white-space: nowrap;
     opacity: 1;
     transition: opacity 1s ease-in-out;
 }
@@ -191,72 +195,28 @@
     pointer-events: none;
 }
 
+@media (max-width:1440px) {
+  .summary-content {
+    width: 80%;
+  }
+}
 
-@media (max-width:480px) {
-  .summary-container {
-    flex-direction: column;
+@media (max-width: 1140px) {
+  .summary-greetings {
+    display: none;
   }
 
   .summary-content {
     width: 100%;
-    gap: 12px;
-    font-size: 14px;
-  }
-
-  .summary-date span {
-    font-size: 16px;
-  }
-
-  .summary-date p {
-    font-size: 14px;
-  }
-
-  .todo-container {
-    height: 100px;
-    gap: 14px;
-    padding: 0 12px;
-  }
-
-  .todo-icon {
-    height: 50px;
-    width: 50px;
-  }
-
-  .counts {
-    font-size: 44px;
-  }
-
-  .counts-container p {
-    font-size: 14px;
-  }
-
-  .urgent-container {
-    width: 100%;
-    height: 110px;
-    gap: 16px;
-    padding: 0 16px;
-  }
-
-  .urgent-container>div:first-child {
-    gap: 16px;
-  }
-
-  .todo-icon-urgent {
-    height: 55px;
-    width: 55px;
-  }
-
-  .tasks-container {
-    height: 100px;
   }
 
   .user-name {
-    font-size: 47px;
+    font-size: 54px;
   }
-  
+
 }
 
-@media (max-width: 768px) and (min-width: 481px) {
+@media (max-width: 768px) {
   .summary-container {
     flex-direction: column;
     padding: 24px 0 0;
@@ -316,20 +276,39 @@
 
 }
 
-@media (max-width: 1024px) and (min-width: 769px) {
+@media (max-width:480px) {
+  .summary-container {
+    flex-direction: column;
+  }
+
   .summary-content {
     width: 100%;
+    gap: 12px;
+    font-size: 14px;
   }
 
-  .user-name {
-    font-size: 54px;
+  .todo-container {
+    height: 100px;
+    gap: 14px;
+    padding: 0 12px;
   }
 
+  .counts {
+    font-size: 44px;
+  }
+
+  .urgent-container {
+    width: 100%;
+    height: 110px;
+    gap: 16px;
+    padding: 0 16px;
+  }
+
+  .urgent-container>div:first-child {
+    gap: 16px;
+  }
+
+  .tasks-container {
+    height: 100px;
+  }
 }
-
-@media (max-width:1440px) and (min-width:1025px) {
-  .summary-content {
-    width: 80%;
-  }
-}
-

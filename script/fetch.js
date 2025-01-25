@@ -1,3 +1,7 @@
+/**
+ * Base URL for the Firebase database.
+ * @constant {string}
+ */
 const BASE_URL = "https://join-gruppenarbeit-137ed-default-rtdb.europe-west1.firebasedatabase.app/";
 
 /**
@@ -5,15 +9,14 @@ const BASE_URL = "https://join-gruppenarbeit-137ed-default-rtdb.europe-west1.fir
  * @param {String} path - For example: 'users', 'contacts', 'tasks' or users/{id}...
  * @param {String} [httpMethod = GET] - 'GET', 'POST', 'PUT', 'PATCH', etc.
  * @param {Object} [data = 'undefined']
+ * @param {String} [queryString = '']
  * @returns {Object | boolean} - Returns the response body as Object or true if httpMethod is `DELETE` or false if error occured.
  */
-async function fetchResource(path, httpMethod = 'GET', data = undefined) {
+async function fetchResource(path, httpMethod = 'GET', data = undefined, queryString = "") {
     try {
-        const response = await fetch(BASE_URL + path + ".json", getRequestInit(httpMethod, data));
-        console.log(response.status); // FDPO
+        const response = await fetch(BASE_URL + path + ".json" + queryString, getRequestInit(httpMethod, data));
         if (response.ok) {
             const responseJson = await response.json();
-            console.log(responseJson); // FDPO
             return httpMethod.toUpperCase() === 'DELETE' ? true : responseJson;
         } else {
             console.error(new Error(`Failed to fetch from ${path}. Response Status ${response.status}. ${await response.text()}`));
@@ -132,39 +135,3 @@ async function restoreAllExampleData() {
     fetchResource('tasks', 'PUT', readOnlyData.tasks);
     fetchResource('contacts', 'PUT', readOnlyData.contacts);
 }
-
-// for development purposes only (FDPO)
-// call for example like this: postData('contacts', localContacts);
-async function postArrayData(path, dataArray) {
-    for (const data of dataArray) {
-        fetchResource(path, 'POST', data);
-    }
-}
-
-async function putArrayData(path, dataArray) {
-    for (const data of dataArray) {
-        fetchResource(path, 'PUT', data);
-    }
-}
-
-async function postObjectData(path, dataObject) {
-    for (const data of Object.values(dataObject)) {
-        fetchResource(path, 'POST', data);
-    }
-}
-
-async function putObjectData(path, dataObject) {
-    for (const data of Object.values(dataObject)) {
-        fetchResource(path, 'PUT', data);
-    }
-}
-
-async function putListData(list, data) {
-    fetchResource(list, 'PUT', data);
-}
-
-async function putTasksDataFromExampleData() {
-    putListData('tasks', readOnly.tasks);
-}
-
-// FDPO end

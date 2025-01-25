@@ -50,7 +50,7 @@ function editTask(taskId) {
     const task = allData.tasks[taskId];
     setDataForForm(task);
     const editTaskOverlay = renderEditTaskOverlay(taskId);
-    openOverlay(editTaskOverlay, 'fly-out-to-right', closeEditTaskOverlay);
+    openOverlay(editTaskOverlay, 'fly-in-from-right', 'fly-out-to-right', closeEditTaskOverlay);
     turnOffFormSubmission(document.getElementById('ato-form'));
     fillForm(task);
     adaptTextareaHeightToContent('ato-description');

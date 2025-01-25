@@ -24,7 +24,7 @@ footer {
 
 main {
     display: flex;
-    flex: 1;
+    
     justify-content: center;
     padding: 64px;
 }
@@ -273,6 +273,14 @@ textarea:focus {
     animation: flyOutToRight 200ms ease-out forwards;
 }
 
+.fly-in-from-bottom {
+    animation: flyInFromBottom 200ms ease-out;
+}
+
+.fly-out-to-bottom {
+    animation: flyOutToBottom 200ms ease-out forwards;
+}
+
 .overlay:has(.fly-in-from-right, .fly-out-to-right) {
     overflow-x: hidden;
 }
@@ -287,7 +295,6 @@ textarea:focus {
     }
 }
 
-
 @keyframes flyOutToRight {
     0% {
         transform: translateX(0%);
@@ -295,6 +302,26 @@ textarea:focus {
 
     100% {
         transform: translateX(calc(50vw + 51%));
+    }
+}
+
+@keyframes flyInFromBottom {
+    0% {
+        transform: translateY(calc(50vh + 51%));
+    }
+
+    100% {
+        transform: translateY(0%);
+    }
+}
+
+@keyframes flyOutToBottom {
+    0% {
+        transform: translateY(0%);
+    }
+
+    100% {
+        transform: translateY(calc(50vh + 51%));
     }
 }
 
@@ -350,7 +377,6 @@ textarea:focus {
         font-weight: 400;
     }
 
-
     .sideline-blue {
         width: 60px;
         height: 3px;
@@ -362,17 +388,34 @@ textarea:focus {
 
     .section-header {
         flex-direction: column;
+        align-items: flex-start;
+        gap: 16px
     }
+
+    .fly-in-from-right {
+        animation: flyInFromBottom 200ms ease-out;
+    }
+
+    .fly-out-to-right {
+        animation: flyOutToBottom 200ms ease-out forwards;
+    }
+
 }
 
 @media (max-width: 1024px) and (min-width: 769px) {
     .section-header {
+        flex-direction: column;
+        align-items: flex-start;
         gap: 24px;
+    }
+
+    .sideline-blue {
+        width: 60px;
+        height: 3px;
     }
 
     .h5-responsive {
         font-size: 40px;
         font-weight: 400;
     }
-
 }

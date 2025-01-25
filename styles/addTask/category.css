@@ -21,11 +21,11 @@
     transition: background-color 0.3s;
   }
   
-  .flex-reverse .select-trigger:hover {
-    border: 1px solid var(--color-light-blue);
+
+  
+  #category-display{
+    white-space: nowrap;
   }
-  
-  
   
   /* Dropdown-Optionen */
   .select-options {
@@ -57,4 +57,7 @@
   .select-options .select-option:hover {
     background-color: var(--hover);
   }
-  
+  #category-select:focus {
+    border-color: var(--contact-color-aqua) ;
+    outline: none ; 
+  }

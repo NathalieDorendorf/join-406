@@ -1,3 +1,14 @@
+/**
+ * @typedef {Object} Contact
+ * @property {string} firebaseId
+ * @property {string} name
+ * @property {string} [phone]
+ */
+
+/**
+ * @typedef {Object.<string, Contact[]>} GroupedContacts
+ */
+
 const contactColors = [
     "--contact-color-orange",
     "--contact-color-pink",
@@ -18,357 +29,335 @@ const contactColors = [
 
 let contacts = [];
 
+let activeContactId = null;
+
+/**
+ * Initializes the contacts by fetching data and rendering them.
+ * @returns {Promise<void>}
+ */
 async function initContacts() {
-    await fetchContacts();
+    allData = await getAllData();
+    await loadContacts();
+    renderContacts();
+    handleResponsiveView();
 }
 
-async function fetchContacts() {
+/**
+ * Loads the contacts from Firebase and maps them into an array.
+ * @returns {Promise<void>}
+ */
+async function loadContacts() {
     try {
-        const response = await fetch(`${BASE_URL}/contacts.json`);
-        if (!response.ok) {
-            throw new Error('Fehler beim Abrufen der Kontakte');
-        }
-
-        const data = await response.json();
-        contacts = Object.keys(data).map(firebaseId => ({
-            firebaseId,
-            ...data[firebaseId]
-        }));
-
-        // Kontakte alphabetisch sortieren
-        const sortedContacts = sortContactsByName(contacts);
-        console.log('Sorted contacts:', sortedContacts);
-
-        // Kontakte gruppieren
-        const groupedContacts = groupContactsByFirstLetter(sortedContacts);
-
-        renderContactList(groupedContacts); // Funktion, die die Kontakte im Frontend darstellt
+        const data = await fetchContactsFromFirebase();
+        contacts = mapFirebaseContacts(data);
+        contacts = sortContactsByName(contacts);
     } catch (error) {
-        console.error('Fehler beim Abrufen der Kontakte:', error);
+        console.error('Error loading contacts:', error);
     }
 }
 
-function addFirebaseIdsToContacts(contacts) {
-    // Konvertiere das Objekt in ein Array mit IDs
-    return Object.entries(contacts).map(([id, contact]) => {
-        return {
-            ...contact, // Bestehende Kontakt-Daten
-            firebaseId: id // Firebase-ID hinzufügen
-        };
-    });
+/**
+ * Fetches contacts data from Firebase.
+ * @returns {Promise<Object>} The contacts data.
+ */
+async function fetchContactsFromFirebase() {
+    const response = await fetch(`${BASE_URL}/contacts.json`);
+    if (!response.ok) throw new Error('Failed to fetch contacts');
+    return await response.json();
 }
 
-function sortContactsByName(contactsWithIds) {
-    // Sortiere das Array alphabetisch nach dem Namen
-    return contactsWithIds.sort((a, b) => {
-        const nameA = a.name.toUpperCase(); // Groß-/Kleinschreibung ignorieren
-        const nameB = b.name.toUpperCase();
-        if (nameA < nameB) return -1;
-        if (nameA > nameB) return 1;
-        return 0;
-    });
+/**
+ * Maps Firebase contacts data into a structured array.
+ * @param {Object} data - Firebase contacts data.
+ * @returns {Contact[]} Array of mapped contacts.
+ */
+function mapFirebaseContacts(data) {
+    return Object.keys(data || {}).map(firebaseId => ({
+        firebaseId,
+        ...data[firebaseId]
+    }));
 }
 
+/**
+ * Sorts contacts alphabetically by their name.
+ * @param {Contact[]} contacts - The contacts to sort.
+ * @returns {Contact[]} Sorted contacts.
+ */
+function sortContactsByName(contacts) {
+    return contacts.sort((a, b) => a.name.localeCompare(b.name));
+}
+
+/**
+ * Renders the contacts grouped by their first letter.
+ * @returns {void}
+ */
+function renderContacts() {
+    const groupedContacts = groupContactsByFirstLetter(contacts);
+    renderContactList(groupedContacts);
+}
+
+/**
+ * Groups contacts by the first letter of their name.
+ * @param {Contact[]} contacts - The contacts to group.
+ * @returns {GroupedContacts} Contacts grouped by their first letter.
+ */
 function groupContactsByFirstLetter(contacts) {
-    const grouped = {};
-
-    contacts.forEach(contact => {
+    return contacts.reduce((grouped, contact) => {
         const firstLetter = contact.name.charAt(0).toUpperCase();
-        if (!grouped[firstLetter]) {
-            grouped[firstLetter] = [];
-        }
+        if (!grouped[firstLetter]) grouped[firstLetter] = [];
         grouped[firstLetter].push(contact);
-    });
-
-    return grouped;
+        return grouped;
+    }, {});
 }
 
+/**
+ * Renders the contact list using grouped contacts.
+ * @param {GroupedContacts} groupedContacts - Contacts grouped by first letter.
+ * @returns {void}
+ */
 function renderContactList(groupedContacts) {
     const contactList = document.getElementById("contactList");
-    contactList.innerHTML = ""; // Reset
-
-    Object.keys(groupedContacts)
-        .sort()
-        .forEach(letter => {
-            // Kategorie erstellen
-            const category = document.createElement("div");
-            category.innerHTML = `<h3 class="underline-letter">${letter}</h3>`;
-            contactList.appendChild(category);
-
-            // Kontakte hinzufügen
-            groupedContacts[letter].forEach(contact => {
-                const contactItem = document.createElement("li");
-                contactItem.innerHTML = `
-                    <div class="contact-info-container" id="${contact.firebaseId}">
-                        <div class="initials-circle" style="background-color: var(${contact.color});">${contact.initials}</div>
-                        <div>
-                            <p>${contact.name}</p>
-                            <a href="mailto:${contact.mail}">${contact.mail}</a>
-                        </div>
-                    </div>
-                `;
-                contactItem.onclick = () => showContactDetails(contact);
-                category.appendChild(contactItem);
-            });
+    contactList.innerHTML = "";
+    Object.keys(groupedContacts).sort().forEach(letter => {
+        const category = createCategoryElement(letter);
+        groupedContacts[letter].forEach(contact => {
+            const contactItem = createContactElement(contact);
+            category.appendChild(contactItem);
         });
+        contactList.appendChild(category);
+    });
 }
 
+/**
+ * Creates a category element for a specific letter.
+ * @param {string} letter - The letter to display as the category.
+ * @returns {HTMLElement} The category element.
+ */
+function createCategoryElement(letter) {
+    const category = document.createElement("div");
+    category.innerHTML = `<h3 class="underline-letter">${letter}</h3>`;
+    return category;
+}
+
+/**
+ * Creates a contact element for a specific contact.
+ * @param {Contact} contact - The contact to create the element for.
+ * @returns {HTMLElement} The contact list item element.
+ */
+function createContactElement(contact) {
+    const contactItem = document.createElement("li");
+    contactItem.innerHTML = generateContactsHTML(contact);
+    contactItem.onclick = () => {
+        handleContactClick(contact);
+        activeContactId = contactItem.firstElementChild.id;
+    }
+    return contactItem;
+}
+
+/**
+ * Handles a contact click by showing contact details on smaller screens.
+ * @param {Contact} contact - The clicked contact.
+ * @returns {void}
+ */
+function handleContactClick(contact) {
+    if (window.innerWidth < 1025) {
+        showResponsiveView();
+    }
+    showContactDetails(contact);
+}
+
+/**
+ * Displays contact details or hides them if the same contact is clicked again.
+ * @param {Contact} contact - The contact to display details for.
+ * @returns {void}
+ */
 function showContactDetails(contact) {
-    const isMobile = window.innerWidth <= 768;
+    if (isSameContactClicked(contact)) {
+        resetActiveContact();
+        hideDetailsView();
+        return;
+    }
+    resetPreviousContact();
+    highlightActiveContact(contact);
+    displayContactDetails(contact);
+}
+
+/**
+ * Checks if the same contact was clicked again.
+ * @param {Contact} contact - The contact to check.
+ * @returns {boolean} True if it's the same contact.
+ */
+function isSameContactClicked(contact) {
+    return activeContactId === contact.firebaseId;
+}
+
+/**
+ * Resets the active contact highlight.
+ * @returns {void}
+ */
+function resetActiveContact() {
+    if (!activeContactId) return;
+    const activeElement = document.getElementById(activeContactId);
+    if (activeElement) {
+        resetStyles(activeElement);
+    }
+    activeContactId = null;
+}
+
+/**
+ * Hides the contact details view.
+ * @returns {void}
+ */
+function hideDetailsView() {
     const detailsContainer = document.getElementById("contactDetails");
+    if (detailsContainer) {
+        detailsContainer.classList.remove("slide-in");
+        detailsContainer.classList.add("slide-out");
+        detailsContainer.style.display = "none";
+    }
+}
 
-    if (isMobile) {
-        // Mobile Ansicht: Overlay anzeigen
-        const contactsContainer = document.querySelector('.contacts-container'); // Zugriff auf das erste Element mit der Klasse
-        if (contactsContainer) {
-            contactsContainer.classList.remove('contacts-container'); // Entferne die bestehende Klasse
-            contactsContainer.classList.add('d-none');    // Füge eine neue Klasse hinzu
-        }
+/**
+ * Resets the previous active contact highlight.
+ * @returns {void}
+ */
+function resetPreviousContact() {
+    if (!activeContactId) return;
+    const previousActive = document.getElementById(activeContactId);
+    if (previousActive) {
+        resetStyles(previousActive);
+    }
+}
 
-        const overlay = document.querySelector(".contact-details-overlay");
-        overlay.innerHTML = `
-            <header class="section-header">
-                <div class="d-flex-sb-c">
-                    <h1>Contacts</h1>
-                    <button onclick="closeContactDetailsOverlay()"><img src="/assets/icons/arrow-left.svg" alt="back"></button>
-                <div class="sideline-blue"></div>
-                <h4>Better with a team</h4>
-            </header>
-            <div class="d-flex gap-24">
-                <div class="initials-circle-big" style="background-color: var(${contact.color});">${contact.initials}</div>
-                <div class="name-container">
-                    <h2>${contact.name}</h2>
-                    <div class="d-flex gap-8">
-                        <button class="button-contacts" onclick="showEditContactOverlay('${contact.firebaseId}')"><img src="/assets/icons/edit-blue.svg" alt="edit">Edit</button>
-                        <button class="button-contacts" onclick="deleteContact('${contact.firebaseId}')"><img src="/assets/icons/delete-blue.svg" alt="delete">Delete</button>
-                    </div>
-                </div>
-            </div>
-            <h2>Contact Information</h2>
-            <h3>Email</h3>
-            <a href="mailto:${contact.mail}">${contact.mail}</a>
-            <h3>Phone</h3>
-            <a href="tel:${contact.phone}">${contact.phone}</a>
-            <button onclick="closeContactDetailsOverlay()">Close</button>
-        `;
-        overlay.classList.add("visible");
-    } else {
-        // Desktop Ansicht: Rechts anzeigen
-        detailsContainer.innerHTML = `
-            <div class="d-flex gap-24">
-                <div class="initials-circle-big" style="background-color: var(${contact.color});">${contact.initials}</div>
-                <div class="name-container">
-                    <h2>${contact.name}</h2>
-                    <div class="d-flex gap-8">
-                        <button class="button-contacts" onclick="showEditContactOverlay('${contact.firebaseId}')"><img src="/assets/icons/edit-blue.svg" alt="edit">Edit</button>
-                        <button class="button-contacts" onclick="deleteContact('${contact.firebaseId}')"><img src="/assets/icons/delete-blue.svg" alt="delete">Delete</button>
-                    </div>
-                </div>
-            </div>
-            <h2>Contact Information</h2>
-            <h3>Email</h3>
-            <a href="mailto:${contact.mail}">${contact.mail}</a>
-            <h3>Phone</h3>
-            <a href="tel:${contact.phone}">${contact.phone}</a>
-        `;
+/**
+ * Resets the styles for an element.
+ * @param {HTMLElement} element - The element to reset styles for.
+ * @returns {void}
+ */
+function resetStyles(element) {
+    element.style.backgroundColor = "";
+    element.style.color = "";
+    const initialsCircle = element.querySelector(".initials-circle");
+    if (initialsCircle) initialsCircle.style.border = "";
+}
+
+/**
+ * Highlights the active contact in the contact list.
+ * @param {Contact} contact - The contact to highlight.
+ * @returns {void}
+ */
+function highlightActiveContact(contact) {
+    const contactElement = document.getElementById(contact.firebaseId);
+    if (contactElement) {
+        contactElement.style.backgroundColor = "var(--primary-blue)";
+        contactElement.style.color = "white";
+        const initialsCircle = contactElement.querySelector(".initials-circle");
+        if (initialsCircle) initialsCircle.style.border = "2px solid var(--bg-white)";
+    }
+    activeContactId = contact.firebaseId;
+}
+
+/**
+ * Displays the contact details in a details container.
+ * @param {Contact} contact - The contact whose details to display.
+ * @returns {void}
+ */
+function displayContactDetails(contact) {
+    const detailsContainer = document.getElementById("contactDetails");
+    if (detailsContainer) {
+        detailsContainer.innerHTML = generateContactsDetailsHTML(contact, contact.phone || "");
+        detailsContainer.style.display = "flex";
+        detailsContainer.classList.remove("slide-out");
         detailsContainer.classList.add("slide-in");
     }
 }
 
-// Funktion zum Schließen des Overlays
-function closeOverlay() {
-    const overlay = document.getElementById("addContactOverlay");
-    if (overlay) {
-        overlay.classList.remove("visible");
-        setTimeout(() => overlay.remove(), 300); // Timeout für Transition-Effekt
-    }
-}
-
-function closeEditOverlay() {
-    const overlay = document.getElementById("editContactOverlay");
-    if (overlay) {
-        overlay.classList.remove("visible");
-        setTimeout(() => overlay.remove(), 300); // Timeout für Transition-Effekt
-    }
-}
-
-function closeContactDetailsOverlay() {
-    const contactsContainer = document.querySelector('.d-none'); // Zugriff auf das erste Element mit der Klasse
-    if (contactsContainer) {
-        contactsContainer.classList.remove('d-none'); // Entferne die bestehende Klasse
-        contactsContainer.classList.add('contacts-container');    // Füge eine neue Klasse hinzu
-    }
-}
-
-// Funktion zum Speichern eines neuen Kontakts in Firebase
-async function addNewContact(event) {
-    event.preventDefault();
-
-    let name = document.getElementById("user").value.trim();
-    let email = document.getElementById("email").value.trim();
-    let phone = document.getElementById("telephone").value.trim();
-
-    if (!name || !email) {
-        alert("Bitte füllen Sie alle Felder aus!");
-        return;
-    }
-
-    let color = getRandomColor();
-    let initials = getInitials(name);
-
-    let singleContactData = {
-        color: color,
-        initials: initials,
-        mail: email,
-        name: name,
-        phone: phone
-    };
-
-    console.log({name, email, phone, color, initials});
-
-    await addContactsToFirebase(singleContactData);
-    clearDataContacts(name, email, phone);
-    closeOverlay();
-    await fetchContacts();
-}
-
-async function addContactsToFirebase(contact) {
-    try {
-        const response = await fetch(BASE_URL + "/contacts" + ".json", {
-            method: 'POST', // 'POST' für das Hinzufügen neuer Daten
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(contact)
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to add contact');
+/**
+ * Handles the responsive view changes.
+ * @returns {void}
+ */
+function handleResponsiveView() {
+    if (window.innerWidth < 1025) {
+        if (activeContactId) {
+            showResponsiveView();
+        } else {
+            showContactListOnly();
         }
-
-        const data = await response.json();
-        console.log('Contact added successfully:', data);
-    } catch (error) {
-        console.error('Error adding contact:', error);
+    } else {
+        showDesktopView();
     }
 }
 
+/**
+ * Responds to window resizing.
+ * @param {Event} event - The resize event.
+ * @returns {void}
+ */
+window.addEventListener("resize", handleResponsiveView);
+
+/**
+ * Shows the responsive view with the contact details.
+ * @returns {void}
+ */
+function showResponsiveView() {
+    renderHeaderResponsive();
+    document.querySelector(".contacts-container").style.display = "none";
+    const contactDetailsContainer = document.querySelector(".contacts-details-container");
+    if (contactDetailsContainer) {
+        contactDetailsContainer.style.width = "100%";
+        contactDetailsContainer.style.display = "flex";
+    }
+}
+
+/**
+ * Shows only the contact list in responsive view.
+ * @returns {void}
+ */
+function showContactListOnly() {
+    document.querySelector(".contacts-container").style.display = "flex";
+    const contactDetailsContainer = document.querySelector(".contacts-details-container");
+    if (contactDetailsContainer) {
+        contactDetailsContainer.style.display = "none";
+    }
+}
+
+/**
+ * Shows the desktop view with both contacts and contact details.
+ * @returns {void}
+ */
+function showDesktopView() {
+    renderHeader();
+    document.querySelector(".contacts-container").style.display = "flex";
+    const contactDetailsContainer = document.querySelector(".contacts-details-container");
+    if (contactDetailsContainer) {
+        contactDetailsContainer.style.width = "";
+        contactDetailsContainer.style.display = "flex";
+    }
+}
+
+/**
+ * Navigates back to the contact list from the details view.
+ * @returns {void}
+ */
+function navigateBackToContactList() {
+    hideDetailsView();
+    resetActiveContact();
+    if (window.innerWidth < 1025) {
+        const contactDetailsContainer = document.querySelector(".contact-details-container");
+        if (contactDetailsContainer) {
+            contactDetailsContainer.style.display = "none";
+        }
+        const contactsContainer = document.querySelector(".contacts-container");
+        if (contactsContainer) {
+            contactsContainer.style.display = "flex";
+        }
+    }
+}
+
+/**
+ * Generates a random color from the contactColors array.
+ * @returns {string} A random contact color.
+ */
 function getRandomColor() {
-    const randomIndex = Math.floor(Math.random() * contactColors.length);
-    return contactColors[randomIndex];
-}
-
-function getInitials(name) {
-    if (!name) return '';
-    const nameParts = name.split(' ');
-    const initials = nameParts.map(part => part.charAt(0).toUpperCase()).join('');
-    return initials;
-}
-
-function clearDataContacts(name, email, phone) {
-    name.value = "";
-    email.value = "";
-    phone.value = "";
-}
-
-function showEditContactOverlay(firebaseId) {
-    // Suche den Kontakt anhand der Firebase-ID
-    const contact = findContactById(firebaseId);
-
-    if (!contact) {
-        console.error('Kontakt nicht gefunden:', firebaseId);
-        return;
-    }
-
-    // Render das Overlay mit den Kontaktinformationen
-    renderEditContactOverlay(contact);
-}
-
-// Funktion zum Abrufen eines Kontakts anhand der ID
-function findContactById(firebaseId) {
-    // Kontakte durchgehen und den passenden Kontakt finden
-    return contacts.find(contact => contact.firebaseId === firebaseId);
-}
-
-function fillInputFormWithContactsInfo(contact) {
-    if (contact) {
-        document.getElementById('user').value = contact.name || '';
-        document.getElementById('email').value = contact.mail || '';
-        document.getElementById('telephone').value = contact.phone || '';
-    }
-}
-
-async function saveContact(event, firebaseId) {
-    event.preventDefault();
-    let editName = document.getElementById('user').value.trim();
-    let editEmail = document.getElementById('email').value.trim();
-    let editPhone = document.getElementById('telephone').value.trim();
-    let editInitials = getInitials(editName);
-
-    if (!editName || !editEmail) {
-        alert("Bitte füllen Sie alle Felder aus!");
-        return;
-    }
-
-    // Finde den bestehenden Kontakt anhand der Firebase-ID
-    const existingContact = findContactById(firebaseId);
-
-    if (!existingContact) {
-        console.error('Kontakt nicht gefunden:', firebaseId);
-        return;
-    }
-
-    let updateSingleData = {
-        color: existingContact.color,
-        initials: editInitials,
-        mail: editEmail,
-        name: editName,
-        phone: editPhone
-    };
-    await putContactsDataToFirebase(firebaseId, updateSingleData);
-    closeEditOverlay();
-    await fetchContacts();
-}
-
-async function putContactsDataToFirebase(firebaseId, contact) {
-    try {
-        const response = await fetch(`${BASE_URL}/contacts/${firebaseId}.json`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(contact)
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to edit contact');
-        }
-
-        const data = await response.json();
-        console.log('Contact edited successfully:', data);
-    } catch (error) {
-        console.error('Error editing contact:', error);
-    }
-}
-
-async function deleteContact(firebaseId, contact) {
-    try {
-        const response = await fetch(`${BASE_URL}/contacts/${firebaseId}.json`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(contact)
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to delete contact');
-        }
-
-        const data = await response.json();
-        console.log('Contact deleted successfully:', data);
-    } catch (error) {
-        console.error('Error deleting contact:', error);
-    }
-    await fetchContacts();
+    return contactColors[Math.floor(Math.random() * contactColors.length)];
 }

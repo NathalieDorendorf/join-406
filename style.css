@@ -72,6 +72,8 @@ h4 {
 h5 {
     font-size: 47px;
     font-weight: 500;
+   
+
 }
 
 .logo-little {
@@ -297,6 +299,10 @@ a.current:hover {
         width: 60px;
     }
 
+    .logo-little {
+        display: none;
+    }
+
     .sidebar-container {
         height: 100px;
         width: 100%;
@@ -311,10 +317,6 @@ a.current:hover {
 
     .sidebar-mainbox {
         flex-direction: row;
-    }
-
-    .logo-little {
-        display: none;
     }
 
     .header-login {
@@ -373,10 +375,6 @@ a.current:hover {
 
     .sidebar-mainbox {
         flex-direction: row;
-    }
-
-    .logo-little {
-        display: none;
     }
 
     .links-container {

@@ -4,7 +4,7 @@
  */
 function renderAddTaskOverlay() {
     return `
-        <div id="ato" class="ato fly-in-from-right fc gap-32">
+        <div id="ato" class="ato fc gap-32">
             <div class="fr sb">
                 <span class="headline">Add Task</span>
                 <div class="ui-icon-wrapper close-btn">
@@ -180,7 +180,7 @@ function renderSubtask(subtask, index) {
  */
 function renderEditTaskOverlay(taskId) {
     return `
-        <div id="ato" class="ato fly-in-from-right fc gap-32">
+        <div id="ato" class="ato fc gap-32">
             <div class="ui-icon-wrapper close-btn">
                 <img src="/assets/icons/close.svg" alt="Close button" onclick="closeEditTaskOverlay()">
             </div>
