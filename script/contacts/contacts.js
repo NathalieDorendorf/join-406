@@ -90,7 +90,10 @@ function createCategoryElement(letter) {
 function createContactElement(contact) {
     const contactItem = document.createElement("li");
     contactItem.innerHTML = generateContactsHTML(contact);
-    contactItem.onclick = () => handleContactClick(contact);
+    contactItem.onclick = () => {
+        handleContactClick(contact);
+        activeContactId = contactItem.firstElementChild.id;
+    } 
     return contactItem;
 }
 

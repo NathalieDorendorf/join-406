@@ -97,12 +97,11 @@ function generateContactsDetailsHTML(contact, phoneNumber) {
  * @param {string} firebaseId - The Firebase ID of the contact for which the menu is being shown.
  * @returns {string} The HTML string representing the small menu with "Edit" and "Delete" buttons.
  */
-function showLittleMenu(firebaseId) {
-    const contact = findContactById(firebaseId);
+function showLittleMenu() {
     return `
-        <div class="litte-menu">
-            <button class="button-contacts" onclick="openOverlay(renderEditContactOverlay('${contact.firebaseId}'),'fly-in-from-right', 'fly-out-to-right')"><img src="/assets/icons/edit-blue.svg" alt="edit">Edit</button>
-            <button class="button-contacts" onclick="deleteContact('${contact.firebaseId}')"><img src="/assets/icons/delete-blue.svg" alt="delete">Delete</button>
+        <div class="little-menu">
+            <button class="button-contacts" onclick="removeOverlay(); openOverlay(renderEditContactOverlay('${activeContactId}'),'fly-in-from-right', 'fly-out-to-right')"><img src="/assets/icons/edit-blue.svg" alt="edit">Edit</button>
+            <button class="button-contacts" onclick="removeOverlay(); deleteContact('${activeContactId}')"><img src="/assets/icons/delete-blue.svg" alt="delete">Delete</button>
         </div>                
     `;
 }
