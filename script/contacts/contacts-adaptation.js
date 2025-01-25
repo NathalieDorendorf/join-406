@@ -204,7 +204,6 @@ async function deleteContact(firebaseId) {
     for (const taskId of tasksToUpdate) {
         await updateTaskInDatabase(taskId);
     }
-    const detailsContainer = document.getElementById("contactDetails");
-    detailsContainer.innerHTML = "";
-    closeContactDetailsOverlay();
+    closeOverlay();
+    showContactListOnly();
 }
