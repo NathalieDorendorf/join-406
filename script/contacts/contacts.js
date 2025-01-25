@@ -9,6 +9,28 @@
  * @typedef {Object.<string, Contact[]>} GroupedContacts
  */
 
+const contactColors = [
+    "--contact-color-orange",
+    "--contact-color-pink",
+    "--contact-color-lavender",
+    "--contact-color-violet",
+    "--contact-color-aqua",
+    "--contact-color-tropical",
+    "--contact-color-coral",
+    "--contact-color-peach",
+    "--contact-color-magenta",
+    "--contact-color-gold",
+    "--contact-color-blue",
+    "--contact-color-lime",
+    "--contact-color-purple",
+    "--contact-color-crimson",
+    "--contact-color-honey"
+];
+
+let contacts = [];
+
+let activeContactId = null;
+
 /**
  * Initializes the contacts by fetching data and rendering them.
  * @returns {Promise<void>}
