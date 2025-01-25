@@ -320,6 +320,10 @@
         bottom: 124px;
     }
 
+    .btn-mobile-little-menu {
+        bottom: 124px;
+    }
+
     .overlay-content {
         flex-direction: column;
         width: clamp(300px, 70%, 592px);
@@ -385,6 +389,10 @@
     }
 
     .btn-mobile {
+        bottom: 104px;
+    }
+
+    .btn-mobile-little-menu {
         bottom: 104px;
     }
 
