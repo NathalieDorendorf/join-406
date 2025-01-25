@@ -78,7 +78,7 @@
   margin: 2px;
   flex-wrap: wrap;
   position: relative;
-  height:64px;
+  max-height:64px;
   overflow-y: scroll;
   overflow-y: auto;
 }
