@@ -1,3 +1,14 @@
+/**
+ * Generates HTML for a contact entry to be displayed in the contact list.
+ * 
+ * @param {Object} contact - The contact object containing details of the contact.
+ * @param {string} contact.firebaseId - The Firebase ID of the contact.
+ * @param {string} contact.color - The background color for the contact's initials circle.
+ * @param {string} contact.initials - The initials of the contact.
+ * @param {string} contact.name - The name of the contact.
+ * @param {string} contact.mail - The email address of the contact.
+ * @returns {string} The HTML string for the contact entry.
+ */
 function generateContactsHTML(contact) {
     return `
         <div class="contact-info-container" id="${contact.firebaseId}">
@@ -12,6 +23,10 @@ function generateContactsHTML(contact) {
     `;
 }
 
+/**
+ * Renders the header for the contacts page on larger screens.
+ * This function sets the header content for the main contact list page.
+ */
 function renderHeader() {
     let header = document.getElementById('header');
     header.innerHTML = '';
@@ -22,6 +37,10 @@ function renderHeader() {
     `;
 }
 
+/**
+ * Renders a responsive header for the contacts page on smaller screens.
+ * This function sets the header content for mobile or smaller devices.
+ */
 function renderHeaderResponsive() {
     let header = document.getElementById('header');
     header.innerHTML = '';
@@ -31,11 +50,23 @@ function renderHeaderResponsive() {
             <h4 class="h4-responsive">Better with a team</h4>
             <div class="sideline-blue"></div>
         </div>
-        <button class="button-contacts-back" onclick="closeContactOverlay()"><img src="/assets/icons/arrow-left.svg" alt="back"></button>
-        <button class="button btn-mobile-little-menu" onclick="showLittleMenu()"><img src="/assets/icons/three-dots.svg" alt="menu"</button>
+        <button class="button-contacts-back" onclick="navigateBackToContactList()"><img src="/assets/icons/arrow-left.svg" alt="back"></button>
+        <button class="button btn-mobile-little-menu" onclick="openOverlay(showLittleMenu(),'fly-in-from-right', 'fly-out-to-right')"><img src="/assets/icons/three-dots.svg" alt="menu"></button>
     `;
 }
 
+/**
+ * Generates HTML for the detailed view of a contact, including contact information and action buttons.
+ * 
+ * @param {Object} contact - The contact object containing details of the contact.
+ * @param {string} contact.firebaseId - The Firebase ID of the contact.
+ * @param {string} contact.color - The background color for the contact's initials circle.
+ * @param {string} contact.initials - The initials of the contact.
+ * @param {string} contact.name - The name of the contact.
+ * @param {string} contact.mail - The email address of the contact.
+ * @param {string} phoneNumber - The phone number of the contact (optional).
+ * @returns {string} The HTML string for the contact's detailed view.
+ */
 function generateContactsDetailsHTML(contact, phoneNumber) {
     return `
         <div class="initials-name-container">
@@ -58,79 +89,20 @@ function generateContactsDetailsHTML(contact, phoneNumber) {
     `;
 }
 
-function renderAddContactOverlay() {
-    return overlayHTML = `
-            <div class="overlay-content">
-                <div class="overlay-left">
-                    <img class="logo-mini" src="/assets/icons/join-logo-white.svg" alt="join">
-                    <button class="button-contacts-white" onclick="closeOverlay()"><img src="/assets/icons/close-white.svg" alt="Close"></button>
-                    <header class="header-contact">
-                        <h1 class="ft-47">Add contact</h1>
-                        <h4 class="ft-20">Tasks are better with a team!</h4>
-                        <div class="sideline-blue-horizontal"></div>
-                    </header>
-                </div>
-                <div class="overlay-right d-flex">
-                    <div class="initials-circle-big-person">
-                    </div>
-                    <button class="button-contacts" onclick="closeOverlay()"><img src="/assets/icons/close.svg" alt="Close"></button>
-                    <form id="addContactForm" onsubmit="addNewContact(event); return false;">
-                        <div class="fc gap-8 w-100">
-                            <input class="input-name input-width" type="text" id="user" placeholder="Name" minlength="2" maxlength="30" required>
-                            <input class="input-email input-width"  type="email" id="email" placeholder="Email" required>
-                            <span id="errorMessageEmail" class="error-message"></span>
-                            <input class="input-phone input-width"  type="tel" pattern="^\\+?[0-9]+(\\s[0-9]+)*$" id="telephone" placeholder="+49 123456789">
-                        </div>
-                        <div class="fr gap-16 wrap ato-footer-buttons">
-                            <button type="button" id="cancel-add-task-btn" class="button-2 fr jcac gap-8 cancel-btn" onclick="closeOverlay()">
-                                <span>Cancel</span>
-                                <img src="/assets/icons/close.svg" alt="Cancel create task button">
-                            </button>
-                            <button type="submit" name="submit" class="button fr jcac gap-8">
-                                <span>Create contact</span>
-                                <img src="/assets/icons/check.svg" alt="Create task button">
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-    `;
-}
-
-function renderEditContactOverlay(firebaseId) {
+/**
+ * Displays a small menu with "Edit" and "Delete" buttons for a contact.
+ * The menu is shown when the user clicks on a menu button, and it allows
+ * the user to edit or delete the contact.
+ * 
+ * @param {string} firebaseId - The Firebase ID of the contact for which the menu is being shown.
+ * @returns {string} The HTML string representing the small menu with "Edit" and "Delete" buttons.
+ */
+function showLittleMenu(firebaseId) {
     const contact = findContactById(firebaseId);
-    return overlayHTML = `
-            <div class="overlay-content">
-                <div class="overlay-left">
-                    <img class="logo-mini" src="/assets/icons/join-logo-white.svg" alt="join">
-                    <button class="button-contacts-white" onclick="closeOverlay()"><img src="/assets/icons/close-white.svg" alt="Close"></button>
-                    <header class="header-contact">
-                        <h1 class="ft-47">Edit contact</h1>
-                        <div class="sideline-blue-horizontal"></div>
-                    </header>
-                </div>
-                <div class="overlay-right d-flex">
-                    <div class="initials-circle-big position-initials-circle" style="background-color: var(${contact.color});">${contact.initials}</div>
-                    <button class="button-contacts" onclick="closeOverlay()"><img src="/assets/icons/close.svg" alt="Close"></button>
-                    <form id="editContactForm" onsubmit="saveContact(event, '${contact.firebaseId}'); return false;">
-                        <div class="fc gap-8">
-                            <input class="input-name input-width" type="text" id="user" placeholder="Name" value="${contact.name}" minlength="2" maxlength="30" required>
-                            <input class="input-email input-width" type="email" id="email" placeholder="Email" value="${contact.mail}" required>
-                            <span id="errorMessageEmailExists" class="error-message"></span>
-                            <input class="input-phone input-width" type="tel" pattern="^\\+?[0-9]+(\\s[0-9]+)*$" id="telephone" placeholder="+49 123456789" value="${contact.phone}">
-                        </div>
-                        <div class="fr gap-16 wrap ato-footer-buttons">
-                            <button type="button" id="cancel-edit-task-btn" class="button-2 fr jcac gap-8" onclick="closeOverlay()">
-                                <span>Cancel</span>
-                                <img src="/assets/icons/close.svg" alt="Cancel edit contact button">
-                            </button>
-                            <button type="submit" name="submit" class="button fr jcac gap-8">
-                                <span>Save</span>
-                                <img src="/assets/icons/check.svg" alt="Save contact button">
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+    return `
+        <div class="litte-menu">
+            <button class="button-contacts" onclick="openOverlay(renderEditContactOverlay('${contact.firebaseId}'),'fly-in-from-right', 'fly-out-to-right')"><img src="/assets/icons/edit-blue.svg" alt="edit">Edit</button>
+            <button class="button-contacts" onclick="deleteContact('${contact.firebaseId}')"><img src="/assets/icons/delete-blue.svg" alt="delete">Delete</button>
+        </div>                
     `;
 }

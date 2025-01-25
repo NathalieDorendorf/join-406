@@ -96,7 +96,7 @@ function createContactElement(contact) {
 
 function handleContactClick(contact) {
     if (window.innerWidth < 1025) {
-        renderHeaderResponsive();
+        showResponsiveView();
     }
     showContactDetails(contact);
 }
@@ -118,6 +118,7 @@ function isSameContactClicked(contact) {
 }
 
 function resetActiveContact() {
+    if (!activeContactId) return;
     const activeElement = document.getElementById(activeContactId);
     if (activeElement) {
         resetStyles(activeElement);
@@ -209,5 +210,20 @@ function showDesktopView() {
     if (contactDetailsContainer) {
         contactDetailsContainer.style.width = "";
         contactDetailsContainer.style.display = "flex";
+    }
+}
+
+function navigateBackToContactList() {
+    hideDetailsView();
+    resetActiveContact();
+    if (window.innerWidth < 1025) {
+        const contactDetailsContainer = document.querySelector(".contact-details-container");
+        if (contactDetailsContainer) {
+            contactDetailsContainer.style.display = "none";
+        }
+        const contactsContainer = document.querySelector(".contacts-container");
+        if (contactsContainer) {
+            contactsContainer.style.display = "flex";
+        }
     }
 }

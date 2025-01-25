@@ -1,3 +1,9 @@
+/**
+ * Renders the "Add Contact" overlay HTML.
+ * This overlay allows the user to add a new contact by providing a name, email, and phone number.
+ * 
+ * @returns {string} The HTML string for the "Add Contact" overlay.
+ */
 function renderAddContactOverlay() {
     return overlayHTML = `
             <div class="overlay-content">
@@ -37,6 +43,13 @@ function renderAddContactOverlay() {
     `;
 }
 
+/**
+ * Renders the "Edit Contact" overlay HTML.
+ * This overlay allows the user to edit an existing contact's details, such as name, email, and phone number.
+ * 
+ * @param {string} firebaseId - The unique identifier of the contact to be edited.
+ * @returns {string} The HTML string for the "Edit Contact" overlay.
+ */
 function renderEditContactOverlay(firebaseId) {
     const contact = findContactById(firebaseId);
     return overlayHTML = `
