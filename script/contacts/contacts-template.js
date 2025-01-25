@@ -75,7 +75,7 @@ function generateContactsDetailsHTML(contact, phoneNumber) {
             </div>
             <div class="name-container">
                 <h2>${contact.name}</h2>
-                <div class="d-flex gap-8">
+                <div class="d-flex gap-8 name-container-ui">
                     <button class="button-contacts" onclick="openOverlay(renderEditContactOverlay('${contact.firebaseId}'),'fly-in-from-right', 'fly-out-to-right')"><img src="/assets/icons/edit-blue.svg" alt="edit">Edit</button>
                     <button class="button-contacts" onclick="deleteContact('${contact.firebaseId}')"><img src="/assets/icons/delete-blue.svg" alt="delete">Delete</button>
                 </div>                

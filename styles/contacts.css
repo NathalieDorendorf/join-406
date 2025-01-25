@@ -181,6 +181,10 @@
     font-size: 16px;
 }
 
+.button-contacts:hover {
+    cursor: pointer;
+}
+
 .button-contacts-back {
     position: absolute;
     right: 24px;
@@ -333,6 +337,10 @@
 
     .input-width {
         width: 300px;
+    }
+
+    .name-container-ui {
+        display: none;
     }
 }
 
