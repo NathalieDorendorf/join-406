@@ -40,6 +40,24 @@
 
 let allData = {};
 
+const contactColors = [
+    "--contact-color-orange",
+    "--contact-color-pink",
+    "--contact-color-lavender",
+    "--contact-color-violet",
+    "--contact-color-aqua",
+    "--contact-color-tropical",
+    "--contact-color-coral",
+    "--contact-color-peach",
+    "--contact-color-magenta",
+    "--contact-color-gold",
+    "--contact-color-blue",
+    "--contact-color-lime",
+    "--contact-color-purple",
+    "--contact-color-crimson",
+    "--contact-color-honey"
+];
+
 /**
  * Include HTML templates on startup and show where user is on page by highlighting active-page-link
  */
@@ -140,4 +158,13 @@ function toggleUserMenu() {
     let userMenu = document.getElementById('userMenu');
     userMenu.classList.toggle('visible');
     userMenu.classList.toggle('hidden');
+}
+
+/**
+ * Generates a random color from a predefined set of contact colors.
+ * 
+ * @returns {string} A random color from the contactColors array.
+ */
+function getRandomColor() {
+    return contactColors[Math.floor(Math.random() * contactColors.length)];
 }

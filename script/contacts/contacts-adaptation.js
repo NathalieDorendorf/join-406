@@ -66,15 +66,6 @@ function createNewContact(name, email, phone) {
 }
 
 /**
- * Generates a random color from a predefined set of contact colors.
- * 
- * @returns {string} A random color from the contactColors array.
- */
-function getRandomColor() {
-    return contactColors[Math.floor(Math.random() * contactColors.length)];
-}
-
-/**
  * Generates initials from a full name (e.g., "John Doe" becomes "JD").
  * 
  * @param {string} name - The full name of the contact.
