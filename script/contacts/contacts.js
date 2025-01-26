@@ -149,12 +149,7 @@ function createContactElement(contact) {
     contactItem.innerHTML = generateContactsHTML(contact);
     contactItem.onclick = () => {
         handleContactClick(contact);
-        
-        if (activeContactId == false) {
-            activeContactId = contactItem.firstElementChild.id; 
-        } else {
-            activeContactId == false
-        }
+        activeContactId = contact.firebaseId;
     }
     return contactItem;
 }
@@ -165,7 +160,7 @@ function createContactElement(contact) {
  * @returns {void}
  */
 function handleContactClick(contact) {
-    if (window.innerWidth < 1025 ) {
+    if (window.innerWidth < 1025) {
         showResponsiveView();
     }
 
@@ -173,28 +168,14 @@ function handleContactClick(contact) {
 }
 
 /**
- * Displays contact details or hides them if the same contact is clicked again.
+ * Displays contact details.
  * @param {Contact} contact - The contact to display details for.
  * @returns {void}
  */
 function showContactDetails(contact) {
-    if (isSameContactClicked(contact)) {
-        resetActiveContact();
-        hideDetailsView();
-        return;
-    }
     resetPreviousContact();
     highlightActiveContact(contact);
     displayContactDetails(contact);
-}
-
-/**
- * Checks if the same contact was clicked again.
- * @param {Contact} contact - The contact to check.
- * @returns {boolean} True if it's the same contact.
- */
-function isSameContactClicked(contact) {
-    return activeContactId === contact.firebaseId;
 }
 
 /**
@@ -206,11 +187,11 @@ function resetActiveContact() {
     const activeElement = document.getElementById(activeContactId);
     if (activeElement) {
         resetStyles(activeElement);
-        
+
     }
-    
+
     activeContactId = null;
-    
+
 }
 
 /**
@@ -223,7 +204,7 @@ function hideDetailsView() {
         detailsContainer.classList.remove("slide-in");
         detailsContainer.classList.add("slide-out");
         detailsContainer.style.display = "none";
-        
+
     }
 }
 
@@ -233,12 +214,12 @@ function hideDetailsView() {
  */
 function resetPreviousContact() {
     if (!activeContactId) return;
-   
+
     const previousActive = document.getElementById(activeContactId);
     if (previousActive) {
         resetStyles(previousActive);
     }
-    
+
 }
 
 
@@ -251,9 +232,9 @@ function resetStyles(element) {
     element.style.backgroundColor = "";
     element.style.color = "";
     const initialsCircle = element.querySelector(".initials-circle");
-    if (initialsCircle)initialsCircle.style.border = "";
-    
-    
+    if (initialsCircle) initialsCircle.style.border = "";
+
+
 }
 
 /**
@@ -361,14 +342,14 @@ function navigateBackToContactList() {
     hideDetailsView();
     resetActiveContact();
 
-    
+
     if (window.innerWidth < 1025) {
         const contactDetailsContainer = document.getElementById("contacts-details-container")
-        
+
         if (contactDetailsContainer) {
             contactDetailsContainer.style.display = "none";
-            
-            
+
+
         }
         const contactsContainer = document.querySelector(".contacts-container");
         if (contactsContainer) {

@@ -191,6 +191,10 @@ async function deleteContact(firebaseId) {
     });
     if (!response.ok) throw new Error('Failed to delete contact');
 
+    // Reset active contact and hide details
+    activeContactId = null;
+    hideDetailsView();
+    
     await initContacts();
 
     const tasksToUpdate = [];
