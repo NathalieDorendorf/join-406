@@ -130,17 +130,18 @@ function updateSubtask() {
   const task = document.getElementById("taskSubtask");
   const input = task.value;
 
-  subtask[updateIndex].title = input; // Update the subtask title.
-  renderSubtask(); // Re-render the list.
-  update = false; // Exit edit mode.
 
-  clearInput(); // Clear the input field.
+  subtask[updateIndex].title = input; 
+  renderSubtask(); 
+  update = false; 
+
+  clearInput(); 
 }
 
 /**
  * Clears the subtask input field and resets the edit mode.
  */
 function clearInput() {
-  document.getElementById("taskSubtask").value = ""; // Clear the input field.
+  document.getElementById("taskSubtask").value = ""; 
   update = false; // Reset edit mode.
 }

@@ -149,7 +149,12 @@ function createContactElement(contact) {
     contactItem.innerHTML = generateContactsHTML(contact);
     contactItem.onclick = () => {
         handleContactClick(contact);
-        activeContactId = contactItem.firstElementChild.id;
+        
+        if (activeContactId == false) {
+            activeContactId = contactItem.firstElementChild.id; 
+        } else {
+            activeContactId == false
+        }
     }
     return contactItem;
 }
@@ -160,9 +165,10 @@ function createContactElement(contact) {
  * @returns {void}
  */
 function handleContactClick(contact) {
-    if (window.innerWidth < 1025) {
+    if (window.innerWidth < 1025 ) {
         showResponsiveView();
     }
+
     showContactDetails(contact);
 }
 
@@ -200,8 +206,11 @@ function resetActiveContact() {
     const activeElement = document.getElementById(activeContactId);
     if (activeElement) {
         resetStyles(activeElement);
+        
     }
+    
     activeContactId = null;
+    
 }
 
 /**
@@ -214,6 +223,7 @@ function hideDetailsView() {
         detailsContainer.classList.remove("slide-in");
         detailsContainer.classList.add("slide-out");
         detailsContainer.style.display = "none";
+        
     }
 }
 
@@ -223,11 +233,14 @@ function hideDetailsView() {
  */
 function resetPreviousContact() {
     if (!activeContactId) return;
+   
     const previousActive = document.getElementById(activeContactId);
     if (previousActive) {
         resetStyles(previousActive);
     }
+    
 }
+
 
 /**
  * Resets the styles for an element.
@@ -238,7 +251,9 @@ function resetStyles(element) {
     element.style.backgroundColor = "";
     element.style.color = "";
     const initialsCircle = element.querySelector(".initials-circle");
-    if (initialsCircle) initialsCircle.style.border = "";
+    if (initialsCircle)initialsCircle.style.border = "";
+    
+    
 }
 
 /**
@@ -339,13 +354,21 @@ function showDesktopView() {
  * Navigates back to the contact list from the details view.
  * @returns {void}
  */
+
+
+
 function navigateBackToContactList() {
     hideDetailsView();
     resetActiveContact();
+
+    
     if (window.innerWidth < 1025) {
-        const contactDetailsContainer = document.querySelector(".contact-details-container");
+        const contactDetailsContainer = document.getElementById("contacts-details-container")
+        
         if (contactDetailsContainer) {
             contactDetailsContainer.style.display = "none";
+            
+            
         }
         const contactsContainer = document.querySelector(".contacts-container");
         if (contactsContainer) {
