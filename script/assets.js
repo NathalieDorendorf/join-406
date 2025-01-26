@@ -7,7 +7,7 @@ let closeAnimation;
  * @param {string} closeAnimationClass - The CSS class for the closing animation.
  * @param {Function} [closeFunction=closeOverlay] - Function to handle closing the overlay.
  */
-function openOverlay(HTMLContent, openAnimationClass=null, closeAnimationClass=null, closeFunction = closeOverlay) {
+function openOverlay(HTMLContent, openAnimationClass = null, closeAnimationClass = null, closeFunction = closeOverlay) {
     closeAnimation = closeAnimationClass;
     overlayElement = getOverlayElement(HTMLContent, openAnimationClass);
     overlayElement.onclick = closeFunction;
@@ -51,7 +51,7 @@ function getOverlayElement(HTMLContent, openAnimationClass) {
     overlayInner.tabIndex = -1;
     overlayInner.onclick = (event) => event.stopPropagation();
     overlayInner.onkeydown = (event) => handleOverlayInnerKeyInput(event);
-    if (openAnimationClass) { 
+    if (openAnimationClass) {
         overlayInner.classList.add(openAnimationClass);
     }
     return overlay;
@@ -78,8 +78,6 @@ document.addEventListener('DOMContentLoaded', initToastContainer = () => {
             <style>
                 .toast-container {
                     position: fixed;
-                    width: 100%;
-                    pointer-events: none;
                     bottom: 16px;
                     left: 50%;
                     transform: translateX(-50%);
@@ -137,6 +135,32 @@ function showToastMessage({
     toast.addEventListener('animationend', () => {
         toast.remove();
         onAnimationEnd();
+    });
+}
+
+/**
+ * Displays an undo button with a callback on click.
+ * @param {Object} options Configuration options.
+ * @param {Function} options.undoCallbackFn Function to call on undo button click.
+ * @param {string} [options.backgroundColor='#2A3647'] Background color of the button.
+ * @param {string} [options.color='white'] Text color of the button.
+ * @param {string} [options.animation='toastIt 10000ms cubic-bezier(0.785, 0.135, 0.15, 0.86) forwards'] Animation style for the button.
+ */
+function showUndo({
+    undoCallbackFn,
+    backgroundColor = '#2A3647',
+    color = 'white',
+    animation = 'toastIt 10000ms cubic-bezier(0.785, 0.135, 0.15, 0.86) forwards'
+}) {
+    toastContainer.insertAdjacentHTML('afterbegin',
+        `<button class="toast btn-no-appearance undo-btn" style="background-color: ${backgroundColor}; color: ${color}; animation: ${animation};">Undo</button>`
+    );
+
+    const toast = toastContainer.firstElementChild;
+    toast.addEventListener('click', undoCallbackFn);
+    toast.addEventListener('click', toast.remove);
+    toast.addEventListener('animationend', () => {
+        toast.remove();
     });
 }
 
