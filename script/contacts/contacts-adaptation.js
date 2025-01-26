@@ -14,9 +14,23 @@ async function addNewContact(event) {
         if (await isEmailInvalid(email)) return;
 
         const contact = createNewContact(name, email, phone);
-        await saveContactToFirebase(contact);
+        const response = await saveContactToFirebase(contact);
+        
+        // Get the new contact's Firebase ID from the response
+        const firebaseId = response.name;
         await initContacts();
         closeOverlay();
+        
+        // Show the newly created contact's details
+        const newContact = findContactById(firebaseId);
+        if (newContact) {
+            activeContactId = firebaseId;
+            showContactDetails(newContact);
+            if (window.innerWidth < 1025) {
+                showResponsiveView();
+            }
+        }
+        
         showToastMessage({ message: "Contact successfully created" });
     }
 }
@@ -79,7 +93,7 @@ function getInitials(name) {
  * Saves a new contact to Firebase.
  * 
  * @param {Object} contact - The contact object to be saved.
- * @returns {Promise<void>} A promise that resolves when the contact is successfully saved.
+ * @returns {Promise<Object>} A promise that resolves with the response from Firebase.
  */
 async function saveContactToFirebase(contact) {
     const response = await fetch(`${BASE_URL}/contacts.json`, {
@@ -88,6 +102,7 @@ async function saveContactToFirebase(contact) {
         body: JSON.stringify(contact)
     });
     if (!response.ok) throw new Error('Failed to save contact');
+    return await response.json();
 }
 
 /**
@@ -110,9 +125,16 @@ async function saveContact(event, firebaseId) {
         await updateContactInFirebase(firebaseId, updatedContact);
         closeOverlay();
         await initContacts();
+        
+        // Show the updated contact's details
         const contact = findContactById(firebaseId);
-        const detailsContainer = document.getElementById("contactDetails");
-        detailsContainer.innerHTML = generateContactsDetailsDesktopHTML(contact, contact.phone || "");
+        if (contact) {
+            activeContactId = firebaseId;
+            showContactDetails(contact);
+            if (window.innerWidth < 1025) {
+                showResponsiveView();
+            }
+        }
     }
 }
 
