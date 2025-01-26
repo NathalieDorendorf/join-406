@@ -148,13 +148,10 @@ function createContactElement(contact) {
     const contactItem = document.createElement("li");
     contactItem.innerHTML = generateContactsHTML(contact);
     contactItem.onclick = () => {
-        handleContactClick(contact);
+   handleContactClick(contact);
         
-        if (activeContactId == false) {
-            activeContactId = contactItem.firstElementChild.id; 
-        } else {
-            activeContactId == false
-        }
+     activeContactId == false
+   
     }
     return contactItem;
 }
