@@ -39,8 +39,8 @@ let selectContactsOpen = false;
  * @param {Object} task - Task object containing the data to populate the form.
  */
 function setDataForForm(task) {
-    selectedContacts = task ? structuredClone(task.assignedTo) : [];
-    writtenSubtasks = task ? structuredClone(task.subtasks) : [];
+    selectedContacts = task && task.assignedTo ? structuredClone(task.assignedTo) : [];
+    writtenSubtasks = task && task.subtasks ? structuredClone(task.subtasks) : [];
 }
 
 /**
