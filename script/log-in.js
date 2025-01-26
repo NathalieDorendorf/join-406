@@ -1,27 +1,43 @@
 /**
- * Shows logo-animation, when page is loaded
+ * Shows logo-animation, when page is loaded.
+ * Only show once.
  */
 document.addEventListener('DOMContentLoaded', () => {
+    setShowAnimationState();
+    const logoNotAnimatedBefore = JSON.parse(localStorage.getItem('showAnimation'));
+    let logo = null;
     const overlay = document.createElement('div');
-    if (window.innerWidth <= 768) {
-        overlay.classList.add('animation-overlay-dark');
-        const logo = document.querySelector('.logo-little');
-        logo.remove();
-        document.body.insertAdjacentElement('afterbegin', logo);
-        showAnimation('animate-mobile');
-        logo.addEventListener('animationend', () => {
-            document.querySelector('main').style.marginTop = '0px';
-            logo.classList.add('logo-relative');
-        });
-    } else {
-        showAnimation('animate');
+    if (logoNotAnimatedBefore) {
+        if (window.innerWidth <= 768) {
+            logo = document.querySelector('.logo-little-responsive');
+            overlay.classList.add('animation-overlay-dark');
+            showAnimation('animate-mobile');
+        } else {
+            logo = document.querySelector('.logo-little');
+            showAnimation('animate');
+        }
     }
 
-    function showAnimation(animationClass) {
+    /**
+     * Show animation only once.
+     * @returns {void}
+     */
+    function setShowAnimationState() {
+        if (!(localStorage.getItem('showAnimation'))) {
+            localStorage.setItem('showAnimation', true);
+        } else {
+            localStorage.setItem('showAnimation', false);
+        }
+    }
+
+    /**
+     * Shows the logo-animation.
+     * @param {string} animationClass - The class name of the logo animation.
+     */
+    async function showAnimation(animationClass) {
+        await sleep(100);
         overlay.classList.add('animation-overlay');
         document.body.appendChild(overlay);
-        document.body.style.visibility = 'visible';
-        const logo = document.querySelector('.logo-little');
         logo.classList.add(animationClass);
         overlay.classList.add('close-overlay');
         overlay.addEventListener('animationend', () => overlay.classList.add('dni'));
@@ -144,4 +160,13 @@ function addToSessionStorage(login) {
 function clearLoginData() {
     document.getElementById("email").value = "";
     document.getElementById("password").value = "";
+}
+
+/**
+ * Waits for a specified amount of time.
+ * @param {number} ms - The time in milliseconds to wait.
+ * @returns {Promise} A promise that resolves after the specified time has passed.
+ */
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }

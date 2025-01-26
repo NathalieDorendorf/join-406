@@ -201,6 +201,11 @@ a:hover {
         max-width: 1920px;
     }
 
+    body.login-page {
+        max-width: 1920px;
+        margin: 0 auto;
+    }
+
     .section-gap {
         gap: 64px;
     }

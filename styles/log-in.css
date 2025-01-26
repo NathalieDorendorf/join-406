@@ -1,9 +1,25 @@
+body.login-page {
+    visibility: visible;
+}
+
+.logo-little-responsive {
+    flex: 0 0 auto;
+    height: 122px;
+    width: 100px;
+    display: none;
+    margin: 16px 0 0 16px;
+    transform: scale(0.8);
+}
+
+.login-page header {
+    align-items: center;
+}
+
 .header-login {
     display: flex;
     justify-content: center;
-    align-items: baseline;
+    align-items: center;
     gap: 32px;
-    margin-left: auto;
 }
 
 .login-container {
@@ -35,7 +51,6 @@
 }
 
 .animation-overlay {
-    overflow-y: auto;
     height: 100vh;
     width: 100vw;
     position: fixed;
@@ -66,17 +81,17 @@
 
     0%,
     50% {
-        position: fixed;
-        top: 50%;
+        position: relative;
+        top: calc(50vh - 32px);
         left: 50%;
         transform: translate(-50%, -50%) scale(200%);
         z-index: 11;
     }
 
     100% {
-        position: fixed;
-        top: 48px;
-        left: 64px;
+        position: relative;
+        top: 0%;
+        left: 0%;
         z-index: 11;
     }
 }
@@ -86,20 +101,19 @@
     0%,
     50% {
         content: url('/assets/icons/join-logo-white.svg');
-        position: absolute;
-        top: 50%;
+        position: relative;
+        top: calc(50vh);
         left: 50%;
-        transform: translate(-50%, -50%) scale(200%);
+        transform: translate(-50%, -50%) scale(150%);
         z-index: 11;
     }
 
     100% {
         content: url('/assets/icons/join-logo.svg');
-        position: absolute;
-        top: 32px;
-        left: 32px;
+        position: relative;
+        top: 0%;
+        left: 0%;
         z-index: 11;
-        transform: scale(0.8);
     }
 }
 
@@ -116,7 +130,7 @@
 
     .login-page header {
         order: 1;
-        margin: auto;
+        margin: 0 auto;
     }
 
     .login-page footer {
@@ -124,21 +138,15 @@
     }
 
     .login-page main {
-        margin-top: 122px;
         padding: 64px 24px;
     }
 
-    .login-page .logo-little {
+    .logo-little-responsive {
         display: block;
-    }
-
-    .logo-relative {
-        position: relative !important;
     }
 }
 
 @media(max-width: 600px) {
-
     .button-container {
         flex-direction: column;
         align-items: center;
