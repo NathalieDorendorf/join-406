@@ -211,26 +211,35 @@ async function deleteContact(firebaseId) {
     const response = await fetch(`${BASE_URL}/contacts/${firebaseId}.json`, {
         method: 'DELETE'
     });
-    if (!response.ok) throw new Error('Failed to delete contact');
+
+    if (!response.ok) {
+        throw new Error('Failed to delete contact');
+    }
+
+    delete allData.contacts[firebaseId];
+    updateTasksAfterContactDeletion();
+
+    if (overlayElement) closeOverlay();
 
     activeContactId = null;
-    hideDetailsView();
+    document.getElementById('contactDetails').innerHTML = '';
+    initContacts();
+}
 
-    await initContacts();
-
+/**
+ * Updates all tasks that have the deleted contact assigned to them.
+ * @returns {Promise<void>} A promise that resolves when all tasks have been updated after contact deletion.
+ */
+async function updateTasksAfterContactDeletion() {
     const tasksToUpdate = [];
     Object.keys(allData.tasks).forEach(taskId => {
         const task = allData.tasks[taskId];
-        if (Array.isArray(task.assignedTo) && task.assignedTo.includes(firebaseId)) {
-            task.assignedTo = task.assignedTo.filter(contactId => contactId !== firebaseId);
+        if (Array.isArray(task.assignedTo) && task.assignedTo.includes(activeContactId)) {
+            task.assignedTo = task.assignedTo.filter(contactId => contactId !== activeContactId);
             tasksToUpdate.push(taskId);
         }
     });
-
     for (const taskId of tasksToUpdate) {
         await updateTaskInDatabase(taskId);
     }
-
-    closeOverlay();
-    showContactListOnly();
 }

@@ -1,5 +1,5 @@
-let overlayElement;
-let closeAnimation;
+let overlayElement = null;
+let closeAnimation = null;
 
 /**
  * Opens an overlay with specified content and animations.
