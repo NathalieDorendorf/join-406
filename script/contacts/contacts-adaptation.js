@@ -15,12 +15,12 @@ async function addNewContact(event) {
 
         const contact = createNewContact(name, email, phone);
         const response = await saveContactToFirebase(contact);
-        
+
         // Get the new contact's Firebase ID from the response
         const firebaseId = response.name;
         await initContacts();
         closeOverlay();
-        
+
         // Show the newly created contact's details
         const newContact = findContactById(firebaseId);
         if (newContact) {
@@ -30,7 +30,7 @@ async function addNewContact(event) {
                 showResponsiveView();
             }
         }
-        
+
         showToastMessage({ message: "Contact successfully created" });
     }
 }
@@ -125,7 +125,7 @@ async function saveContact(event, firebaseId) {
         await updateContactInFirebase(firebaseId, updatedContact);
         closeOverlay();
         await initContacts();
-        
+
         // Show the updated contact's details
         const contact = findContactById(firebaseId);
         if (contact) {
@@ -213,23 +213,24 @@ async function deleteContact(firebaseId) {
     });
     if (!response.ok) throw new Error('Failed to delete contact');
 
-    // Reset active contact and hide details
     activeContactId = null;
     hideDetailsView();
-    
+
     await initContacts();
 
     const tasksToUpdate = [];
     Object.keys(allData.tasks).forEach(taskId => {
         const task = allData.tasks[taskId];
-        if (task.assignedTo.includes(firebaseId)) {
+        if (Array.isArray(task.assignedTo) && task.assignedTo.includes(firebaseId)) {
             task.assignedTo = task.assignedTo.filter(contactId => contactId !== firebaseId);
             tasksToUpdate.push(taskId);
         }
     });
+
     for (const taskId of tasksToUpdate) {
         await updateTaskInDatabase(taskId);
     }
+
     closeOverlay();
     showContactListOnly();
 }
