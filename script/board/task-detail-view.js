@@ -18,6 +18,10 @@ async function toggleSubtaskStatus(currentElement, index) {
         updateCheckbox();
     }
 
+    /**
+     * Updates the checkbox with the correct SVG path.
+     * @returns {void}
+     */
     function updateCheckbox() {
         const svgPath = subtask.done ? 'checked' : 'unchecked';
         const newSrc = `/assets/icons/check-button-${svgPath}.svg`
@@ -35,16 +39,20 @@ async function deleteTask(taskId) {
     if (await deleteTaskInDatabase(taskId)) {
         await fetchAllDataAndPaintTasks();
         closeOverlay();
-        showUndo({
-            undoCallbackFn: async () => {
-                if (await fetchResource('tasks/', 'POST', undoTask)) {
-                    showToastMessage({ message: 'Task has been successfully restored' });
-                    fetchAllDataAndPaintTasks();
-                } else {
-                    showToastMessage({ message: 'Task could not be restored.' });
-                }
-            }
-        });
+        showUndo({ undoCallbackFn });
+    }
+
+    /**
+     * Callback: Restores task by posting cloned task to database.
+     * @returns {Promise<void>}
+     */
+    async function undoCallbackFn() {
+        if (await fetchResource('tasks/', 'POST', undoTask)) {
+            showToastMessage({ message: 'Task has been successfully restored' });
+            fetchAllDataAndPaintTasks();
+        } else {
+            showToastMessage({ message: 'Task could not be restored.' });
+        }
     }
 }
 

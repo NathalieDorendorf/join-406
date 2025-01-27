@@ -6,16 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
     setShowAnimationState();
     const logoNotAnimatedBefore = JSON.parse(localStorage.getItem('showAnimation'));
     let logo = null;
-    const overlay = document.createElement('div');
+    const overlayElem = document.createElement('div');
     if (logoNotAnimatedBefore) {
-        if (window.innerWidth <= 768) {
-            logo = document.querySelector('.logo-little-responsive');
-            overlay.classList.add('animation-overlay-dark');
-            showAnimation('animate-mobile');
-        } else {
-            logo = document.querySelector('.logo-little');
-            showAnimation('animate');
-        }
+        executeAnimation(logo, overlayElem);
     } else {
         document.body.style.visibility = 'visible';
     }
@@ -33,17 +26,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
+     * Executes the animation.
+     * @param {HTMLElement} logo - The logo element.
+     * @param {HTMLElement} overlayElem - The overlay element.
+     * @returns {void}
+     */
+    function executeAnimation(logo, overlayElem) {
+        if (window.innerWidth <= 768) {
+            logo = document.querySelector('.logo-little-responsive');
+            overlayElem.classList.add('animation-overlay-dark');
+            showAnimation(overlayElem, logo, 'animate-mobile');
+        } else {
+            logo = document.querySelector('.logo-little');
+            showAnimation(overlayElem, logo, 'animate');
+        }
+    }
+
+    /**
      * Shows the logo-animation.
      * @param {string} animationClass - The class name of the logo animation.
      */
-    async function showAnimation(animationClass) {
+    async function showAnimation(overlayElem, logoElem, animationClass) {
         await sleep(100);
-        overlay.classList.add('animation-overlay');
-        document.body.appendChild(overlay);
+        overlayElem.classList.add('animation-overlay');
+        document.body.appendChild(overlayElem);
         document.body.style.visibility = 'visible';
-        logo.classList.add(animationClass);
-        overlay.classList.add('close-overlay');
-        overlay.addEventListener('animationend', () => overlay.classList.add('dni'));
+        logoElem.classList.add(animationClass);
+        overlayElem.classList.add('close-overlay');
+        overlayElem.addEventListener('animationend', () => overlayElem.classList.add('dni'));
     }
 });
 
