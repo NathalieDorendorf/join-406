@@ -1,8 +1,22 @@
 /**
  * Shows logo-animation, when page is loaded
  */
+
 document.addEventListener('DOMContentLoaded', () => {
     const overlay = document.createElement('div');
+
+    if (sessionStorage.getItem('animationPlayed') === 'true') { //localStorage.getItem('animationPlayed') === 'true'
+
+        document.querySelector('main').style.marginTop = '0px';
+        const logo = document.querySelector('.logo-little');
+        logo.classList.add('logo-relative');
+        document.body.style.visibility = 'visible';
+
+        logo.remove();
+        document.body.insertAdjacentElement('afterbegin', logo);
+        return;
+    }
+
     if (window.innerWidth <= 768) {
         overlay.classList.add('animation-overlay-dark');
         const logo = document.querySelector('.logo-little');
@@ -24,7 +38,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const logo = document.querySelector('.logo-little');
         logo.classList.add(animationClass);
         overlay.classList.add('close-overlay');
-        overlay.addEventListener('animationend', () => overlay.classList.add('dni'));
+        overlay.addEventListener('animationend', () => {
+            overlay.classList.add('dni');
+
+            sessionStorage.setItem('animationPlayed', 'true');
+            // localStorage.setItem('animationPlayed', 'true');
+        });
     }
 });
 
