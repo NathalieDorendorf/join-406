@@ -124,6 +124,9 @@ function renderAssignedTo(assignedTo) {
  */
 function renderForAll(dataArray, renderFunction, ...optionalArguments) {
     let renderedHTML = '';
+    if (!dataArray) {
+        return '';
+    }
     dataArray.forEach((dataElement, index) => renderedHTML += renderFunction(dataElement, index, ...optionalArguments));
     return renderedHTML;
 }

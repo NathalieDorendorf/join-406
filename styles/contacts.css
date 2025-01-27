@@ -181,7 +181,7 @@
     font-size: 16px;
 }
 
-.button-contacts:hover {
+.button-contacts:hover,.button-contacts-back:hover {
     cursor: pointer;
 }
 
@@ -303,7 +303,11 @@
     .button-contacts-white {
         display: none;
     }
+    
+    
 }
+
+
 
 @media (max-width: 1024px) {
     .contacts-container {

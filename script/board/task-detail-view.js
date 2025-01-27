@@ -26,16 +26,25 @@ async function toggleSubtaskStatus(currentElement, index) {
 }
 
 /**
- * Deletes a task after user confirmation.
- * @param {string} taskId - The ID of the task to delete.
+ * Deletes a task and provides an undo option.
+ * @param {string} taskId ID of the task to be deleted.
  * @returns {Promise<void>}
  */
 async function deleteTask(taskId) {
-    if (window.confirm("Do you want to delete the task?")) {
-        if (await deleteTaskInDatabase(taskId)) {
-            await fetchAllDataAndPaintTasks();
-            closeOverlay();
-        }
+    const undoTask = structuredClone(allData.tasks[taskId]);
+    if (await deleteTaskInDatabase(taskId)) {
+        await fetchAllDataAndPaintTasks();
+        closeOverlay();
+        showUndo({
+            undoCallbackFn: async () => {
+                if (await fetchResource('tasks/', 'POST', undoTask)) {
+                    showToastMessage({ message: 'Task has been successfully restored' });
+                    fetchAllDataAndPaintTasks();
+                } else {
+                    showToastMessage({ message: 'Task could not be restored.' });
+                }
+            }
+        });
     }
 }
 

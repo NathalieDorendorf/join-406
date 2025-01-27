@@ -126,10 +126,15 @@ function paintActiveLink() {
  * Navigates back to the previous page in the browser history.
  */
 function goBackToPreviousPage() {
-    if (window.history.back() === undefined) {
-        window.location.href = window.history.state.previousURL;
+    let login = sessionStorage.getItem('isLoggedIn');
+    if (login === "true") {
+        if (window.history.state && window.history.state.previousURL) {
+            window.location.href = window.history.state.previousURL;
+        } else {
+            window.history.back();
+        }
     } else {
-        window.history.back();
+        window.location.href = "/html/register.html";
     }
 }
 
