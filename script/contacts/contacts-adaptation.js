@@ -186,6 +186,31 @@ function findContactById(firebaseId) {
 }
 
 /**
+ * Deletes a contact from Firebase using the provided Firebase ID.
+ * 
+ * @param {string} firebaseId - The Firebase ID of the contact to be deleted.
+ * @returns {Promise<void>} A promise that resolves when the contact is successfully deleted.
+ */
+async function deleteContact(firebaseId) {
+    const contact = findContactById(firebaseId);
+    if (!contact) return;
+
+    try {
+        const users = await fetchResource('users');
+        const userToDelete = Object.entries(users).find(([_, user]) => user.email === contact.mail)?.[0];
+        if (userToDelete) await fetchResource(`users/${userToDelete}`, 'DELETE');
+        await fetchResource(`contacts/${firebaseId}`, 'DELETE');
+        await updateTasksAfterContactDeletion();
+        await initContacts();
+        document.getElementById("contact-details").innerHTML = "";
+        activeContactId = null;
+        showToastMessage({ message: "Contact successfully deleted" });
+    } catch (error) {
+        showToastMessage({ message: "Error deleting contact" });
+    }
+}
+
+/**
  * Updates a contact in Firebase using the provided Firebase ID and updated contact data.
  * 
  * @param {string} firebaseId - The Firebase ID of the contact to be updated.
@@ -193,37 +218,19 @@ function findContactById(firebaseId) {
  * @returns {Promise<void>} A promise that resolves when the contact is successfully updated.
  */
 async function updateContactInFirebase(firebaseId, contact) {
-    const response = await fetch(`${BASE_URL}/contacts/${firebaseId}.json`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(contact)
-    });
-    if (!response.ok) throw new Error('Failed to update contact');
-}
-
-/**
- * Deletes a contact from Firebase using the provided Firebase ID.
- * 
- * @param {string} firebaseId - The Firebase ID of the contact to be deleted.
- * @returns {Promise<void>} A promise that resolves when the contact is successfully deleted.
- */
-async function deleteContact(firebaseId) {
-    const response = await fetch(`${BASE_URL}/contacts/${firebaseId}.json`, {
-        method: 'DELETE'
-    });
-
-    if (!response.ok) {
-        throw new Error('Failed to delete contact');
+    try {
+        const oldContact = findContactById(firebaseId);
+        if (oldContact?.mail !== contact.mail) {
+            const users = await fetchResource('users');
+            const [userId, userData] = Object.entries(users).find(([_, u]) => u.email === oldContact.mail) || [];
+            if (userId) await fetchResource(`users/${userId}`, 'PUT', { ...userData, email: contact.mail });
+        }
+        await fetchResource(`contacts/${firebaseId}`, 'PUT', contact);
+        await initContacts();
+        showToastMessage({ message: "Contact successfully edited" });
+    } catch (error) {
+        showToastMessage({ message: "Error updating contact" });
     }
-
-    delete allData.contacts[firebaseId];
-    updateTasksAfterContactDeletion();
-
-    if (overlayElement) closeOverlay();
-
-    activeContactId = null;
-    document.getElementById('contactDetails').innerHTML = '';
-    initContacts();
 }
 
 /**
