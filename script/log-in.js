@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
             logo = document.querySelector('.logo-little');
             showAnimation('animate');
         }
+    } else {
+        document.body.style.visibility = 'visible';
     }
 
     /**
@@ -38,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
         await sleep(100);
         overlay.classList.add('animation-overlay');
         document.body.appendChild(overlay);
+        document.body.style.visibility = 'visible';
         logo.classList.add(animationClass);
         overlay.classList.add('close-overlay');
         overlay.addEventListener('animationend', () => overlay.classList.add('dni'));
