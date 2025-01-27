@@ -126,12 +126,31 @@ function paintActiveLink() {
  * Navigates back to the previous page in the browser history.
  */
 function goBackToPreviousPage() {
-    if (window.history.back() === undefined) {
-        window.location.href = window.history.state.previousURL;
+    let login = sessionStorage.getItem('isLoggedIn'); // String oder null
+    console.log(login);
+
+    if (login === "true") { // Prüfe, ob der User eingeloggt ist
+        // Gehe zur vorherigen Seite
+        if (window.history.state && window.history.state.previousURL) {
+            window.location.href = window.history.state.previousURL;
+        } else {
+            // Fallback, falls keine vorherige URL im State ist
+            window.history.back();
+        }
     } else {
-        window.history.back();
+        // User ist nicht eingeloggt, leite zu register.html
+        window.location.href = "/html/register.html";
     }
 }
+
+
+// function goBackToPreviousPage() {
+//         if (window.history.back() === undefined) {
+//             window.location.href = window.history.state.previousURL;
+//         } else {
+//             window.history.back();
+//         }
+//     }
 
 /**
  * Open/Close the user menu.

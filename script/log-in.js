@@ -5,7 +5,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const overlay = document.createElement('div');
 
-    if (sessionStorage.getItem('animationPlayed') === 'true') { //localStorage.getItem('animationPlayed') === 'true'
+    if (sessionStorage.getItem('animationPlayed') === 'true') {
 
         document.querySelector('main').style.marginTop = '0px';
         const logo = document.querySelector('.logo-little');
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
             overlay.classList.add('dni');
 
             sessionStorage.setItem('animationPlayed', 'true');
-            // localStorage.setItem('animationPlayed', 'true');
+
         });
     }
 });
