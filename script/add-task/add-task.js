@@ -1,12 +1,27 @@
 const dataToSubmit = {};
 
+/**
+ * Initializes the application.
+ * - Disables the button during initialization.
+ * - Includes HTML from external files.
+ * - Fetches contacts data.
+ * - Renders the contacts.
+ * - Re-enables the button after initialization.
+ * 
+ * @returns {Promise<void>}
+ */
 async function init() {
   buttonDisabled(true); 
-  includeHTML();
-  await fetchContacts();
-  render(contactsArray);
+
+  includeHTML(); 
+  await fetchContacts(); 
+  render(contactsArray); 
+
   buttonDisabled(false); 
 }
+
+
+// duDate
 
 /**
  * Initializes a click event for a custom date icon.
@@ -153,6 +168,7 @@ async function processForm(event) {
 function prepareDataToSubmit(formData, form) {
   formData.forEach((value, key) => {
     if (key === "assignedTo") {
+     
       if (Array.isArray(dataToSubmit[key])) {
         dataToSubmit[key].push(value);
       } else {

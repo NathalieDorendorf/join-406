@@ -37,40 +37,66 @@ function filterContacts() {
   showCheckboxes();
 }
 
+
 /**
- * Toggles the selection of a contact and updates the badge list.
- * @param {Event} event - The change event.
- * @param {string} initials - The initials of the contact.
- * @param {string} color - The color associated with the contact.
- * @param {string} id - The ID of the checkbox.
+ * Handles the checkbox event to update badges and styles.
+ * @param {Event} event - The checkbox event.
+ * @param {string} initials - The initials to display on the badge.
+ * @param {string} color - The color of the badge.
+ * @param {string} id - The ID of the checkbox element.
  */
 function checkt(event, initials, color, id) {
   const badgeContainer = document.getElementById("badge-Container");
   const checkboxContent = event.target.closest(".checkbox-content");
   const customCheckbox = document.getElementById(id);
   if (event.target.checked) {
-    badgeArry.push({ initials: initials, color: color });
-    updateStyle(checkboxContent, customCheckbox);
-    badgeContainer.innerHTML = "";
-    badgeArry.forEach((badge) => {
-      badgeContainer.innerHTML += renderBadge(badge.color, badge.initials);
-    });
+    handleCheckboxChecked(initials, color, checkboxContent, customCheckbox, badgeContainer);
   } else {
-    removeStyle(checkboxContent, customCheckbox);
-    badgeArry = badgeArry.filter(
-      (badge) => badge.initials !== initials || badge.color !== color
-    );
-    badgeContainer.innerHTML = "";
-    badgeArry.forEach((badge) => {
-      badgeContainer.innerHTML += renderBadge(badge.color, badge.initials);
-    });
+    handleCheckboxUnchecked(initials, color, checkboxContent, customCheckbox, badgeContainer);
   }
 }
 
 /**
- * Updates the style of the selected checkbox.
- * @param {HTMLElement} checkboxContent - The content of the checkbox.
+ * Handles the logic when a checkbox is checked.
+ * Adds the badge and updates styles.
+ * @param {string} initials - The initials to display on the badge.
+ * @param {string} color - The color of the badge.
+ * @param {HTMLElement} checkboxContent - The checkbox's container element.
  * @param {HTMLElement} customCheckbox - The custom checkbox element.
+ * @param {HTMLElement} badgeContainer - The container for the badges.
+ */
+function handleCheckboxChecked(initials, color, checkboxContent, customCheckbox, badgeContainer) {
+  badgeArry.push({ initials: initials, color: color });
+  updateStyle(checkboxContent, customCheckbox);
+  updateBadgeContainer(badgeContainer);
+}
+
+/**
+ * Handles the logic when a checkbox is unchecked.
+ * Removes the badge and resets styles.
+ */
+function handleCheckboxUnchecked(initials, color, checkboxContent, customCheckbox, badgeContainer) {
+  removeStyle(checkboxContent, customCheckbox);
+  badgeArry = badgeArry.filter(
+    (badge) => badge.initials !== initials || badge.color !== color
+  );
+  updateBadgeContainer(badgeContainer);
+}
+
+/**
+ * Updates the badge container by rendering all badges.
+ */
+function updateBadgeContainer(badgeContainer) {
+  badgeContainer.innerHTML = "";
+  badgeArry.forEach((badge) => {
+    badgeContainer.innerHTML += renderBadge(badge.color, badge.initials);
+  });
+}
+
+
+
+/**
+ * Updates the style of the selected checkbox.
  */
 function updateStyle(checkboxContent, customCheckbox) {
   checkboxContent.style.backgroundColor = "var(--checkt)";
@@ -80,8 +106,6 @@ function updateStyle(checkboxContent, customCheckbox) {
 
 /**
  * Removes the style of the deselected checkbox.
- * @param {HTMLElement} checkboxContent - The content of the checkbox.
- * @param {HTMLElement} customCheckbox - The custom checkbox element.
  */
 function removeStyle(checkboxContent, customCheckbox) {
   checkboxContent.style.backgroundColor = "";
@@ -153,14 +177,20 @@ function arrayContacts(contactObject) {
 }
 
 /**
- * Resets the contact selection and UI to the default state.
+ * Resets the contact selection and clears the UI elements.
  */
-function resetContacts() {
+function resetContactUI() {
   badgeArry.splice(0, badgeArry.length);
   const badgeContainer = document.getElementById("badge-Container");
   badgeContainer.innerHTML = "";
   const filterInput = document.getElementById("assigned");
   if (filterInput) filterInput.value = "";
+}
+
+/**
+ * Resets the checkbox states and styles to default.
+ */
+function resetCheckboxes() {
   const checkboxes = document.querySelectorAll(
     "#checkboxes input[type='checkbox']"
   );
@@ -175,6 +205,15 @@ function resetContacts() {
   expanded = true;
   showCheckboxes();
 }
+
+/**
+ * Resets the contact selection and UI to the default state.
+ */
+function resetContacts() {
+  resetContactUI();
+  resetCheckboxes();
+}
+
 
 /**
  * Updates the dropdown icon based on the expansion state.
