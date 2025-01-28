@@ -134,7 +134,7 @@ function goBackToPreviousPage() {
             window.history.back();
         }
     } else {
-        window.location.href = "/html/register.html";
+        window.location.href = "/index.html";
     }
 }
 
