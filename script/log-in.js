@@ -92,7 +92,6 @@ async function logIn(path, enteredEmail, enteredPassword, isGuest) {
     try {
         let response = await fetch(BASE_URL + path + ".json");
         let responseToJson = await response.json();
-
         if (isGuest) {
             const guestUser = { email: enteredEmail, password: enteredPassword };
             validateMatch(guestUser, true);
@@ -144,8 +143,8 @@ function validateMatch(matchingUser, isGuest = false) {
 function checkLogin(email, password) {
     if (email || password) {
         document.getElementById('errorMessageLogin').innerHTML = `
-      <div class="errorText">Check your email and password. Please try again</div>
-    `;
+            <div class="errorText">Check your email and password. Please try again</div>
+        `;
         document.getElementById('email').style.border = "1px solid red";
         document.getElementById('password').style.border = "1px solid red";
     }

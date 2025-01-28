@@ -90,7 +90,6 @@ function showToastMessage({ message, backgroundColor = '#2A3647', color = 'white
             ${message}
         </div>`
     );
-
     const toast = toastContainer.lastElementChild;
     toast.addEventListener('animationend', () => {
         toast.remove();
@@ -112,7 +111,6 @@ function showUndo({ undoCallbackFn, backgroundColor = '#2A3647', color = 'white'
             Undo
         </button>`
     );
-
     const toast = toastContainer.firstElementChild;
     toast.addEventListener('click', undoCallbackFn);
     toast.addEventListener('click', toast.remove);
@@ -162,7 +160,6 @@ function displayInputErrorMessage(inputElement, message, testToPassFn, marginBot
     if (!testToPassFn()) {
         if (!inputElement.parentElement.querySelector('.input-error-message')) {
             const errorElem = insertErrorElem(inputElement, message, marginBottomOfParent);
-
             listenForChangeElem.addEventListener('change', () => {
                 if (testToPassFn()) {
                     inputElement.classList.remove('red-border');

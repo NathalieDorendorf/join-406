@@ -2,9 +2,6 @@ let subtask = [];
 let update = false;
 let updateIndex = null;
 
-
-
-
 document.addEventListener("DOMContentLoaded", () => {
   const inputField = document.getElementById("taskSubtask");
   if (inputField) {
@@ -13,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
               event.preventDefault();
               addSubtask();
               showAddBlue()
-             
           }
       });
   } 
@@ -24,13 +20,11 @@ document.addEventListener("DOMContentLoaded", () => {
  */
 document.addEventListener("DOMContentLoaded", function () {
   const inputField = document.getElementById("taskSubtask");
-
-  // Listens for input events on the subtask input field.
   inputField.addEventListener("input", function (event) {
     if (event.target.value === "") {
-      showAddBlue(); // Show the add button if the input is empty.
+      showAddBlue();
     } else {
-      hidenAddBlue(); // Hide the add button if there's input.
+      hidenAddBlue();
     }
   });
 });
@@ -41,8 +35,8 @@ document.addEventListener("DOMContentLoaded", function () {
 function hidenAddBlue() {
   const addBlue = document.getElementById("add-blue");
   const closeCheck = document.getElementById("close-check");
-  closeCheck.classList.remove("display-none"); // Show 'close check' button.
-  addBlue.classList.add("display-none"); // Hide 'add' button.
+  closeCheck.classList.remove("display-none");
+  addBlue.classList.add("display-none"); 
 }
 
 /**
@@ -51,8 +45,8 @@ function hidenAddBlue() {
 function showAddBlue() {
   const addBlue = document.getElementById("add-blue");
   const closeCheck = document.getElementById("close-check");
-  closeCheck.classList.add("display-none"); // Hide 'close check' button.
-  addBlue.classList.remove("display-none"); // Show 'add' button.
+  closeCheck.classList.add("display-none"); 
+  addBlue.classList.remove("display-none"); 
 }
 
 /**
@@ -69,9 +63,7 @@ function editAndFocus(inputId) {
  */
 function renderSubtask() {
   const taskList = document.getElementById("subtask-list");
-  taskList.innerHTML = ""; // Clear the existing content.
-
-  // Loop through subtasks and render each one.
+  taskList.innerHTML = ""; 
   for (let index = 0; index < subtask.length; index++) {
     taskList.innerHTML += renderList(index);
   }
@@ -82,19 +74,17 @@ function renderSubtask() {
  */
 function addSubtask() {
   const task = document.getElementById("taskSubtask").value;
-
   if (update === true) {
-    updateSubtask(updateIndex); // Update the subtask if in edit mode.
+    updateSubtask(updateIndex); 
   } else {
     if (task.trim() !== "") {
       const newSubtask = {
         title: task,
         done: false,
       };
-
-      subtask.push(newSubtask); // Add the new subtask to the list.
-      renderSubtask(); // Re-render the list.
-      document.getElementById("taskSubtask").value = ""; // Clear the input field.
+      subtask.push(newSubtask); 
+      renderSubtask(); 
+      document.getElementById("taskSubtask").value = ""; 
     }
   }
 }
@@ -104,9 +94,9 @@ function addSubtask() {
  * @param {number} indexSubtask - The index of the subtask to delete.
  */
 function delet(indexSubtask) {
-  subtask.splice(indexSubtask, 1); // Remove the subtask from the array.
-  renderSubtask(); // Re-render the list.
-  clearInput(); // Clear the input field.
+  subtask.splice(indexSubtask, 1); 
+  renderSubtask(); 
+  clearInput(); 
 }
 
 /**
@@ -115,12 +105,11 @@ function delet(indexSubtask) {
  */
 function edit(indexSubtask) {
   const task = document.getElementById("taskSubtask");
-  task.value = subtask[indexSubtask].title; // Set the input field to the subtask's title.
+  task.value = subtask[indexSubtask].title; 
   updateIndex = indexSubtask;
-  update = true; // Enter edit mode.
-
-  showAddBlue(); // Show the 'add' button.
-  renderSubtask(); // Re-render the list.
+  update = true; 
+  showAddBlue(); 
+  renderSubtask(); 
 }
 
 /**
@@ -129,12 +118,9 @@ function edit(indexSubtask) {
 function updateSubtask() {
   const task = document.getElementById("taskSubtask");
   const input = task.value;
-
-
   subtask[updateIndex].title = input; 
   renderSubtask(); 
   update = false; 
-
   clearInput(); 
 }
 

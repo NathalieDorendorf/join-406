@@ -9,19 +9,13 @@ async function addNewContact(event) {
     event.preventDefault();
     if (document.querySelector('form').checkValidity()) {
         const { name, email, phone } = getContactFormData();
-
         if (!name || !email) return alert("Please fill in all required fields");
         if (await isEmailInvalid(email)) return;
-
         const contact = createNewContact(name, email, phone);
         const response = await saveContactToFirebase(contact);
-
-        // Get the new contact's Firebase ID from the response
         const firebaseId = response.name;
         await initContacts();
         closeOverlay();
-
-        // Show the newly created contact's details
         const newContact = findContactById(firebaseId);
         if (newContact) {
             activeContactId = firebaseId;
@@ -30,7 +24,6 @@ async function addNewContact(event) {
                 showResponsiveView();
             }
         }
-
         showToastMessage({ message: "Contact successfully created" });
     }
 }
@@ -116,17 +109,12 @@ async function saveContact(event, firebaseId) {
     event.preventDefault();
     if (document.querySelector('form').checkValidity()) {
         const { name, email, phone } = getContactFormData();
-
         if (!validateContactForm()) return;
-
         const updatedContact = createUpdatedContact(firebaseId);
         if (!updatedContact) return;
-
         await updateContactInFirebase(firebaseId, updatedContact);
         closeOverlay();
         await initContacts();
-
-        // Show the updated contact's details
         const contact = findContactById(firebaseId);
         if (contact) {
             activeContactId = firebaseId;
@@ -164,7 +152,6 @@ function createUpdatedContact(firebaseId) {
         console.error('Contact not found:', firebaseId);
         return null;
     }
-
     const { name, email, phone } = getContactFormData();
     return {
         ...contact,
@@ -194,7 +181,6 @@ function findContactById(firebaseId) {
 async function deleteContact(firebaseId) {
     const contact = findContactById(firebaseId);
     if (!contact) return;
-
     try {
         const users = await fetchResource('users');
         const userToDelete = Object.entries(users).find(([_, user]) => user.email === contact.mail)?.[0];

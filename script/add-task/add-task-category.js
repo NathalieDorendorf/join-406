@@ -12,15 +12,10 @@ function toggleDropdown() {
  * @param {string} value - The selected option's value.
  */
 function selectOption(value) {
-  // Update the displayed category text.
   const display = document.getElementById('category-display');
   display.textContent = value;
-
-  // Set the value of the hidden input field.
   const hiddenInput = document.getElementById('category');
   hiddenInput.value = value;
-
-  // Close the dropdown menu.
   const dropdown = document.getElementById('selectOptions');
   dropdown.classList.remove('open');
 }
@@ -31,8 +26,6 @@ function selectOption(value) {
  */
 function changeDropdownIconCategory() {
   const icon = document.getElementById("arrow-drop-down-category");
-
-  // Check the current icon and switch to the appropriate one.
   if (icon.src.includes("arrow-drop-down.svg")) {
     icon.src = "/assets/icons/arrow_drop_downaa-up.svg";
   } else {
@@ -45,19 +38,9 @@ function changeDropdownIconCategory() {
  * Clears the hidden input value, resets the display text, and removes subtasks.
  */
 function resetCategory() {
-  // Clear the hidden input field value.
   document.getElementById("category").value = "";
-
-  // Reset the displayed category text.
   document.getElementById("category-display").innerText = "Select task category";
-
-  // Clear the task subtask input value.
   document.getElementById("taskSubtask").value = "";
-
-  // Remove all subtasks from the list.
   const subtaskList = document.getElementById("subtask-list");
   subtaskList.innerHTML = "";
 }
-
-
-

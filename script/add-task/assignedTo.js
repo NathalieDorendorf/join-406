@@ -10,7 +10,6 @@ document.addEventListener("click", (event) => {
   const checkboxes = document.getElementById("checkboxes");
   const badgeContainer = document.getElementById("badge-Container");
   const dropdownToggle = document.getElementById("assigned");
-
   if (
     expanded &&
     !checkboxes.contains(event.target) &&
@@ -49,7 +48,6 @@ function checkt(event, initials, color, id) {
   const badgeContainer = document.getElementById("badge-Container");
   const checkboxContent = event.target.closest(".checkbox-content");
   const customCheckbox = document.getElementById(id);
-
   if (event.target.checked) {
     badgeArry.push({ initials: initials, color: color });
     updateStyle(checkboxContent, customCheckbox);
@@ -97,7 +95,6 @@ function removeStyle(checkboxContent, customCheckbox) {
 function showCheckboxes() {
   const checkboxes = document.getElementById("checkboxes");
   const badgeContainer = document.getElementById("badge-Container");
-
   if (!expanded) {
     badgeContainer.style.display = "none";
     checkboxes.style.display = "flex";
@@ -208,11 +205,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const inputElement = document.getElementById("assigned");
   const mediaQuery853 = window.matchMedia("(min-width: 853px)");
   const mediaQuery918 = window.matchMedia("(max-width: 964px)");
-
   mediaQuery853.addEventListener("change", () => {
     updatePlaceholder();
   });
-
   mediaQuery918.addEventListener("change", () => {
     updatePlaceholder();
   });

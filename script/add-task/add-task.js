@@ -2,17 +2,11 @@ const dataToSubmit = {};
 
 async function init() {
   buttonDisabled(true); 
-
   includeHTML();
   await fetchContacts();
   render(contactsArray);
-
   buttonDisabled(false); 
 }
-
-
-
-// duDate
 
 /**
  * Initializes a click event for a custom date icon.
@@ -21,7 +15,6 @@ async function init() {
 document.addEventListener("DOMContentLoaded", function () {
   const dateInput = document.getElementById("dueDate");
   const dateIcon = document.getElementById("custom-date-icon");
-
   dateIcon.addEventListener("click", function () {
     if (dateInput.showPicker) {
       dateInput.showPicker();
@@ -31,7 +24,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// form validation
 /**
  * Validates all required fields for a task.
  * @returns {boolean} - Returns true if all validations pass, false otherwise.
@@ -48,19 +40,16 @@ function completeValidaishon() {
  * Highlights errors if validation fails.
  * @returns {boolean} - Returns true if the title is valid, false otherwise.
  */
-
 function titleValidaishon() {
   const taskTitle = document.getElementById("taskTitle");
   const requiredText = document.getElementById("required-title");
   const valueTitle = taskTitle.value.trim();
-
   if (valueTitle.length < 3 || valueTitle.length > 30) {
     taskTitle.style.border = "1px solid red";
     requiredText.classList.remove("display-none");
     return false;
   } else {
     resetValidaishon(taskTitle, requiredText);
-
     return true;
   }
 }
@@ -73,20 +62,17 @@ function dateValidaishon() {
   const dueDate = document.getElementById("dueDate");
   const requiredDate = document.getElementById("required-date");
   const valueDate = dueDate.value.trim();
-
   if (!valueDate) {
     dueDate.style.border = "1px solid red";
     requiredDate.classList.remove("display-none");
     return false;
   }
-
   const isValidDate = !isNaN(Date.parse(valueDate));
   if (!isValidDate) {
     dueDate.style.border = "1px solid red";
     requiredDate.classList.remove("display-none");
     return false;
   }
-
   resetValidaishon(dueDate, requiredDate);
   return true;
 }
@@ -96,13 +82,11 @@ function dateValidaishon() {
  * Highlights errors if validation fails.
  * @returns {boolean} - Returns true if the category is valid, false otherwise.
  */
-
 function categoryValidaishon() {
   const categorySelect = document.getElementById("category-select");
   const requiredText = document.getElementById("required-category");
   const category = document.getElementById("category");
   const valueCategory = category.value.trim();
-
   if (valueCategory === "") {
     categorySelect.style.border = "1px solid red";
     requiredText.classList.remove("display-none");
@@ -120,36 +104,29 @@ function categoryValidaishon() {
 function resetValidaishon(restBorder, resetClass) {
   restBorder.style.border = "";
   resetClass.classList.add("display-none");
-
   return { restBorder, resetClass };
 }
 
 /**
  * Resets all validation styles and error messages for all fields.
  */
-
 function resetAllValidations() {
   const elementsToReset = [
     { field: "taskTitle", error: "required-title" },
     { field: "dueDate", error: "required-date" },
     { field: "category-select", error: "required-category" },
   ];
-
   elementsToReset.forEach(({ field, error }) => {
     const fieldElement = document.getElementById(field);
     const errorElement = document.getElementById(error);
-
     if (fieldElement) {
       fieldElement.style.border = "";
     }
-
     if (errorElement) {
       errorElement.classList.add("display-none");
     }
   });
 }
-
-// Send form data
 
 /**
  * Processes the form submission.
@@ -158,19 +135,12 @@ function resetAllValidations() {
  */
 async function processForm(event) {
   event.preventDefault();
-
-  // Validates the form. If validation fails, stops execution.
   if (!completeValidaishon()) {
     return;
   }
-
   const form = document.getElementById("add-task-form");
   const formData = new FormData(form);
-
-  // Prepares form data for submission.
   prepareDataToSubmit(formData, form);
-
-  // Sends the request to create the task.
   fetchTask();
 }
 
@@ -183,7 +153,6 @@ async function processForm(event) {
 function prepareDataToSubmit(formData, form) {
   formData.forEach((value, key) => {
     if (key === "assignedTo") {
-      // Adds multiple assignees to an array.
       if (Array.isArray(dataToSubmit[key])) {
         dataToSubmit[key].push(value);
       } else {
@@ -192,7 +161,6 @@ function prepareDataToSubmit(formData, form) {
           : [value];
       }
     } else {
-      // Processes other fields, allowing multiple inputs as arrays.
       if (dataToSubmit[key]) {
         if (Array.isArray(dataToSubmit[key])) {
           dataToSubmit[key].push(value);
@@ -204,8 +172,6 @@ function prepareDataToSubmit(formData, form) {
       }
     }
   });
-
-  // Adds subtasks and the default state "to-do".
   dataToSubmit.subtasks = subtask;
   dataToSubmit.state = "to-do";
 }
@@ -216,9 +182,7 @@ function prepareDataToSubmit(formData, form) {
  */
 async function fetchTask() {
   const response = await fetchResource("tasks", "POST", dataToSubmit);
-
   if (response) {
-    // Resets the form and displays a success message.
     resetForm();
     showToastMessage({ message: "Task has been successfully created" });
     setTimeout(() => {
