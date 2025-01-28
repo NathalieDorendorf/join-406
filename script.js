@@ -59,7 +59,7 @@ async function setInitialsSpan() {
     if (localStorage.getItem('mail') !== "guest@maxmusterman.de") {
         const queryContactWhereMailMatch = `?orderBy=%22mail%22&equalTo=%22${encodeURIComponent(localStorage.getItem('mail'))}%22`;
         const contactOfLoggedInUser = await fetchResource('contacts', 'GET', undefined, queryContactWhereMailMatch);
-        document.getElementById('user-initials').textContent = Object.values(contactOfLoggedInUser)[0].initials;
+        document.getElementById('user-initials').textContent = Object.values(contactOfLoggedInUser)[0]?.initials;
     }
 }
 
@@ -126,15 +126,10 @@ function paintActiveLink() {
  * Navigates back to the previous page in the browser history.
  */
 function goBackToPreviousPage() {
-    let login = sessionStorage.getItem('isLoggedIn');
-    if (login === "true") {
-        if (window.history.state && window.history.state.previousURL) {
-            window.location.href = window.history.state.previousURL;
-        } else {
-            window.history.back();
-        }
+    if (window.history.state && window.history.state.previousURL) {
+        window.location.href = window.history.state.previousURL;
     } else {
-        window.location.href = "/index.html";
+        window.history.back();
     }
 }
 
