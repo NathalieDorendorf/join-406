@@ -5,14 +5,14 @@ let updateIndex = null;
 document.addEventListener("DOMContentLoaded", () => {
   const inputField = document.getElementById("taskSubtask");
   if (inputField) {
-      inputField.addEventListener("keydown", (event) => {
-          if (event.key === "Enter") {
-              event.preventDefault();
-              addSubtask();
-              showAddBlue()
-          }
-      });
-  } 
+    inputField.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        addSubtask();
+        showAddBlue();
+      }
+    });
+  }
 });
 
 /**
@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
  */
 document.addEventListener("DOMContentLoaded", function () {
   const inputField = document.getElementById("taskSubtask");
+
   inputField.addEventListener("input", function (event) {
     if (event.target.value === "") {
       showAddBlue();
@@ -36,7 +37,7 @@ function hidenAddBlue() {
   const addBlue = document.getElementById("add-blue");
   const closeCheck = document.getElementById("close-check");
   closeCheck.classList.remove("display-none");
-  addBlue.classList.add("display-none"); 
+  addBlue.classList.add("display-none");
 }
 
 /**
@@ -45,8 +46,8 @@ function hidenAddBlue() {
 function showAddBlue() {
   const addBlue = document.getElementById("add-blue");
   const closeCheck = document.getElementById("close-check");
-  closeCheck.classList.add("display-none"); 
-  addBlue.classList.remove("display-none"); 
+  closeCheck.classList.add("display-none");
+  addBlue.classList.remove("display-none");
 }
 
 /**
@@ -63,7 +64,8 @@ function editAndFocus(inputId) {
  */
 function renderSubtask() {
   const taskList = document.getElementById("subtask-list");
-  taskList.innerHTML = ""; 
+  taskList.innerHTML = "";
+
   for (let index = 0; index < subtask.length; index++) {
     taskList.innerHTML += renderList(index);
   }
@@ -75,16 +77,17 @@ function renderSubtask() {
 function addSubtask() {
   const task = document.getElementById("taskSubtask").value;
   if (update === true) {
-    updateSubtask(updateIndex); 
+    updateSubtask(updateIndex);
   } else {
     if (task.trim() !== "") {
       const newSubtask = {
         title: task,
         done: false,
       };
-      subtask.push(newSubtask); 
-      renderSubtask(); 
-      document.getElementById("taskSubtask").value = ""; 
+
+      subtask.push(newSubtask);
+      renderSubtask();
+      document.getElementById("taskSubtask").value = "";
     }
   }
 }
@@ -94,9 +97,9 @@ function addSubtask() {
  * @param {number} indexSubtask - The index of the subtask to delete.
  */
 function delet(indexSubtask) {
-  subtask.splice(indexSubtask, 1); 
-  renderSubtask(); 
-  clearInput(); 
+  subtask.splice(indexSubtask, 1);
+  renderSubtask();
+  clearInput();
 }
 
 /**
@@ -105,11 +108,12 @@ function delet(indexSubtask) {
  */
 function edit(indexSubtask) {
   const task = document.getElementById("taskSubtask");
-  task.value = subtask[indexSubtask].title; 
+  task.value = subtask[indexSubtask].title;
   updateIndex = indexSubtask;
-  update = true; 
-  showAddBlue(); 
-  renderSubtask(); 
+  update = true;
+
+  showAddBlue();
+  renderSubtask();
 }
 
 /**
@@ -118,16 +122,18 @@ function edit(indexSubtask) {
 function updateSubtask() {
   const task = document.getElementById("taskSubtask");
   const input = task.value;
-  subtask[updateIndex].title = input; 
-  renderSubtask(); 
-  update = false; 
-  clearInput(); 
+
+  subtask[updateIndex].title = input;
+  renderSubtask();
+  update = false;
+
+  clearInput();
 }
 
 /**
  * Clears the subtask input field and resets the edit mode.
  */
 function clearInput() {
-  document.getElementById("taskSubtask").value = ""; 
-  update = false; // Reset edit mode.
+  document.getElementById("taskSubtask").value = "";
+  update = false;
 }
