@@ -227,7 +227,7 @@ async function deleteContact(firebaseId) {
         await fetchResource(`contacts/${firebaseId}`, 'DELETE');
         await updateTasksAfterContactDeletion();
         await initContacts();
-        document.getElementById("contact-details").innerHTML = "";
+        document.getElementById("contactDetails").innerHTML = "";
         activeContactId = null;
         showToastMessage({ message: "Contact successfully deleted" });
     } catch (error) {
