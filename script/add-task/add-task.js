@@ -181,7 +181,7 @@ function prepareDataToSubmit(formData, form) {
     }
   });
   finalizeData(dataToSubmit);
-  resetForm()
+
 }
 
 /**
@@ -207,8 +207,10 @@ function handleAssignedTo(dataToSubmit, key, value) {
  * @param {Object} dataToSubmit - The object being prepared for submission.
  */
 function finalizeData(dataToSubmit) {
-  dataToSubmit.subtasks = [];
+  dataToSubmit.subtasks = subtask;
   dataToSubmit.state = "to-do";
+  console.log(subtask);
+  
   return dataToSubmit;
 }
 
