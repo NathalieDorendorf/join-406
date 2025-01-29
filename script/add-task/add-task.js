@@ -143,9 +143,9 @@ function resetAllValidations() {
   });
 }
 
+
 /**
- * Processes the form submission.
- * Prevents the default form behavior, validates the form, and prepares data for submission.
+ * Asynchronous function to process the form submission.
  * @param {Event} event - The form submission event.
  */
 async function processForm(event) {
@@ -160,22 +160,14 @@ async function processForm(event) {
 }
 
 /**
- * Prepares form data for submission by processing and formatting it.
- * Adds additional fields like subtasks and a default state.
- * @param {FormData} formData - The form data object containing input values.
+ * Prepares the data for submission by transforming FormData into a structured object.
+ * @param {FormData} formData - The FormData object containing form inputs.
  * @param {HTMLFormElement} form - The form element.
  */
 function prepareDataToSubmit(formData, form) {
   formData.forEach((value, key) => {
     if (key === "assignedTo") {
-     
-      if (Array.isArray(dataToSubmit[key])) {
-        dataToSubmit[key].push(value);
-      } else {
-        dataToSubmit[key] = dataToSubmit[key]
-          ? [dataToSubmit[key], value]
-          : [value];
-      }
+      handleAssignedTo(dataToSubmit, key, value);
     } else {
       if (dataToSubmit[key]) {
         if (Array.isArray(dataToSubmit[key])) {
@@ -188,10 +180,40 @@ function prepareDataToSubmit(formData, form) {
       }
     }
   });
-  dataToSubmit.subtasks = subtask;
-  dataToSubmit.state = "to-do";
+  finalizeData(dataToSubmit);
+  resetForm()
 }
 
+/**
+ * Handles the "assignedTo" field by ensuring it is always an array of values.
+ * @param {Object} dataToSubmit - The object being prepared for submission.
+ * @param {string} key - The key of the "assignedTo" field.
+ * @param {string} value - The value to add to the "assignedTo" field.
+ */
+function handleAssignedTo(dataToSubmit, key, value) {
+  if (dataToSubmit[key]) {
+    if (Array.isArray(dataToSubmit[key])) {
+      dataToSubmit[key].push(value);
+    } else {
+      dataToSubmit[key] = [dataToSubmit[key], value];
+    }
+  } else {
+    dataToSubmit[key] = [value];
+  }
+}
+
+/**
+ * Finalizes the data object by adding default values for missing fields.
+ * @param {Object} dataToSubmit - The object being prepared for submission.
+ */
+function finalizeData(dataToSubmit) {
+  dataToSubmit.subtasks = [];
+  dataToSubmit.state = "to-do";
+  return dataToSubmit;
+}
+
+
+  
 /**
  * Sends a request to create a task and handles the response.
  * Displays a success message or an error and redirects to the board page after success.
