@@ -23,55 +23,74 @@ function getUserInputs() {
     };
 }
 
+
 /**
- * Validates user inputs such as email, password, name, and privacy policy.
+ * Validates user input fields asynchronously.
+ * Checks password confirmation, username validity, email format, privacy policy agreement, and email uniqueness.
+ *
  * @async
- * @param {HTMLElement} email - The email input element.
- * @param {HTMLElement} password - The password input element.
- * @param {HTMLElement} confirmPassword - The confirm password input element.
- * @param {HTMLElement} userName - The username input element.
- * @param {HTMLElement} privacyPolicy - The privacy policy checkbox element.
- * @returns {Promise<Object>} A promise resolving to an object containing the validation results.
+ * @function validateUserInputs
+ * @param {string} email - The user's email address.
+ * @param {string} password - The user's chosen password.
+ * @param {string} confirmPassword - The password confirmation input.
+ * @param {string} userName - The user's full name.
+ * @param {HTMLElement} privacyPolicy - The checkbox element for privacy policy agreement.
+ * @returns {Promise<Object>} A promise resolving to an object with boolean validation results:
+ * - `isPasswordValid` {boolean} - Whether the password and confirmation match.
+ * - `isNameValid` {boolean} - Whether the username meets validation rules.
+ * - `isEmailValid` {boolean} - Whether the email is valid.
+ * - `isPrivacyPolicyChecked` {boolean} - Whether the privacy policy checkbox is checked.
+ * - `mailAlreadyExists` {boolean} - Whether the email is already registered.
  */
 async function validateUserInputs(email, password, confirmPassword, userName, privacyPolicy) {
-    const isPasswordValid = await checkPassword(password, confirmPassword);
-    const isNameValid = await checkName(userName);
-    const isEmailValid = await checkEmail(email);
-    const isPrivacyPolicyChecked = await checkPrivacyPolicy(privacyPolicy.checked);
-    const mailAlreadyExists = await checkEmailExisting(email);
+    const [isPasswordValid, isNameValid, isEmailValid, isPrivacyPolicyChecked, mailAlreadyExists] = 
+        await Promise.all([
+            checkPassword(password, confirmPassword),
+            checkName(userName),
+            checkEmail(email),
+            checkPrivacyPolicy(privacyPolicy.checked),
+            checkEmailExisting(email)
+        ]);
     return {
-        isPasswordValid,
-        isNameValid,
-        isEmailValid,
-        isPrivacyPolicyChecked,
-        mailAlreadyExists,
+        isPasswordValid: !!isPasswordValid,
+        isNameValid: !!isNameValid,
+        isEmailValid: !!isEmailValid,
+        isPrivacyPolicyChecked: !!isPrivacyPolicyChecked,
+        mailAlreadyExists: !!mailAlreadyExists
     };
 }
 
+
+
 /**
  * Adds a new user to the system after validating inputs.
- * If validation fails, it clears the password fields and exits.
+ * If validation fails, the password fields are cleared and the function exits early.
+ * If validation passes, the user is added to the contact list and their login credentials are updated.
+ *
  * @async
+ * @function addUser
+ * @returns {Promise<void>} A promise that resolves when the user is successfully added or exits on validation failure.
  */
 async function addUser() {
+    // Retrieve user input values
     const { color, email, password, confirmPassword, userName, privacyPolicy } = getUserInputs();
-    const {
-        isPasswordValid,
-        isNameValid,
-        isEmailValid,
-        isPrivacyPolicyChecked,
-        mailAlreadyExists,
-    } = await validateUserInputs(email, password, confirmPassword, userName, privacyPolicy);
-    if (!isPasswordValid || !isNameValid || !isEmailValid || !isPrivacyPolicyChecked || mailAlreadyExists) {
+    
+    // Validate user inputs
+    const validationResults = await validateUserInputs(email, password, confirmPassword, userName, privacyPolicy);
+
+    // If any validation fails, clear password fields and exit
+    if (!validationResults.isPasswordValid || !validationResults.isNameValid || 
+        !validationResults.isEmailValid || !validationResults.isPrivacyPolicyChecked || 
+        validationResults.mailAlreadyExists) {
         clearData(password, confirmPassword);
         return;
     }
-    let singleLogInData = {
-        "email": email.value,
-        "password": password.value,
-    };
-    await addToContacts(email, userName, color, getInitials(userName.value));
-    await updateUser(singleLogInData);
+
+    // Add user to contacts and update login credentials asynchronously
+    await Promise.all([
+        addToContacts(email, userName, color, getInitials(userName.value)),
+        updateUser({ email: email.value, password: password.value })
+    ]);
 }
 
 /**
