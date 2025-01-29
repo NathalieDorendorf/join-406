@@ -9,12 +9,12 @@ function renderTaskDetailView(taskId) {
     return `
         <div id="${taskId}" class="detail-card light-box-shadow">
             <div class="d-flex-sb-c gap-16">
-                <div class="card-tag ${getTagBackground(task)}">${task.category}</div>
+                <div class="card-tag ${getTagBackground(task)}"><span>${task.category}<span></div>
                 <div class="ui-icon-wrapper">
                     <img src="/assets/icons/close.svg" alt="Close button" onclick="closeOverlay()">
                 </div>
             </div>
-            <div class="card-title">${task.title}</div>
+            <div class="card-title"><span>${task.title}<span></div>
             ${renderTaskDescription(task.description)}
             <div class="date-and-prio-alignment-box">
                 <div>

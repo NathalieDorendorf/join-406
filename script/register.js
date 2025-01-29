@@ -1,18 +1,10 @@
 /**
  * Assigns a random color to a guest user.
- * 
- * This function uses `getRandomColor` to fetch a random color and logs the assigned color to the console.
- * 
+ * This function uses `getRandomColor` to fetch a random color.
  * @returns {string} The assigned color value for the guest user.
  */
 function assignGuestColor() {
-    // Get a random color
     let color = getRandomColor();
-
-    // Log the assigned color
-    console.log('Assigned color:', color);
-
-    // Return the color
     return color;
 }
 
@@ -31,67 +23,75 @@ function getUserInputs() {
     };
 }
 
+
 /**
- * Validates user inputs such as email, password, name, and privacy policy.
+ * Validates user input fields asynchronously.
+ * Checks password confirmation, username validity, email format, privacy policy agreement, and email uniqueness.
+ *
  * @async
- * @param {HTMLElement} email - The email input element.
- * @param {HTMLElement} password - The password input element.
- * @param {HTMLElement} confirmPassword - The confirm password input element.
- * @param {HTMLElement} userName - The username input element.
- * @param {HTMLElement} privacyPolicy - The privacy policy checkbox element.
- * @returns {Promise<Object>} A promise resolving to an object containing the validation results.
+ * @function validateUserInputs
+ * @param {string} email - The user's email address.
+ * @param {string} password - The user's chosen password.
+ * @param {string} confirmPassword - The password confirmation input.
+ * @param {string} userName - The user's full name.
+ * @param {HTMLElement} privacyPolicy - The checkbox element for privacy policy agreement.
+ * @returns {Promise<Object>} A promise resolving to an object with boolean validation results:
+ * - `isPasswordValid` {boolean} - Whether the password and confirmation match.
+ * - `isNameValid` {boolean} - Whether the username meets validation rules.
+ * - `isEmailValid` {boolean} - Whether the email is valid.
+ * - `isPrivacyPolicyChecked` {boolean} - Whether the privacy policy checkbox is checked.
+ * - `mailAlreadyExists` {boolean} - Whether the email is already registered.
  */
 async function validateUserInputs(email, password, confirmPassword, userName, privacyPolicy) {
-    const isPasswordValid = await checkPassword(password, confirmPassword);
-    const isNameValid = await checkName(userName);
-    const isEmailValid = await checkEmail(email);
-    const isPrivacyPolicyChecked = await checkPrivacyPolicy(privacyPolicy.checked);
-    const mailAlreadyExists = await checkEmailExisting(email);
-
+    const [isPasswordValid, isNameValid, isEmailValid, isPrivacyPolicyChecked, mailAlreadyExists] = 
+        await Promise.all([
+            checkPassword(password, confirmPassword),
+            checkName(userName),
+            checkEmail(email),
+            checkPrivacyPolicy(privacyPolicy.checked),
+            checkEmailExisting(email)
+        ]);
     return {
-        isPasswordValid,
-        isNameValid,
-        isEmailValid,
-        isPrivacyPolicyChecked,
-        mailAlreadyExists,
+        isPasswordValid: !!isPasswordValid,
+        isNameValid: !!isNameValid,
+        isEmailValid: !!isEmailValid,
+        isPrivacyPolicyChecked: !!isPrivacyPolicyChecked,
+        mailAlreadyExists: !!mailAlreadyExists
     };
 }
 
+
+
 /**
  * Adds a new user to the system after validating inputs.
- * If validation fails, it clears the password fields and exits.
+ * If validation fails, the password fields are cleared and the function exits early.
+ * If validation passes, the user is added to the contact list and their login credentials are updated.
+ *
  * @async
+ * @function addUser
+ * @returns {Promise<void>} A promise that resolves when the user is successfully added or exits on validation failure.
  */
 async function addUser() {
-    // Retrieve user inputs
+    // Retrieve user input values
     const { color, email, password, confirmPassword, userName, privacyPolicy } = getUserInputs();
-
+    
     // Validate user inputs
-    const {
-        isPasswordValid,
-        isNameValid,
-        isEmailValid,
-        isPrivacyPolicyChecked,
-        mailAlreadyExists,
-    } = await validateUserInputs(email, password, confirmPassword, userName, privacyPolicy);
+    const validationResults = await validateUserInputs(email, password, confirmPassword, userName, privacyPolicy);
 
-    // Check if any validation failed
-    if (!isPasswordValid || !isNameValid || !isEmailValid || !isPrivacyPolicyChecked || mailAlreadyExists) {
+    // If any validation fails, clear password fields and exit
+    if (!validationResults.isPasswordValid || !validationResults.isNameValid || 
+        !validationResults.isEmailValid || !validationResults.isPrivacyPolicyChecked || 
+        validationResults.mailAlreadyExists) {
         clearData(password, confirmPassword);
         return;
     }
 
-    // Create user data object
-    let singleLogInData = {
-        "email": email.value,
-        "password": password.value,
-    };
-
-    // Add the user to contacts and update the system
-    await addToContacts(email, userName, color, getInitials(userName.value));
-    await updateUser(singleLogInData);
+    // Add user to contacts and update login credentials asynchronously
+    await Promise.all([
+        addToContacts(email, userName, color, getInitials(userName.value)),
+        updateUser({ email: email.value, password: password.value })
+    ]);
 }
-
 
 /**
  * Adds a new user to the contacts list in the database.
@@ -132,27 +132,29 @@ function clearAllUserData() {
  * @returns {Promise<boolean>} True if email exists, otherwise false.
  */
 async function checkEmailExisting(email) {
-    email = email.value;
-    const path = "users";
-    const queryUrl = `${BASE_URL}${path}.json?orderBy=%22email%22&equalTo=%22${email}%22`;
-
+    const queryUrl = `${BASE_URL}users.json?orderBy=%22email%22&equalTo=%22${email.value}%22`;
     try {
         const response = await fetch(queryUrl);
-        if (!response.ok) {
-            console.error("HTTP Error:", response.status, response.statusText);
-            return false;
-        }
+        if (!response.ok) return logError(response);
         const result = await response.json();
-        if (Object.keys(result).length > 0) {
-            errorFunctionEmailExist();
-            return true;
-        } else {
-            return false;
-        }
+        return handleEmailExistence(result);
     } catch (error) {
         console.error("Error:", error);
         return false;
     }
+}
+
+function logError(response) {
+    console.error("HTTP Error:", response.status, response.statusText);
+    return false;
+}
+
+function handleEmailExistence(result) {
+    if (Object.keys(result).length > 0) {
+        errorFunctionEmailExist();
+        return true;
+    }
+    return false;
 }
 
 /**
@@ -176,7 +178,7 @@ async function checkName(userName) {
  */
 function errorFunctionName() {
     document.getElementById('errorMessageName').innerHTML = /*html*/`
-     <div class="errorText">Your name cannot contain numbers or is blank.</div>`;
+        <div class="errorText">Your name cannot contain numbers or is blank.</div>`;
     document.getElementById('user').style.border = "1px solid red";
 }
 
@@ -208,7 +210,6 @@ function errorFunctionPassword() {
     const errorMessage = '<div class="errorText">Your passwords must match and be 8–20 characters.</div>';
     document.getElementById('errorMessageConfirmPassword').innerHTML = errorMessage;
     document.getElementById('errorMessagePassword').innerHTML = errorMessage;
-
     document.getElementById('confirmPassword').style.border = "1px solid red";
     document.getElementById('password').style.border = "1px solid red";
 }
@@ -235,7 +236,7 @@ async function checkEmail(email) {
  */
 function errorFunctionEmail() {
     document.getElementById('errorMessageEmail').innerHTML = /*html*/`
-    <div class="errorText">please enter a valid email address</div>`;
+        <div class="errorText">please enter a valid email address</div>`;
     document.getElementById('email').style.border = "1px solid red";
 }
 
@@ -244,7 +245,7 @@ function errorFunctionEmail() {
  */
 function errorFunctionEmailExist() {
     document.getElementById('errorMessageEmail').innerHTML = /*html*/`
-    <div class="errorText">This email address is already taken</div>`;
+        <div class="errorText">This email address is already taken</div>`;
     document.getElementById('email').style.border = "1px solid red";
 }
 
@@ -276,7 +277,6 @@ function clearData(password, confirmPassword) {
     confirmPassword.value = "";
 }
 
-
 /**
  * Sends the contact data to the database to be stored in the "contacts" collection.
  * 
@@ -296,7 +296,6 @@ async function updateContacts(registerData) {
         },
         body: JSON.stringify(registerData),
     });
-
     const result = await response.json();
 }
 
@@ -310,7 +309,6 @@ async function updateContacts(registerData) {
  * @returns {Promise<void>} Resolves once the operation is complete.
  */
 async function updateUser(data) {
-    // Send user data to the server
     const response = await fetch(BASE_URL + "/users" + ".json", {
         method: "POST",
         headers: {
@@ -318,17 +316,9 @@ async function updateUser(data) {
         },
         body: JSON.stringify(data),
     });
-
-    // Parse the server's response
     const result = await response.json();
-
-    // Clear all locally stored user data
     clearAllUserData();
-
-    // Show a toast message to indicate success
     showToastMessage({ message: "You signed up successfully" });
-
-    // Redirect to the homepage after 2 seconds
     setTimeout(() => {
         window.location.href = "/index.html?msg=You Signed up successfully";
     }, 2000);

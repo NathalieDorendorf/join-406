@@ -6,16 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
     setShowAnimationState();
     const logoNotAnimatedBefore = JSON.parse(localStorage.getItem('showAnimation'));
     let logo = null;
-    const overlay = document.createElement('div');
+    const overlayElem = document.createElement('div');
     if (logoNotAnimatedBefore) {
-        if (window.innerWidth <= 768) {
-            logo = document.querySelector('.logo-little-responsive');
-            overlay.classList.add('animation-overlay-dark');
-            showAnimation('animate-mobile');
-        } else {
-            logo = document.querySelector('.logo-little');
-            showAnimation('animate');
-        }
+        executeAnimation(logo, overlayElem);
+    } else {
+        document.body.style.visibility = 'visible';
     }
 
     /**
@@ -31,16 +26,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
+     * Executes the animation.
+     * @param {HTMLElement} logo - The logo element.
+     * @param {HTMLElement} overlayElem - The overlay element.
+     * @returns {void}
+     */
+    function executeAnimation(logo, overlayElem) {
+        if (window.innerWidth <= 768) {
+            logo = document.querySelector('.logo-little-responsive');
+            overlayElem.classList.add('animation-overlay-dark');
+            showAnimation(overlayElem, logo, 'animate-mobile');
+        } else {
+            logo = document.querySelector('.logo-little');
+            showAnimation(overlayElem, logo, 'animate');
+        }
+    }
+
+    /**
      * Shows the logo-animation.
      * @param {string} animationClass - The class name of the logo animation.
      */
-    async function showAnimation(animationClass) {
+    async function showAnimation(overlayElem, logoElem, animationClass) {
         await sleep(100);
-        overlay.classList.add('animation-overlay');
-        document.body.appendChild(overlay);
-        logo.classList.add(animationClass);
-        overlay.classList.add('close-overlay');
-        overlay.addEventListener('animationend', () => overlay.classList.add('dni'));
+        overlayElem.classList.add('animation-overlay');
+        document.body.appendChild(overlayElem);
+        document.body.style.visibility = 'visible';
+        logoElem.classList.add(animationClass);
+        overlayElem.classList.add('close-overlay');
+        overlayElem.addEventListener('animationend', () => overlayElem.classList.add('dni'));
     }
 });
 
@@ -79,7 +92,6 @@ async function logIn(path, enteredEmail, enteredPassword, isGuest) {
     try {
         let response = await fetch(BASE_URL + path + ".json");
         let responseToJson = await response.json();
-
         if (isGuest) {
             const guestUser = { email: enteredEmail, password: enteredPassword };
             validateMatch(guestUser, true);
@@ -131,8 +143,8 @@ function validateMatch(matchingUser, isGuest = false) {
 function checkLogin(email, password) {
     if (email || password) {
         document.getElementById('errorMessageLogin').innerHTML = `
-      <div class="errorText">Check your email and password. Please try again</div>
-    `;
+            <div class="errorText">Check your email and password. Please try again</div>
+        `;
         document.getElementById('email').style.border = "1px solid red";
         document.getElementById('password').style.border = "1px solid red";
     }

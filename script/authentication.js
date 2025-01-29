@@ -7,10 +7,8 @@
  */
 function redirectWithLoginInfo(event, url) {
     event.preventDefault();
-
     const isLoggedIn = sessionStorage.getItem("isLoggedIn") || "false";
     const newUrl = `${url}${url.includes('?') ? '&' : '?'}isLoggedIn=${isLoggedIn}`;
-
     if (event.currentTarget.target === "_blank") {
         window.open(newUrl, "_blank");
     } else {
@@ -26,7 +24,6 @@ function redirectWithLoginInfo(event, url) {
 function checkParams() {
     const params = new URLSearchParams(window.location.search);
     const isLoggedIn = params.get("isLoggedIn");
-
     if (isLoggedIn !== null) {
         sessionStorage.setItem("isLoggedIn", isLoggedIn);
     }
@@ -39,7 +36,6 @@ function checkParams() {
  */
 function validateLoggin() {
     const isLoggedIn = sessionStorage.getItem("isLoggedIn");
-
     if (isLoggedIn !== "true" && !hasAccessWithoutLogin(window.location.pathname)) {
         window.location.href = "/index.html";
     }

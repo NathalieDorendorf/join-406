@@ -73,40 +73,7 @@ let toastContainer;
  * Provide toast messages
  */
 document.addEventListener('DOMContentLoaded', initToastContainer = () => {
-    document.body.insertAdjacentHTML('beforeend', `
-            <div class="toast-container"></div>
-            <style>
-                .toast-container {
-                    position: fixed;
-                    bottom: 16px;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    display: grid;
-                    gap: 8px;
-                    justify-items: center;
-                    z-index: 100;
-                }
-                .toast {
-                    padding: 16px 32px;
-                    border-radius: 20px;
-                    box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2);
-                    font-size: 16px;
-                    font-weight: 500;
-                    text-align: center;
-                    animation: toastIt 4000ms cubic-bezier(0.785, 0.135, 0.15, 0.86) forwards;
-                }
-                @keyframes toastIt {
-                    0%, 100% {
-                        transform: translateY(+150%);
-                        opacity: 0;
-                    }
-                    5%, 90% {
-                        transform: translateY(0%);
-                        opacity: 1;
-                    }
-                }
-            </style>
-        `);
+    document.body.insertAdjacentHTML('beforeend', `<div class="toast-container"></div>`);
     toastContainer = document.querySelector('.toast-container');
 });
 
@@ -117,24 +84,16 @@ document.addEventListener('DOMContentLoaded', initToastContainer = () => {
  * @param {string} [options.backgroundColor='white'] - Background color of the toast.
  * @param {string} [options.color='black'] - Text color of the toast.
  */
-function showToastMessage({
-    message,
-    backgroundColor = '#2A3647',
-    color = 'white',
-    onAnimationEnd = function () { }
-}) {
+function showToastMessage({ message, backgroundColor = '#2A3647', color = 'white', onAnimationEnd = null }) {
     toastContainer.insertAdjacentHTML('beforeend',
-        `<div class="toast" style="
-            background-color: ${backgroundColor};
-            color: ${color};
-        ">
-        ${message}</div>`
+        `<div class="toast" style="background-color: ${backgroundColor}; color: ${color};">
+            ${message}
+        </div>`
     );
-
     const toast = toastContainer.lastElementChild;
     toast.addEventListener('animationend', () => {
         toast.remove();
-        onAnimationEnd();
+        onAnimationEnd?.();
     });
 }
 
@@ -146,22 +105,16 @@ function showToastMessage({
  * @param {string} [options.color='white'] Text color of the button.
  * @param {string} [options.animation='toastIt 10000ms cubic-bezier(0.785, 0.135, 0.15, 0.86) forwards'] Animation style for the button.
  */
-function showUndo({
-    undoCallbackFn,
-    backgroundColor = '#2A3647',
-    color = 'white',
-    animation = 'toastIt 10000ms cubic-bezier(0.785, 0.135, 0.15, 0.86) forwards'
-}) {
+function showUndo({ undoCallbackFn, backgroundColor = '#2A3647', color = 'white', animation = 'toastIt 10000ms cubic-bezier(0.785, 0.135, 0.15, 0.86) forwards' }) {
     toastContainer.insertAdjacentHTML('afterbegin',
-        `<button class="toast btn-no-appearance undo-btn" style="background-color: ${backgroundColor}; color: ${color}; animation: ${animation};">Undo</button>`
+        `<button class="toast btn-no-appearance undo-btn" style="background-color: ${backgroundColor}; color: ${color}; animation: ${animation};">
+            Undo
+        </button>`
     );
-
     const toast = toastContainer.firstElementChild;
     toast.addEventListener('click', undoCallbackFn);
     toast.addEventListener('click', toast.remove);
-    toast.addEventListener('animationend', () => {
-        toast.remove();
-    });
+    toast.addEventListener('animationend', toast.remove);
 }
 
 /**
@@ -206,11 +159,7 @@ function inputKeyHandler(event, elem, callbackFn = 'click') {
 function displayInputErrorMessage(inputElement, message, testToPassFn, marginBottomOfParent = 0, listenForChangeElem = inputElement) {
     if (!testToPassFn()) {
         if (!inputElement.parentElement.querySelector('.input-error-message')) {
-            errorElemHTML = `<div class="input-error-message" style="margin-top: ${-marginBottomOfParent}px"><span>${message}</span></div>`;
-            inputElement.insertAdjacentHTML('afterend', errorElemHTML);
-            const errorElem = inputElement.parentElement.querySelector('.input-error-message');
-
-            inputElement.classList.add('red-border');
+            const errorElem = insertErrorElem(inputElement, message, marginBottomOfParent);
             listenForChangeElem.addEventListener('change', () => {
                 if (testToPassFn()) {
                     inputElement.classList.remove('red-border');
@@ -221,6 +170,20 @@ function displayInputErrorMessage(inputElement, message, testToPassFn, marginBot
         return false;
     }
     return true;
+
+    /**
+     * Inserts an error message under an input element and highlights the input in red.
+     * @param {HTMLElement} inputElement - The input element to display the error under.
+     * @param {string} message - The error message to display.
+     * @param {number} marginBottomOfParent - The margin-bottom of the input element's parent.
+     * @returns {HTMLElement} The error element that was inserted.
+     */
+    function insertErrorElem(inputElement, message, marginBottomOfParent) {
+        errorElemHTML = `<div class="input-error-message" style="margin-top: ${-marginBottomOfParent}px"><span>${message}</span></div>`;
+        inputElement.insertAdjacentHTML('afterend', errorElemHTML);
+        inputElement.classList.add('red-border');
+        return inputElement.parentElement.querySelector('.input-error-message');
+    }
 }
 
 /**

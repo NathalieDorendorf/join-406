@@ -1,38 +1,57 @@
 /**
  * Handles the submission of the "Add New Contact" form.
- * Validates the form, checks for required fields, and ensures the email is valid.
- * If everything is correct, it creates a new contact and saves it to Firebase.
- * 
  * @param {Event} event - The submit event triggered by the form.
  */
 async function addNewContact(event) {
     event.preventDefault();
-    if (document.querySelector('form').checkValidity()) {
-        const { name, email, phone } = getContactFormData();
+    if (!isFormValid()) return;
+    const { name, email, phone } = getContactFormData();
+    if (await isEmailInvalid(email)) return;
+    const firebaseId = await saveNewContact(name, email, phone);
+    await finalizeNewContact(firebaseId);
+}
 
-        if (!name || !email) return alert("Please fill in all required fields");
-        if (await isEmailInvalid(email)) return;
+/**
+ * Saves a new contact and returns its Firebase ID.
+ * @param {string} name - The name of the contact.
+ * @param {string} email - The email of the contact.
+ * @param {string} phone - The phone of the contact.
+ * @returns {Promise<string>} The Firebase ID of the saved contact.
+ */
+async function saveNewContact(name, email, phone) {
+    const contact = createNewContact(name, email, phone);
+    const response = await saveContactToFirebase(contact);
+    return response.name;
+}
 
-        const contact = createNewContact(name, email, phone);
-        const response = await saveContactToFirebase(contact);
-
-        // Get the new contact's Firebase ID from the response
-        const firebaseId = response.name;
-        await initContacts();
-        closeOverlay();
-
-        // Show the newly created contact's details
-        const newContact = findContactById(firebaseId);
-        if (newContact) {
-            activeContactId = firebaseId;
-            showContactDetails(newContact);
-            if (window.innerWidth < 1025) {
-                showResponsiveView();
-            }
-        }
-
-        showToastMessage({ message: "Contact successfully created" });
+/**
+ * Finalizes the process of adding a new contact.
+ * @param {string} firebaseId - The Firebase ID of the new contact.
+ */
+async function finalizeNewContact(firebaseId) {
+    await initContacts();
+    closeOverlay();
+    const newContact = findContactById(firebaseId);
+    if (newContact) {
+        activeContactId = firebaseId;
+        showContactDetails(newContact);
+        if (window.innerWidth < 1025) showResponsiveView();
     }
+    showToastMessage({ message: "Contact successfully created" });
+}
+
+/**
+ * Validates the form and checks for required fields.
+ * @returns {boolean} True if the form is valid, false otherwise.
+ */
+function isFormValid() {
+    if (!document.querySelector('form').checkValidity()) return false;
+    const { name, email } = getContactFormData();
+    if (!name || !email) {
+        alert("Please fill in all required fields");
+        return false;
+    }
+    return true;
 }
 
 /**
@@ -107,34 +126,42 @@ async function saveContactToFirebase(contact) {
 
 /**
  * Handles the submission of the "Edit Contact" form.
- * Validates the form, checks for required fields, and updates the contact in Firebase.
- * 
  * @param {Event} event - The submit event triggered by the form.
  * @param {string} firebaseId - The Firebase ID of the contact to be updated.
  */
 async function saveContact(event, firebaseId) {
     event.preventDefault();
-    if (document.querySelector('form').checkValidity()) {
-        const { name, email, phone } = getContactFormData();
+    if (!isFormValid()) return;
+    const updatedContact = await prepareUpdatedContact(firebaseId);
+    if (!updatedContact) return;
+    await finalizeUpdatedContact(firebaseId, updatedContact);
+}
 
-        if (!validateContactForm()) return;
+/**
+ * Prepares the updated contact object.
+ * @param {string} firebaseId - The Firebase ID of the contact.
+ * @returns {Object|null} The updated contact object, or null if not found.
+ */
+async function prepareUpdatedContact(firebaseId) {
+    const { name, email, phone } = getContactFormData();
+    if (!validateContactForm()) return null;
+    return createUpdatedContact(firebaseId, name, email, phone);
+}
 
-        const updatedContact = createUpdatedContact(firebaseId);
-        if (!updatedContact) return;
-
-        await updateContactInFirebase(firebaseId, updatedContact);
-        closeOverlay();
-        await initContacts();
-
-        // Show the updated contact's details
-        const contact = findContactById(firebaseId);
-        if (contact) {
-            activeContactId = firebaseId;
-            showContactDetails(contact);
-            if (window.innerWidth < 1025) {
-                showResponsiveView();
-            }
-        }
+/**
+ * Finalizes the update process for a contact.
+ * @param {string} firebaseId - The Firebase ID of the contact.
+ * @param {Object} updatedContact - The updated contact data.
+ */
+async function finalizeUpdatedContact(firebaseId, updatedContact) {
+    await updateContactInFirebase(firebaseId, updatedContact);
+    closeOverlay();
+    await initContacts();
+    const contact = findContactById(firebaseId);
+    if (contact) {
+        activeContactId = firebaseId;
+        showContactDetails(contact);
+        if (window.innerWidth < 1025) showResponsiveView();
     }
 }
 
@@ -164,7 +191,6 @@ function createUpdatedContact(firebaseId) {
         console.error('Contact not found:', firebaseId);
         return null;
     }
-
     const { name, email, phone } = getContactFormData();
     return {
         ...contact,
@@ -186,6 +212,30 @@ function findContactById(firebaseId) {
 }
 
 /**
+ * Deletes a contact from Firebase using the provided Firebase ID.
+ * 
+ * @param {string} firebaseId - The Firebase ID of the contact to be deleted.
+ * @returns {Promise<void>} A promise that resolves when the contact is successfully deleted.
+ */
+async function deleteContact(firebaseId) {
+    const contact = findContactById(firebaseId);
+    if (!contact) return;
+    try {
+        const users = await fetchResource('users');
+        const userToDelete = Object.entries(users).find(([_, user]) => user.email === contact.mail)?.[0];
+        if (userToDelete) await fetchResource(`users/${userToDelete}`, 'DELETE');
+        await fetchResource(`contacts/${firebaseId}`, 'DELETE');
+        await updateTasksAfterContactDeletion();
+        await initContacts();
+        document.getElementById("contactDetails").innerHTML = "";
+        activeContactId = null;
+        showToastMessage({ message: "Contact successfully deleted" });
+    } catch (error) {
+        showToastMessage({ message: "Error deleting contact" });
+    }
+}
+
+/**
  * Updates a contact in Firebase using the provided Firebase ID and updated contact data.
  * 
  * @param {string} firebaseId - The Firebase ID of the contact to be updated.
@@ -193,37 +243,19 @@ function findContactById(firebaseId) {
  * @returns {Promise<void>} A promise that resolves when the contact is successfully updated.
  */
 async function updateContactInFirebase(firebaseId, contact) {
-    const response = await fetch(`${BASE_URL}/contacts/${firebaseId}.json`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(contact)
-    });
-    if (!response.ok) throw new Error('Failed to update contact');
-}
-
-/**
- * Deletes a contact from Firebase using the provided Firebase ID.
- * 
- * @param {string} firebaseId - The Firebase ID of the contact to be deleted.
- * @returns {Promise<void>} A promise that resolves when the contact is successfully deleted.
- */
-async function deleteContact(firebaseId) {
-    const response = await fetch(`${BASE_URL}/contacts/${firebaseId}.json`, {
-        method: 'DELETE'
-    });
-
-    if (!response.ok) {
-        throw new Error('Failed to delete contact');
+    try {
+        const oldContact = findContactById(firebaseId);
+        if (oldContact?.mail !== contact.mail) {
+            const users = await fetchResource('users');
+            const [userId, userData] = Object.entries(users).find(([_, u]) => u.email === oldContact.mail) || [];
+            if (userId) await fetchResource(`users/${userId}`, 'PUT', { ...userData, email: contact.mail });
+        }
+        await fetchResource(`contacts/${firebaseId}`, 'PUT', contact);
+        await initContacts();
+        showToastMessage({ message: "Contact successfully edited" });
+    } catch (error) {
+        showToastMessage({ message: "Error updating contact" });
     }
-
-    delete allData.contacts[firebaseId];
-    updateTasksAfterContactDeletion();
-
-    if (overlayElement) closeOverlay();
-
-    activeContactId = null;
-    document.getElementById('contactDetails').innerHTML = '';
-    initContacts();
 }
 
 /**

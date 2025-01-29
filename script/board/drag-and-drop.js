@@ -195,24 +195,43 @@ function addDragAndDropEventListeners() {
 
         /**
          * Registers the 'drop' event for column bodies.
-         * Moves the task to the new column and updates the backend.
+         * Moves the task to the new column and updates the database.
          * @param {DragEvent} e - The drop event.
          */
         function registerDrop() {
             columnBody.addEventListener('drop', async (e) => {
-                const draggedElement = document.getElementById(`${e.dataTransfer.getData('text')}`);
-                if (columnBody !== startDragColumnBody) {
-                    columnBody.appendChild(draggedElement);
-                    const taskId = draggedElement.id;
-                    const tempTaskState = allData.tasks[taskId].state;
-                    allData.tasks[taskId].state = columnBody.dataset.tasksState;
-                    paintTasks();
-                    if (!await updateTaskInDatabase(taskId)) {
-                        allData.tasks[taskId].state = tempTaskState;
-                        paintTasks();
-                    }
-                }
+                if (columnBody === startDragColumnBody) return;
+
+                const taskId = e.dataTransfer.getData('text');
+                const draggedElement = document.getElementById(taskId);
+                columnBody.appendChild(draggedElement);
+                const prevState = updateTaskState(taskId, columnBody.dataset.tasksState);
+                paintTasks();
+                if (!await updateTaskInDatabase(taskId)) rollback(taskId, prevState);
             });
+
+            /**
+             * Updates the task state and database on drop.
+             * @param {string} taskId - The ID of the task.
+             * @param {string} newState - The new state of the task.
+             * @returns {string} The previous state of the task.
+             */
+            function updateTaskState(taskId, newState) {
+                const prevState = allData.tasks[taskId].state;
+                allData.tasks[taskId].state = newState;
+                return prevState;
+            }
+
+            /**
+             * Rolls back the task state change
+             * @param {string} taskId - The ID of the task.
+             * @param {string} prevState - The previous state of the task.
+             * @returns {Promise<void>}
+             */
+            async function rollback(taskId, prevState) {
+                allData.tasks[taskId].state = prevState;
+                paintTasks();
+            }
         }
     });
 
